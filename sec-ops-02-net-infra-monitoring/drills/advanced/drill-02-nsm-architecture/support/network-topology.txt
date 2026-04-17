@@ -1,0 +1,173 @@
+GLOBALPORT LOGISTICS — NETWORK TOPOLOGY DIAGRAM
+================================================
+For use with Drill 02 (Advanced): Design a Complete NSM Architecture
+
+This ASCII diagram shows the current network topology.
+Use this as the baseline for your NSM architecture design.
+
+Legend:
+  [FW]    = Firewall
+  [SW]    = Switch / Core switch
+  [SRV]   = Server
+  [WS]    = Workstation(s)
+  [IoT]   = IoT / OT devices
+  [TAP]   = Hardware TAP point (your design should place these)
+  (SPAN)  = SPAN port opportunity
+  ~~~     = WAN/Internet link
+  ===     = High-speed LAN link (1 Gbps)
+  ---     = Lower-speed LAN link (100 Mbps or SD-WAN)
+  ...     = Wireless (Wi-Fi)
+
+══════════════════════════════════════════════════════════════════════════════
+  INTERNET / PUBLIC INTERNET
+══════════════════════════════════════════════════════════════════════════════
+          │                          │                          │
+     ~~~500 Mbps~~~             ~~~1 Gbps~~~              ~~~500 Mbps~~~
+          │                          │                          │
+  ┌───────┴─────────┐        ┌───────┴─────────┐       ┌───────┴──────────┐
+  │  FRANKFURT HQ   │        │  DALLAS REGIONAL│       │ SINGAPORE REGIONAL│
+  │  (400 employees)│        │  (150 employees)│       │  (100 employees)  │
+  └───────┬─────────┘        └───────┬─────────┘       └───────┬──────────┘
+          │                          │                          │
+      ╔═══╧════╗                 ╔═══╧════╗                ╔═══╧════╗
+      ║ [FW-1] ║                 ║ [FW-2] ║                ║ [FW-3] ║
+      ║PaloAlto║                 ║FortiGate║               ║CheckPnt║
+      ║PA-5250 ║                 ║ 600E   ║                ║ 6200   ║
+      ╚═══╤════╝                 ╚═══╤════╝                ╚═══╤════╝
+          │                          │                          │
+    ══════╪══════              ══════╪══════             ══════╪══════
+          │  [Core Switch]           │  [Core Switch]          │  [Core Switch]
+          │  Cisco Nexus 9300        │  Cisco Cat 9300         │  Arista 7050
+    ══════╪══════════════════  ══════╪══════════════════  ══════╪═════════════
+         / \                        / \                        / \
+        /   \                      /   \                      /   \
+       /     \                    /     \                    /     \
+      /       \                  /       \                  /       \
+                                                                        
+  Frankfurt VLANs:           Dallas VLANs:               Singapore VLANs:
+  ┌─────────────────┐        ┌─────────────────┐         ┌─────────────────┐
+  │ VLAN 10: Corp   │        │ VLAN 10: Corp   │         │ VLAN 10: Corp   │
+  │  200 WS         │        │  80 WS          │         │  60 WS          │
+  │  [SW] ─── [WS]  │        │  [SW] ─── [WS]  │         │  [SW] ─── [WS]  │
+  ├─────────────────┤        ├─────────────────┤         ├─────────────────┤
+  │ VLAN 20: Servers│        │ VLAN 20: Servers│         │ VLAN 20: Servers│
+  │  [SRV] SAP      │        │  [SRV] apps     │         │  [SRV] apps     │
+  │  [SRV] DC/DNS   │        │                 │         │                 │
+  │  [SRV] M365     │        │                 │         │                 │
+  ├─────────────────┤        ├─────────────────┤         ├─────────────────┤
+  │ VLAN 30: DMZ    │        │ VLAN 30: DMZ    │         │ VLAN 30: DMZ    │
+  │  Cargo Web App  │        │  Local web      │         │  Local web      │
+  │  EDI Gateway    │        │                 │         │                 │
+  ├─────────────────┤        └─────────────────┘         └─────────────────┘
+  │ VLAN 40: OT/IoT │
+  │  (separate seg.)│
+  └─────────────────┘
+
+══════════════════════════════════════════════════════════════════════════════
+  SAP HANA ERP (Frankfurt Data Centre)
+══════════════════════════════════════════════════════════════════════════════
+
+  Frankfurt Nexus Core Switch
+        │
+   ═════╪════════════════════════════════════════
+   │    │                │               │
+  SAP  Active     Backup Server    Monitoring
+  HANA Directory  10.1.3.10       (no SIEM yet)
+ 10.1.1.10 10.1.2.5
+
+══════════════════════════════════════════════════════════════════════════════
+  10 WAREHOUSE / PORT SITES (OT Environment)
+══════════════════════════════════════════════════════════════════════════════
+
+  Warehouse Site (×10, typical topology):
+
+  Internet (SD-WAN or MPLS)
+        │
+  ┌─────┴──────┐
+  │  Consumer  │   ← Current state: no dedicated firewall!
+  │  Router    │     No monitoring, no logging.
+  └─────┬──────┘
+        │
+  ──────┴────────────────────────────────────────────
+        │               │               │
+   ┌────┴────┐    ┌──────┴──────┐  ┌────┴────┐
+   │ Office  │    │  OT Network │  │  IoT    │
+   │  LAN    │    │  (flat!)    │  │ Sensors │
+   │  10-20  │    │             │  │ Temp/   │
+   │  WS     │    │  PLC   HMI  │  │ Door/   │
+   └─────────┘    │  ┌──┐  ┌──┐│  │ Weight  │
+                  │  │  │  │  ││  └─────────┘
+                  │  └──┘  └──┘│
+                  │  Modbus/   │
+                  │  PROFINET  │
+                  └────────────┘
+
+  SECURITY CONCERNS:
+  ★ No firewall between IT (office) and OT (PLC/HMI) networks
+  ★ No firewall to internet
+  ★ No logging or monitoring at any level
+  ★ Consumer router with default credentials likely
+  ★ OT devices may have vendor remote access without knowledge
+
+══════════════════════════════════════════════════════════════════════════════
+  REMOTE ACCESS (80 mobile users)
+══════════════════════════════════════════════════════════════════════════════
+
+  Field engineers / mobile workers
+        │
+  ~~~ Internet ~~~
+        │
+  Cisco AnyConnect VPN
+  (terminates at Frankfurt FW-1)
+        │
+  [FW-1] Frankfurt
+        │
+  Corporate SAP / Applications
+
+══════════════════════════════════════════════════════════════════════════════
+  CURRENT MONITORING STATE (as-is)
+══════════════════════════════════════════════════════════════════════════════
+
+  Frankfurt:
+    ✓ Splunk Free SIEM (500 MB/day limit — already at capacity)
+    ✓ Firewall logs → SIEM (partial, some logs dropped due to volume)
+    ✗ No IDS/IPS
+    ✗ No network flow collection
+    ✗ No packet capture
+    ✗ No endpoint detection
+
+  Dallas / Singapore:
+    ✗ No local security monitoring of any kind
+
+  Warehouse sites (×10):
+    ✗ No monitoring of any kind
+
+  Remote Access VPN:
+    ✗ VPN connection logs not forwarded to SIEM
+
+══════════════════════════════════════════════════════════════════════════════
+  IP ADDRESS SCHEME (reference)
+══════════════════════════════════════════════════════════════════════════════
+
+  Frankfurt:      10.1.0.0/16
+    Corp WS:      10.1.10.0/24
+    Servers:      10.1.20.0/24
+    SAP/ERP:      10.1.1.0/24
+    AD/DNS:       10.1.2.0/24
+    DMZ:          10.1.30.0/24
+    OT Network:   10.1.40.0/24
+
+  Dallas:         10.2.0.0/16
+    Corp WS:      10.2.10.0/24
+    Servers:      10.2.20.0/24
+    DMZ:          10.2.30.0/24
+
+  Singapore:      10.3.0.0/16
+    Corp WS:      10.3.10.0/24
+    Servers:      10.3.20.0/24
+    DMZ:          10.3.30.0/24
+
+  Warehouses:     10.10.X.0/24 (X = site 1-10)
+    Office LAN:   10.10.X.0/25
+    OT Network:   10.10.X.128/25
+    IoT Sensors:  10.10.X.192/26

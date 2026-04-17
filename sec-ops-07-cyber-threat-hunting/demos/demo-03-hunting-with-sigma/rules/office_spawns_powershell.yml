@@ -1,0 +1,49 @@
+title: Microsoft Office Application Spawning PowerShell
+id: 9b8c7d6e-5f4a-3b2c-1d0e-9f8a7b6c5d4e
+status: stable
+description: |
+  Detects Microsoft Office applications (Word, Excel, PowerPoint, Outlook)
+  spawning PowerShell processes. This is a common technique used in
+  macro-enabled phishing campaigns to execute malicious code.
+
+  Observed in FIN-STORM phishing campaigns using macro-enabled documents.
+references:
+  - https://attack.mitre.org/techniques/T1566/001/
+  - https://attack.mitre.org/techniques/T1059/001/
+author: SecureBank Threat Hunt Team
+date: 2024/03/15
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_parent:
+    ParentImage|endswith:
+      - '\WINWORD.EXE'
+      - '\EXCEL.EXE'
+      - '\POWERPNT.EXE'
+      - '\OUTLOOK.EXE'
+      - '\winword.exe'
+      - '\excel.exe'
+      - '\powerpnt.exe'
+      - '\outlook.exe'
+  selection_child:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+      - '\cmd.exe'
+      - '\wscript.exe'
+      - '\cscript.exe'
+      - '\mshta.exe'
+      - '\wmic.exe'
+  condition: selection_parent and selection_child
+falsepositives:
+  - Rare legitimate admin scripts invoked from Office
+  - Some Office add-ins with automation features
+level: high
+tags:
+  - attack.initial_access
+  - attack.t1566.001
+  - attack.execution
+  - attack.t1059.001
+  - attack.defense_evasion
+  - attack.t1218

@@ -1,0 +1,23 @@
+# Splunk SPL Query for T1055.001 — DLL Injection via CreateRemoteThread
+# Security Operations Course - Session 08, Drill 01
+#
+# [STUDENT TASK]
+# Compile your Sigma rule to Splunk SPL.
+# You can use sigma-cli: https://github.com/SigmaHQ/sigma-cli
+#
+# sigma convert -t splunk rules/primary-detection.yml
+#
+# Or write it manually based on your Sigma rule logic.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Primary detection: CreateRemoteThread (Sysmon EventID 8)
+# [STUDENT TASK: Fill in based on your Sigma rule]
+index=sysmon EventID=8
+| where NOT (
+    like(SourceImage, "%devenv.exe%")
+    OR like(SourceImage, "%MsMpEng.exe%")
+    OR like(SourceImage, "%java.exe%")
+    /* [STUDENT TASK: Add your other exclusions] */
+)
+| table _time, Computer, User, SourceImage, TargetImage, StartAddress, StartModule
+| sort -_time

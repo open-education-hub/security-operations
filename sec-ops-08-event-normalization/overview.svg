@@ -1,0 +1,298 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <style>
+      text { font-family: 'Consolas', 'Monaco', 'Courier New', monospace; }
+      .title { font-size: 20px; font-weight: bold; fill: #e2e8f0; }
+      .section-title { font-size: 13px; font-weight: bold; fill: #94a3b8; }
+      .label { font-size: 11px; fill: #cbd5e1; }
+      .small-label { font-size: 9px; fill: #94a3b8; }
+      .code { font-size: 9px; fill: #86efac; font-family: monospace; }
+      .code-orange { font-size: 9px; fill: #fdba74; font-family: monospace; }
+      .code-blue { font-size: 9px; fill: #93c5fd; font-family: monospace; }
+      .arrow { stroke: #475569; stroke-width: 2; fill: none; }
+      .arrow-highlight { stroke: #3b82f6; stroke-width: 2; fill: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#475569"/>
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#22c55e"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#0f172a"/>
+
+  <!-- Title -->
+  <text x="600" y="35" class="title" text-anchor="middle">Session 08: Event Correlation and Normalization — Architecture Overview</text>
+  <line x1="60" y1="45" x2="1140" y2="45" stroke="#334155" stroke-width="1"/>
+
+  <!-- ============================================================ -->
+  <!-- ROW 1: LOG SOURCES (top) -->
+  <!-- ============================================================ -->
+  <text x="600" y="68" class="section-title" text-anchor="middle">RAW LOG SOURCES</text>
+
+  <!-- Syslog source -->
+  <rect x="30" y="75" width="140" height="70" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="100" y="94" class="label" text-anchor="middle">Linux / Syslog</text>
+  <text x="40" y="110" class="code">Dec 14 07:42:01</text>
+  <text x="40" y="122" class="code">sshd[3822]: Failed</text>
+  <text x="40" y="134" class="code">password for admin</text>
+
+  <!-- Windows source -->
+  <rect x="185" y="75" width="140" height="70" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="255" y="94" class="label" text-anchor="middle">Windows Event Log</text>
+  <text x="195" y="110" class="code-orange">&lt;EventID&gt;4625&lt;/EventID&gt;</text>
+  <text x="195" y="122" class="code-orange">&lt;IpAddress&gt;</text>
+  <text x="195" y="134" class="code-orange">  192.168.1.45</text>
+
+  <!-- CEF source -->
+  <rect x="340" y="75" width="145" height="70" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="412" y="94" class="label" text-anchor="middle">Firewall (CEF)</text>
+  <text x="350" y="110" class="code">CEF:0|Cisco|ASA|</text>
+  <text x="350" y="122" class="code">9.8|106023|Deny|</text>
+  <text x="350" y="134" class="code">src=10.0.0.1 act=deny</text>
+
+  <!-- LEEF source -->
+  <rect x="500" y="75" width="145" height="70" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="572" y="94" class="label" text-anchor="middle">IDS/QRadar (LEEF)</text>
+  <text x="510" y="110" class="code">LEEF:1.0|Snort|</text>
+  <text x="510" y="122" class="code">IDS|2.9|1001|</text>
+  <text x="510" y="134" class="code">src=10.0.0.2</text>
+
+  <!-- Cloud source -->
+  <rect x="660" y="75" width="140" height="70" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="730" y="94" class="label" text-anchor="middle">Cloud (AWS/Azure)</text>
+  <text x="670" y="110" class="code-blue">{"eventName":</text>
+  <text x="670" y="122" class="code-blue"> "ConsoleLogin",</text>
+  <text x="670" y="134" class="code-blue"> "userAgent":...}</text>
+
+  <!-- EDR source -->
+  <rect x="815" y="75" width="140" height="70" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="885" y="94" class="label" text-anchor="middle">EDR Telemetry</text>
+  <text x="825" y="110" class="code-blue">{"process":</text>
+  <text x="825" y="122" class="code-blue"> {"pid":1234,</text>
+  <text x="825" y="134" class="code-blue">  "name":"cmd.exe"}}</text>
+
+  <!-- DNS source -->
+  <rect x="970" y="75" width="160" height="70" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="1050" y="94" class="label" text-anchor="middle">DNS / NetFlow</text>
+  <text x="980" y="110" class="code">query: evil.xyz</text>
+  <text x="980" y="122" class="code">src: 10.1.1.5</text>
+  <text x="980" y="134" class="code">type: A, NXDOMAIN</text>
+
+  <!-- ============================================================ -->
+  <!-- PARSING STAGE -->
+  <!-- ============================================================ -->
+
+  <!-- Arrows from sources down to parsing -->
+  <line x1="100" y1="145" x2="100" y2="178" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <line x1="255" y1="145" x2="255" y2="178" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <line x1="412" y1="145" x2="412" y2="178" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <line x1="572" y1="145" x2="572" y2="178" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <line x1="730" y1="145" x2="730" y2="178" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <line x1="885" y1="145" x2="885" y2="178" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <line x1="1050" y1="145" x2="1050" y2="178" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+  <!-- Parsing stage box -->
+  <rect x="30" y="178" width="1140" height="75" rx="8" fill="#1e3a5f" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="600" y="198" class="section-title" text-anchor="middle" fill="#60a5fa">PARSING LAYER</text>
+  <text x="180" y="218" class="label" text-anchor="middle" fill="#93c5fd">Logstash + Grok</text>
+  <text x="180" y="232" class="small-label" text-anchor="middle">%{SYSLOGTIMESTAMP:ts}</text>
+  <text x="180" y="242" class="small-label" text-anchor="middle">%{IP:src_ip}</text>
+  <text x="430" y="218" class="label" text-anchor="middle" fill="#93c5fd">Fluentd / Vector</text>
+  <text x="430" y="232" class="small-label" text-anchor="middle">regex, VRL transforms</text>
+  <text x="430" y="242" class="small-label" text-anchor="middle">structured parsers</text>
+  <text x="680" y="218" class="label" text-anchor="middle" fill="#93c5fd">Splunk props/transforms</text>
+  <text x="680" y="232" class="small-label" text-anchor="middle">TRANSFORMS-*, REPORT-*</text>
+  <text x="680" y="242" class="small-label" text-anchor="middle">FIELDALIAS, EVAL</text>
+  <text x="950" y="218" class="label" text-anchor="middle" fill="#93c5fd">Native API Parsers</text>
+  <text x="950" y="232" class="small-label" text-anchor="middle">CEF/LEEF structured</text>
+  <text x="950" y="242" class="small-label" text-anchor="middle">JSON path extraction</text>
+
+  <!-- ============================================================ -->
+  <!-- NORMALIZATION STAGE -->
+  <!-- ============================================================ -->
+
+  <!-- Arrow from parsing to normalization -->
+  <line x1="600" y1="253" x2="600" y2="278" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+
+  <!-- Normalization stage box -->
+  <rect x="30" y="278" width="1140" height="80" rx="8" fill="#14532d" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="600" y="298" class="section-title" text-anchor="middle" fill="#4ade80">NORMALIZATION LAYER — Field Mapping to Common Schema (ECS / OCSF)</text>
+
+  <!-- Field mapping examples inside normalization box -->
+  <rect x="50" y="305" width="200" height="45" rx="4" fill="#0f2d1a" stroke="#166534" stroke-width="1"/>
+  <text x="150" y="319" class="small-label" text-anchor="middle" fill="#86efac">Syslog Fields → ECS</text>
+  <text x="60" y="332" class="code">hostname → host.name</text>
+  <text x="60" y="343" class="code">src_ip   → source.ip</text>
+
+  <rect x="270" y="305" width="200" height="45" rx="4" fill="#0f2d1a" stroke="#166534" stroke-width="1"/>
+  <text x="370" y="319" class="small-label" text-anchor="middle" fill="#86efac">Win Event → ECS</text>
+  <text x="280" y="332" class="code">IpAddress → source.ip</text>
+  <text x="280" y="343" class="code">EventID   → event.code</text>
+
+  <rect x="490" y="305" width="200" height="45" rx="4" fill="#0f2d1a" stroke="#166534" stroke-width="1"/>
+  <text x="590" y="319" class="small-label" text-anchor="middle" fill="#86efac">CEF Fields → ECS</text>
+  <text x="500" y="332" class="code">src  → source.ip</text>
+  <text x="500" y="343" class="code">spt  → source.port</text>
+
+  <rect x="710" y="305" width="200" height="45" rx="4" fill="#0f2d1a" stroke="#166534" stroke-width="1"/>
+  <text x="810" y="319" class="small-label" text-anchor="middle" fill="#86efac">event.category + outcome</text>
+  <text x="720" y="332" class="code">→ ["authentication"]</text>
+  <text x="720" y="343" class="code">→ "failure" | "success"</text>
+
+  <rect x="930" y="305" width="220" height="45" rx="4" fill="#0f2d1a" stroke="#166534" stroke-width="1"/>
+  <text x="1040" y="319" class="small-label" text-anchor="middle" fill="#86efac">Type Casting</text>
+  <text x="940" y="332" class="code">port string → integer</text>
+  <text x="940" y="343" class="code">timestamp → ISO8601 UTC</text>
+
+  <!-- ============================================================ -->
+  <!-- ENRICHMENT STAGE -->
+  <!-- ============================================================ -->
+
+  <!-- Arrow from normalization to enrichment -->
+  <line x1="600" y1="358" x2="600" y2="383" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+
+  <!-- Enrichment box -->
+  <rect x="30" y="383" width="1140" height="60" rx="8" fill="#2d1b69" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="600" y="403" class="section-title" text-anchor="middle" fill="#c4b5fd">ENRICHMENT LAYER</text>
+  <text x="200" y="425" class="label" text-anchor="middle" fill="#a78bfa">GeoIP Lookup</text>
+  <text x="200" y="437" class="small-label" text-anchor="middle">source.geo.country_iso_code</text>
+  <text x="420" y="425" class="label" text-anchor="middle" fill="#a78bfa">Threat Intelligence</text>
+  <text x="420" y="437" class="small-label" text-anchor="middle">threat.indicator.ip (reputation)</text>
+  <text x="640" y="425" class="label" text-anchor="middle" fill="#a78bfa">Asset Lookup</text>
+  <text x="640" y="437" class="small-label" text-anchor="middle">host.type, host.owner</text>
+  <text x="860" y="425" class="label" text-anchor="middle" fill="#a78bfa">Identity Context</text>
+  <text x="860" y="437" class="small-label" text-anchor="middle">user.department, user.risk_score</text>
+  <text x="1060" y="425" class="label" text-anchor="middle" fill="#a78bfa">CMDB / ITSM</text>
+  <text x="1060" y="437" class="small-label" text-anchor="middle">change window active?</text>
+
+  <!-- ============================================================ -->
+  <!-- CORRELATION ENGINE -->
+  <!-- ============================================================ -->
+
+  <!-- Arrow from enrichment to correlation -->
+  <line x1="600" y1="443" x2="600" y2="468" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Correlation engine box -->
+  <rect x="30" y="468" width="1140" height="120" rx="8" fill="#1c1917" stroke="#ea580c" stroke-width="2"/>
+  <text x="600" y="490" class="section-title" text-anchor="middle" fill="#fb923c">CORRELATION ENGINE</text>
+
+  <!-- Rule type 1: Single event -->
+  <rect x="50" y="498" width="195" height="80" rx="5" fill="#1e0e07" stroke="#9a3412" stroke-width="1"/>
+  <text x="147" y="514" class="label" text-anchor="middle" fill="#fb923c">Single-Event Rule</text>
+  <text x="60" y="528" class="code">IF process.name ==</text>
+  <text x="60" y="540" class="code">  "mimikatz.exe"</text>
+  <text x="60" y="552" class="code">THEN alert(critical)</text>
+  <text x="60" y="568" class="small-label">No state required</text>
+
+  <!-- Rule type 2: Multi-event / threshold -->
+  <rect x="260" y="498" width="195" height="80" rx="5" fill="#1e0e07" stroke="#9a3412" stroke-width="1"/>
+  <text x="357" y="514" class="label" text-anchor="middle" fill="#fb923c">Threshold Rule</text>
+  <text x="270" y="528" class="code">COUNT(auth.failure)</text>
+  <text x="270" y="540" class="code">GROUP BY source.ip</text>
+  <text x="270" y="552" class="code">WITHIN 5 min &gt; 10</text>
+  <text x="270" y="568" class="small-label">Brute force detection</text>
+
+  <!-- Rule type 3: Time window / sequence -->
+  <rect x="470" y="498" width="195" height="80" rx="5" fill="#1e0e07" stroke="#9a3412" stroke-width="1"/>
+  <text x="567" y="514" class="label" text-anchor="middle" fill="#fb923c">Sequence Rule</text>
+  <text x="480" y="528" class="code">T1: recon scan</text>
+  <text x="480" y="540" class="code">T2: exploit attempt</text>
+  <text x="480" y="552" class="code">T3: shell opened</text>
+  <text x="480" y="568" class="small-label">Attack chain: T1→T2→T3</text>
+
+  <!-- Rule type 4: Behavioral / UEBA -->
+  <rect x="680" y="498" width="195" height="80" rx="5" fill="#1e0e07" stroke="#9a3412" stroke-width="1"/>
+  <text x="777" y="514" class="label" text-anchor="middle" fill="#fb923c">Behavioral (UEBA)</text>
+  <text x="690" y="528" class="code">bytes_out &gt; avg +</text>
+  <text x="690" y="540" class="code">  3 * stddev</text>
+  <text x="690" y="552" class="code">login_hour ∉ baseline</text>
+  <text x="690" y="568" class="small-label">ML / statistical model</text>
+
+  <!-- Rule type 5: Statistical -->
+  <rect x="890" y="498" width="260" height="80" rx="5" fill="#1e0e07" stroke="#9a3412" stroke-width="1"/>
+  <text x="1020" y="514" class="label" text-anchor="middle" fill="#fb923c">Statistical Correlation</text>
+  <text x="900" y="528" class="code">NXDOMAIN / total_dns</text>
+  <text x="900" y="540" class="code">  ratio &gt; 0.7 → DGA?</text>
+  <text x="900" y="552" class="code">distinct_dst_ports &gt; 100</text>
+  <text x="900" y="568" class="small-label">port scan detection</text>
+
+  <!-- ============================================================ -->
+  <!-- ALERTS STAGE -->
+  <!-- ============================================================ -->
+
+  <!-- Arrow from correlation to alerts -->
+  <line x1="600" y1="588" x2="600" y2="613" stroke="#ea580c" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Alerts box -->
+  <rect x="30" y="613" width="540" height="75" rx="8" fill="#1c1917" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="300" y="635" class="section-title" text-anchor="middle" fill="#f87171">ALERTS / DETECTIONS</text>
+  <rect x="50" y="643" width="110" height="36" rx="4" fill="#2d0000" stroke="#7f1d1d" stroke-width="1"/>
+  <text x="105" y="658" class="small-label" text-anchor="middle" fill="#fca5a5">P1 Critical</text>
+  <text x="105" y="672" class="small-label" text-anchor="middle" fill="#fca5a5">Auto-Respond</text>
+  <rect x="175" y="643" width="110" height="36" rx="4" fill="#1c0e00" stroke="#92400e" stroke-width="1"/>
+  <text x="230" y="658" class="small-label" text-anchor="middle" fill="#fed7aa">P2 High</text>
+  <text x="230" y="672" class="small-label" text-anchor="middle" fill="#fed7aa">Analyst Queue</text>
+  <rect x="300" y="643" width="110" height="36" rx="4" fill="#0c1a0c" stroke="#166534" stroke-width="1"/>
+  <text x="355" y="658" class="small-label" text-anchor="middle" fill="#bbf7d0">P3 Medium</text>
+  <text x="355" y="672" class="small-label" text-anchor="middle" fill="#bbf7d0">Review Next Day</text>
+  <rect x="425" y="643" width="125" height="36" rx="4" fill="#0a1628" stroke="#1e40af" stroke-width="1"/>
+  <text x="487" y="658" class="small-label" text-anchor="middle" fill="#bfdbfe">P4 Low / Info</text>
+  <text x="487" y="672" class="small-label" text-anchor="middle" fill="#bfdbfe">Log Only</text>
+
+  <!-- Rule Languages box (right side) -->
+  <rect x="590" y="613" width="580" height="75" rx="8" fill="#1e293b" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="880" y="635" class="section-title" text-anchor="middle" fill="#2dd4bf">RULE LANGUAGES</text>
+  <text x="650" y="655" class="label" fill="#5eead4">Sigma</text>
+  <text x="650" y="670" class="small-label">portable, YAML</text>
+  <text x="750" y="655" class="label" fill="#5eead4">KQL</text>
+  <text x="750" y="670" class="small-label">Microsoft Sentinel</text>
+  <text x="850" y="655" class="label" fill="#5eead4">SPL</text>
+  <text x="850" y="670" class="small-label">Splunk ES</text>
+  <text x="955" y="655" class="label" fill="#5eead4">YARA-L</text>
+  <text x="955" y="670" class="small-label">Chronicle</text>
+  <text x="1060" y="655" class="label" fill="#5eead4">EQL</text>
+  <text x="1060" y="670" class="small-label">Elastic SIEM</text>
+
+  <!-- ============================================================ -->
+  <!-- FIELD MAPPING TABLE (bottom left) -->
+  <!-- ============================================================ -->
+  <rect x="30" y="702" width="380" height="82" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="220" y="718" class="section-title" text-anchor="middle" fill="#94a3b8">FIELD MAPPING EXAMPLE (SSH Failed Login)</text>
+  <text x="40" y="733" class="small-label" fill="#64748b">Raw Field           → ECS Field          Type</text>
+  <line x1="40" y1="736" x2="400" y2="736" stroke="#1e293b" stroke-width="1"/>
+  <text x="40" y="748" class="code">hostname (syslog)   → host.name          keyword</text>
+  <text x="40" y="759" class="code">src addr (syslog)   → source.ip           ip</text>
+  <text x="40" y="770" class="code">user (PAM)          → user.name          keyword</text>
+  <text x="40" y="781" class="code">"Failed" keyword    → event.outcome=fail  keyword</text>
+
+  <!-- ============================================================ -->
+  <!-- CORRELATION RULE TAXONOMY (bottom center) -->
+  <!-- ============================================================ -->
+  <rect x="425" y="702" width="350" height="82" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="600" y="718" class="section-title" text-anchor="middle" fill="#94a3b8">CORRELATION RULE TAXONOMY</text>
+  <text x="435" y="733" class="small-label" fill="#64748b">Rule Type         Window   State   Example</text>
+  <line x1="435" y1="736" x2="765" y2="736" stroke="#1e293b" stroke-width="1"/>
+  <text x="435" y="748" class="code">Single-event       —        No      IOC match</text>
+  <text x="435" y="759" class="code">Threshold          5 min    Yes     Brute force</text>
+  <text x="435" y="770" class="code">Sequence           1 hr     Yes     Kill chain</text>
+  <text x="435" y="781" class="code">Behavioral         30 days  Yes     UEBA anomaly</text>
+
+  <!-- ============================================================ -->
+  <!-- PLATFORM KEY (bottom right) -->
+  <!-- ============================================================ -->
+  <rect x="790" y="702" width="380" height="82" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="980" y="718" class="section-title" text-anchor="middle" fill="#94a3b8">SIEM / PLATFORM COMPARISON</text>
+  <text x="800" y="733" class="small-label" fill="#64748b">Platform       Language  Strength</text>
+  <line x1="800" y1="736" x2="1160" y2="736" stroke="#1e293b" stroke-width="1"/>
+  <text x="800" y="748" class="code">Splunk ES       SPL       Mature, rich ecosystem</text>
+  <text x="800" y="759" class="code">MS Sentinel     KQL       Azure-native, cloud-scale</text>
+  <text x="800" y="770" class="code">Elastic SIEM    EQL/KQL   Open-source core, ECS</text>
+  <text x="800" y="781" class="code">Chronicle       YARA-L    Petabyte, flat-rate</text>
+
+</svg>

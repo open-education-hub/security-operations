@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecureMed SOC Dashboard</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161b22;
+      --border:    #30363d;
+      --text:      #c9d1d9;
+      --muted:     #8b949e;
+      --green:     #3fb950;
+      --amber:     #d29922;
+      --red:       #f85149;
+      --blue:      #58a6ff;
+      --purple:    #bc8cff;
+      --hl:        #1f2d3d;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* ── Header ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--red);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #fff;
+    }
+
+    header .sub {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .dot.red  { background: var(--red);   animation-duration: 0.8s; }
+    .dot.amber{ background: var(--amber); animation-duration: 1.2s; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    .clock {
+      font-size: 12px;
+      color: var(--blue);
+      min-width: 155px;
+      text-align: right;
+    }
+
+    /* ── Layout ── */
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 16px;
+      padding: 16px 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ── Panel ── */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      background: #1c2128;
+    }
+
+    .panel-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .badge {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-red   { background: rgba(248,81,73,0.18); color: var(--red);   border: 1px solid rgba(248,81,73,0.4); }
+    .badge-amber { background: rgba(210,153,34,0.18); color: var(--amber); border: 1px solid rgba(210,153,34,0.4); }
+    .badge-green { background: rgba(63,185,80,0.18); color: var(--green);  border: 1px solid rgba(63,185,80,0.4); }
+    .badge-blue  { background: rgba(88,166,255,0.18); color: var(--blue);  border: 1px solid rgba(88,166,255,0.4); }
+
+    .panel-body { padding: 12px 16px; }
+
+    /* ── Alert cards span full width ── */
+    .alerts-panel { grid-column: 1 / -1; }
+
+    /* ── Alert cards ── */
+    .alerts-list { display: flex; flex-direction: column; gap: 10px; padding: 12px 16px; }
+
+    .alert-card {
+      display: grid;
+      grid-template-columns: 4px 1fr auto;
+      gap: 0 12px;
+      align-items: start;
+      background: #1c2128;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      position: relative;
+    }
+
+    .alert-card:hover { background: var(--hl); border-color: var(--blue); }
+
+    .alert-card.selected {
+      background: rgba(88,166,255,0.08);
+      border-color: var(--blue);
+    }
+
+    .alert-card.acked {
+      opacity: 0.55;
+      border-color: var(--green);
+    }
+
+    .alert-card.acked::after {
+      content: "ACK";
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      background: rgba(63,185,80,0.15);
+      border: 1px solid rgba(63,185,80,0.4);
+      border-radius: 3px;
+      padding: 1px 5px;
+    }
+
+    .severity-bar {
+      width: 4px;
+      border-radius: 4px;
+      align-self: stretch;
+      min-height: 50px;
+    }
+
+    .sev-high   { background: var(--red);   }
+    .sev-medium { background: var(--amber); }
+    .sev-low    { background: var(--green); }
+
+    .alert-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+      flex-wrap: wrap;
+    }
+
+    .sev-label {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .sev-label.high   { background: rgba(248,81,73,0.2);  color: var(--red);   }
+    .sev-label.medium { background: rgba(210,153,34,0.2); color: var(--amber); }
+
+    .alert-time { color: var(--muted); font-size: 11px; }
+    .alert-id   { color: var(--purple); font-size: 11px; }
+
+    .alert-title { font-size: 13px; color: #e6edf3; margin-bottom: 4px; }
+
+    .alert-detail { font-size: 11px; color: var(--muted); }
+    .alert-detail span { color: var(--blue); }
+
+    .alert-actions { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+
+    .btn {
+      font-family: inherit;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: #21262d;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.12s, border-color 0.12s;
+      white-space: nowrap;
+    }
+    .btn:hover { background: #30363d; border-color: var(--blue); color: var(--blue); }
+    .btn.btn-ack { border-color: rgba(63,185,80,0.5); color: var(--green); }
+    .btn.btn-ack:hover { background: rgba(63,185,80,0.1); }
+    .btn.btn-escalate { border-color: rgba(248,81,73,0.5); color: var(--red); }
+    .btn.btn-escalate:hover { background: rgba(248,81,73,0.1); }
+
+    /* ── Timeline ── */
+    .timeline { list-style: none; padding: 12px 16px; }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 120px 14px 1fr;
+      gap: 0 10px;
+      align-items: start;
+      margin-bottom: 14px;
+    }
+    .tl-time { font-size: 11px; color: var(--muted); text-align: right; padding-top: 1px; }
+    .tl-dot-col { display: flex; flex-direction: column; align-items: center; }
+    .tl-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+      border: 2px solid var(--muted);
+      flex-shrink: 0;
+    }
+    .tl-dot.red   { background: var(--red);   border-color: var(--red);   }
+    .tl-dot.amber { background: var(--amber); border-color: var(--amber); }
+    .tl-dot.green { background: var(--green); border-color: var(--green); }
+    .tl-dot.blue  { background: var(--blue);  border-color: var(--blue);  }
+    .tl-line {
+      width: 2px;
+      flex: 1;
+      background: var(--border);
+      min-height: 20px;
+      margin-top: 2px;
+    }
+    .tl-body { font-size: 12px; padding-bottom: 4px; }
+    .tl-body strong { color: #e6edf3; display: block; margin-bottom: 2px; }
+    .tl-body p { color: var(--muted); margin: 0; }
+
+    /* ── Triage form ── */
+    .triage-form { padding: 12px 16px; display: flex; flex-direction: column; gap: 12px; }
+    .form-row { display: flex; flex-direction: column; gap: 4px; }
+    .form-row label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .form-row select,
+    .form-row input,
+    .form-row textarea {
+      font-family: inherit;
+      font-size: 12px;
+      background: #0d1117;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      padding: 6px 10px;
+      outline: none;
+      transition: border-color 0.12s;
+      width: 100%;
+    }
+    .form-row select:focus,
+    .form-row input:focus,
+    .form-row textarea:focus { border-color: var(--blue); }
+    .form-row textarea { resize: vertical; min-height: 60px; }
+    .form-actions { display: flex; gap: 8px; }
+    .btn-primary {
+      background: rgba(88,166,255,0.15);
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+    .btn-primary:hover { background: rgba(88,166,255,0.25); }
+
+    /* ── Escalation log ── */
+    .esc-log { padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+    .esc-entry {
+      background: #1c2128;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 8px 12px;
+      font-size: 11px;
+    }
+    .esc-entry .esc-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 3px;
+    }
+    .esc-entry .esc-who { color: var(--blue); font-weight: 700; }
+    .esc-entry .esc-ts  { color: var(--muted); }
+    .esc-entry .esc-msg { color: var(--text); }
+    .esc-entry.escalated { border-color: rgba(248,81,73,0.4); }
+    .esc-entry.note      { border-color: rgba(88,166,255,0.3); }
+
+    /* ── Stats row ── */
+    .stats-row {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .stat-value { font-size: 26px; font-weight: 700; color: #e6edf3; }
+    .stat-value.red   { color: var(--red);   }
+    .stat-value.amber { color: var(--amber); }
+    .stat-value.green { color: var(--green); }
+    .stat-sub { font-size: 10px; color: var(--muted); }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 10px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #21262d;
+      border: 1px solid var(--green);
+      color: var(--green);
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">&#9760;</div>
+    <div>
+      <h1>SecureMed SOC Dashboard</h1>
+      <div class="sub">Security Operations Center &nbsp;|&nbsp; Tier 1 Analyst View</div>
+    </div>
+  </div>
+  <div class="status-bar">
+    <div class="status-pill"><span class="dot red"></span> 2 Active HIGH alerts</div>
+    <div class="status-pill"><span class="dot amber"></span> 1 Active MEDIUM alert</div>
+    <div class="status-pill"><span class="dot"></span> SIEM Online</div>
+    <div class="clock" id="clock">Loading...</div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════ MAIN ═══════════════════════════ -->
+<div class="main">
+
+  <!-- ── Stats Row ── -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Open Alerts (24h)</div>
+      <div class="stat-value red" id="stat-open">3</div>
+      <div class="stat-sub">&#9650; 2 since last hour</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Acknowledged</div>
+      <div class="stat-value amber" id="stat-acked">0</div>
+      <div class="stat-sub">Pending review</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Escalated</div>
+      <div class="stat-value" id="stat-escalated">1</div>
+      <div class="stat-sub">To Tier 2 / IR</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">SIEM Events/min</div>
+      <div class="stat-value green" id="stat-eps">—</div>
+      <div class="stat-sub">Avg last 5 min</div>
+    </div>
+  </div>
+
+  <!-- ── Alerts Panel ── -->
+  <div class="panel alerts-panel">
+    <div class="panel-header">
+      <span class="panel-title">Active Alerts</span>
+      <span class="badge badge-red" id="alert-count-badge">3 OPEN</span>
+    </div>
+    <div class="alerts-list" id="alerts-list">
+
+      <!-- Alert 1 -->
+      <div class="alert-card" id="alert-1" data-id="1" onclick="selectAlert(1)">
+        <div class="severity-bar sev-high"></div>
+        <div>
+          <div class="alert-meta">
+            <span class="sev-label high">HIGH</span>
+            <span class="alert-time">2024-01-15 03:12:44 UTC</span>
+            <span class="alert-id">#SOC-2024-0087</span>
+          </div>
+          <div class="alert-title">Geo-anomaly: Login from unexpected country</div>
+          <div class="alert-detail">
+            User <span>bob.smith</span> authenticated from
+            <span>RO (Romania)</span> — baseline country: <span>US</span>.
+            Source IP: <span>185.220.101.44</span> &nbsp;|&nbsp;
+            Host: <span>auth-prod-01.securemed.local</span>
+          </div>
+        </div>
+        <div class="alert-actions">
+          <button class="btn btn-ack" onclick="ackAlert(event, 1)">Acknowledge</button>
+          <button class="btn btn-escalate" onclick="escalateAlert(event, 1)">Escalate</button>
+        </div>
+      </div>
+
+      <!-- Alert 2 -->
+      <div class="alert-card" id="alert-2" data-id="2" onclick="selectAlert(2)">
+        <div class="severity-bar sev-medium"></div>
+        <div>
+          <div class="alert-meta">
+            <span class="sev-label medium">MEDIUM</span>
+            <span class="alert-time">2024-01-15 03:15:00 UTC</span>
+            <span class="alert-id">#SOC-2024-0088</span>
+          </div>
+          <div class="alert-title">Mass file access: Possible data staging</div>
+          <div class="alert-detail">
+            User <span>bob.smith</span> accessed <span>500 files</span>
+            in 2m16s on <span>fileserver-01.securemed.local</span>.
+            Share: <span>\\FS01\PatientRecords</span> &nbsp;|&nbsp;
+            Baseline: <span>&lt;30 files/session</span>
+          </div>
+        </div>
+        <div class="alert-actions">
+          <button class="btn btn-ack" onclick="ackAlert(event, 2)">Acknowledge</button>
+          <button class="btn btn-escalate" onclick="escalateAlert(event, 2)">Escalate</button>
+        </div>
+      </div>
+
+      <!-- Alert 3 -->
+      <div class="alert-card" id="alert-3" data-id="3" onclick="selectAlert(3)">
+        <div class="severity-bar sev-high"></div>
+        <div>
+          <div class="alert-meta">
+            <span class="sev-label high">HIGH</span>
+            <span class="alert-time">2024-01-15 03:18:33 UTC</span>
+            <span class="alert-id">#SOC-2024-0089</span>
+          </div>
+          <div class="alert-title">Outbound C2 candidate: Known-bad IP contacted</div>
+          <div class="alert-detail">
+            Workstation <span>WS-BSMITH-01</span> (user: <span>bob.smith</span>)
+            sent <span>847 MB</span> to <span>185.220.101.45</span>
+            (ThreatIntel: Tor exit node / C2).
+            Port: <span>443/TCP</span> &nbsp;|&nbsp; Duration: <span>18 min</span>
+          </div>
+        </div>
+        <div class="alert-actions">
+          <button class="btn btn-ack" onclick="ackAlert(event, 3)">Acknowledge</button>
+          <button class="btn btn-escalate" onclick="escalateAlert(event, 3)">Escalate</button>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /alerts-panel -->
+
+  <!-- ── Incident Timeline ── -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Incident Timeline</span>
+      <span class="badge badge-blue">INC-2024-0031</span>
+    </div>
+    <ul class="timeline">
+      <li class="tl-item">
+        <div class="tl-time">03:12:44</div>
+        <div class="tl-dot-col"><div class="tl-dot red"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <strong>Geo-anomaly login detected (SIEM)</strong>
+          <p>bob.smith authenticated from RO; UEBA rule fired.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-time">03:14:58</div>
+        <div class="tl-dot-col"><div class="tl-dot blue"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <strong>Tier 1 alert assigned to analyst j.doe</strong>
+          <p>Auto-assigned via round-robin queue.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-time">03:15:00</div>
+        <div class="tl-dot-col"><div class="tl-dot amber"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <strong>Mass file access alert fired</strong>
+          <p>500 file opens in 2m16s; DLP correlation triggered.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-time">03:18:33</div>
+        <div class="tl-dot-col"><div class="tl-dot red"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <strong>Outbound to TI-flagged IP (185.220.101.45)</strong>
+          <p>847 MB exfil candidate. Firewall did NOT block (rule gap).</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-time">03:21:10</div>
+        <div class="tl-dot-col"><div class="tl-dot amber"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <strong>Alerts correlated into single incident INC-2024-0031</strong>
+          <p>3 alerts linked to bob.smith / WS-BSMITH-01.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-time">03:24:00</div>
+        <div class="tl-dot-col"><div class="tl-dot green"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <strong>Escalation to Tier 2 IR team initiated</strong>
+          <p>Awaiting containment decision.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-time">NOW</div>
+        <div class="tl-dot-col"><div class="tl-dot blue"></div></div>
+        <div class="tl-body">
+          <strong>Triage in progress</strong>
+          <p>You are here. Fill in the triage form &#8594;</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ── Triage Form ── -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Tier 1 Triage Form</span>
+      <span class="badge badge-amber">INC-2024-0031</span>
+    </div>
+    <div class="triage-form">
+      <div class="form-row">
+        <label>Analyst ID</label>
+        <input type="text" id="f-analyst" placeholder="e.g. j.doe" />
+      </div>
+      <div class="form-row">
+        <label>Alert Classification</label>
+        <select id="f-class">
+          <option value="">-- select --</option>
+          <option>True Positive — Incident</option>
+          <option>True Positive — Suspicious (escalate)</option>
+          <option>False Positive — Benign</option>
+          <option>False Positive — Misconfiguration</option>
+          <option>Undetermined — needs Tier 2</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>MITRE ATT&amp;CK Tactic (best guess)</label>
+        <select id="f-mitre">
+          <option value="">-- select --</option>
+          <option>TA0001 – Initial Access</option>
+          <option>TA0003 – Persistence</option>
+          <option>TA0004 – Privilege Escalation</option>
+          <option>TA0006 – Credential Access</option>
+          <option>TA0009 – Collection</option>
+          <option>TA0010 – Exfiltration</option>
+          <option>TA0011 – Command and Control</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Affected Asset(s)</label>
+        <input type="text" id="f-assets" placeholder="e.g. WS-BSMITH-01, fileserver-01" />
+      </div>
+      <div class="form-row">
+        <label>Initial Findings / Notes</label>
+        <textarea id="f-notes" placeholder="Describe what you see, what is suspicious, what you checked..."></textarea>
+      </div>
+      <div class="form-row">
+        <label>Recommended Action</label>
+        <select id="f-action">
+          <option value="">-- select --</option>
+          <option>Monitor — no action yet</option>
+          <option>Isolate affected workstation</option>
+          <option>Disable user account (bob.smith)</option>
+          <option>Block IP on firewall</option>
+          <option>Escalate to Tier 2 IR</option>
+          <option>Escalate to management</option>
+          <option>Close — false positive</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="submitTriage()">Submit Triage</button>
+        <button class="btn" onclick="clearTriage()">Clear</button>
+      </div>
+      <div id="triage-feedback" style="font-size:11px; color: var(--muted); min-height:16px;"></div>
+    </div>
+  </div>
+
+  <!-- ── Escalation Log ── -->
+  <div class="panel" style="grid-column: 1 / -1;">
+    <div class="panel-header">
+      <span class="panel-title">Escalation &amp; Activity Log</span>
+      <span class="badge badge-green" id="log-count-badge">2 entries</span>
+    </div>
+    <div class="esc-log" id="esc-log">
+
+      <div class="esc-entry escalated">
+        <div class="esc-head">
+          <span class="esc-who">SYSTEM (SIEM auto-escalation)</span>
+          <span class="esc-ts">2024-01-15 03:24:00 UTC</span>
+        </div>
+        <div class="esc-msg">[AUTO-ESCALATE] Correlation rule R-047 fired: 3 alerts on same user within 6 min. Incident INC-2024-0031 created and assigned to Tier 2 on-call (ir-team@securemed.local).</div>
+      </div>
+
+      <div class="esc-entry note">
+        <div class="esc-head">
+          <span class="esc-who">j.doe (Tier 1 Analyst)</span>
+          <span class="esc-ts">2024-01-15 03:26:14 UTC</span>
+        </div>
+        <div class="esc-msg">Verified bob.smith has no approved travel to Romania. HR confirms no VPN waiver. Account NOT yet disabled pending IR decision. Firewall block of 185.220.101.45 requested via ticket FW-8821.</div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<footer>
+  SecureMed Healthcare &nbsp;|&nbsp; SOC Simulation Dashboard &nbsp;|&nbsp;
+  Security Operations Master Course — Demo 02 &nbsp;|&nbsp;
+  All data is synthetic and for educational use only.
+</footer>
+
+<div id="toast"></div>
+
+<!-- ═══════════════════════════ JS ═══════════════════════════ -->
+<script>
+  /* ── Live clock ── */
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+      'Local: ' + now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  /* ── Simulated EPS counter ── */
+  function updateEPS() {
+    const eps = (Math.random() * 120 + 80).toFixed(0);
+    document.getElementById('stat-eps').textContent = eps;
+  }
+  updateEPS();
+  setInterval(updateEPS, 4000);
+
+  /* ── State ── */
+  let selected   = null;
+  let ackedSet   = new Set();
+  let escalated  = new Set();
+  let logEntries = 2;
+
+  /* ── Select alert ── */
+  function selectAlert(id) {
+    if (selected && selected !== id) {
+      document.getElementById('alert-' + selected).classList.remove('selected');
+    }
+    const card = document.getElementById('alert-' + id);
+    card.classList.toggle('selected');
+    selected = card.classList.contains('selected') ? id : null;
+  }
+
+  /* ── Acknowledge ── */
+  function ackAlert(evt, id) {
+    evt.stopPropagation();
+    const card = document.getElementById('alert-' + id);
+    if (ackedSet.has(id)) { showToast('Already acknowledged.'); return; }
+    ackedSet.add(id);
+    card.classList.add('acked');
+    updateStats();
+    addLogEntry('j.doe (Tier 1 Analyst)', 'Alert #SOC-2024-008' + (6 + id) + ' acknowledged. Under investigation.');
+    showToast('Alert #SOC-2024-008' + (6 + id) + ' acknowledged.');
+  }
+
+  /* ── Escalate ── */
+  function escalateAlert(evt, id) {
+    evt.stopPropagation();
+    if (escalated.has(id)) { showToast('Already escalated.'); return; }
+    escalated.add(id);
+    ackedSet.add(id);
+    const card = document.getElementById('alert-' + id);
+    card.classList.add('acked');
+    updateStats();
+    addLogEntry(
+      'j.doe (Tier 1 Analyst) → Tier 2 IR',
+      '[ESCALATE] Alert #SOC-2024-008' + (6 + id) + ' escalated to Tier 2 IR team. Reason: confirmed suspicious activity, requires containment authority.',
+      'escalated'
+    );
+    showToast('Escalated to Tier 2 IR!');
+  }
+
+  /* ── Update stats ── */
+  function updateStats() {
+    document.getElementById('stat-open').textContent  = Math.max(0, 3 - ackedSet.size);
+    document.getElementById('stat-acked').textContent = ackedSet.size;
+    document.getElementById('stat-escalated').textContent = 1 + escalated.size;
+    document.getElementById('alert-count-badge').textContent =
+      Math.max(0, 3 - ackedSet.size) + ' OPEN';
+  }
+
+  /* ── Add log entry ── */
+  function addLogEntry(who, msg, cls) {
+    logEntries++;
+    const now = new Date().toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+    const div = document.createElement('div');
+    div.className = 'esc-entry ' + (cls || 'note');
+    div.innerHTML =
+      '<div class="esc-head">' +
+        '<span class="esc-who">' + who + '</span>' +
+        '<span class="esc-ts">' + now + '</span>' +
+      '</div>' +
+      '<div class="esc-msg">' + msg + '</div>';
+    document.getElementById('esc-log').appendChild(div);
+    document.getElementById('log-count-badge').textContent = logEntries + ' entries';
+    div.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* ── Triage form ── */
+  function submitTriage() {
+    const analyst = document.getElementById('f-analyst').value.trim();
+    const cls     = document.getElementById('f-class').value;
+    const mitre   = document.getElementById('f-mitre').value;
+    const assets  = document.getElementById('f-assets').value.trim();
+    const notes   = document.getElementById('f-notes').value.trim();
+    const action  = document.getElementById('f-action').value;
+    const fb      = document.getElementById('triage-feedback');
+
+    if (!analyst || !cls || !action) {
+      fb.style.color = 'var(--red)';
+      fb.textContent = 'Error: Analyst ID, Classification and Recommended Action are required.';
+      return;
+    }
+
+    fb.style.color = 'var(--green)';
+    fb.textContent = 'Triage submitted successfully.';
+
+    const summary =
+      '[TRIAGE] Analyst: ' + analyst +
+      ' | Class: ' + cls +
+      (mitre   ? ' | MITRE: ' + mitre   : '') +
+      (assets  ? ' | Assets: ' + assets : '') +
+      ' | Action: ' + action +
+      (notes   ? ' | Notes: ' + notes   : '');
+
+    addLogEntry(analyst + ' (Tier 1 Analyst) — Triage', summary, 'note');
+    showToast('Triage report saved to incident log.');
+  }
+
+  function clearTriage() {
+    ['f-analyst','f-class','f-mitre','f-assets','f-notes','f-action'].forEach(id => {
+      const el = document.getElementById(id);
+      el.tagName === 'SELECT' ? el.selectedIndex = 0 : (el.value = '');
+    });
+    document.getElementById('triage-feedback').textContent = '';
+  }
+
+  /* ── Toast ── */
+  let toastTimer = null;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 09 Final Quiz: SOC Workflow and Automation</name>
+  <intro>9 multiple-choice questions assessing session learning outcomes. Select the single best answer for each question.</intro>
+
+  <question type="multichoice">
+    <name>Q1: Alert Closure Classification</name>
+    <questiontext format="html">
+      <text>Which of the following alert closure classifications should trigger a rule tuning review?</text>
+    </questiontext>
+    <answer fraction="0"><text>True Positive — Escalated</text></answer>
+    <answer fraction="100"><text>False Positive — rule incorrectly fired</text><feedback><text>Correct. When a rule fires incorrectly (false positive), the rule needs to be reviewed and refined to reduce noise.</text></feedback></answer>
+    <answer fraction="0"><text>Benign True Positive — authorized activity</text></answer>
+    <answer fraction="0"><text>True Positive — Contained</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q2: SOAR Automation Design Flaw</name>
+    <questiontext format="html">
+      <text>Your SOAR playbook automatically isolates any host where the AV detects malware. A production database server triggers the detection (a false positive from a new AV signature). The server is automatically isolated and 500 users lose database access for 2 hours. What design flaw caused this?</text>
+    </questiontext>
+    <answer fraction="0"><text>The SOAR platform was incorrectly configured</text></answer>
+    <answer fraction="0"><text>The AV signature database was out of date</text></answer>
+    <answer fraction="100"><text>No whitelist of critical servers was configured for automatic isolation actions</text><feedback><text>Correct. Destructive automation actions must have a whitelist of critical assets that are excluded from automatic isolation to prevent business impact from false positives.</text></feedback></answer>
+    <answer fraction="0"><text>The isolation action should have used a different API endpoint</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q3: MTTD vs MTTR</name>
+    <questiontext format="html">
+      <text>What is the difference between MTTD and MTTR?</text>
+    </questiontext>
+    <answer fraction="0"><text>MTTD measures false positive rate; MTTR measures true positive rate</text></answer>
+    <answer fraction="0"><text>MTTD measures network detection speed; MTTR measures endpoint recovery time</text></answer>
+    <answer fraction="100"><text>MTTD measures the time from attack start to detection; MTTR measures the time from detection to resolution</text><feedback><text>Correct. Mean Time to Detect (MTTD) and Mean Time to Respond (MTTR) are two separate metrics measuring different phases of incident response.</text></feedback></answer>
+    <answer fraction="0"><text>They measure the same thing but for different severity levels</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q4: Human Approval in SOAR</name>
+    <questiontext format="html">
+      <text>In a SOAR playbook, which type of action should ALWAYS require human approval before execution?</text>
+    </questiontext>
+    <answer fraction="0"><text>Querying VirusTotal for an IP address</text></answer>
+    <answer fraction="0"><text>Creating a ticket in the case management system</text></answer>
+    <answer fraction="0"><text>Sending a notification email to the SOC team</text></answer>
+    <answer fraction="100"><text>Blocking an IP address at the perimeter firewall</text><feedback><text>Correct. Firewall blocking is a destructive action that can cause business disruption (e.g., blocking a CDN IP). It must always require human approval.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q5: SLA Compliance Calculation</name>
+    <questiontext format="html">
+      <text>A SOC team's P2 SLA is 4 hours MTTR. In the past month, 12 out of 60 P2 cases breached the SLA. What is the SLA compliance rate?</text>
+    </questiontext>
+    <answer fraction="0"><text>12%</text></answer>
+    <answer fraction="0"><text>20%</text></answer>
+    <answer fraction="0"><text>60%</text></answer>
+    <answer fraction="100"><text>80%</text><feedback><text>Correct. SLA compliance = (60 - 12) / 60 = 48/60 = 80%.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q6: PENDING Case Management</name>
+    <questiontext format="html">
+      <text>A security case has been in PENDING status for 6 hours waiting for a system owner to confirm a remote login. No response has been received. Which action is most appropriate?</text>
+    </questiontext>
+    <answer fraction="0"><text>Close the case as a false positive</text></answer>
+    <answer fraction="0"><text>Continue waiting in PENDING status indefinitely</text></answer>
+    <answer fraction="0"><text>Escalate to Tier 3 for advanced analysis</text></answer>
+    <answer fraction="100"><text>Attempt direct contact through an alternative channel (phone/Teams); escalate to Tier 2 if still no response</text><feedback><text>Correct. Passive waiting is not acceptable when an SLA may be at risk. Analysts must escalate through alternative channels and eventually to a higher tier.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q7: Playbook Definition</name>
+    <questiontext format="html">
+      <text>Which of the following is the best description of a SOAR playbook?</text>
+    </questiontext>
+    <answer fraction="0"><text>A database of known attack signatures used for detection</text></answer>
+    <answer fraction="0"><text>A formal contract between the SOC and the business defining response times</text></answer>
+    <answer fraction="0"><text>A log analysis query used in SIEM to correlate events</text></answer>
+    <answer fraction="100"><text>A documented, automated workflow that responds to a specific type of security alert</text><feedback><text>Correct. A playbook is a repeatable, automated workflow triggered by a specific alert type that executes enrichment, decision logic, and response actions.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q8: Automation Pitfall — Exclusion List</name>
+    <questiontext format="html">
+      <text>A playbook automatically blocks a source IP at the firewall if a brute force alert fires and the VirusTotal score is above 3. A legitimate authorized penetration test from an external firm is automatically blocked, disrupting a scheduled engagement. What automation pitfall does this illustrate?</text>
+    </questiontext>
+    <answer fraction="0"><text>Incorrect API integration between SOAR and the firewall</text></answer>
+    <answer fraction="0"><text>Insufficient threat intelligence data from VirusTotal</text></answer>
+    <answer fraction="100"><text>Missing an exclusion list for authorized/known sources before executing destructive actions</text><feedback><text>Correct. All destructive automation actions must check an exclusion list (authorized pen-test IPs, maintenance windows, known partner ranges) before executing, to prevent false positive blocking of legitimate activity.</text></feedback></answer>
+    <answer fraction="0"><text>The playbook trigger threshold was set too low</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q9: Playbook Types</name>
+    <questiontext format="html">
+      <text>A playbook is triggered by a phishing email detection. It extracts URLs, checks them against a threat feed, and creates a TheHive case for analyst review. No automated blocking or containment occurs. Which playbook type is this?</text>
+    </questiontext>
+    <answer fraction="0"><text>Preventive</text></answer>
+    <answer fraction="100"><text>Detective</text><feedback><text>Correct. A detective playbook gathers intelligence and surfaces findings to an analyst without taking containment or blocking action. Preventive playbooks block before impact; responsive playbooks contain and remediate after detection.</text></feedback></answer>
+    <answer fraction="0"><text>Responsive</text></answer>
+    <answer fraction="0"><text>Hybrid preventive-responsive</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+</quiz>

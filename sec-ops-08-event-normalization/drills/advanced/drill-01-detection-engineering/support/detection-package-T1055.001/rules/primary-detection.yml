@@ -1,0 +1,75 @@
+# Primary Detection Rule: T1055.001 — DLL Injection via CreateRemoteThread
+# Security Operations Course - Session 08, Drill 01 (Advanced)
+#
+# [STUDENT TASK — Part 3.1]
+# Complete this Sigma rule. The structure below is provided as a scaffold.
+# Requirements:
+#   - Detect CreateRemoteThread to a non-child process (Sysmon EventID 8)
+#   - Exclude known-legitimate sources (debuggers, AV, JIT compilers)
+#   - Tag with ATT&CK T1055.001
+#   - Set appropriate severity and false positive guidance
+#
+# Reference: https://sigmahq.io/docs/basics/rules.html
+# =============================================================================
+
+title: DLL Injection via CreateRemoteThread (Sysmon EventID 8)
+id: [STUDENT TASK: generate a UUID, e.g., 7c3a1234-5b6c-7d8e-9f01-a2b3c4d5e6f7]
+status: experimental
+description: |
+    Detects DLL injection attempts using the classic injection technique:
+    OpenProcess → VirtualAllocEx → WriteProcessMemory → CreateRemoteThread.
+    Sysmon EventID 8 fires when a process creates a remote thread in another process.
+    This is the most reliable single indicator for classic DLL injection.
+
+references:
+    - https://attack.mitre.org/techniques/T1055/001/
+    - https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon
+
+author: "[Your name] — Security Operations Course"
+date: "[YYYY/MM/DD]"
+
+tags:
+    - attack.defense_evasion
+    - attack.privilege_escalation
+    - attack.t1055.001
+
+logsource:
+    product: windows
+    category: create_remote_thread
+    # This matches Sysmon EventID 8
+
+detection:
+    selection:
+        # [STUDENT TASK] What fields should you match on?
+        # Hint: Sysmon EventID 8 has: SourceImage, TargetImage, StartAddress, StartModule
+        # Consider: should you filter on TargetImage, or leave it open?
+        EventID: 8
+        # Add your selection criteria here:
+
+    filter_legitimate:
+        # [STUDENT TASK] Exclude known-legitimate CreateRemoteThread sources
+        # Common false positives:
+        #   - Visual Studio (devenv.exe, vsdbg.exe) — debugger attaches to processes
+        #   - Windows Defender (MsMpEng.exe) — AV hooks into processes
+        #   - JVM (java.exe) — JIT compilation uses CreateRemoteThread
+        #   - Some AV/EDR agents
+        SourceImage|endswith:
+            # Add your exclusions here:
+            - "[STUDENT TASK: Add exclusion]"
+
+    condition: selection and not filter_legitimate
+
+falsepositives:
+    - Visual Studio and other debuggers attaching to processes
+    - Windows Defender and other AV/EDR solutions
+    - Java Virtual Machine (JIT compiler)
+    - Legitimate injection-based software (DRM, some game anti-cheat)
+
+level: high  # [STUDENT TASK: Is high appropriate? Consider false positive rate]
+
+fields:
+    - SourceImage
+    - TargetImage
+    - StartAddress
+    - StartModule
+    - StartFunction

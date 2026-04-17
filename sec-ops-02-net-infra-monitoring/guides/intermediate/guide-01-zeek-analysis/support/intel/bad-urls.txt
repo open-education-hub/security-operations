@@ -1,0 +1,5 @@
+#fields	indicator	indicator_type	meta.source	meta.desc
+http://185.220.101.35/implant.bin	Intel::URL	InternalInvestigation-IR2024-042	Malware payload URL — Metasploit stager
+http://185.220.101.35/stage3.ps1	Intel::URL	InternalInvestigation-IR2024-042	PowerShell post-exploitation script
+http://198.18.0.77/api/v2/collect	Intel::URL	ThreatFeed-OpenPhish	C2 HTTP exfiltration endpoint
+http://198.18.0.77/api/v2/cmds	Intel::URL	ThreatFeed-OpenPhish	C2 command polling endpoint

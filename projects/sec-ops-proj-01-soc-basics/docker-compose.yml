@@ -1,0 +1,157 @@
+# =============================================================================
+# SOC Project 01 — SecureMed Lab Environment
+# =============================================================================
+# Services:
+#   elasticsearch   – log storage and search backend  (port 9200)
+#   kibana          – SIEM / log viewer UI             (port 5601)
+#   patient-portal  – simulated healthcare web app    (port 8080)
+#   log-generator   – Python script that fires all 5 security events
+#   network-monitor – tcpdump capturing all lab traffic to /data/capture.pcap
+#
+# Usage:
+#   docker compose up --build -d
+#   docker compose logs -f log-generator
+# =============================================================================
+
+name: soc-lab
+
+services:
+
+  # ── Elasticsearch ────────────────────────────────────────────────────────
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    container_name: soc-elasticsearch
+    hostname: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+      - xpack.monitoring.collection.enabled=false
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+      - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+      - "9200:9200"
+    networks:
+      - soc-lab
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs 'http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s' || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+    restart: unless-stopped
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+
+  # ── Kibana ───────────────────────────────────────────────────────────────
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.13.4
+    container_name: soc-kibana
+    hostname: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - XPACK_SECURITY_ENABLED=false
+      - TELEMETRY_ENABLED=false
+    volumes:
+      - kibana-data:/usr/share/kibana/data
+      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    ports:
+      - "5601:5601"
+    networks:
+      - soc-lab
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost:5601/api/status | grep -q '\"level\":\"available\"' || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+      start_period: 90s
+    restart: unless-stopped
+
+  # ── Patient Portal ────────────────────────────────────────────────────────
+  patient-portal:
+    image: nginx:1.25-alpine
+    container_name: soc-patient-portal
+    hostname: patient-portal
+    volumes:
+      - ./patient-portal/index.html:/usr/share/nginx/html/index.html:ro
+      - ./patient-portal/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "8080:80"
+    networks:
+      - soc-lab
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ | grep -q 'SecureMed' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  # ── Log Generator ────────────────────────────────────────────────────────
+  log-generator:
+    build:
+      context: ./log-generator
+      dockerfile: Dockerfile
+    container_name: soc-log-generator
+    hostname: log-generator
+    environment:
+      - DEMO_MODE=${DEMO_MODE:-fast}
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - PATIENT_PORTAL_URL=http://patient-portal:80
+    networks:
+      - soc-lab
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      patient-portal:
+        condition: service_healthy
+    restart: on-failure:5
+
+  # ── Network Monitor ──────────────────────────────────────────────────────
+  network-monitor:
+    image: nicolaka/netshoot:latest
+    container_name: soc-network-monitor
+    hostname: network-monitor
+    # Capture all traffic on the soc-lab bridge and write to a pcap file.
+    # The file is written to the shared data volume so the host can open it
+    # directly in Wireshark: data/capture.pcap
+    command: >
+      sh -c "
+        echo 'Starting network capture on eth0 …' &&
+        tcpdump -i eth0 -w /data/capture.pcap -C 50 -W 5 --immediate-mode -n &&
+        echo 'Capture stopped.'
+      "
+    volumes:
+      - ./data:/data
+    networks:
+      - soc-lab
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    restart: unless-stopped
+
+
+# ── Volumes ───────────────────────────────────────────────────────────────────
+volumes:
+  elasticsearch-data:
+    name: soc-elasticsearch-data
+  kibana-data:
+    name: soc-kibana-data
+
+
+# ── Networks ──────────────────────────────────────────────────────────────────
+networks:
+  soc-lab:
+    name: soc-lab
+    driver: bridge

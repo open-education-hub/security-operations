@@ -1,0 +1,7 @@
+services:
+  sysmon-demo:
+    build: .
+    container_name: sysmon-demo
+    command: >
+      bash -c "bash /app/sysmon_simulator.sh &&
+               python3 /app/parse_sysmon.py --file /var/log/sysmon_events.xml --detect-suspicious"

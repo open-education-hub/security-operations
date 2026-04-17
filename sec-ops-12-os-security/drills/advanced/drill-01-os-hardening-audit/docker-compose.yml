@@ -1,0 +1,29 @@
+
+services:
+  win-appserver-01:
+    build:
+      context: .
+      dockerfile: Dockerfile.windows
+    container_name: win-appserver-01
+    hostname: WIN-APPSERVER-01
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./scripts:/audit/scripts:ro
+    environment:
+      - AUDIT_ENV=windows
+      - DRILL_LEVEL=advanced
+
+  lnx-dbserver-01:
+    build:
+      context: .
+      dockerfile: Dockerfile.linux
+    container_name: lnx-dbserver-01
+    hostname: LNX-DBSERVER-01
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./scripts:/audit/scripts:ro
+    environment:
+      - AUDIT_ENV=linux
+      - DRILL_LEVEL=advanced

@@ -1,0 +1,10 @@
+
+services:
+  threat-intel:
+    build: .
+    volumes:
+      - ./data:/data
+      - ./scripts:/scripts
+    stdin_open: true
+    tty: true
+    command: bash

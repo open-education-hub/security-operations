@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 08 Final Quiz: Event Correlation and Normalization</name>
+  <intro>Post-session assessment. 7 multiple-choice questions. Select the single best answer. Passing score: 70% (5/7).</intro>
+
+  <question type="multichoice">
+    <name>Q1: CEF to ECS Field Mapping</name>
+    <questiontext format="html">
+      <text>In the CEF log format: &lt;code&gt;CEF:0|Cisco|ASA|9.8|106023|Deny IP|8|src=10.0.1.5 spt=44321 dst=192.168.100.5 dpt=443 proto=TCP act=Deny&lt;/code&gt;&lt;br/&gt;What is the correct ECS field mapping for the CEF &lt;code&gt;spt&lt;/code&gt; field?</text>
+    </questiontext>
+    <answer fraction="0"><text>source.address</text></answer>
+    <answer fraction="100"><text>source.port</text><feedback><text>Correct. CEF spt (source port) maps to ECS source.port. CEF dpt maps to destination.port.</text></feedback></answer>
+    <answer fraction="0"><text>network.port</text></answer>
+    <answer fraction="0"><text>destination.port</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q2: Logstash Filter for Key-Value Logs</name>
+    <questiontext format="html">
+      <text>Which Logstash filter is most appropriate for parsing a log line with a known key=value pair structure like &lt;code&gt;user=jdoe action=login src_ip=10.0.1.5 result=failed&lt;/code&gt;?</text>
+    </questiontext>
+    <answer fraction="0"><text>grok with a complex regex pattern</text></answer>
+    <answer fraction="0"><text>csv with column headers defined</text></answer>
+    <answer fraction="100"><text>kv (key-value) with appropriate split characters</text><feedback><text>Correct. The kv filter is designed for key=value data. It automatically extracts all pairs without writing individual regex for each field.</text></feedback></answer>
+    <answer fraction="0"><text>mutate with field renaming</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q3: Sigma Rule Type Identification</name>
+    <questiontext format="html">
+      <text>A Sigma rule has:&lt;pre&gt;detection:
+  selection:
+    event.outcome: failure
+    event.category: authentication
+  timeframe: 5m
+  condition: selection | count() by source.ip &gt; 10&lt;/pre&gt;What type of correlation rule is this?</text>
+    </questiontext>
+    <answer fraction="0"><text>Single-event rule detecting one specific event</text></answer>
+    <answer fraction="0"><text>Sequence rule requiring events to occur in order</text></answer>
+    <answer fraction="100"><text>Threshold (aggregation) rule counting events over time</text><feedback><text>Correct. The timeframe and count() > 10 syntax defines a threshold rule counting grouped events within 5 minutes — classic brute-force detection.</text></feedback></answer>
+    <answer fraction="0"><text>Behavioral anomaly rule comparing to a baseline</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q4: Sigma Portability Advantage</name>
+    <questiontext format="html">
+      <text>What is the primary advantage of the &lt;b&gt;Sigma rule format&lt;/b&gt; over writing queries directly in a SIEM's native language?</text>
+    </questiontext>
+    <answer fraction="0"><text>Sigma rules execute faster than native SIEM queries</text></answer>
+    <answer fraction="100"><text>Sigma rules can be compiled to multiple SIEM query languages, making rules portable across platforms</text><feedback><text>Correct. Sigma compiles to Splunk SPL, Elastic KQL, Sentinel KQL, Chronicle YARA-L, and many others. Write once, deploy anywhere.</text></feedback></answer>
+    <answer fraction="0"><text>Sigma rules automatically tune themselves to reduce false positives</text></answer>
+    <answer fraction="0"><text>Sigma supports machine learning models that native SIEM languages do not</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q5: Whitelist Creates False Negative</name>
+    <questiontext format="html">
+      <text>A detection rule for domain enumeration fires 500 times/day from IT admins. You add a filter excluding accounts ending in &lt;code&gt;_ops&lt;/code&gt;. An attacker compromises the account &lt;code&gt;network_ops&lt;/code&gt;. What detection failure occurs?</text>
+    </questiontext>
+    <answer fraction="0"><text>False negative — the rule fires but is incorrect</text></answer>
+    <answer fraction="0"><text>False positive — the rule correctly fires on benign activity</text></answer>
+    <answer fraction="100"><text>False negative — the rule fails to fire on a real attack</text><feedback><text>Correct. By whitelisting _ops accounts, you created a blind spot exploitable by attacking those accounts. This illustrates why whitelists require careful review and should be account-specific.</text></feedback></answer>
+    <answer fraction="0"><text>True positive — the rule correctly detects the attack</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q6: UEBA Peer Group Analysis</name>
+    <questiontext format="html">
+      <text>In UEBA (User and Entity Behavior Analytics), what does &lt;b&gt;peer group analysis&lt;/b&gt; mean?</text>
+    </questiontext>
+    <answer fraction="0"><text>Comparing a user's behavior to all other users in the organization</text></answer>
+    <answer fraction="100"><text>Comparing a user's behavior to other users with similar job roles or attributes</text><feedback><text>Correct. Peer group analysis compares within a group of similar users (same department, role, access level) to detect outliers without assuming all users must behave identically.</text></feedback></answer>
+    <answer fraction="0"><text>Requiring two analysts to review every alert before it is actionable</text></answer>
+    <answer fraction="0"><text>Analyzing behavior during non-peak hours only</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q7: 7-Year Log Retention Strategy</name>
+    <questiontext format="html">
+      <text>Which is the BEST approach for managing a 7-year log retention compliance requirement while minimizing storage costs?</text>
+    </questiontext>
+    <answer fraction="0"><text>Store all logs in a single high-performance SSD cluster for 7 years</text></answer>
+    <answer fraction="0"><text>Delete logs older than 90 days and rely on summary reports for compliance</text></answer>
+    <answer fraction="100"><text>Implement tiered storage: hot (0–30 days SSD), warm (31–90 days HDD), cold/archive (91 days–7 years object storage)</text><feedback><text>Correct. Tiered storage matches access frequency to storage cost. Recent logs need fast access for investigations; older compliance-only logs can use cheap object storage where latency is acceptable.</text></feedback></answer>
+    <answer fraction="0"><text>Encrypt and compress all logs into a single archive file annually</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+</quiz>

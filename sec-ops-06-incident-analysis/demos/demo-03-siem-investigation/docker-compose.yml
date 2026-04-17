@@ -1,0 +1,47 @@
+services:
+  splunk:
+    image: splunk/splunk:9.1.2
+    container_name: demo03-splunk
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=SecOps2024!
+      - SPLUNK_APPS_URL=/tmp/apps/demo03-app.tar.gz
+    ports:
+      - "8000:8000"
+      - "8088:8088"
+      - "9997:9997"
+    volumes:
+      - splunk-data:/opt/splunk/var
+      - ./data:/tmp/splunk-data:ro
+      - ./apps:/tmp/apps:ro
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8000/en-US/account/login"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+    networks:
+      - demo03-net
+
+  data-loader:
+    image: python:3.11-slim
+    container_name: demo03-loader
+    depends_on:
+      splunk:
+        condition: service_healthy
+    volumes:
+      - ./data:/data:ro
+      - ./scripts:/scripts:ro
+    environment:
+      - SPLUNK_HOST=splunk
+      - SPLUNK_PORT=8088
+      - SPLUNK_HEC_TOKEN=demo03-hec-token
+    command: ["python3", "/scripts/load_data.py"]
+    networks:
+      - demo03-net
+
+networks:
+  demo03-net:
+    driver: bridge
+
+volumes:
+  splunk-data:

@@ -1,0 +1,22 @@
+{
+  "c9e4e0bd0b45f4f4e5b4e4b2f9d87b3a": {
+    "family": "Cobalt Strike Beacon (default profile)",
+    "severity": "CRITICAL",
+    "references": [
+      "https://github.com/salesforce/ja3",
+      "Cobalt Strike default JA3 profile"
+    ]
+  },
+  "a5b2f81c3d7e4f2b8a9c1e4d6f8b0a2c": {
+    "family": "Custom C2 implant (APT29 TTP - simulated)",
+    "severity": "CRITICAL",
+    "references": [
+      "Simulated for training purposes"
+    ]
+  },
+  "7dc465e8f114a23f3609b2b4a2e2dade": {
+    "family": "Common browser client (Firefox/Chrome variant)",
+    "severity": "BENIGN",
+    "references": []
+  }
+}

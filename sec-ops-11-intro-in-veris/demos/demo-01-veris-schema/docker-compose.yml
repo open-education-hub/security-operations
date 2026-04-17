@@ -1,0 +1,10 @@
+services:
+  veris-explorer:
+    build: .
+    container_name: veris-schema-explorer
+    volumes:
+      - ./samples:/data/samples
+      - ./scripts:/scripts
+    stdin_open: true
+    tty: true
+    command: python /scripts/explore.py

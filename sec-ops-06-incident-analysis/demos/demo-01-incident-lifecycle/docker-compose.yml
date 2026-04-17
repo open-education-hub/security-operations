@@ -1,0 +1,57 @@
+services:
+  logserver:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: demo01-logserver
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=changeme
+      - xpack.security.enabled=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "-u", "elastic:changeme", "http://localhost:9200/_cluster/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    networks:
+      - demo01-net
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: demo01-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://logserver:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=changeme
+    ports:
+      - "5601:5601"
+    depends_on:
+      logserver:
+        condition: service_healthy
+    networks:
+      - demo01-net
+
+  simulator:
+    build:
+      context: ./simulator
+      dockerfile: Dockerfile
+    container_name: demo01-simulator
+    depends_on:
+      logserver:
+        condition: service_healthy
+    volumes:
+      - evidence-data:/evidence
+    environment:
+      - ES_HOST=http://logserver:9200
+      - ES_USER=elastic
+      - ES_PASS=changeme
+    networks:
+      - demo01-net
+
+networks:
+  demo01-net:
+    driver: bridge
+
+volumes:
+  evidence-data:

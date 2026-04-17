@@ -1,0 +1,50 @@
+services:
+
+  soar-api:
+    build:
+      context: .
+      dockerfile: soar/Dockerfile
+    container_name: soar-api
+    ports:
+      - "7000:7000"
+    volumes:
+      - ./soar:/app/soar
+      - ./data:/data
+      - ./reports:/reports
+    environment:
+      - DB_PATH=/data/incidents.db
+      - FLASK_ENV=development
+    networks:
+      - soar-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:7000/api/metrics')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  alert-generator:
+    build:
+      context: ./alert_generator
+    container_name: alert-generator
+    depends_on:
+      soar-api:
+        condition: service_healthy
+    networks:
+      - soar-network
+    environment:
+      - SOAR_API_URL=http://soar-api:7000
+
+  dashboard:
+    image: nginx:alpine
+    container_name: soar-dashboard
+    ports:
+      - "7001:80"
+    volumes:
+      - ./dashboard:/usr/share/nginx/html:ro
+    networks:
+      - soar-network
+
+networks:
+  soar-network:
+    driver: bridge

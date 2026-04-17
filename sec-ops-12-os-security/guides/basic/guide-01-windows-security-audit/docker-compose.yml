@@ -1,0 +1,8 @@
+
+services:
+  win-audit:
+    image: mcr.microsoft.com/powershell:latest
+    container_name: win-security-audit
+    stdin_open: true
+    tty: true
+    command: pwsh

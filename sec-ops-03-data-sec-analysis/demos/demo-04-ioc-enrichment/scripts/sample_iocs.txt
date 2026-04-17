@@ -1,0 +1,21 @@
+# Sample IOCs for batch enrichment — Demo 04
+# Format: type,value
+# Lines starting with # are comments
+
+# Known malicious IPs (pre-loaded in demo MISP)
+ip,185.220.101.5
+ip,203.0.113.50
+
+# Benign IP (for comparison)
+ip,8.8.8.8
+
+# Malicious domains
+domain,update-services.ru
+domain,secure-login-portal.net
+
+# File hashes (SHA256)
+hash,44d88612fea8a8f36de82e1278abb02f3524ec74
+hash,b2d58de3f5a3e9f7c1a8d4b9e6c2f0a1234567890abcdef
+
+# Unknown hash (not in any TI database)
+hash,aabbccddeeff00112233445566778899aabbccddeeff00112233445566778899

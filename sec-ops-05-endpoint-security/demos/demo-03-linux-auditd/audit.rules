@@ -1,0 +1,47 @@
+# ============================================================
+# Demo 03: auditd Security Rules
+# For educational use in Docker-based Linux security demo
+# ============================================================
+
+# Control rules
+-b 8192
+-f 1
+
+# --- Identity / Authentication Changes ---
+-w /etc/passwd -p wa -k identity
+-w /etc/group -p wa -k identity
+-w /etc/shadow -p wa -k identity
+-w /etc/gshadow -p wa -k identity
+-w /etc/sudoers -p wa -k sudoers
+-w /etc/sudoers.d/ -p wa -k sudoers
+
+# --- SSH Configuration and Keys ---
+-w /etc/ssh/sshd_config -p wa -k sshd_config
+-w /root/.ssh/ -p wa -k ssh_keys
+
+# --- Privileged Command Execution ---
+-w /usr/bin/sudo -p x -k privesc
+-w /usr/bin/su -p x -k privesc
+
+# --- Cron Jobs ---
+-w /etc/cron.d/ -p wa -k cron
+-w /etc/cron.daily/ -p wa -k cron
+-w /etc/crontab -p wa -k cron
+-w /var/spool/cron/ -p wa -k cron
+
+# --- Systemd Services ---
+-w /etc/systemd/system/ -p wa -k systemd_unit
+
+# --- System Call: Program Execution ---
+-a always,exit -F arch=b64 -S execve -k exec_64bit
+-a always,exit -F arch=b32 -S execve -k exec_32bit
+
+# --- Network Connections ---
+-a always,exit -F arch=b64 -S connect -k network_connect
+
+# --- Privilege Escalation ---
+-a always,exit -F arch=b64 -S setuid -S setgid -k privesc_syscall
+
+# --- Sensitive File Reads ---
+-a always,exit -F arch=b64 -S open -F path=/etc/passwd -F perm=r -k passwd_read
+-a always,exit -F arch=b64 -S open -F path=/etc/shadow -F perm=r -k shadow_read

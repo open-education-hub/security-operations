@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 10 Final Quiz: Incident Response and Management</name>
+  <intro>15 multiple-choice questions assessing mastery of Session 10 content. Select the single best answer for each question. Pass mark: 10/15 (67%).</intro>
+
+  <question type="multichoice">
+    <name>Q1: Shutdown Error</name>
+    <questiontext format="html">
+      <text>During a ransomware incident response, an analyst shuts down the infected server immediately to "stop the spread." What critical error was made?</text>
+    </questiontext>
+    <answer fraction="0"><text>The server should have been reimaged, not shut down</text></answer>
+    <answer fraction="100"><text>Volatile evidence (RAM contents, active network connections) was permanently destroyed</text><feedback><text>Correct. Immediate shutdown destroys all volatile evidence: active processes, network connections, in-memory malware, and encryption keys that might have enabled recovery.</text></feedback></answer>
+    <answer fraction="0"><text>Shutting down prevents forensic disk imaging</text></answer>
+    <answer fraction="0"><text>The action violated chain of custody requirements</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q2: GDPR 72h Deadline</name>
+    <questiontext format="html">
+      <text>You confirmed a personal data breach at 14:00 UTC on Monday. The GDPR 72-hour notification deadline expires at:</text>
+    </questiontext>
+    <answer fraction="0"><text>14:00 UTC on Tuesday</text></answer>
+    <answer fraction="0"><text>14:00 UTC on Wednesday</text></answer>
+    <answer fraction="100"><text>14:00 UTC on Thursday</text><feedback><text>Correct. 72 hours from Monday 14:00 UTC = Thursday 14:00 UTC. Note: weekends are not excluded — this is calendar hours.</text></feedback></answer>
+    <answer fraction="0"><text>14:00 UTC on the following Monday</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q3: Containment vs Eradication</name>
+    <questiontext format="html">
+      <text>What distinguishes "eradication" from "containment" in the NIST IR framework?</text>
+    </questiontext>
+    <answer fraction="0"><text>Containment addresses network threats; eradication addresses host threats</text></answer>
+    <answer fraction="0"><text>Containment is performed by Tier 1; eradication by Tier 3</text></answer>
+    <answer fraction="100"><text>Containment stops the spread; eradication removes the threat from the environment</text><feedback><text>Correct. Containment limits the blast radius and stops active damage. Eradication then removes all attacker footholds, malware, and persistence mechanisms.</text></feedback></answer>
+    <answer fraction="0"><text>There is no meaningful difference — the terms are interchangeable in NIST</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q4: 5 Whys Technique</name>
+    <questiontext format="html">
+      <text>In a post-incident review, the "5 Whys" technique is used to:</text>
+    </questiontext>
+    <answer fraction="0"><text>Identify the 5 most important action items</text></answer>
+    <answer fraction="0"><text>Rank the 5 analysts who responded to the incident</text></answer>
+    <answer fraction="0"><text>Document the 5 MITRE ATT&amp;CK techniques used by the attacker</text></answer>
+    <answer fraction="100"><text>Identify the root cause of an incident by asking "why?" repeatedly until a systemic cause is found</text><feedback><text>Correct. The 5 Whys technique traces symptoms back to systemic root causes, avoiding the trap of "the user clicked a phishing link" as a root cause.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q5: Ransomware Backup Server</name>
+    <questiontext format="html">
+      <text>A hospital's backup server is actively encrypting files in a ransomware incident. Your first action should be:</text>
+    </questiontext>
+    <answer fraction="0"><text>Attempt to decrypt the files using the ransomware recovery tool</text></answer>
+    <answer fraction="0"><text>Pay the ransom immediately to protect patient data</text></answer>
+    <answer fraction="0"><text>Wait for the encryption to finish before assessing</text></answer>
+    <answer fraction="100"><text>Immediately isolate the backup server from the network</text><feedback><text>Correct. The backup server must be isolated immediately to prevent further encryption and to preserve any remaining clean backups that are the primary recovery mechanism.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q6: Incident Commander Role</name>
+    <questiontext format="html">
+      <text>An IR manager designates an "Incident Commander" for a P1 incident. The Incident Commander's primary role is:</text>
+    </questiontext>
+    <answer fraction="0"><text>Performing the malware analysis and reverse engineering</text></answer>
+    <answer fraction="0"><text>Writing all the forensic collection commands</text></answer>
+    <answer fraction="100"><text>Coordinating the response, managing communication, and making decisions — not performing technical tasks</text><feedback><text>Correct. The Incident Commander manages people and information flow, makes escalation decisions, and communicates status. Technical work is done by the analysts.</text></feedback></answer>
+    <answer fraction="0"><text>Handling all external communications with regulators and media</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q7: Benign True Positive</name>
+    <questiontext format="html">
+      <text>Which correctly describes a "Benign True Positive" in incident classification?</text>
+    </questiontext>
+    <answer fraction="0"><text>A detection rule that fired incorrectly — no real threat exists</text></answer>
+    <answer fraction="0"><text>A confirmed attack that was successfully blocked with no impact</text></answer>
+    <answer fraction="0"><text>A real attack that an analyst failed to detect</text></answer>
+    <answer fraction="100"><text>A detection rule that correctly identified real activity, but the activity was authorized (e.g., a pentest)</text><feedback><text>Correct. Benign TP means the detection is accurate but the activity is legitimate/authorized. This is different from a False Positive where the rule itself is incorrect.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q8: Volatility malfind and MZ Header</name>
+    <questiontext format="html">
+      <text>An analyst runs the Volatility command `windows.malfind` and finds a memory region in explorer.exe starting with bytes `4D 5A`. What does this most likely indicate?</text>
+    </questiontext>
+    <answer fraction="0"><text>explorer.exe is corrupt and should be replaced</text></answer>
+    <answer fraction="0"><text>The memory region contains network traffic data</text></answer>
+    <answer fraction="100"><text>A Windows PE (Portable Executable) has been injected into explorer.exe — a strong indicator of process injection</text><feedback><text>Correct. 4D 5A is the MZ header signature of a Windows PE file. Finding this in a memory region not backed by a file on disk indicates code injection, a common malware technique.</text></feedback></answer>
+    <answer fraction="0"><text>The system has a legitimate Windows update running in the background</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q9: GDPR 72h Deadline Calculation</name>
+    <questiontext format="html">
+      <text>A company in Poland confirms a personal data breach on Tuesday at 10:00 UTC. Under GDPR Art. 33, by when must they notify the supervisory authority?</text>
+    </questiontext>
+    <answer fraction="0"><text>Wednesday 10:00 UTC</text></answer>
+    <answer fraction="0"><text>Thursday 22:00 UTC</text></answer>
+    <answer fraction="100"><text>Friday 10:00 UTC</text><feedback><text>Correct. 72 hours from Tuesday 10:00 UTC = Friday 10:00 UTC. GDPR does not exclude weekends — it is calendar hours from time of awareness.</text></feedback></answer>
+    <answer fraction="0"><text>The following Monday 10:00 UTC</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q10: Persistence Detection via Event Log</name>
+    <questiontext format="html">
+      <text>Which Windows forensic artifact would reveal that a scheduled task was recently created for persistence on a Windows system?</text>
+    </questiontext>
+    <answer fraction="0"><text>Browser history</text></answer>
+    <answer fraction="0"><text>Prefetch files in C:\Windows\Prefetch</text></answer>
+    <answer fraction="100"><text>Windows Security Event Log — Event ID 4698 (a scheduled task was created)</text><feedback><text>Correct. Windows Event ID 4698 logs scheduled task creation with details about the task name, path, and the account that created it. This is a critical forensic artifact for detecting persistence.</text></feedback></answer>
+    <answer fraction="0"><text>LSASS memory dump</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q11: APT Containment Strategy</name>
+    <questiontext format="html">
+      <text>A security team confirms an APT actor is present on one workstation and is not yet aware of being detected. What is often the BEST initial containment strategy?</text>
+    </questiontext>
+    <answer fraction="0"><text>Immediately shut down all systems across the organization to eliminate the threat</text></answer>
+    <answer fraction="0"><text>Block all internet access at the perimeter firewall immediately</text></answer>
+    <answer fraction="100"><text>Consider passive monitoring to gather threat intelligence before containment, as the attacker's unawareness is a time-limited intelligence opportunity</text><feedback><text>Correct. For sophisticated APT actors, passive monitoring can reveal additional compromised hosts, C2 channels, and attacker capabilities. Premature containment may cause the attacker to activate dormant implants or destroy evidence.</text></feedback></answer>
+    <answer fraction="0"><text>Notify the attacker via their C2 server to cease operations</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q12: NIS2 Notification Sequence</name>
+    <questiontext format="html">
+      <text>Under NIS2, an essential entity discovers a major incident on Monday morning. What is the correct notification sequence?</text>
+    </questiontext>
+    <answer fraction="0"><text>Single notification within 72 hours; no final report required</text></answer>
+    <answer fraction="0"><text>24-hour notification only; no further reporting needed</text></answer>
+    <answer fraction="0"><text>Notify regulators only if customer personal data is confirmed to have been accessed</text></answer>
+    <answer fraction="100"><text>Early warning within 24 hours, full incident notification within 72 hours, final report within 1 month</text><feedback><text>Correct. NIS2 Article 23 establishes a three-stage reporting process: early warning (24h), full notification (72h), and a final post-incident report (1 month). This applies regardless of whether personal data was accessed.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q13: Linux Persistence Detection</name>
+    <questiontext format="html">
+      <text>When investigating a Linux system for attacker persistence, which commands would help identify unauthorized cron jobs?</text>
+    </questiontext>
+    <answer fraction="0"><text>ls -la /etc/hosts and cat /etc/resolv.conf</text></answer>
+    <answer fraction="0"><text>netstat -antp and ss -antp</text></answer>
+    <answer fraction="100"><text>crontab -l (for each user) and ls -la /etc/cron*</text><feedback><text>Correct. crontab -l lists scheduled jobs for the current user (or any user with -u flag). /etc/cron* directories contain system-level scheduled tasks. Both are common attacker persistence locations on Linux.</text></feedback></answer>
+    <answer fraction="0"><text>ps auxf and top</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q14: PCI-DSS Notification with Partial Card Data</name>
+    <questiontext format="html">
+      <text>A company stores only the last 4 digits of credit card numbers (not the full PAN). Their cardholder data environment servers are ransomware-encrypted. Must they notify their acquiring bank under PCI-DSS?</text>
+    </questiontext>
+    <answer fraction="0"><text>No — partial card data (last 4 digits) is not defined as cardholder data under PCI-DSS</text></answer>
+    <answer fraction="0"><text>No — only organizations storing full card numbers must notify</text></answer>
+    <answer fraction="0"><text>Yes — but only if more than 1,000 cards are affected</text></answer>
+    <answer fraction="100"><text>Yes — any suspected compromise of a cardholder data environment triggers PCI-DSS notification, regardless of what data is stored</text><feedback><text>Correct. PCI-DSS notification is triggered by compromise of the cardholder data environment (CDE), not only by confirmed access to full card numbers. The acquiring bank must be notified immediately upon confirmed or suspected compromise.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q15: Blameless PIR Culture</name>
+    <questiontext format="html">
+      <text>What is the key principle behind a "blameless" post-incident review (PIR) culture?</text>
+    </questiontext>
+    <answer fraction="0"><text>No one should ever be held accountable for incident response failures, regardless of circumstances</text></answer>
+    <answer fraction="0"><text>Only external attackers, not internal staff, can be considered responsible for incidents</text></answer>
+    <answer fraction="0"><text>Employees should not be informed of security incidents to prevent panic</text></answer>
+    <answer fraction="100"><text>Incidents are treated as system and process failures — focus is on improving processes rather than punishing individuals who acted in good faith</text><feedback><text>Correct. Blameless culture recognizes that people operate within systems. If a system allows mistakes, fixing the system prevents recurrence. Blame-focused culture causes staff to hide errors, preventing organizational learning. Note: blameless ≠ consequence-free for deliberate policy violations.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+</quiz>

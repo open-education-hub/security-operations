@@ -1,0 +1,132 @@
+
+networks:
+  zeek-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24
+
+volumes:
+  zeek-logs:
+
+services:
+
+  # ─────────────────────────────────────────────────────────────
+  # PCAP analysis: run Zeek against a PCAP file and exit
+  # Usage: docker compose run --rm zeek-analyse
+  # ─────────────────────────────────────────────────────────────
+  zeek-analyse:
+    image: zeek/zeek:latest
+    container_name: zeek-analyse
+    volumes:
+      - ./pcap:/pcap:ro
+      - ./logs:/logs
+      - ./scripts:/scripts:ro
+    working_dir: /logs
+    command: >
+      sh -c "
+        echo 'Zeek version:' && zeek --version &&
+        echo 'Analysing PCAP: /pcap/sample.pcap' &&
+        zeek -C -r /pcap/sample.pcap
+        /opt/zeek/share/zeek/base/protocols/http
+        /opt/zeek/share/zeek/base/protocols/dns
+        /opt/zeek/share/zeek/base/protocols/ssl
+        /opt/zeek/share/zeek/base/frameworks/files &&
+        echo 'Analysis complete. Logs written to /logs/' &&
+        ls -lah /logs/
+      "
+    profiles:
+      - analyse
+
+  # ─────────────────────────────────────────────────────────────
+  # Interactive shell: explore Zeek logs interactively
+  # Usage: docker compose run --rm zeek-shell
+  # ─────────────────────────────────────────────────────────────
+  zeek-shell:
+    image: zeek/zeek:latest
+    container_name: zeek-shell
+    volumes:
+      - ./pcap:/pcap:ro
+      - ./logs:/logs
+      - ./scripts:/scripts:ro
+    entrypoint: ["sh"]
+    stdin_open: true
+    tty: true
+    profiles:
+      - shell
+
+  # ─────────────────────────────────────────────────────────────
+  # Traffic generator: produces HTTP and DNS traffic
+  # ─────────────────────────────────────────────────────────────
+  generate-traffic:
+    image: alpine:3.18
+    container_name: zeek-traffic-gen
+    networks:
+      zeek-net:
+        ipv4_address: 172.21.0.10
+    depends_on:
+      - web-server
+    command: >
+      sh -c "
+        apk add --no-cache curl wget bind-tools 2>/dev/null &&
+        sleep 5 &&
+        echo 'Generating traffic...' &&
+        while true; do
+          curl -s -o /dev/null http://web-server/ &&
+          curl -s -o /dev/null http://web-server/index.html &&
+          curl -s -o /dev/null http://web-server/api/data &&
+          nslookup example.com 172.21.0.11 2>/dev/null &&
+          nslookup github.com 172.21.0.11 2>/dev/null &&
+          nslookup nonexistent.random.domain 172.21.0.11 2>/dev/null &&
+          sleep 3;
+        done
+      "
+    profiles:
+      - live
+
+  # Simple web server for generating traffic
+  web-server:
+    image: nginx:alpine
+    container_name: zeek-web-server
+    networks:
+      zeek-net:
+        ipv4_address: 172.21.0.2
+    profiles:
+      - live
+
+  # Simple DNS server (dnsmasq) for generating DNS traffic
+  dns-server:
+    image: andyshinn/dnsmasq:latest
+    container_name: zeek-dns-server
+    networks:
+      zeek-net:
+        ipv4_address: 172.21.0.11
+    cap_add:
+      - NET_ADMIN
+    command: --no-daemon --log-queries
+    profiles:
+      - live
+
+  # ─────────────────────────────────────────────────────────────
+  # Live Zeek sensor: monitors zeek-net interface
+  # ─────────────────────────────────────────────────────────────
+  zeek-live:
+    image: zeek/zeek:latest
+    container_name: zeek-live-sensor
+    network_mode: "service:web-server"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./logs:/logs
+      - ./scripts:/scripts:ro
+    working_dir: /logs
+    command: >
+      sh -c "
+        echo 'Starting live Zeek monitoring on eth0...' &&
+        zeek -i eth0 -C
+      "
+    depends_on:
+      - web-server
+    profiles:
+      - live

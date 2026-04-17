@@ -1,0 +1,39 @@
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    environment:
+      - SERVICES=s3,iam,cloudtrail,sts
+      - DEFAULT_REGION=eu-west-1
+      - AWS_DEFAULT_REGION=eu-west-1
+    ports:
+      - "4566:4566"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  setup:
+    build: .
+    depends_on:
+      localstack:
+        condition: service_healthy
+    environment:
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=eu-west-1
+    command: bash /scripts/setup_environment.sh
+    restart: "no"
+
+  audit-tools:
+    build: .
+    depends_on:
+      - setup
+    environment:
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=eu-west-1
+    stdin_open: true
+    tty: true
+    command: bash

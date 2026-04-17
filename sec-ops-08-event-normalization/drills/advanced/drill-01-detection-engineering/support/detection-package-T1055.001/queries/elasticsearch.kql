@@ -1,0 +1,25 @@
+// Elasticsearch EQL Query for T1055.001 — DLL Injection via CreateRemoteThread
+// Security Operations Course - Session 08, Drill 01
+//
+// [STUDENT TASK]
+// Compile your Sigma rule to EQL (Event Query Language for Elastic).
+// You can use sigma-cli:
+//   sigma convert -t elasticsearch-eql rules/primary-detection.yml
+//
+// Or write it manually. EQL allows sequence detection for correlated events.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Primary detection: Single CreateRemoteThread event
+any where event.code == "8"
+  and process.name != null
+  and not process.executable like~ "*devenv.exe*"
+  and not process.executable like~ "*MsMpEng.exe*"
+  and not process.executable like~ "*java.exe*"
+  /* [STUDENT TASK: Add your other exclusions] */
+
+// Advanced: Sequence detection — OpenProcess followed by CreateRemoteThread
+// (higher confidence, lower false positive rate)
+// [STUDENT TASK: Write a sequence query combining your two rules]
+// sequence by host.name, winlog.process.pid
+//   [any where event.code == "10" and ...]  <- OpenProcess (supporting rule)
+//   [any where event.code == "8"  and ...]  <- CreateRemoteThread (primary rule)

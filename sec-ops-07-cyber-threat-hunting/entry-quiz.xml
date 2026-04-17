@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 07 Entry Quiz: Cyber Threat Hunting and Intelligence Gathering</name>
+  <description>Baseline assessment quiz for Session 07. 5 multiple choice questions covering fundamental concepts.</description>
+
+  <question type="multichoice">
+    <name>
+      <text>Entry Q1: Threat Hunting vs Reactive Operations</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What is the primary distinction between threat hunting and reactive security operations (e.g., responding to SIEM alerts)?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.25</penalty>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0">
+      <text>Threat hunting uses more expensive tools than reactive operations.</text>
+      <feedback><text>The distinction is not about cost. Both approaches use similar tools; the difference is in methodology and mindset.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Threat hunting proactively searches for threats assuming they may already be present, while reactive operations wait for automated alerts to trigger before investigating.</text>
+      <feedback><text>Correct. The defining characteristic is proactivity — hunters start from the assumption that adversaries may already be inside and actively seek evidence rather than waiting for automated systems to alert.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Threat hunting is fully automated, while reactive operations require human analysts.</text>
+      <feedback><text>This is the opposite of reality. Threat hunting is fundamentally human-driven and hypothesis-based, while reactive operations rely heavily on automated alerting.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Threat hunting only works on endpoint data, while reactive operations use network data.</text>
+      <feedback><text>Incorrect. Threat hunting uses all available data sources — endpoint, network, cloud, and authentication logs — depending on the hypothesis being tested.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Entry Q2: ATT&CK Tactics</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>In the MITRE ATT&CK framework, what does a "Tactic" represent?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.25</penalty>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0">
+      <text>A specific implementation of an attack technique by a named threat actor.</text>
+      <feedback><text>That describes a "Procedure" in ATT&CK terminology — the specific observed implementation by a particular group.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>The adversary's high-level goal or objective at a particular phase of the attack (e.g., Initial Access, Persistence).</text>
+      <feedback><text>Correct. Tactics represent the "why" — the adversary's tactical objective. Examples include Initial Access, Persistence, Lateral Movement, and Exfiltration.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A specific technical method used to achieve a goal, such as using PowerShell for execution.</text>
+      <feedback><text>That describes a "Technique" in ATT&CK — the specific "how." PowerShell would be T1059.001 (Command and Scripting Interpreter: PowerShell), a technique under the Execution tactic.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A malware family associated with a specific threat actor group.</text>
+      <feedback><text>Malware families are listed under "Software" in ATT&CK. Tactics are the high-level goals of the adversary during an attack.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Entry Q3: IOC Definition</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What does IOC stand for, and which of the following is the BEST example of one?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.25</penalty>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0">
+      <text>Indicator of Concern; an unusual spike in failed login attempts</text>
+      <feedback><text>"Indicator of Concern" is not the correct expansion. An unusual login spike is a behavioral anomaly, not an IOC.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Indicator of Compromise; a SHA256 hash of a confirmed malware file</text>
+      <feedback><text>Correct. IOC = Indicator of Compromise. File hashes are classic IOCs — specific artifacts that definitively identify a threat has been present. Other examples include IP addresses, domains, and registry keys.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Index of Capabilities; a list of ATT&CK techniques used by a threat actor</text>
+      <feedback><text>"Index of Capabilities" is not a standard security term. A list of ATT&CK techniques describes an actor's TTP profile.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Indicator of Compromise; a behavioral pattern such as PowerShell making outbound connections</text>
+      <feedback><text>While "Indicator of Compromise" is correct, the example given is actually an Indicator of Attack (IOA) — it describes behavior, not a specific artifact. IOCs are specific artifacts; IOAs describe patterns of behavior.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Entry Q4: TLP:AMBER Sharing Policy</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>You receive a threat intelligence report marked <strong>TLP:AMBER</strong>. According to the Traffic Light Protocol, who can you legally share this information with?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.25</penalty>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0">
+      <text>Anyone in the global security community, as amber means "proceed with caution."</text>
+      <feedback><text>TLP:AMBER is not public. The "amber" color does not mean proceed with caution in the TLP context — it specifically restricts distribution to an organization and its direct clients.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Only the original source organization that sent you the report.</text>
+      <feedback><text>That is closer to TLP:RED behavior. TLP:AMBER permits wider sharing within your organization and with clients.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Members of your own organization and clients who have a direct need to know.</text>
+      <feedback><text>Correct. TLP:AMBER permits sharing within your organization and with clients on a need-to-know basis. It does not permit public sharing or sharing with the broader security community.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Any organization within your country, as TLP:AMBER is limited by national borders.</text>
+      <feedback><text>TLP is not limited by national borders. It is a content-based restriction regardless of geography. TLP:AMBER restricts by relationship (your org + clients), not by country.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Entry Q5: MISP Platform</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which of the following tools is specifically designed as an open-source platform for sharing, storing, and correlating threat intelligence indicators?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.25</penalty>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0">
+      <text>Splunk</text>
+      <feedback><text>Splunk is a SIEM and data analytics platform. While it can consume threat intelligence, it is not a threat intelligence platform itself.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Velociraptor</text>
+      <feedback><text>Velociraptor is a digital forensics and incident response (DFIR) platform for endpoint hunting. It does not manage or share threat intelligence.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>MISP (Malware Information Sharing Platform)</text>
+      <feedback><text>Correct. MISP is specifically designed as a threat intelligence platform for storing, correlating, and sharing indicators across organizations. It is widely used by ISACs, national CERTs, and enterprises worldwide.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Osquery</text>
+      <feedback><text>Osquery is an endpoint query tool that exposes operating system state as a SQL-like database. It is used for endpoint hunting and monitoring, not threat intelligence sharing.</text></feedback>
+    </answer>
+  </question>
+
+</quiz>

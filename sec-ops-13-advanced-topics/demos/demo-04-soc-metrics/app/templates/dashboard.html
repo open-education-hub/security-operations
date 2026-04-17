@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SOC Metrics Dashboard</title>
+<style>
+  body { background: #0d1117; color: #c9d1d9; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; }
+  h1 { color: #e6edf3; font-size: 24px; margin-bottom: 4px; }
+  .subtitle { color: #8b949e; font-size: 13px; margin-bottom: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+  .card.good { border-color: #56d364; }
+  .card.warn { border-color: #e3b341; }
+  .card.bad  { border-color: #ff7b72; }
+  .card-label { font-size: 12px; color: #8b949e; margin-bottom: 8px; }
+  .card-value { font-size: 28px; font-weight: bold; color: #e6edf3; }
+  .card-unit  { font-size: 13px; color: #8b949e; }
+  .card-sub   { font-size: 11px; color: #8b949e; margin-top: 6px; }
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .chart-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; }
+  .chart-title { font-size: 14px; font-weight: bold; color: #e6edf3; margin-bottom: 12px; }
+  canvas { width: 100%; }
+  .bottom { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  td, th { padding: 6px 10px; border-bottom: 1px solid #21262d; text-align: left; }
+  th { color: #8b949e; font-weight: normal; }
+  .sev-critical { color: #ff7b72; }
+  .sev-high     { color: #ffa657; }
+  .sev-medium   { color: #e3b341; }
+  .sev-low      { color: #56d364; }
+  .sev-info     { color: #8b949e; }
+  .bar-bg { background: #21262d; border-radius: 4px; height: 10px; }
+  .bar-fill { height: 10px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<h1>SOC Operations Dashboard</h1>
+<div class="subtitle">Session 13 Demo — 30-day metrics simulation | Last updated: Day 30</div>
+
+<!-- KPI Cards -->
+<div class="grid">
+  <div class="card good">
+    <div class="card-label">Mean Time to Detect (MTTD)</div>
+    <div class="card-value">{{ metrics.current_mttd }}<span class="card-unit"> h</span></div>
+    <div class="card-sub">Target: &lt;8h &nbsp;|&nbsp; Was: 12.0h (30 days ago)</div>
+  </div>
+  <div class="card warn">
+    <div class="card-label">Mean Time to Respond (MTTR)</div>
+    <div class="card-value">{{ metrics.current_mttr }}<span class="card-unit"> h</span></div>
+    <div class="card-sub">Target: &lt;6h &nbsp;|&nbsp; Was: 18.0h (30 days ago)</div>
+  </div>
+  <div class="card warn">
+    <div class="card-label">False Positive Rate</div>
+    <div class="card-value">{{ metrics.current_fpr }}<span class="card-unit"> %</span></div>
+    <div class="card-sub">Target: &lt;20% &nbsp;|&nbsp; Was: 55% (30 days ago)</div>
+  </div>
+  <div class="card">
+    <div class="card-label">ATT&amp;CK Detection Coverage</div>
+    <div class="card-value">{{ metrics.attack_coverage }}<span class="card-unit"> %</span></div>
+    <div class="card-sub">{{ metrics.covered_techniques }} / {{ metrics.total_techniques }} techniques</div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Alerts Today</div>
+    <div class="card-value">{{ metrics.today_alerts }}</div>
+    <div class="card-sub">All sources</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Confirmed Incidents Today</div>
+    <div class="card-value">{{ metrics.today_incidents }}</div>
+    <div class="card-sub">After FP filtering</div>
+  </div>
+  <div class="card bad">
+    <div class="card-label">Day 20 Alert Spike</div>
+    <div class="card-value">×2.5</div>
+    <div class="card-sub">Possible attack or misconfigured rule</div>
+  </div>
+  <div class="card good">
+    <div class="card-label">30-day MTTD Improvement</div>
+    <div class="card-value">{{ (12.0 - metrics.current_mttd)|round(1) }}<span class="card-unit"> h</span></div>
+    <div class="card-sub">Sustained improvement trend</div>
+  </div>
+</div>
+
+<!-- Charts -->
+<div class="charts">
+  <div class="chart-card">
+    <div class="chart-title">MTTD &amp; MTTR Trend (30 days, hours)</div>
+    <canvas id="mttdChart" height="180"></canvas>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Alert Volume by Source (30 days)</div>
+    <canvas id="alertChart" height="180"></canvas>
+  </div>
+</div>
+
+<div class="charts">
+  <div class="chart-card">
+    <div class="chart-title">False Positive Rate Trend (%)</div>
+    <canvas id="fprChart" height="160"></canvas>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Daily Confirmed Incidents</div>
+    <canvas id="incidentChart" height="160"></canvas>
+  </div>
+</div>
+
+<!-- Bottom row -->
+<div class="bottom">
+  <div class="chart-card">
+    <div class="chart-title">Incident Severity (Last 7 Days)</div>
+    <table>
+      <tr><th>Severity</th><th>Count</th><th>Bar</th></tr>
+      {% for level, count in metrics.severity.items() %}
+      <tr>
+        <td class="sev-{{ level.lower() }}">{{ level }}</td>
+        <td>{{ count }}</td>
+        <td><div class="bar-bg"><div class="bar-fill" style="width:{{ [count, 200]|min / 2 }}px; background:{% if level=='Critical' %}#ff7b72{% elif level=='High' %}#ffa657{% elif level=='Medium' %}#e3b341{% elif level=='Low' %}#56d364{% else %}#8b949e{% endif %};"></div></div></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">KPI Assessment</div>
+    <table>
+      <tr><th>Metric</th><th>Value</th><th>Status</th></tr>
+      <tr><td>MTTD</td><td>{{ metrics.current_mttd }}h</td><td style="color:#56d364">Good</td></tr>
+      <tr><td>MTTR</td><td>{{ metrics.current_mttr }}h</td><td style="color:#e3b341">Improving</td></tr>
+      <tr><td>FPR</td><td>{{ metrics.current_fpr }}%</td><td style="color:#e3b341">Needs work</td></tr>
+      <tr><td>Coverage</td><td>{{ metrics.attack_coverage }}%</td><td style="color:#ffa657">Medium</td></tr>
+    </table>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Improvement Priorities</div>
+    <table>
+      <tr><th>#</th><th>Action</th></tr>
+      <tr><td>1</td><td>Reduce FPR: tune top 3 noisy rules</td></tr>
+      <tr><td>2</td><td>MTTR: automate triage for low severity</td></tr>
+      <tr><td>3</td><td>Coverage: add cloud CSPM detections</td></tr>
+      <tr><td>4</td><td>Purple team Day 20 spike technique</td></tr>
+    </table>
+  </div>
+</div>
+
+<script>
+const M = {{ metrics_json | safe }};
+const labels = M.day_labels;
+
+function miniChart(canvasId, datasets, color_list, yLabel) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 500;
+  const H = canvas.height;
+  canvas.width = W;
+  ctx.fillStyle = '#161b22';
+  ctx.fillRect(0, 0, W, H);
+
+  const pad = {top: 20, bottom: 30, left: 40, right: 10};
+  const cW = W - pad.left - pad.right;
+  const cH = H - pad.top - pad.bottom;
+
+  let allVals = datasets.flatMap(d => d.data);
+  const minV = Math.min(...allVals) * 0.9;
+  const maxV = Math.max(...allVals) * 1.1;
+
+  // Axes
+  ctx.strokeStyle = '#30363d';
+  ctx.beginPath();
+  ctx.moveTo(pad.left, pad.top);
+  ctx.lineTo(pad.left, pad.top + cH);
+  ctx.lineTo(pad.left + cW, pad.top + cH);
+  ctx.stroke();
+
+  // Y labels
+  ctx.fillStyle = '#8b949e';
+  ctx.font = '10px Arial';
+  ctx.textAlign = 'right';
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.top + cH - (i / 4) * cH;
+    const v = minV + (i / 4) * (maxV - minV);
+    ctx.fillText(v.toFixed(0), pad.left - 4, y + 3);
+    ctx.strokeStyle = '#21262d';
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(pad.left + cW, y);
+    ctx.stroke();
+  }
+
+  // Lines
+  datasets.forEach((ds, di) => {
+    ctx.strokeStyle = color_list[di];
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ds.data.forEach((v, i) => {
+      const x = pad.left + (i / (ds.data.length - 1)) * cW;
+      const y = pad.top + cH - ((v - minV) / (maxV - minV)) * cH;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    // Legend
+    ctx.fillStyle = color_list[di];
+    ctx.fillRect(pad.left + di * 120, 4, 12, 8);
+    ctx.fillStyle = '#c9d1d9';
+    ctx.textAlign = 'left';
+    ctx.fillText(ds.label, pad.left + di * 120 + 16, 12);
+  });
+}
+
+window.onload = function() {
+  miniChart('mttdChart',
+    [{label:'MTTD (h)', data:M.mttd_trend}, {label:'MTTR (h)', data:M.mttr_trend}],
+    ['#58a6ff', '#ffa657']);
+
+  // Stacked alert volumes — just show total
+  miniChart('alertChart',
+    M.sources.map((src, i) => ({label: src, data: M.alert_volume[src]})),
+    ['#58a6ff','#56d364','#e3b341','#d2a8ff']);
+
+  miniChart('fprChart',
+    [{label:'FPR (%)', data:M.fpr_trend}],
+    ['#ff7b72']);
+
+  miniChart('incidentChart',
+    [{label:'Incidents/day', data:M.incidents}],
+    ['#e3b341']);
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 04 Final Practice Quiz — Cryptography Short and Long Answer</name>
+  <description>Practice quiz with 5 short answer (4 pts each) and 2 long answer (15 pts each) questions. Total: 50 points. 45 minutes. Instructor-graded.</description>
+
+  <question type="essay">
+    <name>Practice Q1: Padding Oracle Attack</name>
+    <questiontext format="html">
+      <text><![CDATA[
+<p><strong>Short Answer (4 points)</strong></p>
+<p>Explain what a <strong>padding oracle attack</strong> is and name one TLS vulnerability that exploited this type of attack.</p>
+<p><em>Answer in 2–3 sentences.</em></p>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>5</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+<p><strong>Grading Rubric (4 points):</strong></p>
+<ul>
+<li><strong>2 points:</strong> Correct explanation — a padding oracle is a system response (valid/invalid padding) that allows an attacker to decrypt ciphertext byte by byte by sending modified ciphertexts and observing whether decryption yields valid padding.</li>
+<li><strong>2 points:</strong> Correctly naming one relevant attack: POODLE (SSL 3.0), BEAST (TLS 1.0), Lucky13, or similar CBC padding oracle attack.</li>
+</ul>
+<p><strong>Model answer:</strong> A padding oracle attack exploits a system that reveals whether decrypted data has valid padding, allowing iterative byte-by-byte decryption without knowing the key. By submitting modified ciphertexts and using valid/invalid responses as an oracle, an attacker can recover plaintext one byte at a time. POODLE (2014) exploited this against SSL 3.0's CBC mode to decrypt session cookies.</p>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>Practice Q2: Collision vs Preimage</name>
+    <questiontext format="html">
+      <text><![CDATA[
+<p><strong>Short Answer (4 points)</strong></p>
+<p>What is the difference between a <strong>hash collision</strong> and a <strong>preimage attack</strong>? Which is harder to achieve, and why does this matter for SHA-256 security?</p>
+<p><em>Answer in 2–3 sentences.</em></p>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>5</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+<p><strong>Grading Rubric (4 points):</strong></p>
+<ul>
+<li><strong>2 points:</strong> Correct definitions — collision: find any M1≠M2 with H(M1)=H(M2); preimage: given h, find M such that H(M)=h.</li>
+<li><strong>2 points:</strong> Preimage is harder (2^n vs 2^(n/2) for collision); SHA-256 collision resistance ~2^128, preimage ~2^256.</li>
+</ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>Practice Q3: Encrypted Traffic Analysis</name>
+    <questiontext format="html">
+      <text><![CDATA[
+<p><strong>Short Answer (4 points)</strong></p>
+<p>You are a SOC analyst observing encrypted HTTPS traffic from a workstation to an external IP. You <strong>cannot</strong> see the payload. List <strong>three specific pieces of information</strong> you CAN obtain from TLS metadata that might indicate malicious activity.</p>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>6</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+<p><strong>Grading Rubric (4 points):</strong></p>
+<p>4 points for any three valid, specific answers (not generic). Examples:</p>
+<ul>
+<li>SNI (domain name in ClientHello) — reveals target domain</li>
+<li>JA3 fingerprint — identifies TLS client implementation, matches known malware</li>
+<li>Certificate details (age, issuer, self-signed) — suspicious cert attributes</li>
+<li>Beaconing pattern (regular intervals) — automated C2 check-in behavior</li>
+<li>Data volume asymmetry (much more outbound than inbound) — exfiltration indicator</li>
+<li>TLS version (1.0/1.1 in use) — deprecated, possible downgrade</li>
+</ul>
+<p>Partial credit: 1 point each for 2 correct answers; 0 for generic answers like "IP address" only.</p>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>Practice Q4: Bits of Security</name>
+    <questiontext format="html">
+      <text><![CDATA[
+<p><strong>Short Answer (4 points)</strong></p>
+<p>RSA-2048 is described as providing "112-bit security." What does <strong>"bits of security"</strong> mean, and why does a 2048-bit RSA key only provide 112 bits of security (not 2048)?</p>
+<p><em>Answer in 2–3 sentences.</em></p>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>5</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+<p><strong>Grading Rubric (4 points):</strong></p>
+<ul>
+<li><strong>2 points:</strong> "Bits of security" = approximately 2^n operations required to break the system.</li>
+<li><strong>2 points:</strong> RSA attack works by factoring the modulus using GNFS (sub-exponential algorithm), not by trying all 2^2048 keys; for 2048-bit modulus, GNFS takes ~2^112 operations.</li>
+</ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>Practice Q5: Certificate Transparency</name>
+    <questiontext format="html">
+      <text><![CDATA[
+<p><strong>Short Answer (4 points)</strong></p>
+<p>What is <strong>Certificate Transparency (CT)</strong>? Give one specific way a SOC team can use CT logs for threat detection.</p>
+<p><em>Answer in 2–3 sentences.</em></p>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>5</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+<p><strong>Grading Rubric (4 points):</strong></p>
+<ul>
+<li><strong>2 points:</strong> CT is a public log system where all trusted CAs must submit every certificate issued, creating an auditable, tamper-evident record.</li>
+<li><strong>2 points:</strong> Valid SOC use case: phishing detection (monitor for typosquats), unauthorized cert detection (new cert for *.yourdomain.com not issued by your team), attack surface discovery (enumerate subdomains).</li>
+</ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>Practice Q6: HTTPS Limitations and TLS Inspection</name>
+    <questiontext format="html">
+      <text><![CDATA[
+<p><strong>Long Answer (15 points)</strong></p>
+<p>A colleague argues: <em>"We use HTTPS everywhere — that means our organization's network traffic is secure and private. Even if the network is compromised, attackers can't see what our employees are doing."</em></p>
+<p>Describe the limitations of this view. Your answer should address:</p>
+<ol>
+<li>What HTTPS <strong>actually protects</strong> (and what it does NOT protect)</li>
+<li>At least <strong>THREE specific ways</strong> a SOC analyst can still extract threat-relevant information from encrypted HTTPS traffic</li>
+<li>The <strong>trade-offs</strong> of deploying TLS inspection (advantages AND disadvantages)</li>
+</ol>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>20</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+<p><strong>Grading Rubric (15 points):</strong></p>
+<ul>
+<li><strong>4 points — HTTPS scope:</strong> Correct description of what is protected (payload content, HTTP headers/body, cookies) AND what is NOT protected (IP/port, SNI, cert metadata, flow metadata, DNS queries before connection).</li>
+<li><strong>6 points — Three techniques (2 pts each):</strong>
+  <ul>
+    <li>JA3/JA3S fingerprinting: TLS ClientHello params hash identifies client implementation; matches malware signatures</li>
+    <li>Beaconing detection: regular interval behavioral analysis; automated statistical methods (RITA, Zeek)</li>
+    <li>Certificate analysis: self-signed, new certs, suspicious issuers, typosquat domains</li>
+    <li>Data volume analysis: high outbound:inbound ratio = potential exfiltration</li>
+    <li>DNS analysis: queries before TLS reveal intended destinations</li>
+  </ul>
+</li>
+<li><strong>5 points — TLS inspection trade-offs:</strong>
+  <ul>
+    <li>Benefits (2pts): full payload visibility, DLP, malware scanning, URL filtering, detect encrypted C2 content</li>
+    <li>Disadvantages (3pts): privacy concerns/GDPR, breaks certificate pinning, proxy is a high-value target, trust issues with employee monitoring, technical complexity, can be evaded by sophisticated attackers</li>
+  </ul>
+</li>
+</ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>Practice Q7: Cryptographic Design Review</name>
+    <questiontext format="html">
+      <text><![CDATA[
+<p><strong>Long Answer (15 points)</strong></p>
+<p>A development team has proposed the following cryptographic design for a new application:</p>
+<ul>
+<li>Passwords: stored as <code>MD5(username + password)</code></li>
+<li>Session tokens: <code>SHA-256(user_id + timestamp)</code></li>
+<li>API authentication: JWT signed with <code>HS256</code> using the secret <code>"api_secret"</code></li>
+<li>Sensitive data: encrypted with <strong>AES-128-ECB</strong> using a hardcoded key in source code</li>
+<li>Outbound TLS connections: certificate verification <strong>disabled</strong> for "simplicity"</li>
+</ul>
+<p>For each component, <strong>identify the vulnerability</strong>, explain the <strong>real-world risk</strong>, and provide a <strong>concrete, correct replacement</strong>.</p>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>30</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+<p><strong>Grading Rubric (15 points):</strong></p>
+<p><strong>5 components × 2 points each = 10 points:</strong></p>
+<p>For each component, 1 point for identifying the correct vulnerability AND 1 point for providing the correct fix:</p>
+<ul>
+<li><strong>Passwords:</strong> MD5 too fast + username as salt is predictable → bcrypt/Argon2 with unique random salt per user</li>
+<li><strong>Session tokens:</strong> Predictable from known inputs → secrets.token_urlsafe(32) (256-bit CSPRNG)</li>
+<li><strong>JWT:</strong> Guessable secret + possible alg:none bypass → 256-bit random secret from env; reject alg:none explicitly</li>
+<li><strong>Data encryption:</strong> ECB leaks patterns + hardcoded key + AES-128 weak → AES-256-GCM with per-record random nonce; key from secrets manager</li>
+<li><strong>TLS:</strong> Disabled cert verification = trivial MITM → CERT_REQUIRED + check_hostname=True + load CA bundle</li>
+</ul>
+<p><strong>3 points — Risk explanations:</strong> Demonstrating real-world impact (e.g., "attacker can crack passwords in hours with GPU", "session token brute-forceable in seconds", "MITM intercepts all API traffic")</p>
+<p><strong>2 points — Overall assessment:</strong> Recognizes the design has multiple critical vulnerabilities that compound each other; recommends security review before production</p>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+</quiz>

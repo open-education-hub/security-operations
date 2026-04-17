@@ -1,0 +1,67 @@
+# Supporting Indicator Rule: T1055.001 — Complementary DLL Injection Signal
+# Security Operations Course - Session 08, Drill 01 (Advanced)
+#
+# [STUDENT TASK — Part 3.2]
+# Complete this Sigma rule using a DIFFERENT data source from the primary rule.
+#
+# Your primary rule uses Sysmon EventID 8 (CreateRemoteThread).
+# This supporting rule should use a different Sysmon event or Windows log.
+#
+# Options to consider:
+#   - Sysmon EventID 10 (ProcessAccess): OpenProcess with high-access mask
+#     → A precursor step: attacker must call OpenProcess before WriteProcessMemory
+#   - Sysmon EventID 7 (ImageLoaded): Unsigned DLL loaded into an unexpected process
+#     → After injection, the DLL will appear in the target's module list
+#   - Windows EventID 4688: Process creation with suspicious parent/child
+#
+# Hint: A combination of EventID 10 (VirtualAllocEx/WriteProcessMemory proxy)
+# followed by EventID 8 (CreateRemoteThread) is very high confidence.
+#
+# =============================================================================
+
+title: "[STUDENT TASK: Write a title for your supporting indicator rule]"
+id: "[STUDENT TASK: generate a UUID]"
+status: experimental
+description: |
+    [STUDENT TASK: Describe what this rule detects and why it complements
+    the primary CreateRemoteThread rule. What part of the injection process
+    does this catch?]
+
+references:
+    - https://attack.mitre.org/techniques/T1055/001/
+
+author: "[Your name]"
+date: "[YYYY/MM/DD]"
+
+tags:
+    - attack.defense_evasion
+    - attack.privilege_escalation
+    - attack.t1055.001
+
+logsource:
+    # [STUDENT TASK: Choose your data source]
+    product: windows
+    category: "[STUDENT TASK: process_access | image_load | process_creation]"
+
+detection:
+    selection:
+        # [STUDENT TASK: Define your detection criteria]
+        # If using EventID 10 (ProcessAccess), consider:
+        #   GrantedAccess: "0x1fffff"  (PROCESS_ALL_ACCESS)
+        #   or a combination of flags indicating write + create thread
+        # If using EventID 7 (ImageLoaded), consider:
+        #   Signed: "false"  (unsigned DLL loaded into unexpected location)
+        #   ImageLoaded|contains: certain paths that shouldn't have DLLs
+
+    filter_legitimate:
+        # [STUDENT TASK: Add false positive exclusions for your chosen data source]
+
+    condition: selection and not filter_legitimate
+
+falsepositives:
+    - "[STUDENT TASK: List specific false positive scenarios for your data source]"
+
+level: medium
+
+fields:
+    - "[STUDENT TASK: List relevant fields from your chosen log source]"

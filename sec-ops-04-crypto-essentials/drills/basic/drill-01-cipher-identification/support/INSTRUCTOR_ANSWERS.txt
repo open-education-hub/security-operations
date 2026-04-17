@@ -1,0 +1,37 @@
+# INSTRUCTOR ANSWER KEY — drill-01-cipher-identification
+
+Artifact 1:
+  Answer: MD5 (128-bit)
+  Note:   32 hex chars per hash; also recognisable by $1$ prefix (Linux MD5 crypt)
+
+Artifact 2:
+  Answer: Base64 ENCODING (not encryption)
+  Note:   Ends with =; charset is A-Za-z0-9+/=; decode directly without a key
+
+Artifact 3 Q5:
+  Answer: OpenSSL (openssl enc)
+  Note:   Salted__ magic bytes 53 61 6c 74 65 64 5f 5f are the OpenSSL header
+
+Artifact 3 Q6:
+  Answer: Salt prevents rainbow tables; random per encryption
+  Note:   8-byte salt follows the Salted__ header
+
+Artifact 4 - File A:
+  Answer: MD5 — 32 hex chars = 128 bits
+  Note:   d41d8cd98f00b204e9800998ecf8427e
+
+Artifact 4 - File B:
+  Answer: SHA-1 — 40 hex chars = 160 bits
+  Note:   da39a3ee5e6b4b0d3255bfef95601890afd80709
+
+Artifact 4 - File C:
+  Answer: SHA-256 — 64 hex chars = 256 bits
+  Note:   e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+
+Artifact 4 - File D:
+  Answer: SHA-512 — 128 hex chars = 512 bits
+  Note:   cf83e1357eef...
+
+Bonus:
+  Answer: Base64
+  Note:   hello world from malware

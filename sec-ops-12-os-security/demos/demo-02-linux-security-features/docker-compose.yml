@@ -1,0 +1,14 @@
+
+services:
+  linux-security:
+    build: .
+    container_name: linux-security-demo
+    cap_add:
+      - AUDIT_WRITE
+      - AUDIT_CONTROL
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./scripts:/scripts
+    stdin_open: true
+    tty: true

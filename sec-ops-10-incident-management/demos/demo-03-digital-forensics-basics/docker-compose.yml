@@ -1,0 +1,25 @@
+
+services:
+  volatility-lab:
+    image: python:3.11-slim
+    container_name: volatility-lab
+    volumes:
+      - ./memory-samples:/samples:ro
+      - ./output:/output
+    working_dir: /work
+    command: >
+      bash -c "
+        apt-get update -qq &&
+        apt-get install -y --no-install-recommends git wget curl xxd binutils 2>/dev/null &&
+        pip install volatility3 yara-python 2>/dev/null &&
+        git clone --depth=1 https://github.com/volatilityfoundation/volatility3.git /work 2>/dev/null &&
+        echo '=== Volatility 3 ready ===' &&
+        echo 'Usage: python3 vol.py -f /samples/memory.raw windows.pslist' &&
+        tail -f /dev/null
+      "
+    networks:
+      - forensics-net
+
+networks:
+  forensics-net:
+    driver: bridge

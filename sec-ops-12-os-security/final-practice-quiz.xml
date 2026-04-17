@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <!-- Multiple choice questions -->
+  <question type="multichoice">
+    <name><text>OS Security Practice Q1 — Event ID 4688</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which Windows Event ID indicates a new process creation?</p>]]></text></questiontext>
+    <answer fraction="100"><text>4688</text><feedback><text>Correct! Event ID 4688 logs new process creation (requires Process Creation auditing to be enabled). This is one of the most valuable event IDs for detecting malicious execution.</text></feedback></answer>
+    <answer fraction="0"><text>4624</text><feedback><text>Incorrect. 4624 is a successful account logon event.</text></feedback></answer>
+    <answer fraction="0"><text>4625</text><feedback><text>Incorrect. 4625 is a failed account logon event, useful for detecting brute-force attacks.</text></feedback></answer>
+    <answer fraction="0"><text>7045</text><feedback><text>Incorrect. 7045 indicates a new Windows service was installed — another important persistence indicator, but not process creation.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Practice Q2 — HKCU Persistence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What registry key would an attacker use to persist a payload that runs every time the current user logs in, without needing administrator privileges?</p>]]></text></questiontext>
+    <answer fraction="100"><text>HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</text><feedback><text>Correct! HKCU (Current User) Run keys execute at logon and can be written without admin rights. Attackers use this after compromising a standard user account.</text></feedback></answer>
+    <answer fraction="0"><text>HKLM\SYSTEM\CurrentControlSet\Services</text><feedback><text>Incorrect. Service entries require admin/SYSTEM privileges to create and provide system-level (not user-level) persistence.</text></feedback></answer>
+    <answer fraction="0"><text>HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon</text><feedback><text>Incorrect. Winlogon keys (like Userinit) can be used for persistence but require admin rights to modify.</text></feedback></answer>
+    <answer fraction="0"><text>HKLM\SAM\SAM\Domains\Account\Users</text><feedback><text>Incorrect. The SAM stores account credential hashes and is not a persistence execution location.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Practice Q3 — Find SUID</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What command in Linux shows all files with the SUID bit set?</p>]]></text></questiontext>
+    <answer fraction="100"><text>find / -perm -4000 -type f 2>/dev/null</text><feedback><text>Correct! -perm -4000 matches files where the SUID bit is set. The 2>/dev/null suppresses permission error messages for inaccessible directories.</text></feedback></answer>
+    <answer fraction="0"><text>ls -l / | grep suid</text><feedback><text>Incorrect. ls -l does not have a suid filter option; grep suid would not match anything in ls output.</text></feedback></answer>
+    <answer fraction="0"><text>stat / --suid</text><feedback><text>Incorrect. stat does not have a --suid option and this is not a valid command.</text></feedback></answer>
+    <answer fraction="0"><text>chmod -l suid /</text><feedback><text>Incorrect. chmod -l is not a valid option. chmod modifies permissions; it doesn't list files by permission.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Practice Q4 — Pass-the-Hash</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following best describes a "Pass-the-Hash" attack?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Using a captured NTLM hash to authenticate without knowing the plaintext password</text><feedback><text>Correct! Pass-the-Hash (PtH) exploits the NTLM authentication protocol's design: the hash itself is the authentication credential. An attacker who extracts a hash from LSASS or the SAM can authenticate to network services without cracking the hash.</text></feedback></answer>
+    <answer fraction="0"><text>Brute-forcing a user's password by trying common password hashes</text><feedback><text>Incorrect. Brute-forcing hashes offline is called "hash cracking," not pass-the-hash.</text></feedback></answer>
+    <answer fraction="0"><text>Injecting a malicious hash into the SAM database</text><feedback><text>Incorrect. Modifying the SAM is a different attack technique; pass-the-hash uses the captured hash directly for authentication.</text></feedback></answer>
+    <answer fraction="0"><text>Intercepting hashed TLS certificates during a MITM attack</text><feedback><text>Incorrect. TLS certificates and NTLM hashes are unrelated. Pass-the-hash is specific to NTLM authentication.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Practice Q5 — ASLR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A Linux server's <code>/etc/sysctl.conf</code> shows <code>kernel.randomize_va_space = 0</code>. What security risk does this create?</p>]]></text></questiontext>
+    <answer fraction="100"><text>It disables ASLR, making memory corruption exploits significantly easier</text><feedback><text>Correct! ASLR (Address Space Layout Randomization) randomizes memory addresses so attackers cannot reliably predict where to jump. Setting it to 0 disables this protection. CIS recommends setting it to 2 (full randomization).</text></feedback></answer>
+    <answer fraction="0"><text>Users can read other users' memory directly</text><feedback><text>Incorrect. Inter-process memory isolation is enforced by the kernel regardless of ASLR.</text></feedback></answer>
+    <answer fraction="0"><text>It allows non-root users to load kernel modules</text><feedback><text>Incorrect. Kernel module loading is controlled by CAP_SYS_MODULE capability, not ASLR.</text></feedback></answer>
+    <answer fraction="0"><text>It enables IP forwarding, exposing the server as a router</text><feedback><text>Incorrect. IP forwarding is controlled by net.ipv4.ip_forward, a completely different sysctl parameter.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Practice Q6 — Event ID 1102</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does Windows Event ID 1102 in the Security log indicate?</p>]]></text></questiontext>
+    <answer fraction="100"><text>The Security audit log was cleared</text><feedback><text>Correct! Event ID 1102 is generated when the Security audit log is cleared — a critical indicator of an attacker covering their tracks. Always alert on this event. (System log clearing generates Event ID 104.)</text></feedback></answer>
+    <answer fraction="0"><text>A new user account was created</text><feedback><text>Incorrect. New user account creation generates Event ID 4720.</text></feedback></answer>
+    <answer fraction="0"><text>A service failed to start</text><feedback><text>Incorrect. Service failures appear in the System log (e.g., Event ID 7023), not as 1102 in Security.</text></feedback></answer>
+    <answer fraction="0"><text>A logon failure occurred</text><feedback><text>Incorrect. Logon failures generate Event ID 4625.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Practice Q7 — /proc/PID/exe deleted</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the context of Linux forensics, what can <code>/proc/&lt;PID&gt;/exe</code> reveal about a running process?</p>]]></text></questiontext>
+    <answer fraction="100"><text>The full path of the executable that started the process, even if the file has been deleted from disk</text><feedback><text>Correct! /proc/&lt;PID&gt;/exe is a symlink to the running executable. When the binary is deleted, it shows the path with "(deleted)" appended, and the binary can still be recovered by copying from /proc/&lt;PID&gt;/exe — a powerful anti-forensics countermeasure.</text></feedback></answer>
+    <answer fraction="0"><text>The network connections made by the process</text><feedback><text>Incorrect. Network connections are in /proc/&lt;PID&gt;/net/ or viewable via ss -tnp.</text></feedback></answer>
+    <answer fraction="0"><text>The environment variables passed to the process</text><feedback><text>Incorrect. Environment variables are in /proc/&lt;PID&gt;/environ (null-separated).</text></feedback></answer>
+    <answer fraction="0"><text>The CPU and memory usage of the process</text><feedback><text>Incorrect. Resource usage is in /proc/&lt;PID&gt;/stat and /proc/&lt;PID&gt;/statm.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <!-- Short answer questions -->
+  <question type="essay">
+    <name><text>OS Security Practice Q8 — DAC vs MAC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Explain the difference between Discretionary Access Control (DAC) and Mandatory Access Control (MAC) in Linux. Give one example of each.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>Model Answer:</strong> <strong>DAC</strong> is the traditional Unix permission model where resource owners control access via read/write/execute bits. Example: <code>chmod 640 /etc/myconfig</code> — owner decides who can read. <strong>MAC</strong> overrides DAC with kernel-enforced policy based on security labels. Example: SELinux confines a web server to only access files labelled <code>httpd_content_t</code> — even if a file is chmod 777, the confined process cannot access it if the label doesn't match.</p>]]></text></generalfeedback>
+    <responseformat>editor</responseformat><responserequired>0</responserequired><responsefieldlines>10</responsefieldlines>
+  </question>
+  <question type="essay">
+    <name><text>OS Security Practice Q9 — World-Writable Cron</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A Linux server has <code>/opt/deploy.sh</code> with permissions <code>-rwxrwxrwx</code> (777), and root's crontab runs it every 5 minutes. Describe the attack chain and how you would fix it.</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>Model Answer:</strong> <strong>Attack chain:</strong> Any user (including <code>www-data</code> from a compromised web app) can overwrite <code>/opt/deploy.sh</code> with a malicious command (e.g., a reverse shell). When root's cron fires, the attacker gets a root shell — this is "world-writable cron script abuse" (T1053.003). <strong>Fix:</strong> <code>chmod 700 /opt/deploy.sh; chown root:root /opt/deploy.sh</code>. Also add an auditd rule to alert on writes to root-cron-executed scripts.</p>]]></text></generalfeedback>
+    <responseformat>editor</responseformat><responserequired>0</responserequired><responsefieldlines>8</responsefieldlines>
+  </question>
+  <question type="essay">
+    <name><text>OS Security Practice Q10 — Timestomping</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>/root/.ssh/authorized_keys</code>, the <code>mtime</code> shows 6 months ago but the <code>ctime</code> shows yesterday. What does this tell you, and how would you investigate?</p>]]></text></questiontext>
+    <generalfeedback format="html"><text><![CDATA[<p><strong>Model Answer:</strong> This is <strong>timestomping</strong> (T1070.006): an attacker added a key yesterday and backdated the <code>mtime</code> to hide it. <code>ctime</code> cannot be manipulated through normal user-space operations, revealing the true modification time. <strong>Investigation:</strong> <code>stat /root/.ssh/authorized_keys</code> to document all timestamps; check auditd for writes to the file; search auth.log for logins matching the new key's fingerprint; examine which process/UID made the write.</p>]]></text></generalfeedback>
+    <responseformat>editor</responseformat><responserequired>0</responserequired><responsefieldlines>8</responsefieldlines>
+  </question>
+</quiz>

@@ -1,0 +1,46 @@
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.18
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://localhost:9200/_cluster/health"]
+      interval: 20s
+      timeout: 10s
+      retries: 6
+
+  thehive:
+    image: strangebee/thehive:5.2
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    ports:
+      - "9000:9000"
+    command:
+      - --storage
+      - elasticsearch
+      - --es-uri
+      - http://elasticsearch:9200
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://localhost:9000/api/status"]
+      interval: 20s
+      retries: 8
+
+  scenario-loader:
+    image: python:3.11-slim
+    depends_on:
+      thehive:
+        condition: service_healthy
+    volumes:
+      - ./scenario:/scenario
+    command: ["python", "/scenario/load_ir_case.py"]
+    environment:
+      - THEHIVE_URL=http://thehive:9000
+      - THEHIVE_API_KEY=admin:secret

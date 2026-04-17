@@ -1,0 +1,67 @@
+# INSTRUCTOR ANSWERS — drill-02-crypto-attack-scenarios
+# DO NOT distribute to students
+
+== Scenario 1: CTR Nonce Reuse ==
+Vulnerabilities:
+  1. FIXED_NONCE: Never-changing nonce means the keystream is identical for every message.
+     If two messages are encrypted: C1=P1⊕K, C2=P2⊕K, then C1⊕C2 = P1⊕P2.
+     With one known plaintext, the other is trivially recovered.
+  2. FIXED_KEY: Hardcoded key in source code — leaked in repository, binary, or memory dump.
+Fix:
+  - Use secrets.token_bytes(16) or os.urandom(16) as a fresh nonce per message.
+  - Use AES-GCM instead of CTR — adds authentication AND enforces nonce uniqueness.
+  - Rotate keys; never embed keys in source code.
+
+== Scenario 2: Password Reset Token ==
+Vulnerabilities:
+  1. MD5: Cryptographically broken; no longer suitable for security tokens.
+  2. Timestamp as only entropy: Only 3600 possible tokens per hour — trivially brute-forced.
+  3. Predictable token: Attacker knowing approximate generation time → <300 guesses needed.
+  4. Token length: 32 hex chars = 128 bits, but real entropy ≈ 11 bits (log2(3600)).
+Fix:
+  - token = secrets.token_urlsafe(32)   # 32 bytes = 256 bits of entropy
+  - Store hash(token) in DB; compare with hmac.compare_digest()
+  - Set short expiry (15-30 min) and enforce one-time use.
+
+== Scenario 3: HMAC Timing Side-Channel ==
+Vulnerability:
+  str1 == str2 exits as soon as it finds a mismatch, taking less time for
+  early mismatches. An attacker sending millions of guesses can time responses
+  to discover correct prefix bytes one at a time.
+Fix:
+  Use hmac.compare_digest(expected, provided) — constant-time comparison.
+  Python stdlib: import hmac; return hmac.compare_digest(expected_hmac, provided_hmac)
+
+== Scenario 4: ECB Healthcare Database ==
+Vulnerabilities:
+  1. AES-ECB mode: identical plaintext blocks → identical ciphertext blocks.
+  2. No IV/nonce: deterministic encryption — same record always encrypted to same output.
+  3. Fixed hardcoded key in source: DB_ENCRYPTION_KEY = "FinancialAppKey!"
+  4. Padding with spaces: non-standard, could expose record length.
+  5. Logging decrypted data: decrypt_and_log() prints plaintext to logs.
+  6. Logging key material on error: logs key.hex() in the except block.
+Fix:
+  - Use AES-256-GCM with a unique nonce per record.
+  - Store nonce alongside ciphertext.
+  - Load key from environment variable or HSM, never source code.
+  - Remove debug logging of sensitive data.
+
+== Scenario 5: VPN Weaknesses ==
+  1. 3DES-168:       Vulnerable to Sweet32 (birthday attack after 2^32 blocks). Replace: AES-256-GCM.
+  2. SHA-1 integrity: Broken collision resistance. Replace: SHA-256 or SHA-384.
+  3. DH Group 1 (768-bit MODP): Far below 80-bit security; broken by nation-states. Replace: DH Group 20 (ECDH P-384) or DH Group 19 (P-256).
+  4. 3DES (Phase 2):  Same as #1. Replace: AES-256-GCM.
+  5. MD5-96:          MD5 is cryptographically broken. Replace: HMAC-SHA-256-128.
+  6. PFS disabled:    If long-term key is compromised, all past sessions are decryptable. Replace: Enable PFS (Perfect Forward Secrecy) using ephemeral DH.
+  7. RSA-1024 cert:   Below minimum 2048-bit; breakable with sufficient resources. Replace: RSA-4096 or ECDSA P-384.
+  8. SHA-1 certificate signature: Deprecated. Replace: SHA-256 or SHA-384.
+  9. Expired certificate: Expired 2019-08-14 — VPN should reject authentication.
+
+Executive Finding (3-5 sentences):
+  The corporate VPN uses outdated cryptographic algorithms that are considered
+  broken by modern security standards. An attacker with nation-state resources
+  could decrypt all VPN traffic recorded since the VPN was deployed. The
+  expired certificate means the VPN may already be rejecting legitimate
+  connections or is configured to ignore certificate errors. Immediate
+  remediation is required: replace 3DES with AES-256-GCM, upgrade DH groups,
+  enable PFS, and renew the certificate.

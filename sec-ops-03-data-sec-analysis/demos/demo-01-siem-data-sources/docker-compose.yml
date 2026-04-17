@@ -1,0 +1,97 @@
+
+services:
+  # ─── Splunk Enterprise (SIEM) ───────────────────────────────────────────────
+  splunk:
+    image: splunk/splunk:9.2
+    container_name: demo01-splunk
+    environment:
+      SPLUNK_START_ARGS: "--accept-license"
+      SPLUNK_PASSWORD: "SecOpsDemo123!"
+      SPLUNK_RAM_MBs: "2048"
+    ports:
+      - "8000:8000"   # Splunk Web UI
+      - "8088:8088"   # HEC (HTTP Event Collector)
+      - "9997:9997"   # Splunk receiver (forwarder connection)
+    volumes:
+      - splunk-data:/opt/splunk/var
+      - ./config/splunk/inputs.conf:/opt/splunk/etc/system/local/inputs.conf:ro
+      - ./config/splunk/props.conf:/opt/splunk/etc/system/local/props.conf:ro
+    networks:
+      - demo-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+
+  # ─── Splunk Universal Forwarder ─────────────────────────────────────────────
+  splunk-forwarder:
+    image: splunk/universalforwarder:9.2
+    container_name: demo01-forwarder
+    environment:
+      SPLUNK_START_ARGS: "--accept-license"
+      SPLUNK_PASSWORD: "SecOpsDemo123!"
+      SPLUNK_FORWARD_SERVER: "splunk:9997"
+    volumes:
+      - shared-logs:/var/log/demo:ro
+      - ./config/forwarder/inputs.conf:/opt/splunkforwarder/etc/system/local/inputs.conf:ro
+    depends_on:
+      splunk:
+        condition: service_healthy
+    networks:
+      - demo-net
+
+  # ─── Nginx Web Server (generates access logs) ───────────────────────────────
+  web-server:
+    image: nginx:1.25-alpine
+    container_name: demo01-webserver
+    volumes:
+      - shared-logs:/var/log/nginx
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - demo-net
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # ─── Traffic generator (hits the nginx server) ──────────────────────────────
+  traffic-gen:
+    image: python:3.12-slim
+    container_name: demo01-traffic-gen
+    volumes:
+      - ./scripts/traffic_gen.py:/app/traffic_gen.py:ro
+    command: >
+      sh -c "pip install requests --quiet &&
+             python /app/traffic_gen.py"
+    depends_on:
+      web-server:
+        condition: service_healthy
+    networks:
+      - demo-net
+    restart: unless-stopped
+
+  # ─── Log generator (simulates Windows auth + Sysmon events) ─────────────────
+  log-generator:
+    image: python:3.12-slim
+    container_name: demo01-log-gen
+    volumes:
+      - shared-logs:/var/log/demo
+      - ./scripts/log_generator.py:/app/log_generator.py:ro
+    command: >
+      sh -c "pip install faker --quiet &&
+             python /app/log_generator.py"
+    networks:
+      - demo-net
+    restart: unless-stopped
+
+volumes:
+  splunk-data:
+  shared-logs:
+
+networks:
+  demo-net:
+    driver: bridge

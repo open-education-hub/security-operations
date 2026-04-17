@@ -1,0 +1,13 @@
+FROM mcr.microsoft.com/powershell:lts-ubuntu-22.04
+
+LABEL maintainer="digital4security"
+LABEL description="Advanced Drill 01 - Windows Hardening Audit (simulated)"
+
+RUN mkdir -p /audit/scripts /audit/output /tmp
+
+# Simulate Windows audit state with intentional misconfigurations
+# These are PowerShell functions that simulate the Windows audit evidence
+
+COPY scripts/ /audit/scripts/
+
+CMD ["pwsh"]

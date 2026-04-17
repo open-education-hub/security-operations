@@ -1,0 +1,4 @@
+PID  PPID  CMD
+1234  1  svchost.exe
+5678  1234  powershell.exe -NoProfile -EncodedCommand
+9012  5678  cmd.exe /c whoami

@@ -1,0 +1,28 @@
+# VPN Configuration Audit — drill-02 Scenario 5
+# ------------------------------------------------
+# Analyse each setting and identify the security weakness.
+
+[VPN Audit Report]
+Protocol: IPSec IKEv2
+Phase 1 (IKE) settings:
+  Encryption: 3DES-168
+  Integrity:  SHA-1
+  DH Group:   Group 1 (768-bit MODP)
+
+Phase 2 (ESP) settings:
+  Encryption: 3DES
+  Integrity:  MD5-96
+  PFS:        Disabled
+
+Certificate:
+  Signature:  SHA-1 with RSA-1024
+  Validity:   Not After: 2019-08-14 (EXPIRED)
+
+----------------------------------------------------------------------
+TASK: List every weakness. For each one state:
+  - The specific problem
+  - The actual risk
+  - The correct replacement value
+
+Expected count: at least 7 weaknesses.
+----------------------------------------------------------------------

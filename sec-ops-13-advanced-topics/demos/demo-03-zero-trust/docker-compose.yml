@@ -1,0 +1,46 @@
+
+networks:
+  frontend-net:
+    driver: bridge
+  internal-net:
+    driver: bridge
+    internal: true
+
+services:
+  app-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    networks:
+      - internal-net
+    environment:
+      - SERVICE_NAME=app-backend
+
+  zt-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.proxy
+    networks:
+      - frontend-net
+      - internal-net
+    ports:
+      - "8080:8080"
+    environment:
+      - BACKEND_URL=http://app-backend:9000
+      - LOG_FILE=/var/log/zt-access.log
+
+  attacker:
+    image: curlimages/curl:latest
+    networks:
+      - frontend-net
+    stdin_open: true
+    tty: true
+    entrypoint: sh
+
+  legit-user:
+    image: curlimages/curl:latest
+    networks:
+      - frontend-net
+    stdin_open: true
+    tty: true
+    entrypoint: sh

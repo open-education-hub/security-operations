@@ -1,0 +1,35 @@
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.48.0
+    container_name: soc-prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/soc_metrics.prom:/etc/prometheus/soc_metrics.prom
+    ports:
+      - "9090:9090"
+
+  metrics-exporter:
+    build: ./exporter
+    container_name: soc-metrics-exporter
+    ports:
+      - "8000:8000"
+
+  grafana:
+    image: grafana/grafana:10.2.2
+    container_name: soc-grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+    volumes:
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+volumes:
+  grafana-data:

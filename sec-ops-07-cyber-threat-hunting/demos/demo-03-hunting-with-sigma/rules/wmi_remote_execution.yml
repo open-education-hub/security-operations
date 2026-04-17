@@ -1,0 +1,40 @@
+title: WMI Remote Process Execution
+id: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+status: stable
+description: |
+  Detects WMI (Windows Management Instrumentation) being used for remote
+  command execution. This is a common lateral movement technique.
+  Specifically detects wmiprvse.exe spawning command shells, and wmic.exe
+  with /node: parameter for remote execution.
+
+  FIN-STORM was observed using WMI for lateral movement (T1047).
+references:
+  - https://attack.mitre.org/techniques/T1047/
+author: SecureBank Threat Hunt Team
+date: 2024/03/15
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_wmiprvse_parent:
+    ParentImage|endswith: '\WmiPrvSE.exe'
+    Image|endswith:
+      - '\cmd.exe'
+      - '\powershell.exe'
+      - '\pwsh.exe'
+      - '\wscript.exe'
+      - '\cscript.exe'
+  selection_wmic_remote:
+    Image|endswith: '\WMIC.exe'
+    CommandLine|contains: '/node:'
+  condition: selection_wmiprvse_parent or selection_wmic_remote
+falsepositives:
+  - Legitimate WMI-based system management scripts
+  - Some monitoring agents use WMI
+  - SCCM and other deployment tools
+level: medium
+tags:
+  - attack.lateral_movement
+  - attack.t1047
+  - attack.execution
+  - attack.t1059.003

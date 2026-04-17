@@ -1,0 +1,71 @@
+
+networks:
+  demo-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+services:
+
+  # Simple nginx web server serving a static HTML page
+  web:
+    image: nginx:alpine
+    container_name: wireshark-web
+    networks:
+      demo-net:
+        ipv4_address: 172.20.0.2
+    volumes:
+      - ./web:/usr/share/nginx/html:ro
+    restart: unless-stopped
+
+  # Client container that generates HTTP traffic every 5 seconds
+  client:
+    image: alpine:3.18
+    container_name: wireshark-client
+    networks:
+      demo-net:
+        ipv4_address: 172.20.0.3
+    depends_on:
+      - web
+    # Generates a mix of HTTP requests to create interesting traffic
+    command: >
+      sh -c "
+        apk add --no-cache wget curl 2>/dev/null &&
+        sleep 3 &&
+        echo 'Starting traffic generation...' &&
+        while true; do
+          wget -q -O /dev/null http://web/ 2>&1;
+          curl -s -o /dev/null http://web/index.html;
+          curl -s -o /dev/null http://web/nonexistent-page 2>&1;
+          sleep 5;
+        done
+      "
+    restart: unless-stopped
+
+  # tcpdump capture container — writes PCAP to shared volume
+  capture:
+    image: nicolaka/netshoot
+    container_name: wireshark-capture
+    network_mode: "service:web"   # Share web container's network namespace
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./capture:/capture
+    # Capture all TCP traffic on port 80, write to PCAP file
+    command: >
+      tcpdump -i eth0 -w /capture/demo-capture.pcap
+      -s 0
+      "tcp port 80 or icmp or arp"
+    restart: "no"
+
+  # tshark service for command-line analysis (run manually)
+  tshark:
+    image: linuxserver/wireshark
+    container_name: wireshark-tshark
+    volumes:
+      - ./capture:/data:ro
+    entrypoint: ["tshark"]
+    profiles:
+      - analysis   # Only started when explicitly requested

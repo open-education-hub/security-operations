@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 10 Entry Quiz: Incident Response and Management</name>
+  <intro>10 multiple-choice questions assessing prerequisite knowledge. Select the single best answer for each question.</intro>
+
+  <question type="multichoice">
+    <name>Q1: NIST IR Phase Order</name>
+    <questiontext format="html">
+      <text>What is the correct order of the NIST SP 800-61 incident response phases?</text>
+    </questiontext>
+    <answer fraction="0"><text>Containment → Detection → Preparation → Recovery → Post-Incident</text></answer>
+    <answer fraction="100"><text>Preparation → Detection &amp; Analysis → Containment/Eradication/Recovery → Post-Incident Activity</text><feedback><text>Correct. NIST SP 800-61 defines these four phases in this order. Post-Incident Activity feeds back into Preparation for continuous improvement.</text></feedback></answer>
+    <answer fraction="0"><text>Detection → Preparation → Containment → Recovery → Eradication</text></answer>
+    <answer fraction="0"><text>Preparation → Containment → Detection → Recovery → Post-Incident</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q2: Chain of Custody</name>
+    <questiontext format="html">
+      <text>What does "chain of custody" refer to in a digital forensics investigation?</text>
+    </questiontext>
+    <answer fraction="0"><text>The network path that an attacker used to reach their target</text></answer>
+    <answer fraction="0"><text>The sequence of MITRE ATT&amp;CK techniques observed in an attack</text></answer>
+    <answer fraction="100"><text>The documented record of who collected, handled, stored, and analyzed evidence</text><feedback><text>Correct. Chain of custody ensures evidence integrity and admissibility by tracking every person who had access to the evidence, when, and why.</text></feedback></answer>
+    <answer fraction="0"><text>The process of identifying all affected systems in an incident</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q3: GDPR Article 33 Notification Deadline</name>
+    <questiontext format="html">
+      <text>Under GDPR Article 33, within how many hours of becoming aware of a personal data breach must an organization notify the supervisory authority (DPA)?</text>
+    </questiontext>
+    <answer fraction="0"><text>24 hours</text><feedback><text>Incorrect. 24 hours is the NIS2 early warning deadline. GDPR Art. 33 requires 72 hours.</text></feedback></answer>
+    <answer fraction="100"><text>72 hours</text><feedback><text>Correct. GDPR Art. 33 requires notification to the DPA within 72 hours of becoming aware of the breach, unless the breach is unlikely to result in risk to individuals.</text></feedback></answer>
+    <answer fraction="0"><text>7 days</text></answer>
+    <answer fraction="0"><text>30 days</text><feedback><text>Incorrect. 30 days is associated with HIPAA (US), not GDPR.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q4: Why Capture RAM Before Containment</name>
+    <questiontext format="html">
+      <text>Why should a memory image be acquired BEFORE isolating or shutting down a compromised system?</text>
+    </questiontext>
+    <answer fraction="0"><text>Memory imaging is faster than disk imaging</text></answer>
+    <answer fraction="0"><text>Isolation prevents the memory imaging tool from running</text></answer>
+    <answer fraction="100"><text>RAM is volatile — its contents are lost permanently when the system loses power or is restarted</text><feedback><text>Correct. Memory is the most volatile evidence source. Shutdown destroys running processes, active network connections, encryption keys, and in-memory malware that may have left no disk artifacts.</text></feedback></answer>
+    <answer fraction="0"><text>Disk imaging automatically captures memory contents</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q5: Tabletop Exercise Purpose</name>
+    <questiontext format="html">
+      <text>In incident response, what is the primary purpose of a tabletop exercise?</text>
+    </questiontext>
+    <answer fraction="0"><text>To test whether backup systems can be restored successfully</text></answer>
+    <answer fraction="0"><text>To scan the network for vulnerabilities</text></answer>
+    <answer fraction="0"><text>To train analysts to use SIEM query languages</text></answer>
+    <answer fraction="100"><text>To test and improve the IR plan through a simulated scenario discussion, without touching real systems</text><feedback><text>Correct. Tabletop exercises are discussion-based simulations that expose gaps in the IR plan, test communication flows, and improve decision-making — all without affecting live systems.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q6: Memory Forensics Tool</name>
+    <questiontext format="html">
+      <text>Which tool is primarily used for analyzing RAM image files during a digital forensics investigation?</text>
+    </questiontext>
+    <answer fraction="100"><text>Volatility 3</text><feedback><text>Correct. Volatility 3 is the industry-standard open-source framework for memory forensics, supporting Windows, Linux, and macOS memory images.</text></feedback></answer>
+    <answer fraction="0"><text>FTK Imager</text><feedback><text>Incorrect. FTK Imager is used for disk imaging and evidence acquisition, not memory analysis.</text></feedback></answer>
+    <answer fraction="0"><text>Wireshark</text><feedback><text>Incorrect. Wireshark analyzes network packets, not memory images.</text></feedback></answer>
+    <answer fraction="0"><text>Nessus</text><feedback><text>Incorrect. Nessus is a vulnerability scanner.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q7: SANS PICERL Identification</name>
+    <questiontext format="html">
+      <text>Which IR framework uses the acronym PICERL to describe its six phases: Preparation, Identification, Containment, Eradication, Recovery, Lessons Learned?</text>
+    </questiontext>
+    <answer fraction="100"><text>SANS PICERL</text><feedback><text>Correct. The SANS Institute framework uses PICERL to name its six phases.</text></feedback></answer>
+    <answer fraction="0"><text>NIST SP 800-61</text><feedback><text>Incorrect. NIST SP 800-61 has four phases and does not use the PICERL acronym.</text></feedback></answer>
+    <answer fraction="0"><text>ISO/IEC 27035</text><feedback><text>Incorrect. ISO 27035 has five phases and uses different terminology.</text></feedback></answer>
+    <answer fraction="0"><text>COBIT 2019</text><feedback><text>Incorrect. COBIT is an IT governance framework, not specifically an IR lifecycle framework.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q8: Eradication vs Containment</name>
+    <questiontext format="html">
+      <text>What does "eradication" mean in incident response, and how does it differ from "containment"?</text>
+    </questiontext>
+    <answer fraction="100"><text>Containment stops the spread; eradication removes the threat (malware, backdoors, unauthorized accounts) from the environment</text><feedback><text>Correct. Containment and eradication are distinct but sequential steps. You contain first to stop further damage, then eradicate to eliminate the attacker's presence entirely.</text></feedback></answer>
+    <answer fraction="0"><text>They are synonymous terms used interchangeably in all frameworks</text></answer>
+    <answer fraction="0"><text>Containment addresses network threats; eradication addresses endpoint threats</text></answer>
+    <answer fraction="0"><text>Eradication occurs before containment to remove the threat quickly</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q9: First Evidence Priority</name>
+    <questiontext format="html">
+      <text>An attacker has established a reverse shell on a Windows workstation. Following the order of volatility, what is the FIRST piece of evidence you should collect before any containment action?</text>
+    </questiontext>
+    <answer fraction="100"><text>Memory dump (RAM image) using a tool like WinPMEM</text><feedback><text>Correct. RAM is most volatile. A memory dump captures the active reverse shell process, C2 connection, attacker tools, and any encryption keys before they are lost to isolation or shutdown.</text></feedback></answer>
+    <answer fraction="0"><text>Full disk image using FTK Imager</text><feedback><text>Incorrect. Disk imaging is important but captures less volatile data. RAM must be collected first.</text></feedback></answer>
+    <answer fraction="0"><text>Firewall logs from the network perimeter</text><feedback><text>Incorrect. Firewall logs are stored on a separate device and can be retrieved later. RAM on the compromised host is urgent.</text></feedback></answer>
+    <answer fraction="0"><text>Browser history and cached files</text><feedback><text>Incorrect. Browser artifacts are persistent on disk and can be collected later. RAM is the urgent collection.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q10: DORA Initial Notification Timeline</name>
+    <questiontext format="html">
+      <text>Under DORA (Digital Operational Resilience Act), what is the deadline for the initial notification of a major ICT incident for an EU financial entity?</text>
+    </questiontext>
+    <answer fraction="100"><text>4 hours from when the incident is classified as major</text><feedback><text>Correct. DORA Article 19 requires an initial notification within 4 hours of classifying an incident as major. This is significantly faster than GDPR's 72-hour requirement.</text></feedback></answer>
+    <answer fraction="0"><text>24 hours</text><feedback><text>Incorrect. 24 hours is the NIS2 early warning deadline, not DORA.</text></feedback></answer>
+    <answer fraction="0"><text>72 hours</text><feedback><text>Incorrect. 72 hours is the GDPR Art. 33 and NIS2 full notification timeline. DORA initial notification is just 4 hours.</text></feedback></answer>
+    <answer fraction="0"><text>48 hours</text><feedback><text>Incorrect. 48 hours does not correspond to any standard EU incident notification requirement.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+</quiz>

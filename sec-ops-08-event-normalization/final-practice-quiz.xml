@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 08 Final Practice Quiz: Event Correlation and Normalization</name>
+  <intro>5 short-answer questions (10 pts each) + 2 long-answer questions (25 pts each) = 100 pts. Time: 30 minutes.</intro>
+
+  <question type="essay">
+    <name>Q1 (Short): CEF Custom Field Drawback</name>
+    <questiontext format="html">
+      <text>&lt;b&gt;(10 points)&lt;/b&gt; A CEF log contains &lt;code&gt;cs1=admin_policy&lt;/code&gt; with &lt;code&gt;cs1Label=PolicyName&lt;/code&gt;. Why does CEF use &lt;code&gt;cs1&lt;/code&gt;/&lt;code&gt;cs1Label&lt;/code&gt; pairs instead of naming the field &lt;code&gt;PolicyName&lt;/code&gt; directly? What is the normalization drawback?</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>5</responsefieldlines>
+    <graderinfo format="html">
+      <text>Award full marks for answers that:
+- Explain CEF's design goal: generic format usable by any vendor without predefined field names (5 pts)
+- Identify the normalization problem: two vendors can use cs1 for different data; normalization pipeline must know vendor identity to correctly interpret cs1 (5 pts)</text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>Q2 (Short): Grok Parse Failure Actions</name>
+    <questiontext format="html">
+      <text>&lt;b&gt;(10 points)&lt;/b&gt; A Logstash filter tries two grok patterns for a log message. The message matches neither and gets tagged &lt;code&gt;_grokparsefailure&lt;/code&gt;. List &lt;b&gt;two actions&lt;/b&gt; you should take and explain why each is important.</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>5</responsefieldlines>
+    <graderinfo format="html">
+      <text>Award 5 pts per correct action with explanation:
+1. Monitor failure rate as a pipeline health metric — sudden spikes indicate upstream format changes that silently break detection
+2. Investigate failing events and add/fix patterns — parse failures mean events cannot be searched by field; store them as-is for retroactive processing</text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>Q3 (Short): Sliding vs Tumbling Window</name>
+    <questiontext format="html">
+      <text>&lt;b&gt;(10 points)&lt;/b&gt; Explain the difference between a &lt;b&gt;sliding window&lt;/b&gt; and a &lt;b&gt;tumbling window&lt;/b&gt; for correlation. Give one use case where a sliding window is more appropriate.</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>5</responsefieldlines>
+    <graderinfo format="html">
+      <text>Award marks for:
+- Tumbling: fixed non-overlapping intervals; events evaluated once per interval (3 pts)
+- Sliding: re-evaluates as each event arrives; any span of defined duration is evaluated (3 pts)
+- Use case: brute force detection where attacker deliberately straddles window boundaries to evade tumbling window threshold (4 pts)</text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>Q4 (Short): Password Spray vs Brute Force Detection</name>
+    <questiontext format="html">
+      <text>&lt;b&gt;(10 points)&lt;/b&gt; What is the ATT&amp;CK sub-technique for password spraying (trying common passwords across many accounts)? Why does this distinction from traditional brute force matter for detection rule design?</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>5</responsefieldlines>
+    <graderinfo format="html">
+      <text>Award marks for:
+- Correct technique: T1110.003 Password Spraying (3 pts)
+- Traditional brute force detected by counting failures per user.name (2 pts)
+- Password spray detected by counting DISTINCT user.name values per source.ip (3 pts)
+- Wrong grouping means wrong detection: per-user threshold misses spray entirely (2 pts)</text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>Q5 (Short): Internal IP Whitelist Flaw</name>
+    <questiontext format="html">
+      <text>&lt;b&gt;(10 points)&lt;/b&gt; An analyst proposes whitelisting the entire &lt;code&gt;10.0.0.0/8&lt;/code&gt; internal range from authentication-failure alerts since "real attacks come from the internet." What is wrong with this reasoning? Give two specific attack scenarios it would miss.</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>5</responsefieldlines>
+    <graderinfo format="html">
+      <text>Award marks for:
+- Insider threats operate from internal IPs (5 pts)
+- Post-initial-access lateral movement: attacker inside network uses internal IPs to attack other hosts — this is exactly when detection is most critical (5 pts)
+- Partial credit for any other valid internal-origin attack scenario</text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>Q6 (Long): Detection Engineering for Scheduled Task</name>
+    <questiontext format="html">
+      <text>&lt;b&gt;(25 points)&lt;/b&gt; You are designing a Sigma rule for &lt;b&gt;T1053.005 — Scheduled Task Creation&lt;/b&gt;.&lt;br/&gt;Describe: (1) which data sources you would use and why, (2) what specific fields/patterns form the detection logic, (3) at least three legitimate false positive use cases and how to handle each, (4) ATT&amp;CK tags and severity level with justification.</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>20</responsefieldlines>
+    <graderinfo format="html">
+      <text>Scoring rubric:
+1. Data sources (6 pts): Windows Security EID 4698 (primary - task XML, user, name), EID 4702 (updates), Sysmon EID 1 for schtasks.exe command line. Award 2 pts per source with rationale.
+2. Detection logic (7 pts): Specific fields - task name, subject user, task command content (PowerShell/cmd), trigger type (onlogon/onstart/minute). Sigma rule structure with filter for \Microsoft\Windows\ paths.
+3. False positives (6 pts): Windows Update / Defender, software installers, IT automation (SCCM/Ansible). 2 pts per FP scenario with concrete handling approach.
+4. ATT&CK tags (3 pts): attack.persistence, attack.t1053.005, optionally attack.privilege_escalation. Severity Medium with rationale (attacker already has code exec, persistence is follow-on). Escalation conditions.
+5. Overall quality (3 pts): completeness, engineering mindset, practical applicability.</text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>Q7 (Long): Ransomware Detection Chain Design</name>
+    <questiontext format="html">
+      <text>&lt;b&gt;(25 points)&lt;/b&gt; Your SOC has these coverage gaps for ransomware techniques: T1078 (Valid Accounts) has threshold-only coverage; T1059.001 (PowerShell) has no coverage; T1490 (VSS Deletion) is fully covered; T1486 (encryption) has partial EDR coverage.&lt;br/&gt;Explain why each gap matters for ransomware detection, and design a &lt;b&gt;3-rule detection chain&lt;/b&gt; that enables detection before the encryption stage (T1486).</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>25</responsefieldlines>
+    <graderinfo format="html">
+      <text>Scoring rubric:
+1. Gap analysis (8 pts):
+  - T1078 gap: threshold misses credential theft without brute force (modern ransomware uses bought credentials) - 4 pts
+  - T1059.001 gap: PowerShell is the primary staging/execution mechanism; missing it means entire execution phase is blind - 4 pts
+2. Three-rule chain (12 pts - 4 pts each):
+  - Rule 1: Behavioral T1078 detection - login from new country/location not in user baseline
+  - Rule 2: PowerShell download cradle detection (DownloadString, IEX, etc.) - high confidence
+  - Rule 3: Sequence rule - discovery tools followed by VSS deletion on same/adjacent host
+  Each rule: correct trigger logic, appropriate severity, and why it catches ransomware before T1486.
+3. Chain explanation (5 pts): explains how the three rules provide 3 independent detection opportunities; identifies that detection before T1486 is the only chance to prevent data loss; includes timing analysis (Rule 1 catches access, Rule 2 catches staging, Rule 3 catches 15-30min pre-deployment window).</text>
+    </graderinfo>
+  </question>
+
+</quiz>

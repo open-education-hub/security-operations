@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <!-- ============================================================ -->
+  <!-- SHORT ANSWER QUESTIONS (essay type in Moodle)               -->
+  <!-- ============================================================ -->
+
+  <question type="essay">
+    <name>
+      <text>Practice Q1: SYN Scan Detection with tshark and Snort</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>You run the following <code>tshark</code> command against a PCAP file:</p>
+<pre>tshark -r capture.pcap -Y "tcp.flags.syn == 1 and tcp.flags.ack == 0" \
+  -T fields -e ip.src -e ip.dst -e tcp.dstport</pre>
+<p>The output shows 1,247 lines, all with the same source IP (203.0.113.45) connecting to many different destination ports on 10.0.1.0/24 hosts.</p>
+<p>Answer ALL THREE parts:</p>
+<ol>
+<li>What activity does this output describe?</li>
+<li>Write a Snort rule that would detect and alert on this activity.</li>
+<li>What TWO Zeek log files would contain evidence of this activity, and which <code>conn_state</code> value would you search for?</li>
+</ol>]]></text>
+    </questiontext>
+    <defaultgrade>10.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>15</responsefieldlines>
+    <attachments>0</attachments>
+    <attachmentsrequired>0</attachmentsrequired>
+    <graderinfo format="html">
+      <text><![CDATA[<p><strong>Marking guide:</strong></p>
+<p>Part a (3 pts): Student identifies TCP SYN port scan / half-open scan / stealth scan. Award 3 pts for correct identification with explanation. Award 2 pts for "port scan" without type detail.</p>
+<p>Part b (4 pts): Rule must include: correct action (alert), correct protocol (tcp), flags:S or flags:S,!APUR, threshold with track by_src, count and seconds values, valid sid &gt;= 1000000, rev, classtype. Award 1 pt per element (up to 4).</p>
+<p>Part c (3 pts): 1.5 pts for each correct log file (conn.log + notice.log). 1 pt for correct conn_state (S0 = SYN no response, or REJ = RST received).</p>]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>
+      <text>Practice Q2: Zeek Connection States SF vs S0</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Explain the difference between these two Zeek connection states observed in <code>conn.log</code>:</p>
+<table border="1" cellpadding="4">
+<tr><th>conn_state</th><th>id.orig_h</th><th>id.resp_h</th><th>id.resp_p</th><th>proto</th></tr>
+<tr><td>SF</td><td>10.10.1.5</td><td>8.8.8.8</td><td>443</td><td>tcp</td></tr>
+<tr><td>S0</td><td>10.10.1.5</td><td>8.8.8.8</td><td>4444</td><td>tcp</td></tr>
+</table>
+<p>Answer ALL THREE parts:</p>
+<ol>
+<li>What happened for the <strong>SF</strong> state connection?</li>
+<li>What happened for the <strong>S0</strong> state connection?</li>
+<li>Which of these is more suspicious and why?</li>
+</ol>]]></text>
+    </questiontext>
+    <defaultgrade>10.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>10</responsefieldlines>
+    <attachments>0</attachments>
+    <attachmentsrequired>0</attachmentsrequired>
+    <graderinfo format="html">
+      <text><![CDATA[<p>Part a (3 pts): SF = Successfully Finished — TCP handshake completed, data exchanged, clean closure. Award 3 pts for complete answer including normal/expected.</p>
+<p>Part b (4 pts): S0 = SYN sent, no response. Client attempted connection, server did not respond (or firewall blocked). Award 4 pts for correct explanation. Deduct 1 pt if student doesn't mention the packet was blocked.</p>
+<p>Part c (3 pts): Port 4444 is suspicious (Metasploit default). S0 means the attempt was blocked (good), but the fact that an internal host tried to connect to this port suggests potential malware. Award 3 pts for identifying port 4444 as suspicious AND noting the S0 as a blocked attempt that still indicates compromise.</p>]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>
+      <text>Practice Q3: Improving a Syslog Query</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A junior analyst has written the following command to find successful root logins:</p>
+<pre>grep "root" /var/log/auth.log</pre>
+<p>Identify <strong>two problems</strong> with this approach and write an improved command that:</p>
+<ol>
+<li>Filters specifically for <strong>successful</strong> authentication</li>
+<li>Includes only the <code>root</code> username</li>
+<li>Shows the timestamp and source IP</li>
+</ol>]]></text>
+    </questiontext>
+    <defaultgrade>10.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>10</responsefieldlines>
+    <attachments>0</attachments>
+    <attachmentsrequired>0</attachmentsrequired>
+    <graderinfo format="html">
+      <text><![CDATA[<p>Problems (5 pts each = 10 pts total):</p>
+<p>Problem 1: grep "root" matches any line with "root" — too broad. Matches failed logins, sudo commands, cron jobs, etc. (5 pts for this insight)</p>
+<p>Problem 2: Does not filter for successful authentication — will return both successful and failed auth events. (5 pts)</p>
+<p>Bonus (not required): The improved command. Accept any command that uses "Accepted" as the keyword. Example:<br>
+<code>grep "Accepted.*for root from" /var/log/auth.log</code></p>]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>
+      <text>Practice Q4: Zeek Command-Line Flags</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>You are setting up a Docker-based Zeek sensor. Your <code>docker-compose.yml</code> starts Zeek with:</p>
+<pre>command: zeek -C -r /pcap/capture.pcap</pre>
+<p>Answer ALL THREE parts:</p>
+<ol>
+<li>What does the <code>-C</code> flag do?</li>
+<li>What does the <code>-r</code> flag do (vs. <code>-i</code>)?</li>
+<li>After running this command, you see <code>conn.log</code> but no <code>http.log</code>. Name TWO possible reasons why <code>http.log</code> was not generated.</li>
+</ol>]]></text>
+    </questiontext>
+    <defaultgrade>10.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>12</responsefieldlines>
+    <attachments>0</attachments>
+    <attachmentsrequired>0</attachmentsrequired>
+    <graderinfo format="html">
+      <text><![CDATA[<p>Part a (3 pts): -C = ignore/disable checksum validation. Award 3 pts for correct explanation including why (virtualised environments have bad checksums). Award 2 pts for correct meaning without context.</p>
+<p>Part b (4 pts): -r = read from PCAP file (offline/retrospective analysis). -i = live capture on network interface. Award 2 pts for each mode correctly explained.</p>
+<p>Part c (3 pts — 1.5 each): Accept any two of: no HTTP traffic in capture; HTTP on non-standard port; HTTP analyzer not loaded; all traffic is HTTPS (encrypted). Most common correct answers: no HTTP traffic, or non-standard port.</p>]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="matching">
+    <name>
+      <text>Practice Q5: Tool Matching</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Match each network security monitoring tool to its PRIMARY use case:</p>]]></text>
+    </questiontext>
+    <defaultgrade>10.0000000</defaultgrade>
+    <shuffleanswers>true</shuffleanswers>
+    <subquestion format="html">
+      <text><![CDATA[Wireshark]]></text>
+      <answer><text>GUI-based deep packet inspection and protocol analysis</text></answer>
+    </subquestion>
+    <subquestion format="html">
+      <text><![CDATA[Zeek]]></text>
+      <answer><text>Generating structured per-protocol log files for long-term monitoring</text></answer>
+    </subquestion>
+    <subquestion format="html">
+      <text><![CDATA[Snort]]></text>
+      <answer><text>Rule-based real-time intrusion detection/prevention</text></answer>
+    </subquestion>
+    <subquestion format="html">
+      <text><![CDATA[tcpdump]]></text>
+      <answer><text>Command-line packet capture and basic filtering</text></answer>
+    </subquestion>
+    <subquestion format="html">
+      <text><![CDATA[NetworkMiner]]></text>
+      <answer><text>Reconstructing files and extracting artefacts from PCAP files</text></answer>
+    </subquestion>
+  </question>
+
+  <!-- ============================================================ -->
+  <!-- LONG ANSWER QUESTIONS                                        -->
+  <!-- ============================================================ -->
+
+  <question type="essay">
+    <name>
+      <text>Practice Q6 (Long): DNS Tunnelling Investigation</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>Scenario:</strong> You receive an alert: "High volume of DNS queries to unusual domains from 10.10.5.77". You open Zeek's <code>dns.log</code> and find (abbreviated):</p>
+<pre>ts             id.orig_h   id.resp_h  query                                             qtype  rcode
+1705372200.0   10.10.5.77  8.8.8.8    mNpq9rLt3vWx7uYe2sOf5aHj.relay.badactor.net      TXT    NOERROR
+1705372201.0   10.10.5.77  8.8.8.8    oQrs0sNu4wXy8vZf3tPg6bIk.relay.badactor.net      TXT    NOERROR
+[... 200 more similar entries over 10 minutes ...]
+1705372800.0   10.10.5.77  8.8.8.8    payroll.acme-internal.corp                        A      NXDOMAIN
+1705372801.0   10.10.5.77  8.8.8.8    dc01.acme-internal.corp                           A      NXDOMAIN</pre>
+<p>Write a structured investigation response (200-400 words) covering:</p>
+<ol>
+<li>What attack technique(s) are visible?</li>
+<li>What does each type of query reveal about attacker actions?</li>
+<li>Immediate actions in the next 15 minutes</li>
+<li>Firewall/DNS containment changes</li>
+<li>How could this have been detected sooner?</li>
+</ol>]]></text>
+    </questiontext>
+    <defaultgrade>25.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>25</responsefieldlines>
+    <attachments>0</attachments>
+    <attachmentsrequired>0</attachmentsrequired>
+    <graderinfo format="html">
+      <text><![CDATA[<p><strong>Marking guide (5 pts per section):</strong></p>
+<p>1. Attack techniques (5 pts): Must identify DNS Tunnelling/C2 via DNS (3 pts) AND internal reconnaissance via DNS (2 pts). Award partial credit for identifying one technique.</p>
+<p>2. Query analysis (5 pts): TXT queries = data exfiltration/C2 channel (2.5 pts). Internal hostname queries to external DNS = topology mapping AND DNS leakage (2.5 pts).</p>
+<p>3. Immediate actions (5 pts): Isolate host (2 pts), preserve evidence/logs (1 pt), initiate endpoint investigation (1 pt), notify SOC manager (1 pt).</p>
+<p>4. Containment (5 pts): Block relay.badactor.net at DNS (2 pts), block outbound DNS to 8.8.8.8 / redirect to corporate DNS (2 pts), block outbound DNS TXT at firewall (1 pt).</p>
+<p>5. Earlier detection (5 pts): Any detection improvement: Zeek script for long subdomains (2 pts), DNS TXT query alerting (2 pts), block external DNS resolvers (1 pt).</p>]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>
+      <text>Practice Q7 (Long): NSM Design for Small E-commerce</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>Design Question:</strong> A small e-commerce company (50 employees, 1 office, 1 cloud-hosted web app) asks for a basic NSM setup. Constraints:</p>
+<ul>
+<li>Budget: €5,000/year for tools and infrastructure</li>
+<li>Staff: 1 part-time IT person (2 hours/day for security)</li>
+<li>Infrastructure: Managed switch (SPAN capable), FortiGate firewall, 500 Mbps internet</li>
+<li>Data: Customer payment card data (PCI-DSS), employee data (GDPR)</li>
+</ul>
+<p>Design a practical monitoring solution (200-400 words) that addresses:</p>
+<ol>
+<li>Which 3 log sources are most valuable given these constraints</li>
+<li>Which tools to use (open source or very low cost)</li>
+<li>Where to place monitoring sensors</li>
+<li>What automated alerts to configure</li>
+<li>PCI-DSS and GDPR compliance considerations</li>
+</ol>
+<p>Justify every decision in terms of the specific constraints.</p>]]></text>
+    </questiontext>
+    <defaultgrade>25.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>25</responsefieldlines>
+    <attachments>0</attachments>
+    <attachmentsrequired>0</attachmentsrequired>
+    <graderinfo format="html">
+      <text><![CDATA[<p><strong>Marking guide (5 pts per section):</strong></p>
+<p>1. Log sources (5 pts): Must be realistic given constraints. Top choices: firewall logs (always available, free, high value), Zeek (free, high value), web app logs (PCI-DSS scope). Award 5 pts for three justified choices that are actually achievable with €5k/year.</p>
+<p>2. Tools (5 pts): Must be open source or very low cost. Zeek (free) + Wazuh (free) is an excellent combination. Reject expensive SIEM choices like Splunk Enterprise. Award 5 pts for coherent, budget-appropriate toolset with integration plan.</p>
+<p>3. Sensor placement (5 pts): SPAN port on switch → Zeek is the obvious answer. FortiGate syslog → Wazuh. Award 5 pts for two realistic sensor placements with justification.</p>
+<p>4. Automated alerts (5 pts): Must be specific and achievable. Good examples: DB connection from non-app IP, HTTP 500 errors, auth failure spike, outbound large transfer. Award 5 pts for 3+ specific alerts relevant to PCI-DSS scope.</p>
+<p>5. Compliance (5 pts): PCI-DSS Req 10 (logging all access), Req 11.4 (IDS requirement). GDPR: minimise data collected, document legitimate interest, don't log card numbers in cleartext. Award 5 pts for addressing both regulations with specific requirements.</p>]]></text>
+    </graderinfo>
+  </question>
+
+</quiz>

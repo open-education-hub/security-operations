@@ -1,0 +1,9 @@
+
+services:
+  linux-drill:
+    build: .
+    container_name: linux-analysis-drill
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./scripts:/scripts:ro

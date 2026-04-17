@@ -1,0 +1,19 @@
+// Microsoft Sentinel KQL Query for T1055.001 — DLL Injection via CreateRemoteThread
+// Security Operations Course - Session 08, Drill 01
+//
+// [STUDENT TASK]
+// Compile your Sigma rule to Sentinel KQL.
+// You can use sigma-cli:
+//   sigma convert -t microsoft365defender rules/primary-detection.yml
+//
+// Or write it manually for the SentinelOne / Sysmon data connector.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Data connector: Windows Security Events or Sysmon via Azure Monitor
+SecurityEvent
+| where EventID == 8  // Sysmon CreateRemoteThread (if using Sysmon data connector)
+| where not (SourceProcessName has_any ("devenv.exe", "MsMpEng.exe", "java.exe"))
+// [STUDENT TASK: Add your exclusions from your Sigma filter_legitimate]
+| project TimeGenerated, Computer, Account, SourceProcessName, TargetProcessName,
+          SourceProcessId, TargetProcessId
+| order by TimeGenerated desc

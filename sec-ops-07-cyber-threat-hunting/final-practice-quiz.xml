@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 07 Final Practice Quiz: Cyber Threat Hunting and Intelligence Gathering</name>
+  <description>Practice quiz with short-answer and essay questions. 5 short answer + 2 long answer questions. Use to consolidate learning before the final assessment.</description>
+
+  <question type="essay">
+    <name>
+      <text>Practice Q1: Hypothesis Formation for NTDS.dit Extraction</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>A threat hunter at a financial company reads a new report stating that a ransomware group is using <strong>scheduled tasks</strong> for persistence (ATT&CK T1053.005) and <strong>NTDS.dit extraction</strong> for credential theft (T1003.003).</p>
+        <p>Write ONE complete hunting hypothesis that targets the <strong>NTDS.dit extraction</strong> technique. Your hypothesis must include:</p>
+        <ul>
+          <li>The threat scenario</li>
+          <li>The specific observable evidence you would look for</li>
+          <li>The data source where you would find this evidence</li>
+          <li>The time window for the hunt</li>
+        </ul>
+        <p>Use the format: "If [actor/technique] is active in [environment/scope], I would expect to observe [specific evidence] in [data source] during [time window]."</p>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>10</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>10</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking Criteria (10 points):</strong></p>
+        <ul>
+          <li><strong>2 pts</strong> - Identifies specific technique (T1003.003 / NTDS.dit)</li>
+          <li><strong>2 pts</strong> - Identifies observable indicators (vssadmin shadow copies, ntds.dit file access, specific event IDs)</li>
+          <li><strong>2 pts</strong> - Names specific data sources (Event ID 4663, Sysmon EID 11, or similar)</li>
+          <li><strong>2 pts</strong> - Specifies target system type (domain controllers specifically)</li>
+          <li><strong>2 pts</strong> - Includes time window and overall hypothesis is testable</li>
+        </ul>
+        <p><strong>Model Answer:</strong> "If the ransomware group has established a foothold and is extracting credentials via NTDS.dit (T1003.003), I would expect to observe vssadmin.exe creating volume shadow copies followed by copy operations targeting the path %SYSTEMROOT%\NTDS\ntds.dit or the shadow copy path \?\GLOBALROOT\Device\HarddiskVolumeShadowCopy*\Windows\NTDS\ntds.dit, visible in Windows Security Event ID 4663 (file access auditing) and Sysmon Event ID 11 (file create) on all domain controllers over the past 30 days."</p>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>
+      <text>Practice Q2: Sigma Rule Selection vs Filter</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>Explain the difference between a Sigma rule's <code>selection</code> block and <code>filter</code> block. Give a specific example of when you would use a <code>filter</code> block in a rule designed to detect Mimikatz-style LSASS memory access.</p>
+        <p>Your answer should include a code example (YAML format) showing both a selection and filter block.</p>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>10</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>15</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking Criteria (10 points):</strong></p>
+        <ul>
+          <li><strong>3 pts</strong> - Correct explanation of selection (positive match criteria)</li>
+          <li><strong>3 pts</strong> - Correct explanation of filter (exclusion of known-legitimate)</li>
+          <li><strong>4 pts</strong> - Working YAML example with selection and filter for LSASS detection, with correct condition syntax (selection and not filter)</li>
+        </ul>
+        <p><strong>Key points:</strong> Selection = what to match (TargetImage ends with lsass.exe, suspicious GrantedAccess values like 0x1fffff). Filter = legitimate security products (MsMpEng.exe, SenseIR.exe, csrss.exe). Condition must be "selection and not filter".</p>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>
+      <text>Practice Q3: TLP Application to Incident Components</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>Your incident response team has just finished handling an intrusion. The IR report contains four types of information:</p>
+        <ol type="a">
+          <li>IOCs of the attacker's infrastructure (IPs, domains, file hashes)</li>
+          <li>The specific CVE that was exploited</li>
+          <li>Your internal network architecture that the attacker mapped during discovery</li>
+          <li>The name of the attacker group with medium-confidence attribution</li>
+        </ol>
+        <p>For <strong>each of the four elements (a through d)</strong>, specify which TLP level you would apply and briefly justify your choice (2-3 sentences each).</p>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>10</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>15</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking Criteria (10 points, 2.5 per element):</strong></p>
+        <ul>
+          <li><strong>a) IOCs:</strong> TLP:AMBER (community sharing to enable blocking, but not fully public yet). Full marks for AMBER or GREEN with justification.</li>
+          <li><strong>b) CVE:</strong> TLP:GREEN or TLP:CLEAR (CVEs are public; enabling community patching). Deduct 1pt for AMBER without strong justification (e.g., zero-day scenario).</li>
+          <li><strong>c) Network architecture:</strong> TLP:RED (sensitive internal information; sharing helps attackers). Must be RED. Award 0 if any other TLP chosen.</li>
+          <li><strong>d) Attribution (medium confidence):</strong> TLP:AMBER (trusted sharing with peers; not fully public due to attribution uncertainty and potential defamation risk).</li>
+        </ul>
+        <p>Award partial credit for correct reasoning even if TLP level differs, as long as the logic is sound.</p>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>
+      <text>Practice Q4: OSINT Investigation Workflow</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>You are investigating a suspicious domain: <code>support-auth-globalcorp[.]com</code>.</p>
+        <p>Describe the step-by-step OSINT investigation process you would follow, naming at least <strong>4 specific tools</strong> you would use and explaining what specific information you would seek from each tool.</p>
+        <p>Also note any operational security considerations you should take during this investigation.</p>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>10</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>15</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking Criteria (10 points):</strong></p>
+        <ul>
+          <li><strong>6 pts</strong> - 4+ tools named with specific queries/information sought (1.5 per tool): WHOIS (age, registrar), VirusTotal (detections, resolutions), crt.sh (subdomains, cert patterns), Shodan (ports, services), URLScan (page content, links), OTX (community reports)</li>
+          <li><strong>2 pts</strong> - Logical investigation sequence (start passive, escalate based on findings)</li>
+          <li><strong>2 pts</strong> - Operational security mentioned: don't visit URL directly, use isolated VM/network, be aware server may log your IP</li>
+        </ul>
+        <p>Deduct 1pt if student mentions actively attacking or scanning the domain (illegal).</p>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>
+      <text>Practice Q5: Intelligence Types for CISO Questions</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>A CISO asks your threat intelligence team to answer three questions:</p>
+        <ol>
+          <li>"Are any of our employee email addresses currently in criminal marketplaces?"</li>
+          <li>"What TTPs is the FIN7 ransomware group currently using in our sector?"</li>
+          <li>"What is the overall ransomware threat trend for healthcare organizations over the next 18 months?"</li>
+        </ol>
+        <p>For <strong>each question</strong>, identify whether it requires <strong>tactical, operational, or strategic</strong> intelligence, and describe what the intelligence product should look like (format, audience, frequency, content).</p>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>10</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>15</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking Criteria (10 points, ~3 per question + 1 for overall quality):</strong></p>
+        <ul>
+          <li><strong>Q1 - Tactical:</strong> Specific compromised credentials require immediate action (Flash Alert, < 4 hour delivery, SOC + identity team audience, one-time or ongoing monitoring). Full credit: correctly identifies tactical + describes actionable flash format.</li>
+          <li><strong>Q2 - Operational:</strong> Current actor campaign activity = Threat Actor Brief (2-4 pages, weekly, hunters + SOC lead audience, ATT&CK mapped TTPs + detection recommendations). Full credit: correctly identifies operational + describes threat actor brief format.</li>
+          <li><strong>Q3 - Strategic:</strong> 18-month trend = Threat Landscape Assessment (quarterly report, 5-10 pages, CISO + board audience, sector trends, strategic recommendations). Full credit: correctly identifies strategic + describes landscape report format.</li>
+        </ul>
+        <p>Note: Some students may argue Q2 is also strategic; accept if justification is sound.</p>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>
+      <text>Practice Q6: Data-Driven Hunt Scenario - MSIExec Spawning PowerShell</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>Your SOC analyst has flagged an unusual pattern during a routine review. A stack-counting query across 90 days of data includes this row:</p>
+        <pre>ParentImage: C:\Windows\SysWOW64\msiexec.exe
+Image:       C:\Windows\System32\powershell.exe
+Count:       1</pre>
+        <p>The analyst also found Sysmon EventID=3 (NetworkConnect) records showing this PowerShell instance connected to <code>45.89.125.203:443</code> exactly 30 seconds after launch.</p>
+        <p>Answer <strong>all four parts</strong>:</p>
+        <p><strong>a)</strong> Is this suspicious? Explain your reasoning step by step.</p>
+        <p><strong>b)</strong> Write 3 Splunk queries you would run to investigate this further. Describe what each query is looking for.</p>
+        <p><strong>c)</strong> Write a formal hunting hypothesis based on this finding.</p>
+        <p><strong>d)</strong> Write a Sigma rule (correct YAML) that detects msiexec.exe spawning PowerShell.</p>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>25</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>40</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking Criteria (25 points):</strong></p>
+        <p><strong>a) Assessment (5 pts):</strong></p>
+        <ul>
+          <li>2 pts: Identifies relationship as suspicious (msiexec should not spawn PowerShell)</li>
+          <li>2 pts: Notes count=1 significance (rare = suspicious in stack counting)</li>
+          <li>1 pt: Notes immediate network connection as corroborating evidence</li>
+        </ul>
+        <p><strong>b) Queries (10 pts, ~3 per query + 1 logic):</strong></p>
+        <ul>
+          <li>Query 1: Should retrieve CommandLine for both processes (what was installed? what PS command ran?)</li>
+          <li>Query 2: Should investigate all network activity from this host/process to the suspect IP</li>
+          <li>Query 3: Should build a full timeline of the compromised host (what else happened?)</li>
+        </ul>
+        <p><strong>c) Hypothesis (5 pts):</strong></p>
+        <ul>
+          <li>Must name the technique (T1218.007 MSI installer abuse or T1059.001 PowerShell)</li>
+          <li>Must identify observable (msiexec spawning PS + network connection)</li>
+          <li>Must name data source (Sysmon EID 1, EID 3)</li>
+          <li>Must have time window</li>
+        </ul>
+        <p><strong>d) Sigma Rule (5 pts):</strong></p>
+        <ul>
+          <li>2 pts: Valid YAML structure (title, logsource, detection, condition)</li>
+          <li>1 pt: Correct logsource (process_creation, windows)</li>
+          <li>1 pt: Correct selection (ParentImage endswith msiexec.exe, Image endswith powershell.exe)</li>
+          <li>1 pt: ATT&CK tags and falsepositives documented</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name>
+      <text>Practice Q7: MISP Event Design for VIPER-HEALTH Intrusion</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>You are a threat intelligence analyst at a healthcare company. After completing a threat hunt, you have confirmed:</p>
+        <ul>
+          <li><strong>Compromised system:</strong> HOSP-WS-0234</li>
+          <li><strong>Initial access:</strong> Malicious LNK file in a ZIP archive sent via phishing</li>
+          <li><strong>Dropper hash (SHA256):</strong> <code>9f8e7d6c5b4a3928374655647382910a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e</code></li>
+          <li><strong>C2 IP:</strong> <code>91.92.248.50</code></li>
+          <li><strong>C2 Domain:</strong> <code>health-analytics-cdn[.]net</code></li>
+          <li><strong>Malware:</strong> In-memory only (no persistent file after initial stage)</li>
+          <li><strong>Data accessed:</strong> Patient scheduling database</li>
+          <li><strong>TLP:</strong> AMBER (to be shared with H-ISAC)</li>
+          <li><strong>Suspected group:</strong> VIPER-HEALTH (medium confidence, 4/5 TTP overlap)</li>
+        </ul>
+        <p>Design the MISP event by answering <strong>all four parts</strong>:</p>
+        <p><strong>a)</strong> Write the event metadata (info string, threat level, analysis status, distribution, TLP tag, minimum 3 ATT&CK technique tags).</p>
+        <p><strong>b)</strong> List all attributes with: type, value, to_ids flag, and one-sentence justification for the to_ids choice.</p>
+        <p><strong>c)</strong> Design one MISP file Object for the LNK dropper with all relevant attributes.</p>
+        <p><strong>d)</strong> Write a YARA rule (as a MISP yara attribute) for the C2 infrastructure. Include at least 3 strings and a valid condition.</p>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>25</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>50</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking Criteria (25 points):</strong></p>
+        <p><strong>a) Event metadata (5 pts):</strong></p>
+        <ul>
+          <li>1 pt: Descriptive info string (includes actor, campaign type, sector)</li>
+          <li>1 pt: Threat level = High (1) or Critical</li>
+          <li>1 pt: TLP:AMBER tag present</li>
+          <li>2 pts: 3+ valid ATT&CK tags (T1566.001 phishing, T1204.002 user execution, T1071.001 C2 are expected; accept any valid technique)</li>
+        </ul>
+        <p><strong>b) Attributes (8 pts, ~1.5 per attribute):</strong></p>
+        <ul>
+          <li>ip-dst: to_ids=TRUE (block at firewall, specific IOC)</li>
+          <li>domain: to_ids=TRUE (block at DNS)</li>
+          <li>sha256 (hash): to_ids=TRUE (block in EDR)</li>
+          <li>LNK filename: to_ids=FALSE justification (too generic, high FP)</li>
+          <li>VIPER-HEALTH name: to_ids=FALSE (attribution, not detection-actionable)</li>
+          <li>Patient database note: to_ids=FALSE (victim context, not IOC)</li>
+          <li>Deduct 1pt for setting attribution/context to to_ids=TRUE</li>
+        </ul>
+        <p><strong>c) File Object (6 pts):</strong></p>
+        <ul>
+          <li>2 pts: filename attribute present</li>
+          <li>2 pts: sha256 attribute present with to_ids=true</li>
+          <li>1 pt: mimetype = application/x-ms-shortcut or similar</li>
+          <li>1 pt: comment explaining malicious nature</li>
+        </ul>
+        <p><strong>d) YARA Rule (6 pts):</strong></p>
+        <ul>
+          <li>2 pts: Valid YARA structure (rule name, meta, strings, condition)</li>
+          <li>2 pts: 3+ relevant strings (C2 domain, IP, and one more unique indicator)</li>
+          <li>1 pt: Meaningful condition (not just 1 of them without logic)</li>
+          <li>1 pt: Meta fields include tlp, author, date</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+</quiz>

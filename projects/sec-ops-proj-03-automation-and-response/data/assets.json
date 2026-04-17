@@ -1,0 +1,242 @@
+[
+  {
+    "ip": "10.0.0.5",
+    "hostname": "dc-01",
+    "type": "domain_controller",
+    "criticality": "critical",
+    "owner": "IT Infrastructure",
+    "os": "Windows Server 2022"
+  },
+  {
+    "ip": "10.0.0.15",
+    "hostname": "db-server-01",
+    "type": "database",
+    "criticality": "critical",
+    "owner": "Engineering",
+    "os": "Ubuntu 22.04 LTS"
+  },
+  {
+    "ip": "10.0.0.20",
+    "hostname": "pay-sys-01",
+    "type": "payment_system",
+    "criticality": "critical",
+    "owner": "Finance",
+    "os": "Red Hat Enterprise Linux 9"
+  },
+  {
+    "ip": "10.0.0.6",
+    "hostname": "dc-02",
+    "type": "domain_controller",
+    "criticality": "critical",
+    "owner": "IT Infrastructure",
+    "os": "Windows Server 2019"
+  },
+  {
+    "ip": "10.0.0.21",
+    "hostname": "pay-sys-02",
+    "type": "payment_system",
+    "criticality": "critical",
+    "owner": "Finance",
+    "os": "Red Hat Enterprise Linux 8"
+  },
+  {
+    "ip": "10.0.0.30",
+    "hostname": "web-01",
+    "type": "web_server",
+    "criticality": "high",
+    "owner": "Engineering",
+    "os": "Ubuntu 22.04 LTS"
+  },
+  {
+    "ip": "10.0.0.31",
+    "hostname": "web-02",
+    "type": "web_server",
+    "criticality": "high",
+    "owner": "Engineering",
+    "os": "Ubuntu 22.04 LTS"
+  },
+  {
+    "ip": "10.0.0.32",
+    "hostname": "web-03",
+    "type": "web_server",
+    "criticality": "high",
+    "owner": "Marketing",
+    "os": "Debian 12"
+  },
+  {
+    "ip": "10.0.0.40",
+    "hostname": "file-srv-01",
+    "type": "file_server",
+    "criticality": "high",
+    "owner": "Operations",
+    "os": "Windows Server 2019"
+  },
+  {
+    "ip": "10.0.0.41",
+    "hostname": "file-srv-02",
+    "type": "file_server",
+    "criticality": "high",
+    "owner": "HR",
+    "os": "Windows Server 2016"
+  },
+  {
+    "ip": "10.0.0.50",
+    "hostname": "db-server-02",
+    "type": "database",
+    "criticality": "high",
+    "owner": "Engineering",
+    "os": "PostgreSQL on Debian 12"
+  },
+  {
+    "ip": "10.0.0.100",
+    "hostname": "ws-alice",
+    "type": "workstation",
+    "criticality": "medium",
+    "owner": "Engineering",
+    "os": "Windows 11 Pro"
+  },
+  {
+    "ip": "10.0.0.101",
+    "hostname": "ws-bob",
+    "type": "workstation",
+    "criticality": "medium",
+    "owner": "Engineering",
+    "os": "Windows 11 Pro"
+  },
+  {
+    "ip": "10.0.0.102",
+    "hostname": "ws-carol",
+    "type": "workstation",
+    "criticality": "medium",
+    "owner": "Finance",
+    "os": "macOS Sonoma"
+  },
+  {
+    "ip": "10.0.0.103",
+    "hostname": "ws-dave",
+    "type": "workstation",
+    "criticality": "medium",
+    "owner": "Finance",
+    "os": "Windows 11 Pro"
+  },
+  {
+    "ip": "10.0.0.104",
+    "hostname": "ws-eve",
+    "type": "workstation",
+    "criticality": "medium",
+    "owner": "HR",
+    "os": "macOS Ventura"
+  },
+  {
+    "ip": "10.0.0.105",
+    "hostname": "ws-frank",
+    "type": "workstation",
+    "criticality": "medium",
+    "owner": "Marketing",
+    "os": "Windows 11 Pro"
+  },
+  {
+    "ip": "10.0.0.106",
+    "hostname": "ws-grace",
+    "type": "workstation",
+    "criticality": "medium",
+    "owner": "Operations",
+    "os": "Ubuntu 22.04 LTS"
+  },
+  {
+    "ip": "10.0.0.107",
+    "hostname": "ws-henry",
+    "type": "workstation",
+    "criticality": "medium",
+    "owner": "Legal",
+    "os": "Windows 11 Enterprise"
+  },
+  {
+    "ip": "10.0.0.108",
+    "hostname": "ws-iris",
+    "type": "workstation",
+    "criticality": "low",
+    "owner": "Sales",
+    "os": "Windows 10 Pro"
+  },
+  {
+    "ip": "10.0.0.109",
+    "hostname": "ws-jack",
+    "type": "workstation",
+    "criticality": "low",
+    "owner": "Sales",
+    "os": "Windows 10 Pro"
+  },
+  {
+    "ip": "10.0.0.110",
+    "hostname": "ws-kate",
+    "type": "workstation",
+    "criticality": "low",
+    "owner": "Facilities",
+    "os": "Windows 10 Home"
+  },
+  {
+    "ip": "10.0.0.111",
+    "hostname": "ws-liam",
+    "type": "workstation",
+    "criticality": "low",
+    "owner": "Facilities",
+    "os": "Windows 10 Home"
+  },
+  {
+    "ip": "10.0.0.112",
+    "hostname": "ws-mia",
+    "type": "workstation",
+    "criticality": "low",
+    "owner": "Intern Pool",
+    "os": "Ubuntu 20.04 LTS"
+  },
+  {
+    "ip": "10.0.0.113",
+    "hostname": "ws-noah",
+    "type": "workstation",
+    "criticality": "low",
+    "owner": "Intern Pool",
+    "os": "Ubuntu 20.04 LTS"
+  },
+  {
+    "ip": "10.0.0.114",
+    "hostname": "ws-olivia",
+    "type": "workstation",
+    "criticality": "low",
+    "owner": "Customer Support",
+    "os": "Windows 11 Pro"
+  },
+  {
+    "ip": "10.0.0.115",
+    "hostname": "ws-peter",
+    "type": "workstation",
+    "criticality": "low",
+    "owner": "Customer Support",
+    "os": "Windows 11 Pro"
+  },
+  {
+    "ip": "10.0.0.116",
+    "hostname": "ws-quinn",
+    "type": "workstation",
+    "criticality": "low",
+    "owner": "Customer Support",
+    "os": "Windows 10 Pro"
+  },
+  {
+    "ip": "10.0.0.117",
+    "hostname": "ws-rachel",
+    "type": "workstation",
+    "criticality": "low",
+    "owner": "Training",
+    "os": "Windows 10 Pro"
+  },
+  {
+    "ip": "10.0.0.118",
+    "hostname": "ws-sam",
+    "type": "workstation",
+    "criticality": "low",
+    "owner": "Training",
+    "os": "Ubuntu 22.04 LTS"
+  }
+]

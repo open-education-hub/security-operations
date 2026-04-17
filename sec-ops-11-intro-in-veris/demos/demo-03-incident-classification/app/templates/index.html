@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>VERIS Incident Classification</title>
+<style>
+  body { font-family: monospace; background: #0d1117; color: #c9d1d9; margin: 0; padding: 20px; }
+  h1 { color: #58a6ff; }
+  .scenario { background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 16px; margin: 16px 0; }
+  .scenario h2 { color: #f0f6fc; margin-top: 0; }
+  .scenario p { color: #8b949e; }
+  select, input { background: #21262d; color: #c9d1d9; border: 1px solid #30363d; border-radius: 4px; padding: 4px 8px; }
+  button { background: #238636; color: #fff; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; }
+  button:hover { background: #2ea043; }
+  .feedback { margin-top: 12px; padding: 12px; background: #161b22; border-radius: 6px; border: 1px solid #30363d; }
+  .correct { color: #3fb950; }
+  .wrong { color: #f85149; }
+  .explanation { color: #d29922; font-style: italic; }
+  .progress { color: #8b949e; font-size: 0.9em; }
+</style>
+</head>
+<body>
+<h1>VERIS Incident Classification Practice</h1>
+<p class="progress">{{ total }} scenarios available</p>
+
+{% for s in scenarios %}
+<div class="scenario" id="scenario-{{ s.id }}">
+  <h2>Scenario {{ s.id }}: {{ s.title }}</h2>
+  <p>{{ s.description }}</p>
+  <div>
+    <label>Actor type:</label>
+    <select id="actor-{{ s.id }}">
+      <option value="">-- select --</option>
+      <option value="external">External</option>
+      <option value="internal">Internal</option>
+      <option value="partner">Partner</option>
+      <option value="unknown">Unknown</option>
+    </select>
+    &nbsp;
+    <label>Primary action:</label>
+    <select id="action-{{ s.id }}">
+      <option value="">-- select --</option>
+      <option value="hacking">Hacking</option>
+      <option value="malware">Malware</option>
+      <option value="social">Social engineering</option>
+      <option value="misuse">Misuse</option>
+      <option value="error">Error</option>
+      <option value="physical">Physical</option>
+    </select>
+    &nbsp;
+    <button onclick="checkAnswer({{ s.id }})">Check Answer</button>
+  </div>
+  <div id="feedback-{{ s.id }}" class="feedback" style="display:none"></div>
+</div>
+{% endfor %}
+
+<script>
+async function checkAnswer(id) {
+  const actor = document.getElementById(`actor-${id}`).value;
+  const action = document.getElementById(`action-${id}`).value;
+  if (!actor || !action) { alert("Please select both actor and action."); return; }
+  const resp = await fetch("/api/check", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({scenario_id: id, answer: {actor: {[actor]: {}}, action: {[action]: {}}}})
+  });
+  const data = await resp.json();
+  const div = document.getElementById(`feedback-${id}`);
+  div.style.display = "block";
+  div.innerHTML = data.feedback.map(f =>
+    `<div class="${f.correct ? 'correct' : 'wrong'}">${f.correct ? '✓' : '✗'} ${f.field}: ${f.message}</div>`
+  ).join("") + `<div class="explanation">💡 ${data.explanation}</div>`;
+}
+</script>
+</body>
+</html>

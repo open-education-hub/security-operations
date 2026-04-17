@@ -1,0 +1,47 @@
+# INSTRUCTOR ANSWERS — drill-02-post-quantum-analysis
+# DO NOT distribute to students
+
+== Part 1: Asset Inventory Analysis ==
+
+System Classification:
+  ID 1  Corporate email:     RSA-2048 VULNERABLE, AES-256 SECURE, SHA-256 SECURE
+         Harvest risk: HIGH (10yr retention > ~10yr to quantum threat)
+  ID 2  VPN Gateway:         ECDH P-256 VULNERABLE, AES-256-GCM SECURE
+         Harvest risk: LOW (no persistent data; but upgrade key exchange!)
+  ID 3  Code Signing:        RSA-4096 VULNERABLE (still breakable by Shor's)
+         Harvest risk: CRITICAL (15yr signed binary trust; forge signatures in future)
+  ID 4  Database TDE:        AES-256 SECURE, RSA-2048 key-wrap VULNERABLE
+         Harvest risk: CRITICAL (25yr retention >> quantum timeline)
+  ID 5  SSH:                 Curve25519 VULNERABLE (key exchange), Ed25519 VULNERABLE
+         Harvest risk: LOW (no persistent sessions stored)
+  ID 6  PKI / CA:            RSA-4096 VULNERABLE, SHA-256 SECURE
+         Harvest risk: CRITICAL (CA compromise = all certs untrustworthy for 20yr)
+  ID 7  Encrypted Backups:   AES-256 SECURE, RSA-2048 key-wrap VULNERABLE
+         Harvest risk: CRITICAL (7yr retention; may still be active when QC arrives)
+  ID 8  API JWTs:            ECDSA P-256 VULNERABLE, HMAC SECURE
+         Harvest risk: LOW (1yr retention; tokens short-lived)
+  ID 9  IoT Sensors:         ECDH P-256 VULNERABLE, AES-128 CAUTION
+         Special problem: 10-year device lifetime, no OTA
+  ID 10 Document Archive:    RSA-2048 VULNERABLE, SHA-1 BROKEN
+         Harvest risk: CRITICAL (30yr retention — most at risk)
+
+== Part 4: IoT Challenge ==
+Q1: IoT problems — no OTA update, long device lifetime, constrained resources
+Q2: Options: (a) PQC gateway terminating IoT TLS; (b) device replacement program;
+    (c) isolate IoT network and accept residual risk for medium-sensitivity data
+Q3: ML-KEM-768 pubkey = 1184 bytes vs P-256 = 64 bytes; constrained devices may
+    lack memory/CPU for lattice operations; may require ML-KEM-512 or custom HW
+Q4: PQC gateway trade-off: breaks end-to-end encryption for the IoT→gateway hop.
+    Security relies on gateway integrity. Increases attack surface at gateway.
+    Acceptable for LOW/MEDIUM sensitivity data; not for CRITICAL.
+
+== Part 3: Harvest Now, Decrypt Later — Highest Risk Systems ==
+Priority order (retention > estimated quantum timeline of 10 years):
+  1. Long-term Document Archive (30yr) — CRITICAL PRIORITY
+  2. Database TDE (25yr) — CRITICAL PRIORITY
+  3. PKI / CA (20yr) — CRITICAL PRIORITY
+  4. Code Signing (15yr) — HIGH PRIORITY
+  5. Corporate Email (10yr) — HIGH PRIORITY (borderline)
+  6. Encrypted Backups (7yr) — MEDIUM (may be safe but start migrating)
+
+Low-risk (no persistent storage): VPN Gateway, SSH Infrastructure

@@ -1,0 +1,80 @@
+{
+  "timestamp": "2024-03-15T14:20:01.123Z",
+  "event_type": "process_create",
+  "hostname": "WORKSTATION01",
+  "user": "corp\\jdoe",
+  "process": {"pid": 3120, "image": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE", "command_line": "\"WINWORD.EXE\" /n \"C:\\Users\\jdoe\\Downloads\\invoice_march.docm\"", "parent_image": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE", "parent_pid": 2104, "md5": "A1B2C3D4E5F67890ABCDEF1234567890", "sha256": "ABCDEF1234567890ABCDEF1234567890ABCDEF1234567890ABCDEF1234567890"},
+  "mitre_technique": "T1566.001", "severity": "info"
+}
+{
+  "timestamp": "2024-03-15T14:20:15.456Z",
+  "event_type": "process_create",
+  "hostname": "WORKSTATION01",
+  "user": "corp\\jdoe",
+  "process": {"pid": 4592, "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "command_line": "powershell.exe -nop -w hidden -enc JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0AA==", "parent_image": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE", "parent_pid": 3120, "current_directory": "C:\\Users\\jdoe\\AppData\\Local\\Temp\\"},
+  "mitre_technique": "T1059.001", "severity": "critical"
+}
+{
+  "timestamp": "2024-03-15T14:20:18.789Z",
+  "event_type": "dns_query",
+  "hostname": "WORKSTATION01",
+  "process": {"pid": 4592, "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"},
+  "dns": {"query": "update.microsoft-cdn-delivery.com", "query_type": "A", "response": "185.234.219.47"},
+  "mitre_technique": "T1071.004", "severity": "high"
+}
+{
+  "timestamp": "2024-03-15T14:20:19.012Z",
+  "event_type": "network_connect",
+  "hostname": "WORKSTATION01",
+  "process": {"pid": 4592, "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"},
+  "network": {"destination_ip": "185.234.219.47", "destination_port": 443, "protocol": "TCP", "direction": "outbound", "bytes_sent": 512, "bytes_received": 45312},
+  "mitre_technique": "T1071.001", "severity": "high"
+}
+{
+  "timestamp": "2024-03-15T14:20:22.345Z",
+  "event_type": "file_create",
+  "hostname": "WORKSTATION01",
+  "process": {"pid": 4592, "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"},
+  "file": {"path": "C:\\Users\\jdoe\\AppData\\Local\\Temp\\WinUpdate.exe", "size_bytes": 45312, "md5": "DEADBEEFDEADBEEFDEADBEEFDEADBEEF", "sha256": "CAFEBABECAFEBABECAFEBABECAFEBABECAFEBABECAFEBABECAFEBABECAFEBABE", "is_pe": true, "signed": false, "vt_detections": "47/72"},
+  "mitre_technique": "T1105", "severity": "critical"
+}
+{
+  "timestamp": "2024-03-15T14:20:23.500Z",
+  "event_type": "process_create",
+  "hostname": "WORKSTATION01",
+  "user": "corp\\jdoe",
+  "process": {"pid": 5891, "image": "C:\\Users\\jdoe\\AppData\\Local\\Temp\\WinUpdate.exe", "command_line": "WinUpdate.exe", "parent_image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "parent_pid": 4592, "md5": "DEADBEEFDEADBEEFDEADBEEFDEADBEEF", "sha256": "CAFEBABECAFEBABECAFEBABECAFEBABECAFEBABECAFEBABECAFEBABECAFEBABE", "signed": false},
+  "mitre_technique": "T1059.001", "severity": "critical"
+}
+{
+  "timestamp": "2024-03-15T14:20:25.678Z",
+  "event_type": "registry_set",
+  "hostname": "WORKSTATION01",
+  "process": {"pid": 5891, "image": "C:\\Users\\jdoe\\AppData\\Local\\Temp\\WinUpdate.exe", "parent_image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"},
+  "registry": {"key": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", "value_name": "WindowsUpdateHelper", "value_data": "C:\\Users\\jdoe\\AppData\\Roaming\\Microsoft\\wuhelper.exe", "operation": "SetValue"},
+  "mitre_technique": "T1547.001", "severity": "critical"
+}
+{
+  "timestamp": "2024-03-15T14:20:28.901Z",
+  "event_type": "file_create",
+  "hostname": "WORKSTATION01",
+  "process": {"pid": 5891, "image": "C:\\Users\\jdoe\\AppData\\Local\\Temp\\WinUpdate.exe"},
+  "file": {"path": "C:\\Users\\jdoe\\AppData\\Roaming\\Microsoft\\wuhelper.exe", "size_bytes": 45312, "md5": "DEADBEEFDEADBEEFDEADBEEFDEADBEEF", "sha256": "CAFEBABECAFEBABECAFEBABECAFEBABECAFEBABECAFEBABECAFEBABECAFEBABE", "is_pe": true, "signed": false},
+  "mitre_technique": "T1036.005", "severity": "high"
+}
+{
+  "timestamp": "2024-03-15T14:22:01.901Z",
+  "event_type": "process_access",
+  "hostname": "WORKSTATION01",
+  "process": {"pid": 5891, "image": "C:\\Users\\jdoe\\AppData\\Local\\Temp\\WinUpdate.exe"},
+  "target": {"pid": 648, "image": "C:\\Windows\\System32\\lsass.exe", "access_mask": "0x1FFFFF", "access_description": "PROCESS_ALL_ACCESS"},
+  "mitre_technique": "T1003.001", "severity": "critical"
+}
+{
+  "timestamp": "2024-03-15T14:22:35.123Z",
+  "event_type": "network_connect",
+  "hostname": "WORKSTATION01",
+  "process": {"pid": 5891, "image": "C:\\Users\\jdoe\\AppData\\Roaming\\Microsoft\\wuhelper.exe"},
+  "network": {"destination_ip": "185.234.219.47", "destination_port": 443, "protocol": "TCP", "direction": "outbound", "bytes_sent": 4096, "bytes_received": 128},
+  "mitre_technique": "T1071.001", "severity": "high"
+}

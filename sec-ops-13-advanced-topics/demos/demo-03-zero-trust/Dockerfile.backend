@@ -1,0 +1,6 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+COPY backend_app.py /app/backend_app.py
+
+CMD ["python3", "/app/backend_app.py"]

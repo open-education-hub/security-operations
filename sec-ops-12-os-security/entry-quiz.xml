@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="multichoice">
+    <name><text>OS Security Entry Q1 — SUID</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does "SUID" stand for in Linux?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Set User ID</text><feedback><text>Correct! SUID (Set User ID) is a special permission bit that allows a file to execute with the privileges of its owner rather than the user running it.</text></feedback></answer>
+    <answer fraction="0"><text>System User ID</text><feedback><text>Incorrect. SUID stands for Set User ID.</text></feedback></answer>
+    <answer fraction="0"><text>Secure Unix ID</text><feedback><text>Incorrect. SUID stands for Set User ID.</text></feedback></answer>
+    <answer fraction="0"><text>Superuser Interface Daemon</text><feedback><text>Incorrect. SUID stands for Set User ID.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Entry Q2 — Windows Registry</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Windows, what is the "registry"?</p>]]></text></questiontext>
+    <answer fraction="100"><text>A hierarchical database that stores OS and application configuration settings</text><feedback><text>Correct! The Windows Registry is a hierarchical database storing configuration for the OS, hardware, and applications. It is also a common attacker target for persistence.</text></feedback></answer>
+    <answer fraction="0"><text>A list of all installed software</text><feedback><text>Incorrect. Software lists are in Programs and Features or via Get-Package PowerShell cmdlet.</text></feedback></answer>
+    <answer fraction="0"><text>A file that contains all user passwords in encrypted form</text><feedback><text>Incorrect. Password hashes are in the SAM database (a registry hive), but the registry itself is much broader.</text></feedback></answer>
+    <answer fraction="0"><text>The Windows security event log</text><feedback><text>Incorrect. The Security event log is a separate component accessible via Event Viewer.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Entry Q3 — Firewall Purpose</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the primary purpose of a firewall?</p>]]></text></questiontext>
+    <answer fraction="100"><text>To control which network connections are allowed or denied based on rules</text><feedback><text>Correct! A firewall filters network traffic based on rules (IP, port, protocol, direction), enforcing a network security boundary.</text></feedback></answer>
+    <answer fraction="0"><text>To scan files for viruses and malware</text><feedback><text>Incorrect. That is the function of antivirus/EDR software.</text></feedback></answer>
+    <answer fraction="0"><text>To encrypt network traffic between systems</text><feedback><text>Incorrect. Encryption is handled by protocols like TLS/SSL or VPNs, not firewalls.</text></feedback></answer>
+    <answer fraction="0"><text>To monitor user activity and log all actions</text><feedback><text>Incorrect. User activity monitoring and logging is done by SIEM/UEBA and audit systems.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Entry Q4 — /etc/passwd</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Linux, which file contains user account information including usernames and home directories?</p>]]></text></questiontext>
+    <answer fraction="100"><text>/etc/passwd</text><feedback><text>Correct! /etc/passwd is world-readable and contains: username, UID, GID, GECOS, home directory, and login shell for each account.</text></feedback></answer>
+    <answer fraction="0"><text>/etc/shadow</text><feedback><text>Incorrect. /etc/shadow contains hashed passwords and is readable only by root.</text></feedback></answer>
+    <answer fraction="0"><text>/etc/users</text><feedback><text>Incorrect. There is no standard /etc/users file in Linux.</text></feedback></answer>
+    <answer fraction="0"><text>/etc/accounts</text><feedback><text>Incorrect. There is no standard /etc/accounts file in Linux.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Entry Q5 — Least Privilege</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the principle of "least privilege"?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Only granting users the minimum access necessary to perform their work</text><feedback><text>Correct! Least privilege limits the blast radius of compromised accounts or insider threats by ensuring no account has more access than strictly needed for its role.</text></feedback></answer>
+    <answer fraction="0"><text>Using the simplest password possible so it's easy to remember</text><feedback><text>Incorrect. Simple passwords are a security risk. Least privilege is about access rights, not passwords.</text></feedback></answer>
+    <answer fraction="0"><text>Ensuring all users have equal access to all systems</text><feedback><text>Incorrect. Equal access to all systems violates least privilege — access should be differentiated by role and need.</text></feedback></answer>
+    <answer fraction="0"><text>Requiring administrators to use a separate computer for privileged work</text><feedback><text>Incorrect. Using privileged access workstations (PAWs) is a good practice, but it is not the definition of least privilege.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Entry Q6 — LSASS</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which Windows process is responsible for managing user authentication and storing credential hashes in memory?</p>]]></text></questiontext>
+    <answer fraction="100"><text>lsass.exe</text><feedback><text>Correct! LSASS (Local Security Authority Subsystem Service) handles authentication, stores credential material in memory, and is a primary target for credential dumping attacks.</text></feedback></answer>
+    <answer fraction="0"><text>svchost.exe</text><feedback><text>Incorrect. svchost.exe hosts Windows services but is not responsible for authentication credential storage.</text></feedback></answer>
+    <answer fraction="0"><text>winlogon.exe</text><feedback><text>Incorrect. winlogon.exe handles the login/logout UI but delegates credential validation to lsass.exe.</text></feedback></answer>
+    <answer fraction="0"><text>explorer.exe</text><feedback><text>Incorrect. explorer.exe is the Windows shell (desktop, taskbar) and has no role in authentication.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Entry Q7 — chmod 777</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Linux, what does a file permission of <code>chmod 777</code> grant?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Read, write, and execute for the owner, group, and all others</text><feedback><text>Correct! 777 = rwxrwxrwx — full permissions for everyone. This is rarely appropriate and is a security risk for sensitive files or scripts run by privileged accounts.</text></feedback></answer>
+    <answer fraction="0"><text>Read and write for the owner only</text><feedback><text>Incorrect. Owner-only read/write would be chmod 600.</text></feedback></answer>
+    <answer fraction="0"><text>No access for any user</text><feedback><text>Incorrect. No access would be chmod 000.</text></feedback></answer>
+    <answer fraction="0"><text>Full access for root only</text><feedback><text>Incorrect. chmod 777 grants full access to ALL users, not just root.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Entry Q8 — /etc/shadow</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the purpose of the Linux <code>/etc/shadow</code> file?</p>]]></text></questiontext>
+    <answer fraction="100"><text>To store hashed passwords for user accounts</text><feedback><text>Correct! /etc/shadow stores password hashes (and aging information). It is readable only by root, unlike /etc/passwd which is world-readable.</text></feedback></answer>
+    <answer fraction="0"><text>To store shadow copies of the filesystem</text><feedback><text>Incorrect. Linux does not use "shadow copies" — that is a Windows concept (Volume Shadow Copy Service).</text></feedback></answer>
+    <answer fraction="0"><text>To define sudo permissions</text><feedback><text>Incorrect. Sudo permissions are defined in /etc/sudoers or /etc/sudoers.d/.</text></feedback></answer>
+    <answer fraction="0"><text>To list all running system daemons</text><feedback><text>Incorrect. Running processes can be viewed with ps, top, or systemctl. /etc/shadow is specifically for password hashes.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Entry Q9 — sudo</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is "sudo" in Linux?</p>]]></text></questiontext>
+    <answer fraction="100"><text>A tool that allows permitted users to run commands as another user (typically root)</text><feedback><text>Correct! sudo (superuser do) grants controlled, audited privilege escalation. It logs each use and enforces policy from /etc/sudoers.</text></feedback></answer>
+    <answer fraction="0"><text>A command that permanently switches the user to root</text><feedback><text>Incorrect. sudo runs a single command with elevated privileges; su (without sudo) switches the session. Neither is permanent.</text></feedback></answer>
+    <answer fraction="0"><text>A system daemon that manages user accounts</text><feedback><text>Incorrect. User account management is handled by tools like useradd/usermod and the shadow-utils package.</text></feedback></answer>
+    <answer fraction="0"><text>A file that stores root's password</text><feedback><text>Incorrect. Root's password hash is in /etc/shadow. sudo does not store passwords.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Entry Q10 — Event Logs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a Windows Event Log used for?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Recording system events, errors, security events, and application activity</text><feedback><text>Correct! Windows Event Logs (Security, Application, System, etc.) record important activities that are used for troubleshooting, compliance, and security investigations.</text></feedback></answer>
+    <answer fraction="0"><text>Storing configuration settings for installed applications</text><feedback><text>Incorrect. Application configuration is typically stored in the registry or config files, not the Event Log.</text></feedback></answer>
+    <answer fraction="0"><text>Managing scheduled maintenance tasks</text><feedback><text>Incorrect. Scheduled tasks are managed by Task Scheduler, not the Event Log.</text></feedback></answer>
+    <answer fraction="0"><text>Storing backup copies of system files</text><feedback><text>Incorrect. File backups are handled by Windows Backup, VSS, or third-party tools, not the Event Log.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Entry Q11 — Discretionary Access Control</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following best describes "Discretionary Access Control" (DAC)?</p>]]></text></questiontext>
+    <answer fraction="100"><text>The owner of a resource decides who has access to it</text><feedback><text>Correct! In DAC (used by standard Linux/Windows file permissions), the resource owner controls access rights. This contrasts with MAC (Mandatory Access Control), where the OS enforces labels.</text></feedback></answer>
+    <answer fraction="0"><text>Access is controlled by the operating system kernel regardless of user settings</text><feedback><text>Incorrect. That describes Mandatory Access Control (MAC), as implemented by SELinux or AppArmor.</text></feedback></answer>
+    <answer fraction="0"><text>Access is granted based on mandatory labels set by a security administrator</text><feedback><text>Incorrect. Labels-based access control is MAC (Mandatory Access Control), not DAC.</text></feedback></answer>
+    <answer fraction="0"><text>All users share the same level of access</text><feedback><text>Incorrect. Equal access for all is not a named access control model and would be a severe security failure.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Entry Q12 — Auditing Purpose</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the primary purpose of OS-level auditing?</p>]]></text></questiontext>
+    <answer fraction="100"><text>To track and record security-relevant events for detection and forensic investigation</text><feedback><text>Correct! OS auditing (via auditd on Linux, Security Event Log on Windows) creates an authoritative record of security-relevant actions: logins, privilege use, file access, process creation, etc.</text></feedback></answer>
+    <answer fraction="0"><text>To improve system performance by optimizing resource usage</text><feedback><text>Incorrect. Performance optimization uses profiling tools, not security audit logs.</text></feedback></answer>
+    <answer fraction="0"><text>To encrypt user data at rest</text><feedback><text>Incorrect. Data encryption is handled by tools like BitLocker (Windows) or LUKS (Linux), not audit systems.</text></feedback></answer>
+    <answer fraction="0"><text>To manage software updates automatically</text><feedback><text>Incorrect. Update management is handled by WSUS, apt, yum, etc. — not audit systems.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+</quiz>

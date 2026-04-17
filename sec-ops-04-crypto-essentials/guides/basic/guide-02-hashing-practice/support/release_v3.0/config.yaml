@@ -1,0 +1,6 @@
+version: "3.0"
+log_level: INFO
+siem_endpoint: siem.corp.local
+siem_port: 514
+output: /var/log/soc_monitor.log
+heartbeat_interval_sec: 60

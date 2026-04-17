@@ -1,0 +1,28 @@
+# Known malicious IPs for SOC Project 01
+# Source: Simulated threat intelligence feed
+# Last updated: 2024-01-15
+# Format: IP_ADDRESS  # Description
+#
+# DO NOT block these IPs in production without validation.
+# This list is for educational/lab purposes only.
+
+185.220.101.45  # Tor exit node - associated with data exfiltration campaigns
+185.220.101.42  # Tor exit node / brute force scanner - credential stuffing
+185.220.101.34  # Tor exit node - known anonymisation relay
+185.220.101.55  # Tor exit node - linked to ransomware C2 traffic
+185.220.100.252 # Tor exit node - scanning activity
+185.220.100.240 # Tor exit node - automated credential attacks
+185.220.102.8   # Tor exit node - APT staging server
+185.220.102.14  # Tor exit node - phishing infrastructure
+89.234.157.254  # Tor exit node - anonymous proxy
+77.247.181.162  # Tor exit node - historically linked to botnets
+171.25.193.25   # Tor exit node - high-volume port scanner
+171.25.193.77   # Tor exit node - known malware distribution
+193.218.118.108 # Public scanner (Shodan-indexed open proxy)
+198.98.56.149   # Known port scanner / automated vulnerability scanner
+45.142.212.100  # Bulletproof hosting - C2 server
+45.142.212.116  # Bulletproof hosting - malware dropper
+94.102.49.190   # VPN exit node linked to credential theft
+91.108.56.11    # Known botnet C2 node
+5.34.180.205    # RDP brute force source - Eastern European threat actor
+31.220.3.154    # SQL injection scanner - automated attack tooling

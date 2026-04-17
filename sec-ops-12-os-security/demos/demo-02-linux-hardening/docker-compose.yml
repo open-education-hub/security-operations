@@ -1,0 +1,8 @@
+services:
+  linux-audit:
+    build: .
+    container_name: linux-security-audit
+    stdin_open: true
+    tty: true
+    privileged: true
+    command: bash

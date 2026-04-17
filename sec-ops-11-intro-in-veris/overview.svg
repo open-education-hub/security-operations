@@ -1,0 +1,382 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <style>
+      text { font-family: 'Segoe UI', Arial, sans-serif; }
+      .title      { font-size: 24px; font-weight: bold; fill: #e6edf3; }
+      .subtitle   { font-size: 13px; fill: #8b949e; }
+      .section-hd { font-size: 14px; font-weight: bold; fill: #ffffff; }
+      .item-text  { font-size: 11px; fill: #c9d1d9; }
+      .dim-title  { font-size: 15px; font-weight: bold; fill: #ffffff; }
+      .dim-q      { font-size: 11px; fill: #8b949e; }
+      .badge      { font-size: 10px; font-weight: bold; fill: #0d1117; }
+      .connector  { stroke: #30363d; stroke-width: 1.5; fill: none; }
+      .flow-arrow { stroke: #58a6ff; stroke-width: 2; fill: none; marker-end: url(#arrowBlue); }
+      .label-sm   { font-size: 10px; fill: #6e7681; }
+      .note       { font-size: 10px; fill: #8b949e; font-style: italic; }
+    </style>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#58a6ff"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6e7681"/>
+    </marker>
+    <!-- Gradients for dimension boxes -->
+    <linearGradient id="gradActor"  x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a3a5c"/>
+      <stop offset="100%" stop-color="#0d2137"/>
+    </linearGradient>
+    <linearGradient id="gradAction" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a3a1a"/>
+      <stop offset="100%" stop-color="#0d2110"/>
+    </linearGradient>
+    <linearGradient id="gradAsset"  x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a1a3a"/>
+      <stop offset="100%" stop-color="#21102a"/>
+    </linearGradient>
+    <linearGradient id="gradAttr"   x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a2a0a"/>
+      <stop offset="100%" stop-color="#211600"/>
+    </linearGradient>
+    <linearGradient id="gradBg"     x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ─── Background ─── -->
+  <rect width="1200" height="800" fill="url(#gradBg)" rx="0"/>
+  <rect x="0" y="0" width="1200" height="4" fill="#58a6ff" rx="0"/>
+
+  <!-- ─── Title ─── -->
+  <text x="600" y="38" text-anchor="middle" class="title">VERIS — Vocabulary for Event Recording and Incident Sharing</text>
+  <text x="600" y="58" text-anchor="middle" class="subtitle">4A Taxonomy · DBIR Incident Patterns · Actor-Action-Asset-Attribute Framework</text>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SECTION 1: 4A TAXONOMY — FOUR DIMENSION BOXES (row)
+  ══════════════════════════════════════════════════════════ -->
+
+  <!-- Dimension: ACTOR -->
+  <rect x="30" y="75" width="265" height="290" rx="8" fill="url(#gradActor)" stroke="#1f6feb" stroke-width="1.5"/>
+  <rect x="30" y="75" width="265" height="36" rx="8" fill="#1f6feb" opacity="0.35"/>
+  <rect x="30" y="99" width="265" height="12" rx="0" fill="#1f6feb" opacity="0.35"/>
+  <text x="162" y="99" text-anchor="middle" class="dim-title">ACTOR</text>
+  <text x="162" y="113" text-anchor="middle" class="dim-q">Who caused the incident?</text>
+
+  <!-- Actor: External -->
+  <rect x="42" y="124" width="241" height="68" rx="5" fill="#0d2137" stroke="#1f6feb" stroke-width="0.7" opacity="0.8"/>
+  <text x="54" y="141" class="section-hd">External</text>
+  <text x="54" y="156" class="item-text">• Organized crime (financial motive)</text>
+  <text x="54" y="169" class="item-text">• Nation-state / state-affiliated</text>
+  <text x="54" y="182" class="item-text">• Hacktivist · Competitor · Unaffiliated</text>
+
+  <!-- Actor: Internal -->
+  <rect x="42" y="200" width="241" height="68" rx="5" fill="#0d2137" stroke="#1f6feb" stroke-width="0.7" opacity="0.8"/>
+  <text x="54" y="217" class="section-hd">Internal</text>
+  <text x="54" y="232" class="item-text">• End-user (negligent or malicious)</text>
+  <text x="54" y="245" class="item-text">• System admin · Developer</text>
+  <text x="54" y="258" class="item-text">• Finance user · Executive</text>
+
+  <!-- Actor: Partner -->
+  <rect x="42" y="276" width="241" height="56" rx="5" fill="#0d2137" stroke="#1f6feb" stroke-width="0.7" opacity="0.8"/>
+  <text x="54" y="293" class="section-hd">Partner</text>
+  <text x="54" y="308" class="item-text">• Third-party vendor · MSP</text>
+  <text x="54" y="321" class="item-text">• Business partner · Contractor</text>
+
+  <!-- Actor: Motive tags -->
+  <text x="42" y="350" class="label-sm">Motives:</text>
+  <rect x="88"  y="338" width="58" height="15" rx="3" fill="#1f6feb" opacity="0.4"/>
+  <text x="117" y="349" text-anchor="middle" class="badge" fill="#79c0ff">Financial</text>
+  <rect x="152" y="338" width="58" height="15" rx="3" fill="#1f6feb" opacity="0.4"/>
+  <text x="181" y="349" text-anchor="middle" class="badge" fill="#79c0ff">Espionage</text>
+  <rect x="42"  y="356" width="52" height="15" rx="3" fill="#1f6feb" opacity="0.4"/>
+  <text x="68"  y="367" text-anchor="middle" class="badge" fill="#79c0ff">Ideology</text>
+  <rect x="100" y="356" width="54" height="15" rx="3" fill="#1f6feb" opacity="0.4"/>
+  <text x="127" y="367" text-anchor="middle" class="badge" fill="#79c0ff">Grudge</text>
+  <rect x="160" y="356" width="64" height="15" rx="3" fill="#1f6feb" opacity="0.4"/>
+  <text x="192" y="367" text-anchor="middle" class="badge" fill="#79c0ff">Convenience</text>
+
+  <!-- Dimension: ACTION -->
+  <rect x="310" y="75" width="265" height="290" rx="8" fill="url(#gradAction)" stroke="#3fb950" stroke-width="1.5"/>
+  <rect x="310" y="75" width="265" height="36" rx="8" fill="#3fb950" opacity="0.25"/>
+  <rect x="310" y="99" width="265" height="12" rx="0" fill="#3fb950" opacity="0.25"/>
+  <text x="442" y="99" text-anchor="middle" class="dim-title">ACTION</text>
+  <text x="442" y="113" text-anchor="middle" class="dim-q">What did they do?</text>
+
+  <!-- Action items -->
+  <rect x="322" y="124" width="241" height="210" rx="5" fill="#0d2110" stroke="#3fb950" stroke-width="0.7" opacity="0.8"/>
+  <text x="334" y="143" class="section-hd">7 Categories</text>
+  <text x="334" y="160" class="item-text">⚡ Hacking — brute force, SQLi, stolen creds</text>
+  <text x="334" y="176" class="item-text">🦠 Malware — ransomware, backdoor, trojan</text>
+  <text x="334" y="192" class="item-text">🎭 Social Engineering — phishing, BEC</text>
+  <text x="334" y="208" class="item-text">🔓 Misuse — privilege abuse, data misuse</text>
+  <text x="334" y="224" class="item-text">🏢 Physical — theft, skimming, tampering</text>
+  <text x="334" y="240" class="item-text">❌ Error — misconfiguration, misdelivery</text>
+  <text x="334" y="256" class="item-text">🌪 Environmental — disaster, power, flood</text>
+  <line x1="322" y1="268" x2="563" y2="268" stroke="#3fb950" stroke-width="0.5" opacity="0.5"/>
+  <text x="334" y="283" class="label-sm">Each category has Varieties + Vectors</text>
+  <text x="334" y="297" class="label-sm">e.g. Hacking › Use of stolen creds › VPN</text>
+  <text x="334" y="311" class="label-sm">Multiple actions allowed per incident</text>
+
+  <!-- Action tags -->
+  <text x="322" y="350" class="label-sm">Top varieties (DBIR):</text>
+  <rect x="322" y="355" width="82" height="15" rx="3" fill="#3fb950" opacity="0.3"/>
+  <text x="363" y="366" text-anchor="middle" class="badge" fill="#56d364">Stolen creds</text>
+  <rect x="412" y="355" width="56" height="15" rx="3" fill="#3fb950" opacity="0.3"/>
+  <text x="440" y="366" text-anchor="middle" class="badge" fill="#56d364">Phishing</text>
+  <rect x="322" y="372" width="68" height="15" rx="3" fill="#3fb950" opacity="0.3"/>
+  <text x="356" y="383" text-anchor="middle" class="badge" fill="#56d364">Ransomware</text>
+  <rect x="398" y="372" width="70" height="15" rx="3" fill="#3fb950" opacity="0.3"/>
+  <text x="433" y="383" text-anchor="middle" class="badge" fill="#56d364">Misconfiguration</text>
+
+  <!-- Dimension: ASSET -->
+  <rect x="590" y="75" width="265" height="290" rx="8" fill="url(#gradAsset)" stroke="#bc8cff" stroke-width="1.5"/>
+  <rect x="590" y="75" width="265" height="36" rx="8" fill="#bc8cff" opacity="0.2"/>
+  <rect x="590" y="99" width="265" height="12" rx="0" fill="#bc8cff" opacity="0.2"/>
+  <text x="722" y="99" text-anchor="middle" class="dim-title">ASSET</text>
+  <text x="722" y="113" text-anchor="middle" class="dim-q">What was affected?</text>
+
+  <!-- Asset items -->
+  <rect x="602" y="124" width="241" height="210" rx="5" fill="#21102a" stroke="#bc8cff" stroke-width="0.7" opacity="0.8"/>
+  <text x="614" y="143" class="section-hd">6 Categories</text>
+  <text x="614" y="160" class="item-text">🖥  Server (S) — DB, web, mail, file, auth</text>
+  <text x="614" y="176" class="item-text">🌐 Network (N) — router, FW, VPN, switch</text>
+  <text x="614" y="192" class="item-text">💻 User Device (U) — desktop, laptop, mobile</text>
+  <text x="614" y="208" class="item-text">👤 Person (P) — end-user, exec, admin</text>
+  <text x="614" y="224" class="item-text">💾 Media (M) — USB, disk, documents</text>
+  <text x="614" y="240" class="item-text">🏧 Kiosk/Terminal (T) — ATM, POS</text>
+  <line x1="602" y1="252" x2="843" y2="252" stroke="#bc8cff" stroke-width="0.5" opacity="0.5"/>
+  <text x="614" y="267" class="label-sm">Variety uses letter prefix: S-Database,</text>
+  <text x="614" y="281" class="label-sm">U-Laptop, P-Executive, T-ATM…</text>
+  <text x="614" y="295" class="label-sm">Records count of affected assets</text>
+  <text x="614" y="309" class="label-sm">Cloud ownership tracked separately</text>
+
+  <!-- Asset tags -->
+  <text x="602" y="350" class="label-sm">Most targeted (DBIR):</text>
+  <rect x="602" y="355" width="68" height="15" rx="3" fill="#bc8cff" opacity="0.3"/>
+  <text x="636" y="366" text-anchor="middle" class="badge" fill="#d2a8ff">S-Database</text>
+  <rect x="678" y="355" width="70" height="15" rx="3" fill="#bc8cff" opacity="0.3"/>
+  <text x="713" y="366" text-anchor="middle" class="badge" fill="#d2a8ff">U-Desktop</text>
+  <rect x="602" y="372" width="56" height="15" rx="3" fill="#bc8cff" opacity="0.3"/>
+  <text x="630" y="383" text-anchor="middle" class="badge" fill="#d2a8ff">P-Person</text>
+  <rect x="666" y="372" width="82" height="15" rx="3" fill="#bc8cff" opacity="0.3"/>
+  <text x="707" y="383" text-anchor="middle" class="badge" fill="#d2a8ff">S-Web App</text>
+
+  <!-- Dimension: ATTRIBUTE -->
+  <rect x="870" y="75" width="300" height="290" rx="8" fill="url(#gradAttr)" stroke="#e3b341" stroke-width="1.5"/>
+  <rect x="870" y="75" width="300" height="36" rx="8" fill="#e3b341" opacity="0.2"/>
+  <rect x="870" y="99" width="300" height="12" rx="0" fill="#e3b341" opacity="0.2"/>
+  <text x="1020" y="99" text-anchor="middle" class="dim-title">ATTRIBUTE</text>
+  <text x="1020" y="113" text-anchor="middle" class="dim-q">How was it affected? (CIA triad)</text>
+
+  <!-- Confidentiality -->
+  <rect x="882" y="124" width="276" height="64" rx="5" fill="#211600" stroke="#e3b341" stroke-width="0.7" opacity="0.8"/>
+  <text x="894" y="142" class="section-hd" fill="#ffa657">Confidentiality</text>
+  <text x="894" y="158" class="item-text">Unauthorized data disclosure / access</text>
+  <text x="894" y="172" class="item-text">Data types: PII · PHI · Credentials · PCI · IP</text>
+
+  <!-- Integrity -->
+  <rect x="882" y="196" width="276" height="64" rx="5" fill="#211600" stroke="#e3b341" stroke-width="0.7" opacity="0.8"/>
+  <text x="894" y="214" class="section-hd" fill="#ffa657">Integrity</text>
+  <text x="894" y="230" class="item-text">Unauthorized modification of data or systems</text>
+  <text x="894" y="244" class="item-text">Sub-types: Data · Software · Hardware</text>
+
+  <!-- Availability -->
+  <rect x="882" y="268" width="276" height="64" rx="5" fill="#211600" stroke="#e3b341" stroke-width="0.7" opacity="0.8"/>
+  <text x="894" y="286" class="section-hd" fill="#ffa657">Availability</text>
+  <text x="894" y="302" class="item-text">Disruption of access to information assets</text>
+  <text x="894" y="316" class="item-text">Sub-types: Interruption · Loss · Degradation</text>
+
+  <!-- Attribute tags -->
+  <text x="882" y="350" class="label-sm">Ransomware typically affects all three:</text>
+  <rect x="882" y="355" width="82" height="15" rx="3" fill="#e3b341" opacity="0.3"/>
+  <text x="923" y="366" text-anchor="middle" class="badge" fill="#f0c040">Confidentiality?</text>
+  <rect x="972" y="355" width="58" height="15" rx="3" fill="#e3b341" opacity="0.3"/>
+  <text x="1001" y="366" text-anchor="middle" class="badge" fill="#f0c040">Integrity ✓</text>
+  <rect x="882" y="372" width="76" height="15" rx="3" fill="#e3b341" opacity="0.3"/>
+  <text x="920" y="383" text-anchor="middle" class="badge" fill="#f0c040">Availability ✓</text>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SECTION 2: INCIDENT FLOW (center arrows between boxes)
+  ══════════════════════════════════════════════════════════ -->
+  <!-- Arrow Actor → Action -->
+  <line x1="295" y1="218" x2="310" y2="218" class="flow-arrow"/>
+  <!-- Arrow Action → Asset -->
+  <line x1="575" y1="218" x2="590" y2="218" class="flow-arrow"/>
+  <!-- Arrow Asset → Attribute -->
+  <line x1="855" y1="218" x2="870" y2="218" class="flow-arrow"/>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SECTION 3: VERIS RECORD ANATOMY (middle band)
+  ══════════════════════════════════════════════════════════ -->
+  <rect x="30" y="390" width="1140" height="130" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+  <text x="600" y="410" text-anchor="middle" class="section-hd" fill="#58a6ff">VERIS Record Anatomy (JSON)</text>
+
+  <!-- Record fields visualization -->
+  <rect x="45"  y="420" width="130" height="88" rx="5" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+  <text x="110" y="437" text-anchor="middle" class="label-sm" fill="#58a6ff">Metadata</text>
+  <text x="57"  y="452" class="item-text">incident_id (UUID)</text>
+  <text x="57"  y="465" class="item-text">source_id</text>
+  <text x="57"  y="478" class="item-text">summary</text>
+  <text x="57"  y="491" class="item-text">confidence</text>
+  <text x="57"  y="504" class="item-text">security_incident</text>
+
+  <rect x="185" y="420" width="130" height="88" rx="5" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+  <text x="250" y="437" text-anchor="middle" class="label-sm" fill="#3fb950">Victim</text>
+  <text x="197" y="452" class="item-text">victim_id</text>
+  <text x="197" y="465" class="item-text">industry (NAICS)</text>
+  <text x="197" y="478" class="item-text">employee_count</text>
+  <text x="197" y="491" class="item-text">country / region</text>
+  <text x="197" y="504" class="item-text">revenue</text>
+
+  <rect x="325" y="420" width="130" height="88" rx="5" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+  <text x="390" y="437" text-anchor="middle" class="label-sm" fill="#e3b341">Timeline</text>
+  <text x="337" y="452" class="item-text">incident (year/month)</text>
+  <text x="337" y="465" class="item-text">discovery</text>
+  <text x="337" y="478" class="item-text">containment</text>
+  <text x="337" y="491" class="item-text">exfiltration</text>
+  <text x="337" y="504" class="item-text">unit: Hours/Days</text>
+
+  <rect x="465" y="420" width="130" height="88" rx="5" fill="#1c2128" stroke="#1f6feb" stroke-width="1"/>
+  <text x="530" y="437" text-anchor="middle" class="label-sm" fill="#79c0ff">actor { }</text>
+  <text x="477" y="452" class="item-text">external.variety[]</text>
+  <text x="477" y="465" class="item-text">external.motive[]</text>
+  <text x="477" y="478" class="item-text">internal.variety[]</text>
+  <text x="477" y="491" class="item-text">partner.industry</text>
+  <text x="477" y="504" class="item-text">*.country[]</text>
+
+  <rect x="605" y="420" width="130" height="88" rx="5" fill="#1c2128" stroke="#3fb950" stroke-width="1"/>
+  <text x="670" y="437" text-anchor="middle" class="label-sm" fill="#56d364">action { }</text>
+  <text x="617" y="452" class="item-text">hacking.variety[]</text>
+  <text x="617" y="465" class="item-text">social.variety[]</text>
+  <text x="617" y="478" class="item-text">malware.variety[]</text>
+  <text x="617" y="491" class="item-text">error.variety[]</text>
+  <text x="617" y="504" class="item-text">*.vector[]</text>
+
+  <rect x="745" y="420" width="130" height="88" rx="5" fill="#1c2128" stroke="#bc8cff" stroke-width="1"/>
+  <text x="810" y="437" text-anchor="middle" class="label-sm" fill="#d2a8ff">asset { }</text>
+  <text x="757" y="452" class="item-text">assets[].variety</text>
+  <text x="757" y="465" class="item-text">assets[].amount</text>
+  <text x="757" y="478" class="item-text">cloud[]</text>
+  <text x="757" y="491" class="item-text">prefix: S/N/U/P/M/T</text>
+  <text x="757" y="504" class="item-text">(Server/Net/User…)</text>
+
+  <rect x="885" y="420" width="130" height="88" rx="5" fill="#1c2128" stroke="#e3b341" stroke-width="1"/>
+  <text x="950" y="437" text-anchor="middle" class="label-sm" fill="#f0c040">attribute { }</text>
+  <text x="897" y="452" class="item-text">confidentiality.data[]</text>
+  <text x="897" y="465" class="item-text">data_disclosure</text>
+  <text x="897" y="478" class="item-text">integrity.variety[]</text>
+  <text x="897" y="491" class="item-text">availability.variety[]</text>
+  <text x="897" y="504" class="item-text">*.duration</text>
+
+  <rect x="1025" y="420" width="130" height="88" rx="5" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+  <text x="1090" y="437" text-anchor="middle" class="label-sm" fill="#8b949e">impact { }</text>
+  <text x="1037" y="452" class="item-text">loss[].variety</text>
+  <text x="1037" y="465" class="item-text">loss[].amount</text>
+  <text x="1037" y="478" class="item-text">overall_rating</text>
+  <text x="1037" y="491" class="item-text">discovery_method</text>
+  <text x="1037" y="504" class="item-text">notes</text>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SECTION 4: DBIR INCIDENT PATTERNS (bottom left)
+  ══════════════════════════════════════════════════════════ -->
+  <rect x="30" y="535" width="560" height="245" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+  <text x="310" y="558" text-anchor="middle" class="section-hd" fill="#58a6ff">DBIR Incident Classification Patterns (ICPs)</text>
+  <line x1="30" y1="564" x2="590" y2="564" stroke="#30363d" stroke-width="0.8"/>
+
+  <!-- ICP bars — simulated frequency chart -->
+  <!-- System Intrusion -->
+  <text x="45"  y="584" class="item-text">System Intrusion</text>
+  <rect x="180" y="572" width="190" height="14" rx="3" fill="#1f6feb" opacity="0.7"/>
+  <text x="375" y="583" class="label-sm">~32%</text>
+
+  <!-- Social Engineering -->
+  <text x="45"  y="604" class="item-text">Social Engineering</text>
+  <rect x="180" y="592" width="165" height="14" rx="3" fill="#3fb950" opacity="0.7"/>
+  <text x="350" y="603" class="label-sm">~27%</text>
+
+  <!-- Basic Web App Attacks -->
+  <text x="45"  y="624" class="item-text">Basic Web App Attacks</text>
+  <rect x="180" y="612" width="110" height="14" rx="3" fill="#bc8cff" opacity="0.7"/>
+  <text x="295" y="623" class="label-sm">~18%</text>
+
+  <!-- Miscellaneous Errors -->
+  <text x="45"  y="644" class="item-text">Miscellaneous Errors</text>
+  <rect x="180" y="632" width="80"  height="14" rx="3" fill="#e3b341" opacity="0.7"/>
+  <text x="265" y="643" class="label-sm">~13%</text>
+
+  <!-- Denial of Service -->
+  <text x="45"  y="664" class="item-text">Denial of Service</text>
+  <rect x="180" y="652" width="55"  height="14" rx="3" fill="#f85149" opacity="0.7"/>
+  <text x="240" y="663" class="label-sm">~9%</text>
+
+  <!-- Lost/Stolen Assets -->
+  <text x="45"  y="684" class="item-text">Lost / Stolen Assets</text>
+  <rect x="180" y="672" width="35"  height="14" rx="3" fill="#8b949e" opacity="0.7"/>
+  <text x="220" y="683" class="label-sm">~6%</text>
+
+  <!-- Privilege Misuse -->
+  <text x="45"  y="704" class="item-text">Privilege Misuse</text>
+  <rect x="180" y="692" width="22"  height="14" rx="3" fill="#ffa657" opacity="0.7"/>
+  <text x="207" y="703" class="label-sm">~4%</text>
+
+  <!-- Everything Else -->
+  <text x="45"  y="724" class="item-text">Everything Else</text>
+  <rect x="180" y="712" width="18"  height="14" rx="3" fill="#6e7681" opacity="0.7"/>
+  <text x="203" y="723" class="label-sm">~3%</text>
+
+  <text x="45" y="760" class="note">* Illustrative pattern; actual DBIR percentages vary by year and dataset.</text>
+  <text x="45" y="773" class="note">Source: Verizon DBIR methodology. Pattern derivation uses VERIS 4A clustering.</text>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SECTION 5: ACTOR DISTRIBUTION (bottom right)
+  ══════════════════════════════════════════════════════════ -->
+  <rect x="605" y="535" width="565" height="245" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.2"/>
+  <text x="887" y="558" text-anchor="middle" class="section-hd" fill="#58a6ff">Actor Distribution &amp; Framework Integrations</text>
+  <line x1="605" y1="564" x2="1170" y2="564" stroke="#30363d" stroke-width="0.8"/>
+
+  <!-- Actor pie-like distribution -->
+  <text x="620" y="585" class="item-text" font-weight="bold">Actor Type Distribution (DBIR avg)</text>
+  <rect x="620" y="593" width="200" height="14" rx="3" fill="#1f6feb" opacity="0.8"/>
+  <text x="825" y="604" class="label-sm">External ~75%</text>
+  <rect x="620" y="612" width="66"  height="14" rx="3" fill="#3fb950" opacity="0.8"/>
+  <text x="690" y="623" class="label-sm">Internal ~25%</text>
+  <rect x="620" y="631" width="20"  height="14" rx="3" fill="#e3b341" opacity="0.8"/>
+  <text x="644" y="642" class="label-sm">Partner ~5–10%</text>
+
+  <!-- Discovery method -->
+  <text x="620" y="666" class="item-text" font-weight="bold">Discovery Methods</text>
+  <rect x="620" y="674" width="110" height="14" rx="3" fill="#bc8cff" opacity="0.7"/>
+  <text x="735" y="685" class="label-sm">External party ~60%</text>
+  <rect x="620" y="692" width="90"  height="14" rx="3" fill="#ffa657" opacity="0.7"/>
+  <text x="714" y="703" class="label-sm">Internal detection ~30%</text>
+  <rect x="620" y="710" width="55"  height="14" rx="3" fill="#8b949e" opacity="0.7"/>
+  <text x="679" y="721" class="label-sm">Third party ~10%</text>
+
+  <!-- Framework integrations column -->
+  <line x1="870" y1="570" x2="870" y2="770" stroke="#30363d" stroke-width="0.8"/>
+
+  <text x="890" y="585" class="item-text" font-weight="bold">Framework Integrations</text>
+
+  <!-- ATT&CK -->
+  <rect x="890" y="592" width="260" height="40" rx="5" fill="#1c2128" stroke="#3fb950" stroke-width="0.8"/>
+  <text x="902" y="608" class="item-text" fill="#56d364" font-weight="bold">MITRE ATT&amp;CK</text>
+  <text x="902" y="623" class="label-sm">VERIS Action ↔ ATT&amp;CK Techniques/TTPs</text>
+
+  <!-- Kill Chain -->
+  <rect x="890" y="638" width="260" height="40" rx="5" fill="#1c2128" stroke="#1f6feb" stroke-width="0.8"/>
+  <text x="902" y="654" class="item-text" fill="#79c0ff" font-weight="bold">Cyber Kill Chain</text>
+  <text x="902" y="669" class="label-sm">VERIS Actions map to Kill Chain stages</text>
+
+  <!-- STIX/TAXII -->
+  <rect x="890" y="684" width="260" height="40" rx="5" fill="#1c2128" stroke="#e3b341" stroke-width="0.8"/>
+  <text x="902" y="700" class="item-text" fill="#f0c040" font-weight="bold">STIX / TAXII</text>
+  <text x="902" y="715" class="label-sm">VERIS Actor ↔ STIX Threat Actor objects</text>
+
+  <!-- VCDB reference -->
+  <rect x="890" y="730" width="260" height="40" rx="5" fill="#1c2128" stroke="#bc8cff" stroke-width="0.8"/>
+  <text x="902" y="746" class="item-text" fill="#d2a8ff" font-weight="bold">VCDB</text>
+  <text x="902" y="761" class="label-sm">Public incident DB — github.com/vz-risk/VCDB</text>
+
+  <!-- ─── Footer ─── -->
+  <text x="600"  y="793" text-anchor="middle" class="note">Session 11 · Security Operations Master Class · Digital4Security · VERIS schema: github.com/vz-risk/veris</text>
+</svg>

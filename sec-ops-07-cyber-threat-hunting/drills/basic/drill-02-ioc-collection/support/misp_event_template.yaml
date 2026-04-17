@@ -1,0 +1,204 @@
+# MISP Event Template - SILK-SPIDER POS Attack Campaign
+# Security Operations Course - Session 07: Cyber Threat Hunting
+# Drill 02 (Basic): Collecting and Categorizing Indicators of Compromise
+#
+# Usage:
+#   This template provides the MISP event structure for the SILK-SPIDER scenario.
+#   Use it as a reference when creating your MISP event, or import into MISP
+#   via the Automation API:
+#     curl -k -X POST https://misp/events/add -d @misp_event_template.yaml
+#     -H "Authorization: <your-api-key>" -H "Accept: application/json"
+#     -H "Content-Type: application/json"
+#
+# Students should:
+#   1. Complete the missing fields marked with [STUDENT TASK]
+#   2. Set correct to_ids values based on Task 1 IOC analysis
+#   3. Add ATT&CK technique tags based on Task 2 Pyramid of Pain analysis
+# =============================================================================
+
+event:
+  info: "SILK-SPIDER POS Attack Campaign - March 2024"
+  threat_level_id: "1"      # 1=High, 2=Medium, 3=Low, 4=Undefined
+  analysis: "2"             # 0=Initial, 1=Ongoing, 2=Complete
+  distribution: "0"         # 0=Your Org Only, 1=Community, 2=Connected, 3=All
+
+  tags:
+    - "tlp:amber"
+    - "tlp:amber+strict"
+    - "mitre-attack:initial-access:T1566.001"    # Spearphishing Attachment
+    - "mitre-attack:execution:T1204.002"         # User Execution: Malicious File
+    # [STUDENT TASK] Add more ATT&CK technique tags from the report:
+    # Lateral movement technique: "mitre-attack:..."
+    # Persistence technique:      "mitre-attack:..."
+    # Exfiltration technique:     "mitre-attack:..."
+    - "financial-fraud:card-data"
+    - "sector:retail"
+    - "actor:silk-spider"
+
+  # ── NETWORK INDICATORS ────────────────────────────────────────────────────
+  attributes:
+
+    - type: "ip-dst"
+      value: "185.220.101.45"
+      category: "Network activity"
+      to_ids: true                           # High confidence - block at firewall
+      comment: "C2 server - primary IP, port 8443"
+      tags:
+        - "mitre-attack:command-and-control:T1071.001"
+
+    - type: "domain"
+      value: "cdn-media-services.com"        # Note: defanged in report as cdn-media-services[.]com
+      category: "Network activity"
+      to_ids: true
+      comment: "C2 domain - SSL cert sha1: ab:cd:ef:01:23:45:67:89:ab:cd:ef:01:23:45:67:89:ab:cd:ef:01"
+      tags:
+        - "mitre-attack:command-and-control:T1071.001"
+
+    - type: "domain"
+      value: "data-reporting-api.net"        # Defanged in report as data-reporting-api[.]net
+      category: "Network activity"
+      to_ids: true
+      comment: "Exfiltration domain - used for staging and uploading card data"
+      tags:
+        - "mitre-attack:exfiltration:T1041"
+
+    - type: "url"
+      value: "https://data-reporting-api.net/api/v2/collect"
+      category: "External analysis"
+      to_ids: true
+      comment: "Specific exfiltration endpoint - curl renamed to win32net.exe POSTed to this URL"
+
+    - type: "email-src"
+      value: "payroll-support@hr-notifications-secure.com"
+      category: "Payload delivery"
+      to_ids: false                          # [STUDENT TASK] Should this be to_ids=true? Consider FP risk.
+      comment: "Phishing sender - Subject: Urgent: Payroll System Authentication Required"
+      tags:
+        - "mitre-attack:initial-access:T1566.001"
+
+    - type: "x509-fingerprint-sha1"
+      value: "ab:cd:ef:01:23:45:67:89:ab:cd:ef:01:23:45:67:89:ab:cd:ef:01"
+      category: "Network activity"
+      to_ids: false
+      comment: "SSL certificate on cdn-media-services.com C2"
+
+  # ── FILE INDICATORS ────────────────────────────────────────────────────────
+
+    - type: "filename|sha256"
+      value: "payroll_q1_2024.pdf.exe|3a7f4b8c2d9e5f61a23b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5"
+      category: "Payload delivery"
+      to_ids: true
+      comment: "Initial dropper - disguised as PDF, detection 45/71 on VT at report time"
+      tags:
+        - "mitre-attack:defense-evasion:T1036.002"    # Masquerading: Double File Extension
+
+    - type: "md5"
+      value: "9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e"
+      category: "Payload delivery"
+      to_ids: true
+      comment: "MD5 of payroll_q1_2024.pdf.exe dropper"
+
+    - type: "sha256"
+      value: "3a7f4b8c2d9e5f61a23b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5"
+      category: "Payload delivery"
+      to_ids: true
+      comment: "SHA256 of payroll_q1_2024.pdf.exe dropper"
+
+    - type: "size-in-bytes"
+      value: "327680"
+      category: "Payload delivery"
+      to_ids: false
+      comment: "File size of dropper: 327,680 bytes (320 KB)"
+
+    - type: "filename"
+      value: "svchost32.exe"
+      category: "Artifacts dropped"
+      to_ids: false                          # [STUDENT TASK] Why is to_ids=false appropriate here?
+      comment: "Persistence implant - dropped to C:\\Users\\<user>\\AppData\\Local\\Microsoft\\svchost32.exe"
+
+    - type: "filename|sha256"
+      value: "winsrv.dll|f1e2d3c4b5a69788706050403020100f1e2d3c4b5a6978870605040302010011"
+      category: "Artifacts dropped"
+      to_ids: true
+      comment: "POS memory scraper DLL - injected into running POS process"
+
+    - type: "filename"
+      value: "audit.tmp"
+      category: "Artifacts dropped"
+      to_ids: false
+      comment: "Staged POS data: C:\\ProgramData\\Microsoft\\Crypto\\audit.tmp"
+
+  # ── HOST ARTIFACTS ─────────────────────────────────────────────────────────
+
+    - type: "regkey|value"
+      value: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\WindowsSystemService|C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\svchost32.exe -s"
+      category: "Persistence mechanism"
+      to_ids: true
+      comment: "Registry persistence key - Run key for svchost32.exe implant"
+      tags:
+        - "mitre-attack:persistence:T1547.001"
+
+    - type: "filename"
+      value: "win32net.exe"
+      category: "Artifacts dropped"
+      to_ids: false
+      comment: "Renamed curl.exe used for exfiltration - tool renamed to evade detection"
+      tags:
+        - "mitre-attack:defense-evasion:T1036.003"    # Masquerading: Rename System Utilities
+
+  # ── MISP OBJECTS (Structured groupings) ────────────────────────────────────
+  # Note: MISP objects link related attributes together
+  # In the MISP UI, create these as objects under "Add object"
+
+  objects:
+
+    # File object grouping the dropper malware
+    - object_name: "file"
+      comment: "Initial dropper: payroll_q1_2024.pdf.exe"
+      attributes:
+        - type: "filename"
+          object_relation: "filename"
+          value: "payroll_q1_2024.pdf.exe"
+        - type: "sha256"
+          object_relation: "sha256"
+          value: "3a7f4b8c2d9e5f61a23b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5"
+          to_ids: true
+        - type: "md5"
+          object_relation: "md5"
+          value: "9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e"
+          to_ids: true
+        - type: "size-in-bytes"
+          object_relation: "size-in-bytes"
+          value: "327680"
+        - type: "mimetype"
+          object_relation: "mimetype"
+          value: "application/x-msdownload"
+        - type: "text"
+          object_relation: "comment"
+          value: "VT score 45/71. Disguised as PDF using double extension."
+
+    # Network connection object for the C2
+    - object_name: "network-connection"
+      comment: "C2 communication channel"
+      attributes:
+        - type: "ip-dst"
+          object_relation: "ip-dst"
+          value: "185.220.101.45"
+          to_ids: true
+        - type: "port"
+          object_relation: "dst-port"
+          value: "8443"
+        - type: "domain"
+          object_relation: "hostname-dst"
+          value: "cdn-media-services.com"
+          to_ids: true
+        - type: "text"
+          object_relation: "layer7-protocol"
+          value: "HTTPS"
+        - type: "text"
+          object_relation: "comment"
+          value: "C2 uses HTTPS on non-standard port 8443. SSL cert fingerprint in attributes."
+
+    # [STUDENT TASK] Create a third object for the POS malware (winsrv.dll)
+    # Object type: "file"
+    # Include: filename, sha256, path where it was dropped, injection target

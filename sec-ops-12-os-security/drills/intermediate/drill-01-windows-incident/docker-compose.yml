@@ -1,0 +1,13 @@
+
+services:
+  win-incident-01:
+    build: .
+    container_name: win-incident-01
+    hostname: WKS-FINANCE-07
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./scripts:/drill/scripts:ro
+    environment:
+      - DRILL_NAME=intermediate-drill-01-windows-incident
+      - DRILL_LEVEL=intermediate

@@ -1,0 +1,347 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      text { font-family: 'Courier New', monospace; }
+      .title { font-size: 18px; font-weight: bold; fill: #e2e8f0; }
+      .subtitle { font-size: 13px; fill: #94a3b8; }
+      .label { font-size: 11px; fill: #cbd5e1; }
+      .small { font-size: 10px; fill: #94a3b8; }
+      .highlight { fill: #38bdf8; font-size: 11px; font-weight: bold; }
+      .success { fill: #4ade80; font-size: 11px; }
+      .warn { fill: #fbbf24; font-size: 11px; }
+      .danger { fill: #f87171; font-size: 11px; }
+      .box-sym { fill: #1e3a5f; stroke: #3b82f6; stroke-width: 1.5; rx: 6; }
+      .box-asym { fill: #1a3a2a; stroke: #22c55e; stroke-width: 1.5; }
+      .box-hash { fill: #2d1b4e; stroke: #a855f7; stroke-width: 1.5; }
+      .box-pki { fill: #2d1f00; stroke: #f59e0b; stroke-width: 1.5; }
+      .box-tls { fill: #1e2d3a; stroke: #06b6d4; stroke-width: 1.5; }
+      .arrow { stroke: #64748b; stroke-width: 1.5; fill: none; marker-end: url(#arr); }
+      .arrow-enc { stroke: #38bdf8; stroke-width: 1.5; fill: none; marker-end: url(#arr-blue); }
+      .arrow-ok { stroke: #4ade80; stroke-width: 1.5; fill: none; marker-end: url(#arr-green); }
+      .arrow-tls { stroke: #06b6d4; stroke-width: 1.5; fill: none; marker-end: url(#arr-cyan); }
+    </style>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#64748b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4ade80"/>
+    </marker>
+    <marker id="arr-cyan" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#06b6d4"/>
+    </marker>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+    <linearGradient id="title-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  
+  <!-- Grid lines (subtle) -->
+  <line x1="0" y1="400" x2="1200" y2="400" stroke="#1e293b" stroke-width="1"/>
+  <line x1="600" y1="0" x2="600" y2="800" stroke="#1e293b" stroke-width="1"/>
+
+  <!-- Main Title -->
+  <text x="600" y="32" text-anchor="middle" font-size="22" font-weight="bold" fill="url(#title-grad)" font-family="'Courier New', monospace">Session 04: Fundamentals of Cryptography</text>
+  <text x="600" y="52" text-anchor="middle" class="subtitle">Security Operations Master Class — Cryptography Concepts Overview</text>
+
+  <!-- ─────────────────────────────────────────────── -->
+  <!-- SECTION 1: Symmetric vs Asymmetric (top-left)  -->
+  <!-- ─────────────────────────────────────────────── -->
+  <rect x="20" y="68" width="560" height="310" rx="8" fill="#0f1a2e" stroke="#334155" stroke-width="1"/>
+  <text x="300" y="88" text-anchor="middle" class="title">Symmetric vs Asymmetric Encryption</text>
+
+  <!-- Symmetric side -->
+  <rect x="32" y="96" width="250" height="270" rx="6" fill="#0e2040" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="157" y="115" text-anchor="middle" class="highlight">SYMMETRIC (AES)</text>
+  <text x="157" y="130" text-anchor="middle" class="small">Same key encrypts &amp; decrypts</text>
+
+  <!-- Plaintext -->
+  <rect x="52" y="138" width="90" height="28" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="97" y="157" text-anchor="middle" class="label">Plaintext</text>
+  <!-- Key -->
+  <rect x="52" y="178" width="90" height="22" rx="4" fill="#0a2040" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="97" y="193" text-anchor="middle" class="warn">🔑 Secret Key</text>
+  <!-- Algo -->
+  <rect x="160" y="148" width="80" height="28" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="200" y="163" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="bold">AES-256</text>
+  <text x="200" y="174" text-anchor="middle" fill="#94a3b8" font-size="9">GCM Mode</text>
+  <line x1="142" y1="152" x2="160" y2="162" class="arrow-enc"/>
+  <line x1="97" y1="178" x2="185" y2="168" class="arrow-enc" stroke="#f59e0b" stroke-dasharray="3,2"/>
+  <!-- Ciphertext -->
+  <rect x="52" y="215" width="200" height="28" rx="4" fill="#0a1a2e" stroke="#64748b" stroke-width="1"/>
+  <text x="152" y="234" text-anchor="middle" fill="#64748b" font-size="10" font-family="monospace">5f3a8b2c1d4e9f...</text>
+  <line x1="200" y1="176" x2="152" y2="215" class="arrow-enc"/>
+
+  <!-- Properties -->
+  <text x="157" y="262" text-anchor="middle" fill="#94a3b8" font-size="9">Properties:</text>
+  <text x="52" y="276" class="success" font-size="10">✓ Fast (bulk encryption)</text>
+  <text x="52" y="290" class="success" font-size="10">✓ AES: 128/192/256-bit keys</text>
+  <text x="52" y="304" class="warn" font-size="10">⚠ Key distribution problem</text>
+  <text x="52" y="318" class="label" font-size="10">Modes: CBC, CTR, GCM (best)</text>
+  <text x="52" y="332" class="danger" font-size="10">✗ ECB mode — never use!</text>
+  <text x="52" y="349" class="small" font-size="9">DES (broken) → 3DES (deprecated) → AES</text>
+
+  <!-- Asymmetric side -->
+  <rect x="295" y="96" width="272" height="270" rx="6" fill="#0e2a1a" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="431" y="115" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="bold">ASYMMETRIC (RSA/ECC)</text>
+  <text x="431" y="130" text-anchor="middle" class="small">Public key encrypts, private decrypts</text>
+
+  <!-- Sender side -->
+  <rect x="305" y="140" width="80" height="24" rx="4" fill="#1a3a2a" stroke="#22c55e" stroke-width="1"/>
+  <text x="345" y="157" text-anchor="middle" class="label">Plaintext</text>
+
+  <rect x="305" y="172" width="80" height="22" rx="4" fill="#0a1a1a" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="345" y="187" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold">🔓 Public Key</text>
+
+  <!-- Encrypt box -->
+  <rect x="410" y="140" width="70" height="54" rx="4" fill="#1a3a2a" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="445" y="162" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold">RSA</text>
+  <text x="445" y="176" text-anchor="middle" fill="#94a3b8" font-size="9">2048-bit</text>
+  <text x="445" y="188" text-anchor="middle" fill="#94a3b8" font-size="9">or ECC</text>
+  <line x1="385" y1="152" x2="410" y2="162" class="arrow-ok"/>
+  <line x1="345" y1="172" x2="430" y2="180" class="arrow-ok" stroke="#4ade80" stroke-dasharray="3,2"/>
+
+  <!-- Ciphertext -->
+  <rect x="305" y="215" width="240" height="24" rx="4" fill="#0a1a0a" stroke="#374151" stroke-width="1"/>
+  <text x="425" y="232" text-anchor="middle" fill="#64748b" font-size="10" font-family="monospace">a1b2c3...{encrypted}</text>
+  <line x1="445" y1="194" x2="425" y2="215" class="arrow-ok"/>
+
+  <!-- Decrypt -->
+  <rect x="305" y="252" width="80" height="22" rx="4" fill="#0a1a1a" stroke="#f87171" stroke-width="1.5"/>
+  <text x="345" y="267" text-anchor="middle" fill="#f87171" font-size="10" font-weight="bold">🔐 Private Key</text>
+  <rect x="410" y="247" width="70" height="30" rx="4" fill="#1a3a2a" stroke="#22c55e" stroke-width="1"/>
+  <text x="445" y="267" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold">Decrypt</text>
+  <line x1="385" y1="263" x2="410" y2="262" class="arrow-ok"/>
+  <line x1="425" y1="239" x2="425" y2="247" class="arrow-ok"/>
+
+  <!-- Properties -->
+  <text x="305" y="298" class="success" font-size="10">✓ Solves key distribution</text>
+  <text x="305" y="312" class="success" font-size="10">✓ Enables digital signatures</text>
+  <text x="305" y="326" class="warn" font-size="10">⚠ Slow — hybrid encryption used</text>
+  <text x="305" y="340" class="label" font-size="10">RSA: 2048-4096 bit | ECC: 256-521 bit</text>
+  <text x="305" y="354" class="small" font-size="9">Used in: TLS key exchange, certificates, PGP</text>
+
+  <!-- ─────────────────────────────────────────────── -->
+  <!-- SECTION 2: TLS Handshake (top-right)           -->
+  <!-- ─────────────────────────────────────────────── -->
+  <rect x="592" y="68" width="590" height="310" rx="8" fill="#0a1f2e" stroke="#334155" stroke-width="1"/>
+  <text x="887" y="88" text-anchor="middle" class="title">TLS 1.3 Handshake Flow</text>
+
+  <!-- Client column -->
+  <rect x="610" y="96" width="100" height="270" rx="6" fill="#071929" stroke="#06b6d4" stroke-width="1.5"/>
+  <text x="660" y="115" text-anchor="middle" fill="#06b6d4" font-size="12" font-weight="bold">CLIENT</text>
+  <text x="660" y="129" text-anchor="middle" class="small">Browser/App</text>
+
+  <!-- Server column -->
+  <rect x="1065" y="96" width="105" height="270" rx="6" fill="#071929" stroke="#06b6d4" stroke-width="1.5"/>
+  <text x="1117" y="115" text-anchor="middle" fill="#06b6d4" font-size="12" font-weight="bold">SERVER</text>
+  <text x="1117" y="129" text-anchor="middle" class="small">Web Server</text>
+
+  <!-- Flow lines (vertical) -->
+  <line x1="660" y1="140" x2="660" y2="355" stroke="#06b6d4" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+  <line x1="1117" y1="140" x2="1117" y2="355" stroke="#06b6d4" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+
+  <!-- Step 1: ClientHello -->
+  <line x1="660" y1="155" x2="1117" y2="155" class="arrow-tls"/>
+  <text x="888" y="149" text-anchor="middle" fill="#06b6d4" font-size="10" font-weight="bold">ClientHello</text>
+  <text x="888" y="169" text-anchor="middle" class="small">TLS ver + cipher suites + ECDH key_share</text>
+
+  <!-- Step 2: ServerHello -->
+  <line x1="1117" y1="195" x2="660" y2="195" class="arrow-tls"/>
+  <text x="888" y="189" text-anchor="middle" fill="#06b6d4" font-size="10" font-weight="bold">ServerHello</text>
+  <text x="888" y="209" text-anchor="middle" class="small">Chosen cipher + server ECDH key_share</text>
+
+  <!-- Derived Secret -->
+  <rect x="720" y="215" width="335" height="22" rx="4" fill="#0a2030" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="887" y="230" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="bold">⚡ Both derive shared secret via ECDHE — all further msgs ENCRYPTED</text>
+
+  <!-- Step 3: Server auth (encrypted) -->
+  <line x1="1117" y1="252" x2="660" y2="252" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="6,2" marker-end="url(#arr-green)"/>
+  <text x="888" y="246" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold">{Certificate + CertificateVerify + Finished}</text>
+  <text x="888" y="262" text-anchor="middle" class="small">Encrypted · Server proves identity with cert signature</text>
+
+  <!-- Step 4: Client Finished -->
+  <line x1="660" y1="285" x2="1117" y2="285" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="6,2" marker-end="url(#arr-green)"/>
+  <text x="888" y="279" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold">{Client Finished}</text>
+
+  <!-- Step 5: App data -->
+  <line x1="660" y1="308" x2="1117" y2="308" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="1117" y1="323" x2="660" y2="323" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="888" y="320" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="bold">[Application Data — AES-256-GCM encrypted]</text>
+
+  <!-- TLS info box -->
+  <rect x="608" y="340" width="558" height="28" rx="4" fill="#071929" stroke="#334155" stroke-width="1"/>
+  <text x="635" y="352" fill="#38bdf8" font-size="9" font-weight="bold">TLS 1.3 Only: </text>
+  <text x="697" y="352" class="small" font-size="9">PFS mandatory · 1-RTT · Server cert encrypted · Cipher: TLS_AES_256_GCM_SHA384</text>
+  <text x="635" y="364" fill="#f87171" font-size="9" font-weight="bold">Avoid: </text>
+  <text x="662" y="364" fill="#f87171" font-size="9">SSL 2/3, TLS 1.0/1.1 (deprecated) · RC4, DES, NULL, EXPORT cipher suites</text>
+
+  <!-- ─────────────────────────────────────────────── -->
+  <!-- SECTION 3: Hash Functions (bottom-left)         -->
+  <!-- ─────────────────────────────────────────────── -->
+  <rect x="20" y="392" width="560" height="248" rx="8" fill="#0f1a2e" stroke="#334155" stroke-width="1"/>
+  <text x="300" y="412" text-anchor="middle" class="title">Cryptographic Hash Functions</text>
+
+  <!-- Hash function box -->
+  <rect x="32" y="420" width="536" height="60" rx="6" fill="#1a0a2e" stroke="#a855f7" stroke-width="1.5"/>
+  <text x="140" y="444" text-anchor="middle" fill="#94a3b8" font-size="10">Arbitrary Input</text>
+  <text x="140" y="460" text-anchor="middle" fill="#a855f7" font-size="9" font-family="monospace">"Hello, World!" (13 bytes)</text>
+  <rect x="210" y="432" width="130" height="36" rx="4" fill="#2d1b4e" stroke="#a855f7" stroke-width="2"/>
+  <text x="275" y="448" text-anchor="middle" fill="#a855f7" font-size="12" font-weight="bold">H( )</text>
+  <text x="275" y="462" text-anchor="middle" fill="#94a3b8" font-size="9">One-way function</text>
+  <text x="440" y="444" text-anchor="middle" fill="#94a3b8" font-size="10">Fixed-length Output</text>
+  <text x="440" y="460" text-anchor="middle" fill="#4ade80" font-size="9" font-family="monospace">dffd6021bb2bd5b0... (32 bytes)</text>
+  <line x1="197" y1="450" x2="210" y2="450" class="arrow" stroke="#a855f7"/>
+  <line x1="340" y1="450" x2="355" y2="450" class="arrow" stroke="#4ade80"/>
+
+  <!-- Hash comparison table -->
+  <rect x="32" y="490" width="536" height="22" rx="3" fill="#1a0a2e" stroke="#4b2080" stroke-width="1"/>
+  <text x="60" y="504" fill="#a855f7" font-size="10" font-weight="bold">Algorithm</text>
+  <text x="170" y="504" fill="#a855f7" font-size="10" font-weight="bold">Output</text>
+  <text x="250" y="504" fill="#a855f7" font-size="10" font-weight="bold">Status</text>
+  <text x="360" y="504" fill="#a855f7" font-size="10" font-weight="bold">Use Case</text>
+
+  <line x1="32" y1="514" x2="568" y2="514" stroke="#4b2080" stroke-width="1"/>
+
+  <text x="60" y="527" class="label" font-size="10">MD5</text>
+  <text x="170" y="527" class="label" font-size="10">128-bit</text>
+  <text x="250" y="527" class="danger" font-size="10">BROKEN (2004)</text>
+  <text x="360" y="527" fill="#64748b" font-size="10">Legacy only — collisions exist</text>
+
+  <text x="60" y="542" class="label" font-size="10">SHA-1</text>
+  <text x="170" y="542" class="label" font-size="10">160-bit</text>
+  <text x="250" y="542" class="danger" font-size="10">BROKEN (2017)</text>
+  <text x="360" y="542" fill="#64748b" font-size="10">Deprecated — SHAttered attack</text>
+
+  <text x="60" y="557" class="label" font-size="10" font-weight="bold">SHA-256</text>
+  <text x="170" y="557" class="label" font-size="10">256-bit</text>
+  <text x="250" y="557" class="success" font-size="10">SECURE ✓</text>
+  <text x="360" y="557" class="label" font-size="10">Standard — TLS, code signing, files</text>
+
+  <text x="60" y="572" class="label" font-size="10">SHA-512</text>
+  <text x="170" y="572" class="label" font-size="10">512-bit</text>
+  <text x="250" y="572" class="success" font-size="10">SECURE ✓</text>
+  <text x="360" y="572" class="label" font-size="10">High-security applications</text>
+
+  <text x="60" y="587" class="label" font-size="10">SHA-3</text>
+  <text x="170" y="587" class="label" font-size="10">224-512b</text>
+  <text x="250" y="587" class="success" font-size="10">SECURE ✓</text>
+  <text x="360" y="587" class="label" font-size="10">Structural diversity from SHA-2</text>
+
+  <text x="60" y="602" fill="#fbbf24" font-size="10">bcrypt/Argon2</text>
+  <text x="170" y="602" class="label" font-size="10">variable</text>
+  <text x="250" y="602" class="success" font-size="10">SECURE ✓</text>
+  <text x="360" y="602" fill="#fbbf24" font-size="10">Passwords ONLY — intentionally slow</text>
+
+  <!-- Properties -->
+  <rect x="32" y="612" width="536" height="22" rx="3" fill="#0f0a1e" stroke="#334155" stroke-width="1"/>
+  <text x="60" y="627" fill="#a855f7" font-size="9" font-weight="bold">Properties: </text>
+  <text x="115" y="627" class="small" font-size="9">One-way · Deterministic · Avalanche effect · Collision resistance · Birthday bound: 2^(n/2)</text>
+
+  <!-- ─────────────────────────────────────────────── -->
+  <!-- SECTION 4: PKI Certificate Chain (bottom-right) -->
+  <!-- ─────────────────────────────────────────────── -->
+  <rect x="592" y="392" width="590" height="248" rx="8" fill="#1a1200" stroke="#334155" stroke-width="1"/>
+  <text x="887" y="412" text-anchor="middle" class="title">PKI — Certificate Chain of Trust</text>
+
+  <!-- Root CA -->
+  <rect x="777" y="424" width="220" height="46" rx="6" fill="#2d1f00" stroke="#f59e0b" stroke-width="2.5"/>
+  <text x="887" y="444" text-anchor="middle" fill="#f59e0b" font-size="12" font-weight="bold">Root CA Certificate</text>
+  <text x="887" y="460" text-anchor="middle" fill="#94a3b8" font-size="9">Self-signed · Built into OS/Browser trust store</text>
+  <text x="887" y="471" text-anchor="middle" fill="#94a3b8" font-size="8">DigiCert / Let's Encrypt / Comodo / ...</text>
+
+  <!-- Arrow root to intermediate -->
+  <line x1="887" y1="470" x2="887" y2="490" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="930" y="484" fill="#94a3b8" font-size="9">signs</text>
+
+  <!-- Intermediate CA -->
+  <rect x="750" y="492" width="274" height="46" rx="6" fill="#1f1800" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="887" y="511" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold">Intermediate CA Certificate</text>
+  <text x="887" y="525" text-anchor="middle" fill="#94a3b8" font-size="9">Signed by Root CA · Issues end-entity certs</text>
+  <text x="887" y="536" text-anchor="middle" fill="#94a3b8" font-size="8">Root key stays OFFLINE — Intermediate used operationally</text>
+
+  <!-- Arrow intermediate to end-entity -->
+  <line x1="887" y1="538" x2="887" y2="558" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="930" y="552" fill="#94a3b8" font-size="9">signs</text>
+
+  <!-- End Entity Cert -->
+  <rect x="720" y="560" width="334" height="52" rx="6" fill="#1a1400" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="887" y="580" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="bold">End-Entity Certificate (*.example.com)</text>
+  <text x="887" y="595" text-anchor="middle" fill="#94a3b8" font-size="9">Subject: CN=*.example.com · Public Key: EC-P256</text>
+  <text x="887" y="609" text-anchor="middle" fill="#94a3b8" font-size="8">Signed by Intermediate · Valid: 90 days (Let's Encrypt) to 1 year</text>
+
+  <!-- Validation flow -->
+  <rect x="602" y="424" width="164" height="188" rx="6" fill="#0f1a0f" stroke="#334155" stroke-width="1"/>
+  <text x="684" y="444" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="bold">Browser Validates:</text>
+  <text x="612" y="462" class="small" font-size="9">1. Cert not expired</text>
+  <text x="612" y="476" class="small" font-size="9">2. Domain matches SNI</text>
+  <text x="612" y="490" class="small" font-size=9">3. Sig by trusted Intermediate</text>
+  <text x="612" y="504" class="small" font-size="9">4. Intermediate chains to Root</text>
+  <text x="612" y="518" class="small" font-size="9">5. Root in trust store</text>
+  <text x="612" y="532" class="small" font-size="9">6. Not revoked (OCSP/CRL)</text>
+  <text x="612" y="546" class="small" font-size="9">7. CT log proof included</text>
+  <line x1="766" y1="504" x2="777" y2="504" stroke="#4ade80" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="766" y1="519" x2="750" y2="519" stroke="#4ade80" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="766" y1="575" x2="720" y2="575" stroke="#4ade80" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Cert types -->
+  <rect x="602" y="620" width="558" height="14" rx="3" fill="#0f0a00" stroke="#334155" stroke-width="1"/>
+  <text x="620" y="631" fill="#f59e0b" font-size="9" font-weight="bold">DV: </text>
+  <text x="638" y="631" class="small" font-size="9">Domain only (Let's Encrypt)   </text>
+  <text x="740" y="631" fill="#fbbf24" font-size="9" font-weight="bold">OV: </text>
+  <text x="758" y="631" class="small" font-size="9">Organization verified   </text>
+  <text x="840" y="631" fill="#4ade80" font-size="9" font-weight="bold">EV: </text>
+  <text x="858" y="631" class="small" font-size="9">Extended validation (strictest)   </text>
+  <text x="980" y="631" fill="#a855f7" font-size="9" font-weight="bold">CT: </text>
+  <text x="998" y="631" class="small" font-size="9">Cert Transparency log</text>
+
+  <!-- Bottom SOC note -->
+  <rect x="20" y="648" width="1162" height="36" rx="6" fill="#0a0f1a" stroke="#334155" stroke-width="1"/>
+  <text x="30" y="661" fill="#f87171" font-size="11" font-weight="bold">SOC Analyst Visibility:</text>
+  <text x="175" y="661" class="small" font-size="10">Encrypted TLS payload is opaque — but SNI, JA3 fingerprints, cert details, DNS queries, flow metadata, and behavioral patterns remain visible for threat detection</text>
+  <text x="30" y="676" fill="#fbbf24" font-size="10" font-weight="bold">Watch for: </text>
+  <text x="105" y="676" class="small" font-size="10">Self-signed certs · TLS 1.0/1.1 · Weak ciphers · Unusual beaconing · Newly-registered domains · Large outbound transfers · JA3 malware matches</text>
+
+  <!-- Bottom legend -->
+  <rect x="20" y="694" width="1162" height="94" rx="6" fill="#0a0f1a" stroke="#1e293b" stroke-width="1"/>
+  <text x="600" y="714" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="bold">Post-Quantum Cryptography — Current Status (2024)</text>
+  
+  <!-- PQ table -->
+  <text x="40" y="734" fill="#38bdf8" font-size="10" font-weight="bold">NIST Standards:</text>
+  <rect x="150" y="722" width="120" height="32" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="210" y="736" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="bold">FIPS 203: ML-KEM</text>
+  <text x="210" y="750" text-anchor="middle" class="small" font-size="9">Key Encapsulation (Kyber)</text>
+  <rect x="285" y="722" width="120" height="32" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="345" y="736" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="bold">FIPS 204: ML-DSA</text>
+  <text x="345" y="750" text-anchor="middle" class="small" font-size="9">Digital Signatures (Dilithium)</text>
+  <rect x="420" y="722" width="120" height="32" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="480" y="736" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="bold">FIPS 205: SLH-DSA</text>
+  <text x="480" y="750" text-anchor="middle" class="small" font-size="9">Hash-based Signatures</text>
+
+  <text x="570" y="734" fill="#94a3b8" font-size="9" font-weight="bold">Shor's Algorithm Threat:</text>
+  <rect x="700" y="722" width="130" height="32" rx="4" fill="#2d1a00" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="765" y="736" text-anchor="middle" fill="#f87171" font-size="10" font-weight="bold">RSA / ECC / DH</text>
+  <text x="765" y="750" text-anchor="middle" fill="#f87171" font-size="9">VULNERABLE to quantum</text>
+
+  <rect x="845" y="722" width="130" height="32" rx="4" fill="#1a3a1a" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="910" y="736" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="bold">AES-256 / SHA-256</text>
+  <text x="910" y="750" text-anchor="middle" fill="#4ade80" font-size="9">Quantum-resistant ✓</text>
+
+  <text x="990" y="734" fill="#94a3b8" font-size="9">Harvest now,</text>
+  <text x="990" y="746" fill="#f87171" font-size="9">decrypt later:</text>
+  <text x="990" y="758" class="small" font-size="9">Record traffic today</text>
+  <text x="990" y="770" class="small" font-size="9">→ decrypt with QC later</text>
+  <text x="1100" y="740" fill="#fbbf24" font-size="9" font-weight="bold">Migrate to</text>
+  <text x="1100" y="752" fill="#fbbf24" font-size="9">post-quantum</text>
+  <text x="1100" y="764" fill="#fbbf24" font-size="9">algorithms NOW</text>
+  <text x="1100" y="776" class="small" font-size="9">for sensitive data</text>
+</svg>

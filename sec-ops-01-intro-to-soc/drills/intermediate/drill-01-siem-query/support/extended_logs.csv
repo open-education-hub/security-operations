@@ -1,0 +1,290 @@
+_time,host,source,sourcetype,user,src_ip,action,command,bytes_out,message
+2024-01-14T00:01:00,fw-core-01,firewall,firewall,,10.10.1.115,permit,,59425,PERMIT src=10.10.1.115 dst=8.8.39.80 proto=TCP dport=443 bytes_out=59425
+2024-01-14T00:07:00,fw-core-01,firewall,firewall,,10.10.1.33,permit,,70860,PERMIT src=10.10.1.33 dst=8.8.13.159 proto=TCP dport=443 bytes_out=70860
+2024-01-14T00:08:00,fw-core-01,firewall,firewall,,10.10.1.125,permit,,73026,PERMIT src=10.10.1.125 dst=8.8.49.80 proto=TCP dport=443 bytes_out=73026
+2024-01-14T00:09:00,fw-core-01,firewall,firewall,,10.10.1.22,permit,,70936,PERMIT src=10.10.1.22 dst=8.8.28.177 proto=TCP dport=443 bytes_out=70936
+2024-01-14T00:11:00,fw-core-01,firewall,firewall,,10.10.1.11,permit,,64112,PERMIT src=10.10.1.11 dst=8.8.10.63 proto=TCP dport=8080 bytes_out=64112
+2024-01-14T00:13:00,fw-core-01,firewall,firewall,,10.10.1.66,permit,,69245,PERMIT src=10.10.1.66 dst=8.8.48.187 proto=TCP dport=80 bytes_out=69245
+2024-01-14T00:15:00,fw-core-01,firewall,firewall,,10.10.1.99,permit,,73343,PERMIT src=10.10.1.99 dst=8.8.29.19 proto=TCP dport=80 bytes_out=73343
+2024-01-14T00:18:00,fw-core-01,firewall,firewall,,10.10.1.88,permit,,60609,PERMIT src=10.10.1.88 dst=8.8.2.45 proto=TCP dport=443 bytes_out=60609
+2024-01-14T00:20:00,fw-core-01,firewall,firewall,,10.10.1.77,permit,,70954,PERMIT src=10.10.1.77 dst=8.8.39.249 proto=TCP dport=80 bytes_out=70954
+2024-01-14T00:26:00,fw-core-01,firewall,firewall,,10.10.1.44,permit,,55391,PERMIT src=10.10.1.44 dst=8.8.17.234 proto=TCP dport=443 bytes_out=55391
+2024-01-14T00:26:00,fw-core-01,firewall,firewall,,10.10.1.55,permit,,70923,PERMIT src=10.10.1.55 dst=8.8.24.28 proto=TCP dport=8080 bytes_out=70923
+2024-01-14T00:26:00,fw-core-01,firewall,firewall,,10.10.1.105,permit,,64860,PERMIT src=10.10.1.105 dst=8.8.26.107 proto=TCP dport=8080 bytes_out=64860
+2024-01-14T01:27:00,fw-core-01,firewall,firewall,,10.10.1.11,permit,,70260,PERMIT src=10.10.1.11 dst=1.1.5.221 proto=TCP dport=443 bytes_out=70260
+2024-01-14T03:01:00,fw-core-01,firewall,firewall,,10.10.1.77,permit,,60928,PERMIT src=10.10.1.77 dst=8.8.16.254 proto=TCP dport=80 bytes_out=60928
+2024-01-14T03:01:00,fw-core-01,firewall,firewall,,10.10.1.88,permit,,54153,PERMIT src=10.10.1.88 dst=8.8.48.108 proto=TCP dport=8080 bytes_out=54153
+2024-01-14T03:03:00,fw-core-01,firewall,firewall,,10.10.1.105,permit,,60241,PERMIT src=10.10.1.105 dst=8.8.28.81 proto=TCP dport=8080 bytes_out=60241
+2024-01-14T03:03:00,fw-core-01,firewall,firewall,,10.10.1.115,permit,,68937,PERMIT src=10.10.1.115 dst=8.8.33.55 proto=TCP dport=80 bytes_out=68937
+2024-01-14T03:07:00,fw-core-01,firewall,firewall,,10.10.1.55,permit,,65449,PERMIT src=10.10.1.55 dst=8.8.2.159 proto=TCP dport=8080 bytes_out=65449
+2024-01-14T03:10:00,fw-core-01,firewall,firewall,,10.10.1.99,permit,,69932,PERMIT src=10.10.1.99 dst=8.8.10.17 proto=TCP dport=80 bytes_out=69932
+2024-01-14T03:11:00,fw-core-01,firewall,firewall,,10.10.1.125,permit,,50200,PERMIT src=10.10.1.125 dst=8.8.12.223 proto=TCP dport=80 bytes_out=50200
+2024-01-14T03:13:00,fw-core-01,firewall,firewall,,10.10.1.11,permit,,68544,PERMIT src=10.10.1.11 dst=8.8.44.203 proto=TCP dport=80 bytes_out=68544
+2024-01-14T03:14:00,fw-core-01,firewall,firewall,,10.10.1.22,permit,,59899,PERMIT src=10.10.1.22 dst=8.8.13.99 proto=TCP dport=443 bytes_out=59899
+2024-01-14T03:21:00,fw-core-01,firewall,firewall,,10.10.1.33,permit,,74758,PERMIT src=10.10.1.33 dst=8.8.47.197 proto=TCP dport=8080 bytes_out=74758
+2024-01-14T03:28:00,fw-core-01,firewall,firewall,,10.10.1.66,permit,,63594,PERMIT src=10.10.1.66 dst=8.8.42.26 proto=TCP dport=443 bytes_out=63594
+2024-01-14T03:30:00,fw-core-01,firewall,firewall,,10.10.1.44,permit,,59671,PERMIT src=10.10.1.44 dst=8.8.48.223 proto=TCP dport=443 bytes_out=59671
+2024-01-14T04:28:00,fw-core-01,firewall,firewall,,10.10.1.22,permit,,71462,PERMIT src=10.10.1.22 dst=1.1.29.162 proto=TCP dport=443 bytes_out=71462
+2024-01-14T05:04:00,fw-core-01,firewall,firewall,,10.10.1.99,permit,,24945,PERMIT src=10.10.1.99 dst=1.1.34.131 proto=TCP dport=443 bytes_out=24945
+2024-01-14T06:03:00,fw-core-01,firewall,firewall,,10.10.1.22,permit,,57772,PERMIT src=10.10.1.22 dst=8.8.25.147 proto=TCP dport=443 bytes_out=57772
+2024-01-14T06:03:00,fw-core-01,firewall,firewall,,10.10.1.88,permit,,74433,PERMIT src=10.10.1.88 dst=8.8.5.122 proto=TCP dport=443 bytes_out=74433
+2024-01-14T06:05:00,fw-core-01,firewall,firewall,,10.10.1.11,permit,,55736,PERMIT src=10.10.1.11 dst=8.8.6.157 proto=TCP dport=443 bytes_out=55736
+2024-01-14T06:08:00,fw-core-01,firewall,firewall,,10.10.1.99,permit,,70457,PERMIT src=10.10.1.99 dst=8.8.41.150 proto=TCP dport=8080 bytes_out=70457
+2024-01-14T06:08:00,fw-core-01,firewall,firewall,,10.10.1.105,permit,,62265,PERMIT src=10.10.1.105 dst=8.8.10.176 proto=TCP dport=443 bytes_out=62265
+2024-01-14T06:10:00,fw-core-01,firewall,firewall,,10.10.1.55,permit,,69991,PERMIT src=10.10.1.55 dst=8.8.15.166 proto=TCP dport=80 bytes_out=69991
+2024-01-14T06:18:00,fw-core-01,firewall,firewall,,10.10.1.125,permit,,71539,PERMIT src=10.10.1.125 dst=8.8.26.18 proto=TCP dport=80 bytes_out=71539
+2024-01-14T06:19:00,fw-core-01,firewall,firewall,,10.10.1.66,permit,,63373,PERMIT src=10.10.1.66 dst=8.8.18.9 proto=TCP dport=8080 bytes_out=63373
+2024-01-14T06:19:00,fw-core-01,firewall,firewall,,10.10.1.44,permit,,27987,PERMIT src=10.10.1.44 dst=1.1.49.66 proto=TCP dport=443 bytes_out=27987
+2024-01-14T06:21:00,fw-core-01,firewall,firewall,,10.10.1.33,permit,,54481,PERMIT src=10.10.1.33 dst=8.8.41.25 proto=TCP dport=8080 bytes_out=54481
+2024-01-14T06:21:00,fw-core-01,firewall,firewall,,10.10.1.115,permit,,65800,PERMIT src=10.10.1.115 dst=8.8.15.217 proto=TCP dport=80 bytes_out=65800
+2024-01-14T06:25:00,fw-core-01,firewall,firewall,,10.10.1.44,permit,,53773,PERMIT src=10.10.1.44 dst=8.8.30.247 proto=TCP dport=80 bytes_out=53773
+2024-01-14T06:25:00,fw-core-01,firewall,firewall,,10.10.1.77,permit,,68500,PERMIT src=10.10.1.77 dst=8.8.14.18 proto=TCP dport=8080 bytes_out=68500
+2024-01-14T06:57:00,fw-core-01,firewall,firewall,,10.10.1.66,permit,,56019,PERMIT src=10.10.1.66 dst=1.1.47.246 proto=TCP dport=443 bytes_out=56019
+2024-01-14T07:21:49,auth-prod-02,/var/log/secure,linux_secure,lena.wolf,172.16.11.190,accepted,,,Accepted password for lena.wolf from 172.16.11.190 port 54014
+2024-01-14T07:32:00,fw-core-01,firewall,firewall,,10.10.1.99,permit,,56421,PERMIT src=10.10.1.99 dst=1.1.5.102 proto=TCP dport=443 bytes_out=56421
+2024-01-14T07:39:47,auth-prod-02,/var/log/secure,linux_secure,samir.khan,172.16.41.55,accepted,,,Accepted password for samir.khan from 172.16.41.55 port 45146
+2024-01-14T07:45:34,auth-prod-01,/var/log/secure,linux_secure,lena.wolf,172.16.3.250,accepted,,,Accepted password for lena.wolf from 172.16.3.250 port 62852
+2024-01-14T07:47:20,ldap-01,/var/log/secure,linux_secure,alice.chen,172.16.38.123,failed,,,Failed password for alice.chen from 172.16.38.123 port 57403
+2024-01-14T08:02:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,60171,PERMIT src=10.0.0.42 dst=8.8.30.116 proto=TCP dport=443 bytes_out=60171
+2024-01-14T08:05:24,auth-prod-02,/var/log/secure,linux_secure,tom.hardy,172.16.23.155,accepted,,,Accepted password for tom.hardy from 172.16.23.155 port 63911
+2024-01-14T08:12:00,fw-core-01,firewall,firewall,,10.10.1.33,permit,,30036,PERMIT src=10.10.1.33 dst=1.1.49.195 proto=TCP dport=443 bytes_out=30036
+2024-01-14T08:56:16,auth-prod-01,/var/log/secure,linux_secure,carol.white,172.16.17.10,accepted,,,Accepted password for carol.white from 172.16.17.10 port 51327
+2024-01-14T09:01:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,51864,PERMIT src=10.0.0.42 dst=8.8.24.213 proto=TCP dport=443 bytes_out=51864
+2024-01-14T09:02:00,fw-core-01,firewall,firewall,,10.10.1.105,permit,,52989,PERMIT src=10.10.1.105 dst=8.8.6.24 proto=TCP dport=443 bytes_out=52989
+2024-01-14T09:03:32,auth-prod-01,/var/log/secure,linux_secure,diana.prince,172.16.5.153,accepted,,,Accepted password for diana.prince from 172.16.5.153 port 47707
+2024-01-14T09:04:00,fw-core-01,firewall,firewall,,10.10.1.44,permit,,74712,PERMIT src=10.10.1.44 dst=8.8.15.221 proto=TCP dport=8080 bytes_out=74712
+2024-01-14T09:04:03,ldap-01,/var/log/secure,linux_secure,lena.wolf,172.16.39.192,failed,,,Failed password for lena.wolf from 172.16.39.192 port 54390
+2024-01-14T09:06:00,fw-core-01,firewall,firewall,,10.10.1.77,permit,,69214,PERMIT src=10.10.1.77 dst=8.8.14.209 proto=TCP dport=80 bytes_out=69214
+2024-01-14T09:11:00,fw-core-01,firewall,firewall,,10.10.1.66,permit,,57119,PERMIT src=10.10.1.66 dst=8.8.29.114 proto=TCP dport=80 bytes_out=57119
+2024-01-14T09:11:00,fw-core-01,firewall,firewall,,10.10.1.115,permit,,68227,PERMIT src=10.10.1.115 dst=8.8.24.30 proto=TCP dport=443 bytes_out=68227
+2024-01-14T09:15:50,srv-app-02,/var/log/auth.log,linux_secure,alice.chen,,sudo,/usr/bin/passwd,,alice.chen : TTY=pts/0 ; PWD=/home/alice ; USER=root ; COMMAND=/usr/bin/passwd
+2024-01-14T09:18:00,fw-core-01,firewall,firewall,,10.10.1.22,permit,,59695,PERMIT src=10.10.1.22 dst=8.8.45.76 proto=TCP dport=80 bytes_out=59695
+2024-01-14T09:19:00,fw-core-01,firewall,firewall,,10.10.1.11,permit,,72384,PERMIT src=10.10.1.11 dst=8.8.16.128 proto=TCP dport=8080 bytes_out=72384
+2024-01-14T09:20:00,fw-core-01,firewall,firewall,,10.10.1.33,permit,,51291,PERMIT src=10.10.1.33 dst=8.8.20.202 proto=TCP dport=443 bytes_out=51291
+2024-01-14T09:20:00,fw-core-01,firewall,firewall,,10.10.1.55,permit,,65213,PERMIT src=10.10.1.55 dst=8.8.45.78 proto=TCP dport=8080 bytes_out=65213
+2024-01-14T09:20:00,fw-core-01,firewall,firewall,,10.10.1.22,permit,,11013,PERMIT src=10.10.1.22 dst=1.1.32.192 proto=TCP dport=443 bytes_out=11013
+2024-01-14T09:22:00,fw-core-01,firewall,firewall,,10.10.1.99,permit,,60655,PERMIT src=10.10.1.99 dst=8.8.25.153 proto=TCP dport=8080 bytes_out=60655
+2024-01-14T09:23:00,fw-core-01,firewall,firewall,,10.10.1.125,permit,,70747,PERMIT src=10.10.1.125 dst=8.8.2.24 proto=TCP dport=8080 bytes_out=70747
+2024-01-14T09:24:00,fw-core-01,firewall,firewall,,10.10.1.88,permit,,61863,PERMIT src=10.10.1.88 dst=8.8.33.152 proto=TCP dport=80 bytes_out=61863
+2024-01-14T09:30:42,ldap-01,/var/log/secure,linux_secure,carol.white,172.16.14.120,accepted,,,Accepted password for carol.white from 172.16.14.120 port 52087
+2024-01-14T09:38:38,ldap-01,/var/log/secure,linux_secure,diana.prince,172.16.20.28,accepted,,,Accepted password for diana.prince from 172.16.20.28 port 50222
+2024-01-14T09:47:00,fw-core-01,firewall,firewall,,10.10.1.66,permit,,39041,PERMIT src=10.10.1.66 dst=1.1.22.200 proto=TCP dport=443 bytes_out=39041
+2024-01-14T09:50:00,fw-core-01,firewall,firewall,,10.10.1.55,permit,,17362,PERMIT src=10.10.1.55 dst=1.1.23.130 proto=TCP dport=443 bytes_out=17362
+2024-01-14T09:50:44,auth-prod-02,/var/log/secure,linux_secure,nadia.ali,172.16.3.220,accepted,,,Accepted password for nadia.ali from 172.16.3.220 port 55083
+2024-01-14T10:00:04,auth-prod-01,/var/log/secure,linux_secure,samir.khan,172.16.5.232,accepted,,,Accepted password for samir.khan from 172.16.5.232 port 42321
+2024-01-14T10:03:15,auth-prod-01,/var/log/secure,linux_secure,marco.rossi,172.16.47.125,failed,,,Failed password for marco.rossi from 172.16.47.125 port 57455
+2024-01-14T10:09:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,52514,PERMIT src=10.0.0.42 dst=8.8.42.222 proto=TCP dport=443 bytes_out=52514
+2024-01-14T10:10:00,fw-core-01,firewall,firewall,,10.10.1.105,permit,,70305,PERMIT src=10.10.1.105 dst=1.1.45.236 proto=TCP dport=443 bytes_out=70305
+2024-01-14T10:11:35,auth-prod-02,/var/log/secure,linux_secure,diana.prince,172.16.1.105,accepted,,,Accepted password for diana.prince from 172.16.1.105 port 55398
+2024-01-14T10:29:35,ldap-01,/var/log/secure,linux_secure,nadia.ali,172.16.13.236,accepted,,,Accepted password for nadia.ali from 172.16.13.236 port 44473
+2024-01-14T10:36:00,fw-core-01,firewall,firewall,,10.10.1.77,permit,,63008,PERMIT src=10.10.1.77 dst=1.1.46.164 proto=TCP dport=443 bytes_out=63008
+2024-01-14T10:41:04,auth-prod-01,/var/log/secure,linux_secure,alice.chen,172.16.16.52,accepted,,,Accepted password for alice.chen from 172.16.16.52 port 47816
+2024-01-14T10:43:19,auth-prod-01,/var/log/secure,linux_secure,samir.khan,172.16.10.7,accepted,,,Accepted password for samir.khan from 172.16.10.7 port 55569
+2024-01-14T10:53:59,auth-prod-02,/var/log/secure,linux_secure,lena.wolf,172.16.29.63,accepted,,,Accepted password for lena.wolf from 172.16.29.63 port 61895
+2024-01-14T10:59:34,ldap-01,/var/log/secure,linux_secure,lena.wolf,172.16.26.172,accepted,,,Accepted password for lena.wolf from 172.16.26.172 port 56959
+2024-01-14T11:05:00,fw-core-01,firewall,firewall,,10.10.1.77,permit,,23875,PERMIT src=10.10.1.77 dst=1.1.16.112 proto=TCP dport=443 bytes_out=23875
+2024-01-14T11:21:20,auth-prod-02,/var/log/secure,linux_secure,diana.prince,172.16.10.60,accepted,,,Accepted password for diana.prince from 172.16.10.60 port 63147
+2024-01-14T11:22:07,srv-web-01,/var/log/auth.log,linux_secure,marco.rossi,,sudo,/usr/bin/passwd alice.chen,,marco.rossi : TTY=pts/0 ; PWD=/home/marco ; USER=root ; COMMAND=/usr/bin/passwd alice.chen
+2024-01-14T11:27:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,52958,PERMIT src=10.0.0.42 dst=8.8.40.153 proto=TCP dport=443 bytes_out=52958
+2024-01-14T11:50:50,auth-prod-01,/var/log/secure,linux_secure,nadia.ali,172.16.8.140,accepted,,,Accepted password for nadia.ali from 172.16.8.140 port 48704
+2024-01-14T11:53:40,auth-prod-01,/var/log/secure,linux_secure,diana.prince,172.16.24.196,accepted,,,Accepted password for diana.prince from 172.16.24.196 port 57378
+2024-01-14T12:01:00,fw-core-01,firewall,firewall,,10.10.1.33,permit,,68991,PERMIT src=10.10.1.33 dst=8.8.24.188 proto=TCP dport=80 bytes_out=68991
+2024-01-14T12:03:00,fw-core-01,firewall,firewall,,10.10.1.105,permit,,74398,PERMIT src=10.10.1.105 dst=8.8.48.96 proto=TCP dport=80 bytes_out=74398
+2024-01-14T12:04:00,fw-core-01,firewall,firewall,,10.10.1.11,permit,,57608,PERMIT src=10.10.1.11 dst=8.8.30.164 proto=TCP dport=443 bytes_out=57608
+2024-01-14T12:09:00,fw-core-01,firewall,firewall,,10.10.1.99,permit,,64867,PERMIT src=10.10.1.99 dst=8.8.33.155 proto=TCP dport=443 bytes_out=64867
+2024-01-14T12:10:00,fw-core-01,firewall,firewall,,10.10.1.77,permit,,54835,PERMIT src=10.10.1.77 dst=8.8.39.1 proto=TCP dport=443 bytes_out=54835
+2024-01-14T12:13:00,fw-core-01,firewall,firewall,,10.10.1.55,permit,,53823,PERMIT src=10.10.1.55 dst=8.8.9.12 proto=TCP dport=80 bytes_out=53823
+2024-01-14T12:14:00,fw-core-01,firewall,firewall,,10.10.1.88,permit,,66509,PERMIT src=10.10.1.88 dst=8.8.15.243 proto=TCP dport=8080 bytes_out=66509
+2024-01-14T12:16:00,fw-core-01,firewall,firewall,,10.10.1.125,permit,,57049,PERMIT src=10.10.1.125 dst=8.8.25.108 proto=TCP dport=443 bytes_out=57049
+2024-01-14T12:16:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,62598,PERMIT src=10.0.0.42 dst=8.8.30.149 proto=TCP dport=443 bytes_out=62598
+2024-01-14T12:18:00,fw-core-01,firewall,firewall,,10.10.1.115,permit,,57410,PERMIT src=10.10.1.115 dst=8.8.28.217 proto=TCP dport=8080 bytes_out=57410
+2024-01-14T12:19:52,auth-prod-01,/var/log/secure,linux_secure,samir.khan,172.16.2.169,accepted,,,Accepted password for samir.khan from 172.16.2.169 port 49129
+2024-01-14T12:23:00,fw-core-01,firewall,firewall,,10.10.1.44,permit,,72098,PERMIT src=10.10.1.44 dst=8.8.26.248 proto=TCP dport=8080 bytes_out=72098
+2024-01-14T12:26:00,fw-core-01,firewall,firewall,,10.10.1.22,permit,,71568,PERMIT src=10.10.1.22 dst=8.8.26.71 proto=TCP dport=80 bytes_out=71568
+2024-01-14T12:27:00,fw-core-01,firewall,firewall,,10.10.1.66,permit,,61884,PERMIT src=10.10.1.66 dst=8.8.7.252 proto=TCP dport=8080 bytes_out=61884
+2024-01-14T12:42:54,ldap-01,/var/log/secure,linux_secure,lena.wolf,172.16.33.80,accepted,,,Accepted password for lena.wolf from 172.16.33.80 port 53185
+2024-01-14T13:07:56,ldap-01,/var/log/secure,linux_secure,carol.white,172.16.39.11,accepted,,,Accepted password for carol.white from 172.16.39.11 port 61540
+2024-01-14T13:11:00,fw-core-01,firewall,firewall,,10.10.1.33,permit,,59834,PERMIT src=10.10.1.33 dst=1.1.35.181 proto=TCP dport=443 bytes_out=59834
+2024-01-14T13:17:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,51344,PERMIT src=10.0.0.42 dst=8.8.29.233 proto=TCP dport=443 bytes_out=51344
+2024-01-14T13:18:00,fw-core-01,firewall,firewall,,10.10.1.22,permit,,63088,PERMIT src=10.10.1.22 dst=1.1.2.248 proto=TCP dport=443 bytes_out=63088
+2024-01-14T13:26:29,ldap-01,/var/log/secure,linux_secure,marco.rossi,172.16.4.104,accepted,,,Accepted password for marco.rossi from 172.16.4.104 port 43580
+2024-01-14T13:31:35,auth-prod-02,/var/log/secure,linux_secure,oscar.pinto,172.16.42.183,accepted,,,Accepted password for oscar.pinto from 172.16.42.183 port 40565
+2024-01-14T13:42:50,ldap-01,/var/log/secure,linux_secure,oscar.pinto,172.16.3.33,failed,,,Failed password for oscar.pinto from 172.16.3.33 port 50878
+2024-01-14T13:57:49,auth-prod-01,/var/log/secure,linux_secure,carol.white,172.16.25.123,failed,,,Failed password for carol.white from 172.16.25.123 port 49784
+2024-01-14T14:07:15,ldap-01,/var/log/secure,linux_secure,marco.rossi,172.16.22.6,accepted,,,Accepted password for marco.rossi from 172.16.22.6 port 59282
+2024-01-14T14:24:17,auth-prod-01,/var/log/secure,linux_secure,tom.hardy,172.16.50.199,accepted,,,Accepted password for tom.hardy from 172.16.50.199 port 41051
+2024-01-14T14:25:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,68732,PERMIT src=10.0.0.42 dst=8.8.42.49 proto=TCP dport=443 bytes_out=68732
+2024-01-14T14:40:28,auth-prod-01,/var/log/secure,linux_secure,samir.khan,172.16.18.141,failed,,,Failed password for samir.khan from 172.16.18.141 port 54356
+2024-01-14T14:45:10,srv-db-01,/var/log/auth.log,linux_secure,carol.white,,sudo,visudo,,carol.white : TTY=pts/0 ; PWD=/home/carol ; USER=root ; COMMAND=visudo
+2024-01-14T14:51:55,auth-prod-01,/var/log/secure,linux_secure,alice.chen,172.16.42.139,failed,,,Failed password for alice.chen from 172.16.42.139 port 64692
+2024-01-14T14:58:17,auth-prod-02,/var/log/secure,linux_secure,carol.white,172.16.28.163,failed,,,Failed password for carol.white from 172.16.28.163 port 55401
+2024-01-14T15:00:07,auth-prod-02,/var/log/secure,linux_secure,diana.prince,172.16.35.10,accepted,,,Accepted password for diana.prince from 172.16.35.10 port 44852
+2024-01-14T15:01:00,fw-core-01,firewall,firewall,,10.10.1.88,permit,,73830,PERMIT src=10.10.1.88 dst=8.8.43.134 proto=TCP dport=443 bytes_out=73830
+2024-01-14T15:02:00,fw-core-01,firewall,firewall,,10.10.1.33,permit,,59670,PERMIT src=10.10.1.33 dst=8.8.21.192 proto=TCP dport=443 bytes_out=59670
+2024-01-14T15:03:00,fw-core-01,firewall,firewall,,10.10.1.99,permit,,72995,PERMIT src=10.10.1.99 dst=8.8.8.219 proto=TCP dport=8080 bytes_out=72995
+2024-01-14T15:09:00,fw-core-01,firewall,firewall,,10.10.1.55,permit,,66142,PERMIT src=10.10.1.55 dst=8.8.8.25 proto=TCP dport=80 bytes_out=66142
+2024-01-14T15:10:00,fw-core-01,firewall,firewall,,10.10.1.125,permit,,55157,PERMIT src=10.10.1.125 dst=8.8.24.80 proto=TCP dport=8080 bytes_out=55157
+2024-01-14T15:10:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,69824,PERMIT src=10.0.0.42 dst=8.8.31.129 proto=TCP dport=443 bytes_out=69824
+2024-01-14T15:11:00,fw-core-01,firewall,firewall,,10.10.1.44,permit,,52959,PERMIT src=10.10.1.44 dst=8.8.26.4 proto=TCP dport=443 bytes_out=52959
+2024-01-14T15:11:00,fw-core-01,firewall,firewall,,10.10.1.66,permit,,67841,PERMIT src=10.10.1.66 dst=8.8.42.92 proto=TCP dport=80 bytes_out=67841
+2024-01-14T15:14:00,fw-core-01,firewall,firewall,,10.10.1.11,permit,,58366,PERMIT src=10.10.1.11 dst=8.8.43.3 proto=TCP dport=443 bytes_out=58366
+2024-01-14T15:15:58,auth-prod-02,/var/log/secure,linux_secure,oscar.pinto,172.16.9.206,accepted,,,Accepted password for oscar.pinto from 172.16.9.206 port 58314
+2024-01-14T15:17:00,fw-core-01,firewall,firewall,,10.10.1.105,permit,,51965,PERMIT src=10.10.1.105 dst=8.8.38.245 proto=TCP dport=8080 bytes_out=51965
+2024-01-14T15:18:00,fw-core-01,firewall,firewall,,10.10.1.22,permit,,72472,PERMIT src=10.10.1.22 dst=8.8.50.191 proto=TCP dport=80 bytes_out=72472
+2024-01-14T15:24:00,fw-core-01,firewall,firewall,,10.10.1.115,permit,,70372,PERMIT src=10.10.1.115 dst=8.8.40.173 proto=TCP dport=8080 bytes_out=70372
+2024-01-14T15:26:05,auth-prod-01,/var/log/secure,linux_secure,marco.rossi,172.16.30.243,accepted,,,Accepted password for marco.rossi from 172.16.30.243 port 45045
+2024-01-14T15:27:00,fw-core-01,firewall,firewall,,10.10.1.77,permit,,54741,PERMIT src=10.10.1.77 dst=8.8.9.139 proto=TCP dport=443 bytes_out=54741
+2024-01-14T15:31:05,auth-prod-01,/var/log/secure,linux_secure,marco.rossi,172.16.10.161,accepted,,,Accepted password for marco.rossi from 172.16.10.161 port 53833
+2024-01-14T16:06:04,auth-prod-02,/var/log/secure,linux_secure,raj.patel,172.16.17.34,accepted,,,Accepted password for raj.patel from 172.16.17.34 port 48004
+2024-01-14T16:12:45,auth-prod-02,/var/log/secure,linux_secure,alice.chen,172.16.43.59,failed,,,Failed password for alice.chen from 172.16.43.59 port 47628
+2024-01-14T16:40:43,ldap-01,/var/log/secure,linux_secure,diana.prince,172.16.10.208,failed,,,Failed password for diana.prince from 172.16.10.208 port 42791
+2024-01-14T16:42:01,auth-prod-02,/var/log/secure,linux_secure,nadia.ali,172.16.9.222,accepted,,,Accepted password for nadia.ali from 172.16.9.222 port 48524
+2024-01-14T16:44:12,srv-app-02,/var/log/auth.log,linux_secure,samir.khan,,sudo,/usr/sbin/adduser svc_hidden,,samir.khan : TTY=pts/0 ; PWD=/home/samir ; USER=root ; COMMAND=/usr/sbin/adduser svc_hidden
+2024-01-14T16:54:49,ldap-01,/var/log/secure,linux_secure,oscar.pinto,172.16.27.227,accepted,,,Accepted password for oscar.pinto from 172.16.27.227 port 63538
+2024-01-14T17:25:52,auth-prod-02,/var/log/secure,linux_secure,oscar.pinto,172.16.6.81,accepted,,,Accepted password for oscar.pinto from 172.16.6.81 port 53244
+2024-01-14T17:45:31,auth-prod-01,/var/log/secure,linux_secure,samir.khan,172.16.19.56,accepted,,,Accepted password for samir.khan from 172.16.19.56 port 57766
+2024-01-14T18:00:00,srv-web-01,/var/log/auth.log,linux_secure,root,,sudo,/usr/sbin/visudo,,root : TTY=pts/0 ; PWD=/home/root ; USER=root ; COMMAND=/usr/sbin/visudo
+2024-01-14T18:05:00,fw-core-01,firewall,firewall,,10.10.1.33,permit,,56579,PERMIT src=10.10.1.33 dst=8.8.9.202 proto=TCP dport=8080 bytes_out=56579
+2024-01-14T18:10:00,fw-core-01,firewall,firewall,,10.10.1.125,permit,,68598,PERMIT src=10.10.1.125 dst=8.8.39.22 proto=TCP dport=80 bytes_out=68598
+2024-01-14T18:12:00,fw-core-01,firewall,firewall,,10.10.1.66,permit,,59040,PERMIT src=10.10.1.66 dst=8.8.13.248 proto=TCP dport=80 bytes_out=59040
+2024-01-14T18:14:00,fw-core-01,firewall,firewall,,10.10.1.88,permit,,71080,PERMIT src=10.10.1.88 dst=8.8.2.16 proto=TCP dport=443 bytes_out=71080
+2024-01-14T18:17:00,fw-core-01,firewall,firewall,,10.10.1.44,permit,,54049,PERMIT src=10.10.1.44 dst=8.8.30.95 proto=TCP dport=8080 bytes_out=54049
+2024-01-14T18:17:00,fw-core-01,firewall,firewall,,10.10.1.105,permit,,60801,PERMIT src=10.10.1.105 dst=8.8.43.32 proto=TCP dport=443 bytes_out=60801
+2024-01-14T18:17:00,fw-core-01,firewall,firewall,,10.10.1.115,permit,,50860,PERMIT src=10.10.1.115 dst=8.8.39.238 proto=TCP dport=8080 bytes_out=50860
+2024-01-14T18:18:35,auth-prod-02,/var/log/secure,linux_secure,samir.khan,172.16.27.171,accepted,,,Accepted password for samir.khan from 172.16.27.171 port 45702
+2024-01-14T18:20:00,fw-core-01,firewall,firewall,,10.10.1.99,permit,,68066,PERMIT src=10.10.1.99 dst=8.8.47.222 proto=TCP dport=80 bytes_out=68066
+2024-01-14T18:25:00,fw-core-01,firewall,firewall,,10.10.1.77,permit,,55717,PERMIT src=10.10.1.77 dst=8.8.8.170 proto=TCP dport=80 bytes_out=55717
+2024-01-14T18:25:00,fw-core-01,firewall,firewall,,10.10.1.99,permit,,20308,PERMIT src=10.10.1.99 dst=1.1.26.223 proto=TCP dport=443 bytes_out=20308
+2024-01-14T18:28:00,fw-core-01,firewall,firewall,,10.10.1.11,permit,,59425,PERMIT src=10.10.1.11 dst=8.8.44.140 proto=TCP dport=80 bytes_out=59425
+2024-01-14T18:28:00,fw-core-01,firewall,firewall,,10.10.1.55,permit,,67614,PERMIT src=10.10.1.55 dst=8.8.9.100 proto=TCP dport=443 bytes_out=67614
+2024-01-14T18:29:00,fw-core-01,firewall,firewall,,10.10.1.22,permit,,69870,PERMIT src=10.10.1.22 dst=8.8.48.128 proto=TCP dport=443 bytes_out=69870
+2024-01-14T18:31:07,auth-prod-01,/var/log/secure,linux_secure,carol.white,172.16.16.182,accepted,,,Accepted password for carol.white from 172.16.16.182 port 40448
+2024-01-14T18:41:00,fw-core-01,firewall,firewall,,10.10.1.115,permit,,52363,PERMIT src=10.10.1.115 dst=1.1.41.81 proto=TCP dport=443 bytes_out=52363
+2024-01-14T18:48:00,fw-core-01,firewall,firewall,,10.10.1.105,permit,,68838,PERMIT src=10.10.1.105 dst=1.1.44.237 proto=TCP dport=443 bytes_out=68838
+2024-01-14T18:59:43,ldap-01,/var/log/secure,linux_secure,carol.white,172.16.41.44,accepted,,,Accepted password for carol.white from 172.16.41.44 port 45354
+2024-01-14T20:04:00,fw-core-01,firewall,firewall,,10.10.1.33,permit,,74764,PERMIT src=10.10.1.33 dst=1.1.30.194 proto=TCP dport=443 bytes_out=74764
+2024-01-14T20:52:00,fw-core-01,firewall,firewall,,10.10.1.33,permit,,40968,PERMIT src=10.10.1.33 dst=1.1.7.38 proto=TCP dport=443 bytes_out=40968
+2024-01-14T21:02:00,fw-core-01,firewall,firewall,,10.10.1.11,permit,,64474,PERMIT src=10.10.1.11 dst=8.8.23.253 proto=TCP dport=8080 bytes_out=64474
+2024-01-14T21:04:00,fw-core-01,firewall,firewall,,10.10.1.77,permit,,50486,PERMIT src=10.10.1.77 dst=8.8.23.203 proto=TCP dport=80 bytes_out=50486
+2024-01-14T21:04:00,fw-core-01,firewall,firewall,,10.10.1.125,permit,,55158,PERMIT src=10.10.1.125 dst=8.8.49.159 proto=TCP dport=80 bytes_out=55158
+2024-01-14T21:11:00,fw-core-01,firewall,firewall,,10.10.1.55,permit,,71970,PERMIT src=10.10.1.55 dst=8.8.48.179 proto=TCP dport=8080 bytes_out=71970
+2024-01-14T21:11:00,fw-core-01,firewall,firewall,,10.10.1.105,permit,,71801,PERMIT src=10.10.1.105 dst=8.8.49.109 proto=TCP dport=8080 bytes_out=71801
+2024-01-14T21:13:00,fw-core-01,firewall,firewall,,10.10.1.99,permit,,64796,PERMIT src=10.10.1.99 dst=8.8.15.106 proto=TCP dport=443 bytes_out=64796
+2024-01-14T21:23:00,fw-core-01,firewall,firewall,,10.10.1.44,permit,,72031,PERMIT src=10.10.1.44 dst=8.8.17.150 proto=TCP dport=443 bytes_out=72031
+2024-01-14T21:24:00,fw-core-01,firewall,firewall,,10.10.1.22,permit,,57540,PERMIT src=10.10.1.22 dst=8.8.39.206 proto=TCP dport=443 bytes_out=57540
+2024-01-14T21:26:00,fw-core-01,firewall,firewall,,10.10.1.115,permit,,72723,PERMIT src=10.10.1.115 dst=8.8.18.8 proto=TCP dport=80 bytes_out=72723
+2024-01-14T21:27:00,fw-core-01,firewall,firewall,,10.10.1.88,permit,,63160,PERMIT src=10.10.1.88 dst=8.8.28.176 proto=TCP dport=80 bytes_out=63160
+2024-01-14T21:28:00,fw-core-01,firewall,firewall,,10.10.1.33,permit,,61988,PERMIT src=10.10.1.33 dst=8.8.34.129 proto=TCP dport=443 bytes_out=61988
+2024-01-14T21:30:00,fw-core-01,firewall,firewall,,10.10.1.66,permit,,64900,PERMIT src=10.10.1.66 dst=8.8.6.170 proto=TCP dport=80 bytes_out=64900
+2024-01-14T22:05:33,srv-web-01,/var/log/auth.log,linux_secure,deploy_bot,,sudo,/usr/sbin/adduser deploy_admin,,deploy_bot : TTY=pts/0 ; PWD=/home/deploy_bot ; USER=root ; COMMAND=/usr/sbin/adduser deploy_admin
+2024-01-14T23:58:11,auth-prod-01,/var/log/secure,linux_secure,alice.chen,192.168.55.12,accepted,,,Accepted password for alice.chen from 192.168.55.12 port 64915
+2024-01-15T00:14:22,auth-prod-01,/var/log/secure,linux_secure,bob.smith,10.10.5.77,accepted,,,Accepted password for bob.smith from 10.10.5.77 port 54220
+2024-01-15T01:10:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,460693,PERMIT src=10.0.0.42 dst=185.220.101.44 proto=TCP dport=443 bytes_out=460693
+2024-01-15T01:25:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,536761,PERMIT src=10.0.0.42 dst=185.220.101.46 proto=TCP dport=443 bytes_out=536761
+2024-01-15T01:43:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,529570,PERMIT src=10.0.0.42 dst=185.220.101.47 proto=TCP dport=443 bytes_out=529570
+2024-01-15T01:47:05,auth-prod-01,/var/log/secure,linux_secure,carol.white,172.16.99.3,accepted,,,Accepted password for carol.white from 172.16.99.3 port 43225
+2024-01-15T02:00:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,485804,PERMIT src=10.0.0.42 dst=185.220.101.43 proto=TCP dport=443 bytes_out=485804
+2024-01-15T02:20:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,464918,PERMIT src=10.0.0.42 dst=185.220.101.45 proto=TCP dport=443 bytes_out=464918
+2024-01-15T02:33:18,auth-prod-01,/var/log/secure,linux_secure,monitor_svc,192.168.1.200,failed,,,Failed password for monitor_svc from 192.168.1.200 port 60232
+2024-01-15T02:33:35,auth-prod-01,/var/log/secure,linux_secure,vpn_user,192.168.1.200,failed,,,Failed password for vpn_user from 192.168.1.200 port 47692
+2024-01-15T02:33:51,auth-prod-01,/var/log/secure,linux_secure,admin,192.168.1.200,failed,,,Failed password for admin from 192.168.1.200 port 54427
+2024-01-15T02:33:51,auth-prod-01,/var/log/secure,linux_secure,admin,192.168.1.200,failed,,,Failed password for admin from 192.168.1.200 port 57234
+2024-01-15T02:34:19,auth-prod-01,/var/log/secure,linux_secure,administrator,192.168.1.200,failed,,,Failed password for administrator from 192.168.1.200 port 42451
+2024-01-15T02:35:27,auth-prod-01,/var/log/secure,linux_secure,api_gateway,192.168.1.200,failed,,,Failed password for api_gateway from 192.168.1.200 port 47454
+2024-01-15T02:35:42,auth-prod-01,/var/log/secure,linux_secure,helpdesk,192.168.1.200,failed,,,Failed password for helpdesk from 192.168.1.200 port 60538
+2024-01-15T02:35:48,auth-prod-01,/var/log/secure,linux_secure,deploy_bot,192.168.1.200,failed,,,Failed password for deploy_bot from 192.168.1.200 port 62097
+2024-01-15T02:35:53,auth-prod-01,/var/log/secure,linux_secure,service_acct,192.168.1.200,failed,,,Failed password for service_acct from 192.168.1.200 port 60422
+2024-01-15T02:36:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,464534,PERMIT src=10.0.0.42 dst=185.220.101.44 proto=TCP dport=443 bytes_out=464534
+2024-01-15T02:36:29,auth-prod-01,/var/log/secure,linux_secure,administrator,192.168.1.200,failed,,,Failed password for administrator from 192.168.1.200 port 61455
+2024-01-15T02:36:53,auth-prod-01,/var/log/secure,linux_secure,root,192.168.1.200,failed,,,Failed password for root from 192.168.1.200 port 40502
+2024-01-15T02:37:00,auth-prod-01,/var/log/secure,linux_secure,service_acct,192.168.1.200,failed,,,Failed password for service_acct from 192.168.1.200 port 48684
+2024-01-15T02:37:09,auth-prod-01,/var/log/secure,linux_secure,monitor_svc,192.168.1.200,failed,,,Failed password for monitor_svc from 192.168.1.200 port 57728
+2024-01-15T02:37:33,auth-prod-01,/var/log/secure,linux_secure,deploy_bot,192.168.1.200,failed,,,Failed password for deploy_bot from 192.168.1.200 port 52452
+2024-01-15T02:38:23,auth-prod-01,/var/log/secure,linux_secure,vpn_user,192.168.1.200,failed,,,Failed password for vpn_user from 192.168.1.200 port 62426
+2024-01-15T02:38:32,auth-prod-01,/var/log/secure,linux_secure,backup_svc,192.168.1.200,failed,,,Failed password for backup_svc from 192.168.1.200 port 42631
+2024-01-15T02:38:54,auth-prod-01,/var/log/secure,linux_secure,backup_svc,192.168.1.200,failed,,,Failed password for backup_svc from 192.168.1.200 port 53024
+2024-01-15T02:39:07,auth-prod-01,/var/log/secure,linux_secure,helpdesk,192.168.1.200,failed,,,Failed password for helpdesk from 192.168.1.200 port 64884
+2024-01-15T02:39:09,auth-prod-01,/var/log/secure,linux_secure,root,192.168.1.200,failed,,,Failed password for root from 192.168.1.200 port 44723
+2024-01-15T02:39:22,auth-prod-01,/var/log/secure,linux_secure,api_gateway,192.168.1.200,failed,,,Failed password for api_gateway from 192.168.1.200 port 42961
+2024-01-15T02:58:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,538930,PERMIT src=10.0.0.42 dst=185.220.101.49 proto=TCP dport=443 bytes_out=538930
+2024-01-15T03:13:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,519066,PERMIT src=10.0.0.42 dst=185.220.101.44 proto=TCP dport=443 bytes_out=519066
+2024-01-15T03:14:05,srv-web-01,/var/log/auth.log,linux_secure,bob.smith,,sudo,/usr/bin/passwd root,,bob.smith : TTY=pts/0 ; PWD=/home/bob ; USER=root ; COMMAND=/usr/bin/passwd root
+2024-01-15T03:16:22,srv-backup-01,/var/log/auth.log,linux_secure,bob.smith,,sudo,/usr/sbin/adduser hacker_acct,,bob.smith : TTY=pts/0 ; PWD=/home/bob ; USER=root ; COMMAND=/usr/sbin/adduser hacker_acct
+2024-01-15T03:19:55,srv-app-02,/var/log/auth.log,linux_secure,bob.smith,,sudo,chmod 777 /etc/sudoers,,bob.smith : TTY=pts/0 ; PWD=/home/bob ; USER=root ; COMMAND=chmod 777 /etc/sudoers
+2024-01-15T03:20:41,srv-app-02,/var/log/auth.log,linux_secure,bob.smith,,sudo,chmod 777 /var/log/auth.log,,bob.smith : TTY=pts/0 ; PWD=/home/bob ; USER=root ; COMMAND=chmod 777 /var/log/auth.log
+2024-01-15T03:24:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,478903,PERMIT src=10.0.0.42 dst=185.220.101.46 proto=TCP dport=443 bytes_out=478903
+2024-01-15T03:51:00,fw-dmz-01,firewall,firewall,,10.0.0.42,permit,,457180,PERMIT src=10.0.0.42 dst=185.220.101.40 proto=TCP dport=443 bytes_out=457180
+2024-01-15T04:32:44,auth-prod-01,/var/log/secure,linux_secure,unknown_svc,10.0.0.55,accepted,,,Accepted password for unknown_svc from 10.0.0.55 port 60766
+2024-01-15T05:59:01,auth-prod-01,/var/log/secure,linux_secure,admin,192.168.1.201,accepted,,,Accepted password for admin from 192.168.1.201 port 63065
+2024-01-15T07:35:12,auth-prod-02,/var/log/secure,linux_secure,samir.khan,172.16.29.151,accepted,,,Accepted password for samir.khan from 172.16.29.151 port 40212
+2024-01-15T07:38:20,auth-prod-02,/var/log/secure,linux_secure,alice.chen,172.16.8.238,accepted,,,Accepted password for alice.chen from 172.16.8.238 port 50076
+2024-01-15T08:17:49,auth-prod-01,/var/log/secure,linux_secure,tom.hardy,172.16.33.69,accepted,,,Accepted password for tom.hardy from 172.16.33.69 port 49783
+2024-01-15T08:18:14,ldap-01,/var/log/secure,linux_secure,samir.khan,172.16.20.170,accepted,,,Accepted password for samir.khan from 172.16.20.170 port 58136
+2024-01-15T08:24:17,auth-prod-02,/var/log/secure,linux_secure,tom.hardy,172.16.11.95,accepted,,,Accepted password for tom.hardy from 172.16.11.95 port 48748
+2024-01-15T08:29:44,ldap-01,/var/log/secure,linux_secure,nadia.ali,172.16.18.129,accepted,,,Accepted password for nadia.ali from 172.16.18.129 port 42635
+2024-01-15T08:46:12,ldap-01,/var/log/secure,linux_secure,marco.rossi,172.16.48.138,accepted,,,Accepted password for marco.rossi from 172.16.48.138 port 47090
+2024-01-15T08:49:17,ldap-01,/var/log/secure,linux_secure,raj.patel,172.16.26.174,accepted,,,Accepted password for raj.patel from 172.16.26.174 port 40904
+2024-01-15T09:40:55,auth-prod-02,/var/log/secure,linux_secure,marco.rossi,172.16.1.147,accepted,,,Accepted password for marco.rossi from 172.16.1.147 port 54433
+2024-01-15T09:42:05,ldap-01,/var/log/secure,linux_secure,raj.patel,172.16.43.163,accepted,,,Accepted password for raj.patel from 172.16.43.163 port 64613
+2024-01-15T10:04:26,auth-prod-02,/var/log/secure,linux_secure,tom.hardy,172.16.35.120,accepted,,,Accepted password for tom.hardy from 172.16.35.120 port 53767
+2024-01-15T10:06:44,ldap-01,/var/log/secure,linux_secure,carol.white,172.16.8.204,accepted,,,Accepted password for carol.white from 172.16.8.204 port 51377
+2024-01-15T10:07:35,ldap-01,/var/log/secure,linux_secure,carol.white,172.16.39.203,accepted,,,Accepted password for carol.white from 172.16.39.203 port 57123
+2024-01-15T10:10:26,auth-prod-02,/var/log/secure,linux_secure,oscar.pinto,172.16.14.222,failed,,,Failed password for oscar.pinto from 172.16.14.222 port 45394
+2024-01-15T10:12:12,auth-prod-02,/var/log/secure,linux_secure,diana.prince,172.16.28.47,accepted,,,Accepted password for diana.prince from 172.16.28.47 port 42470
+2024-01-15T10:41:31,auth-prod-01,/var/log/secure,linux_secure,oscar.pinto,172.16.10.68,accepted,,,Accepted password for oscar.pinto from 172.16.10.68 port 58394
+2024-01-15T10:54:49,auth-prod-02,/var/log/secure,linux_secure,alice.chen,172.16.21.191,accepted,,,Accepted password for alice.chen from 172.16.21.191 port 52492
+2024-01-15T11:02:14,auth-prod-02,/var/log/secure,linux_secure,lena.wolf,172.16.45.221,accepted,,,Accepted password for lena.wolf from 172.16.45.221 port 47648
+2024-01-15T11:02:45,ldap-01,/var/log/secure,linux_secure,alice.chen,172.16.34.237,accepted,,,Accepted password for alice.chen from 172.16.34.237 port 64312
+2024-01-15T11:32:31,auth-prod-02,/var/log/secure,linux_secure,alice.chen,172.16.6.163,accepted,,,Accepted password for alice.chen from 172.16.6.163 port 41444
+2024-01-15T11:53:05,auth-prod-01,/var/log/secure,linux_secure,alice.chen,172.16.48.139,failed,,,Failed password for alice.chen from 172.16.48.139 port 51467
+2024-01-15T12:11:03,auth-prod-01,/var/log/secure,linux_secure,oscar.pinto,172.16.8.211,accepted,,,Accepted password for oscar.pinto from 172.16.8.211 port 42427
+2024-01-15T12:17:56,auth-prod-01,/var/log/secure,linux_secure,raj.patel,172.16.1.133,accepted,,,Accepted password for raj.patel from 172.16.1.133 port 63595
+2024-01-15T12:18:10,ldap-01,/var/log/secure,linux_secure,raj.patel,172.16.46.78,failed,,,Failed password for raj.patel from 172.16.46.78 port 61429
+2024-01-15T12:26:21,auth-prod-02,/var/log/secure,linux_secure,marco.rossi,172.16.11.85,accepted,,,Accepted password for marco.rossi from 172.16.11.85 port 49444
+2024-01-15T13:00:24,ldap-01,/var/log/secure,linux_secure,oscar.pinto,172.16.19.109,failed,,,Failed password for oscar.pinto from 172.16.19.109 port 58211
+2024-01-15T13:01:11,ldap-01,/var/log/secure,linux_secure,nadia.ali,172.16.43.222,accepted,,,Accepted password for nadia.ali from 172.16.43.222 port 48742
+2024-01-15T13:08:02,auth-prod-02,/var/log/secure,linux_secure,tom.hardy,172.16.3.231,accepted,,,Accepted password for tom.hardy from 172.16.3.231 port 48176
+2024-01-15T13:08:42,auth-prod-01,/var/log/secure,linux_secure,oscar.pinto,172.16.21.238,accepted,,,Accepted password for oscar.pinto from 172.16.21.238 port 60354
+2024-01-15T13:20:13,auth-prod-02,/var/log/secure,linux_secure,tom.hardy,172.16.22.195,accepted,,,Accepted password for tom.hardy from 172.16.22.195 port 53813
+2024-01-15T13:21:01,auth-prod-01,/var/log/secure,linux_secure,tom.hardy,172.16.12.125,accepted,,,Accepted password for tom.hardy from 172.16.12.125 port 48465
+2024-01-15T13:28:58,auth-prod-02,/var/log/secure,linux_secure,lena.wolf,172.16.38.254,accepted,,,Accepted password for lena.wolf from 172.16.38.254 port 60349
+2024-01-15T14:06:27,auth-prod-02,/var/log/secure,linux_secure,oscar.pinto,172.16.46.40,accepted,,,Accepted password for oscar.pinto from 172.16.46.40 port 57096
+2024-01-15T14:14:17,auth-prod-02,/var/log/secure,linux_secure,oscar.pinto,172.16.2.100,accepted,,,Accepted password for oscar.pinto from 172.16.2.100 port 53248
+2024-01-15T14:34:07,ldap-01,/var/log/secure,linux_secure,marco.rossi,172.16.36.76,accepted,,,Accepted password for marco.rossi from 172.16.36.76 port 51850
+2024-01-15T14:57:10,auth-prod-01,/var/log/secure,linux_secure,oscar.pinto,172.16.17.193,accepted,,,Accepted password for oscar.pinto from 172.16.17.193 port 49086
+2024-01-15T14:59:45,auth-prod-02,/var/log/secure,linux_secure,raj.patel,172.16.46.70,accepted,,,Accepted password for raj.patel from 172.16.46.70 port 55473
+2024-01-15T15:00:42,auth-prod-01,/var/log/secure,linux_secure,marco.rossi,172.16.9.68,accepted,,,Accepted password for marco.rossi from 172.16.9.68 port 64327
+2024-01-15T15:05:37,auth-prod-01,/var/log/secure,linux_secure,alice.chen,172.16.2.24,accepted,,,Accepted password for alice.chen from 172.16.2.24 port 59726
+2024-01-15T15:09:17,auth-prod-02,/var/log/secure,linux_secure,carol.white,172.16.14.184,accepted,,,Accepted password for carol.white from 172.16.14.184 port 60782
+2024-01-15T15:15:17,ldap-01,/var/log/secure,linux_secure,samir.khan,172.16.35.34,failed,,,Failed password for samir.khan from 172.16.35.34 port 58711
+2024-01-15T15:16:47,auth-prod-01,/var/log/secure,linux_secure,carol.white,172.16.26.93,failed,,,Failed password for carol.white from 172.16.26.93 port 44532
+2024-01-15T15:22:27,auth-prod-02,/var/log/secure,linux_secure,tom.hardy,172.16.45.117,accepted,,,Accepted password for tom.hardy from 172.16.45.117 port 47554
+2024-01-15T15:27:42,auth-prod-02,/var/log/secure,linux_secure,marco.rossi,172.16.33.166,accepted,,,Accepted password for marco.rossi from 172.16.33.166 port 53764
+2024-01-15T15:52:00,ldap-01,/var/log/secure,linux_secure,nadia.ali,172.16.4.49,accepted,,,Accepted password for nadia.ali from 172.16.4.49 port 64787
+2024-01-15T16:02:56,auth-prod-01,/var/log/secure,linux_secure,tom.hardy,172.16.39.65,accepted,,,Accepted password for tom.hardy from 172.16.39.65 port 62095
+2024-01-15T16:04:24,auth-prod-02,/var/log/secure,linux_secure,carol.white,172.16.30.136,failed,,,Failed password for carol.white from 172.16.30.136 port 40376
+2024-01-15T16:20:48,ldap-01,/var/log/secure,linux_secure,carol.white,172.16.47.229,accepted,,,Accepted password for carol.white from 172.16.47.229 port 57952
+2024-01-15T16:30:15,auth-prod-01,/var/log/secure,linux_secure,nadia.ali,172.16.13.25,accepted,,,Accepted password for nadia.ali from 172.16.13.25 port 51609
+2024-01-15T16:36:19,auth-prod-02,/var/log/secure,linux_secure,raj.patel,172.16.1.78,accepted,,,Accepted password for raj.patel from 172.16.1.78 port 59004
+2024-01-15T16:36:33,ldap-01,/var/log/secure,linux_secure,lena.wolf,172.16.14.172,accepted,,,Accepted password for lena.wolf from 172.16.14.172 port 48703
+2024-01-15T16:37:01,auth-prod-01,/var/log/secure,linux_secure,carol.white,172.16.3.196,accepted,,,Accepted password for carol.white from 172.16.3.196 port 61348
+2024-01-15T16:37:42,auth-prod-02,/var/log/secure,linux_secure,diana.prince,172.16.29.138,accepted,,,Accepted password for diana.prince from 172.16.29.138 port 58085
+2024-01-15T16:41:20,auth-prod-01,/var/log/secure,linux_secure,oscar.pinto,172.16.29.173,accepted,,,Accepted password for oscar.pinto from 172.16.29.173 port 64115
+2024-01-15T16:43:58,auth-prod-01,/var/log/secure,linux_secure,nadia.ali,172.16.46.51,accepted,,,Accepted password for nadia.ali from 172.16.46.51 port 60553
+2024-01-15T17:06:22,auth-prod-01,/var/log/secure,linux_secure,carol.white,172.16.48.40,accepted,,,Accepted password for carol.white from 172.16.48.40 port 45801
+2024-01-15T17:07:01,ldap-01,/var/log/secure,linux_secure,samir.khan,172.16.15.36,accepted,,,Accepted password for samir.khan from 172.16.15.36 port 64270
+2024-01-15T17:17:39,ldap-01,/var/log/secure,linux_secure,oscar.pinto,172.16.28.212,accepted,,,Accepted password for oscar.pinto from 172.16.28.212 port 50561
+2024-01-15T17:46:07,auth-prod-02,/var/log/secure,linux_secure,tom.hardy,172.16.8.76,accepted,,,Accepted password for tom.hardy from 172.16.8.76 port 40106
+2024-01-15T18:10:53,auth-prod-01,/var/log/secure,linux_secure,diana.prince,172.16.40.137,failed,,,Failed password for diana.prince from 172.16.40.137 port 59395
+2024-01-15T18:24:31,ldap-01,/var/log/secure,linux_secure,samir.khan,172.16.10.168,accepted,,,Accepted password for samir.khan from 172.16.10.168 port 64607
+2024-01-15T18:30:17,auth-prod-01,/var/log/secure,linux_secure,marco.rossi,172.16.13.76,accepted,,,Accepted password for marco.rossi from 172.16.13.76 port 49904
+2024-01-15T18:42:12,ldap-01,/var/log/secure,linux_secure,nadia.ali,172.16.5.243,failed,,,Failed password for nadia.ali from 172.16.5.243 port 60419
+2024-01-15T18:50:20,auth-prod-02,/var/log/secure,linux_secure,carol.white,172.16.33.30,accepted,,,Accepted password for carol.white from 172.16.33.30 port 46228
+2024-01-15T18:56:46,ldap-01,/var/log/secure,linux_secure,raj.patel,172.16.49.46,failed,,,Failed password for raj.patel from 172.16.49.46 port 60489
+2024-01-15T19:08:08,ldap-01,/var/log/secure,linux_secure,raj.patel,172.16.11.68,accepted,,,Accepted password for raj.patel from 172.16.11.68 port 53865
+2024-01-15T19:20:25,ldap-01,/var/log/secure,linux_secure,marco.rossi,172.16.14.234,accepted,,,Accepted password for marco.rossi from 172.16.14.234 port 50311
+2024-01-15T19:24:54,ldap-01,/var/log/secure,linux_secure,raj.patel,172.16.48.189,accepted,,,Accepted password for raj.patel from 172.16.48.189 port 47226
+2024-01-15T19:34:24,ldap-01,/var/log/secure,linux_secure,tom.hardy,172.16.13.252,accepted,,,Accepted password for tom.hardy from 172.16.13.252 port 52549
+2024-01-15T19:49:33,auth-prod-01,/var/log/secure,linux_secure,samir.khan,172.16.18.113,accepted,,,Accepted password for samir.khan from 172.16.18.113 port 47683
+2024-01-15T19:51:10,auth-prod-01,/var/log/secure,linux_secure,tom.hardy,172.16.18.40,failed,,,Failed password for tom.hardy from 172.16.18.40 port 51029
+2024-01-15T19:56:06,ldap-01,/var/log/secure,linux_secure,samir.khan,172.16.12.206,accepted,,,Accepted password for samir.khan from 172.16.12.206 port 41645

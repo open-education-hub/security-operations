@@ -1,0 +1,8 @@
+services:
+  demo-symmetric:
+    build: .
+    container_name: crypto-demo-01
+    volumes:
+      - ./workspace:/demo/output
+    stdin_open: true
+    tty: true

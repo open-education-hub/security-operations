@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "title": "Phishing Email Leading to Credential Theft",
+    "description": "An employee at a manufacturing company received an email impersonating the IT helpdesk asking them to verify their credentials on a fake login page. The employee entered their username and password. The attacker used these credentials to log into the company's VPN and access HR records containing salary data for 350 employees.",
+    "answer": {
+      "actor": {"external": {"variety": ["Organized crime"], "motive": ["Financial"]}},
+      "action": {"social": {"variety": ["Phishing"], "target": ["End-user"]}, "hacking": {"variety": ["Use of stolen creds"], "vector": ["VPN"]}},
+      "asset": {"assets": [{"variety": "S - Database"}, {"variety": "U - Desktop"}]},
+      "attribute": {"confidentiality": {"data_disclosure": "Yes", "data": [{"variety": "Personal", "amount": 350}]}}
+    },
+    "explanation": "This is a two-action attack: Social (Phishing) to steal credentials, then Hacking (use of stolen creds) via VPN. The actor is External organized crime with financial motive. The asset is a Server database and User desktop. Confidentiality is compromised with personal data disclosed."
+  },
+  {
+    "id": 2,
+    "title": "Ransomware Deployment via RDP",
+    "description": "A hospital's file server was encrypted by ransomware. Investigation revealed the attacker brute-forced the Remote Desktop Protocol (RDP) port that was exposed to the internet on a Windows server. Once in, they deployed ransomware that encrypted all files and displayed a ransom note. Clinical operations were disrupted for 3 days.",
+    "answer": {
+      "actor": {"external": {"variety": ["Organized crime"], "motive": ["Financial"]}},
+      "action": {"hacking": {"variety": ["Brute force"], "vector": ["Remote access"]}, "malware": {"variety": ["Ransomware"], "vector": ["Remote access"]}},
+      "asset": {"assets": [{"variety": "S - File"}, {"variety": "S - Database"}]},
+      "attribute": {"integrity": {"variety": ["Alter data"]}, "availability": {"variety": ["Obscure/Destroy data"]}}
+    },
+    "explanation": "Two actions: Hacking (brute force) to gain access, then Malware (ransomware) for impact. Note: Confidentiality may not be compromised if the attacker only encrypted without exfiltrating. Availability (Obscure/Destroy) is the primary attribute impacted."
+  },
+  {
+    "id": 3,
+    "title": "Insider Data Theft Before Resignation",
+    "description": "A database administrator at a financial services firm downloaded a complete copy of the customer database (containing names, addresses, and account numbers for 50,000 customers) to a personal USB drive two weeks before resigning. The download was detected during a routine DLP audit three months after the employee left.",
+    "answer": {
+      "actor": {"internal": {"variety": ["End-user"], "motive": ["Financial"], "job_change": "Resigned"}},
+      "action": {"misuse": {"variety": ["Data mishandling"], "vector": ["LAN access"]}},
+      "asset": {"assets": [{"variety": "S - Database"}, {"variety": "T - USB drive"}]},
+      "attribute": {"confidentiality": {"data_disclosure": "Yes", "data": [{"variety": "Financial", "amount": 50000}, {"variety": "Personal", "amount": 50000}]}}
+    },
+    "explanation": "Internal actor (employee about to resign). Action is Misuse — specifically data mishandling (unauthorized use of access). The asset includes the Server database and the removable media (USB). Confidentiality is breached with financial and personal data."
+  },
+  {
+    "id": 4,
+    "title": "Misconfigured S3 Bucket",
+    "description": "A healthcare company's backup server logs were inadvertently set to public access in their cloud storage bucket. An external researcher discovered and notified the company that patient medical records (names, diagnoses, treatment notes) for 12,000 patients were publicly accessible. The bucket had been misconfigured for 6 weeks.",
+    "answer": {
+      "actor": {"internal": {"variety": ["System admin"], "motive": ["NA"]}},
+      "action": {"error": {"variety": ["Misconfiguration"], "vector": ["Unknown"]}},
+      "asset": {"assets": [{"variety": "S - Database"}, {"variety": "N - Storage"]},
+      "attribute": {"confidentiality": {"data_disclosure": "Yes", "data": [{"variety": "Medical", "amount": 12000}]}}
+    },
+    "explanation": "The actor is Internal (system admin who made the mistake). The action is Error (Misconfiguration) — not a hacking attack. Note: Even though an external researcher accessed it, the breach cause is internal error. Medical data is a specific VERIS data variety."
+  },
+  {
+    "id": 5,
+    "title": "Supply Chain Software Compromise",
+    "description": "A software vendor's build pipeline was compromised via a malicious pull request that added a backdoor to a widely-used security library. Organizations using the library were silently backdoored during their next software update. The backdoor allowed the attacker to execute arbitrary commands on affected systems.",
+    "answer": {
+      "actor": {"external": {"variety": ["State-affiliated"], "motive": ["Espionage"]}},
+      "action": {"hacking": {"variety": ["Supply chain"], "vector": ["Software update/download"]}},
+      "asset": {"assets": [{"variety": "S - Application"}]},
+      "attribute": {"integrity": {"variety": ["Software installation"]}}
+    },
+    "explanation": "Supply chain attack — MITRE T1195. The actor is likely state-affiliated based on the sophistication. Action is Hacking with vector Software update/download. The compromise affects Integrity (Software installation) — the software itself is modified, though confidentiality may follow in secondary incidents."
+  }
+]

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 09 Final Practice Quiz: SOC Workflow and Automation</name>
+  <intro>5 short-answer and 2 long-answer questions assessing practical session competencies. Compare your answers with the sample answers in the .md version.</intro>
+
+  <question type="essay">
+    <name>Q1: Triage Classification</name>
+    <questiontext format="html">
+      <text>&lt;p&gt;You receive the following alert:&lt;/p&gt;
+&lt;pre&gt;Rule: OUTBOUND_CLEARTEXT_CREDENTIALS
+Host: hr-ws-011, User: t.brown (HR)
+Details: HTTP POST to http://192.168.50.100/login with credentials in plaintext
+Destination: Internal IP in Engineering network segment
+Time: 10:15 UTC (business hours)&lt;/pre&gt;
+&lt;p&gt;Classify this alert (TP / FP / Benign TP) and explain your reasoning. What additional information would change your classification?&lt;/p&gt;</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>8</responsefieldlines>
+    <graderinfo format="html">
+      <text>&lt;p&gt;Strong answer identifies: ambiguous (Benign TP or TP), explains why detection is technically correct, lists specific additional context needed (CMDB lookup for 192.168.50.100, user's normal access patterns, whether this is a known internal app). Full marks for correct classification reasoning and at least 2 specific additional info items.&lt;/p&gt;</text>
+    </graderinfo>
+    <defaultgrade>10</defaultgrade>
+  </question>
+
+  <question type="essay">
+    <name>Q2: SLA and Prioritization</name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Your queue at 09:00 contains:&lt;/p&gt;
+&lt;table border="1"&gt;&lt;tr&gt;&lt;th&gt;Case&lt;/th&gt;&lt;th&gt;Severity&lt;/th&gt;&lt;th&gt;Created&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;A&lt;/td&gt;&lt;td&gt;P1&lt;/td&gt;&lt;td&gt;08:45&lt;/td&gt;&lt;td&gt;NEW&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;B&lt;/td&gt;&lt;td&gt;P2&lt;/td&gt;&lt;td&gt;07:30&lt;/td&gt;&lt;td&gt;In Progress&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C&lt;/td&gt;&lt;td&gt;P3&lt;/td&gt;&lt;td&gt;01:00&lt;/td&gt;&lt;td&gt;Pending&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;D&lt;/td&gt;&lt;td&gt;P2&lt;/td&gt;&lt;td&gt;08:55&lt;/td&gt;&lt;td&gt;NEW&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;p&gt;List these in order of priority and explain why. Identify any SLA risks.&lt;/p&gt;</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>8</responsefieldlines>
+    <graderinfo format="html">
+      <text>&lt;p&gt;Correct order: A → D → B → C. Case A P1 acknowledge SLA may already be breached at 09:00. Case D acknowledge SLA expires at 09:25. Case B resolve SLA at 11:30. Case C Pending — SLA clock may be paused. Full marks for correct order with SLA deadline calculations and risk identification.&lt;/p&gt;</text>
+    </graderinfo>
+    <defaultgrade>10</defaultgrade>
+  </question>
+
+  <question type="essay">
+    <name>Q3: SBAR Escalation Brief</name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Write an SBAR escalation brief for this scenario:&lt;/p&gt;
+&lt;p&gt;At 14:30 UTC, an alert fired for "Scheduled task created with encoded PowerShell command" on finance-ws-042. The task runs as m.chen (Finance). You decoded the base64 command and found it downloads a file from pastebin.com/raw/abc123 and executes it. The host has access to the financial reporting system.&lt;/p&gt;</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>10</responsefieldlines>
+    <graderinfo format="html">
+      <text>&lt;p&gt;All four SBAR components required: S (confirmed malicious task, what/when/where), B (specific technical details — base64 decoded, pastebin URL, financial system access), A (P1 assessment, ATT&amp;CK technique if known), R (specific next actions — isolate, memory dump, check initial access). Full marks for all four components with specific technical detail.&lt;/p&gt;</text>
+    </graderinfo>
+    <defaultgrade>10</defaultgrade>
+  </question>
+
+  <question type="essay">
+    <name>Q4: Playbook Gap Analysis</name>
+    <questiontext format="html">
+      <text>&lt;p&gt;A SOC team has a "Phishing Email" playbook that: (1) extracts sender IP, (2) queries VirusTotal, (3) if VT score &gt; 5: creates TheHive case; (4) if VT score ≤ 5: closes as false positive.&lt;/p&gt;
+&lt;p&gt;Identify THREE weaknesses in this playbook design and explain how you would fix each.&lt;/p&gt;</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>10</responsefieldlines>
+    <graderinfo format="html">
+      <text>&lt;p&gt;Any 3 of: (1) Single enrichment source - new/unknown malicious IPs have low VT scores (fix: multi-source enrichment); (2) Auto-close as FP is dangerous (fix: require analyst confirmation); (3) No attachment or URL checking (fix: add hash and URL enrichment steps); (4) No domain age check (fix: add WHOIS/domain age); (5) No check for similar alerts from same sender (fix: SIEM correlation query). Full marks for 3 valid weaknesses each with a specific fix.&lt;/p&gt;</text>
+    </graderinfo>
+    <defaultgrade>10</defaultgrade>
+  </question>
+
+  <question type="essay">
+    <name>Q5: Metrics Interpretation</name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Your SOC's MTTR for P3 incidents improved from 14 hours to 9 hours after implementing SOAR enrichment automation. However, a major data breach was not detected for 3 weeks. Which metric would have caught this gap? Explain.&lt;/p&gt;</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>8</responsefieldlines>
+    <graderinfo format="html">
+      <text>&lt;p&gt;Key insight: MTTD (detection coverage/dwell time) is the missing metric. MTTR improvement is irrelevant if the attack was never detected. The gap could be a detection coverage gap (ATT&amp;CK technique not covered) or a false positive dismissal issue. Full marks for identifying MTTD + explaining the distinction between detection speed and detection coverage.&lt;/p&gt;</text>
+    </graderinfo>
+    <defaultgrade>10</defaultgrade>
+  </question>
+
+  <question type="essay">
+    <name>Q6: Full Playbook Design</name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Design a complete SOAR playbook for a &lt;b&gt;"Brute Force — RDP Gateway"&lt;/b&gt; alert (triggers on 50+ failed RDP attempts from single external IP in 15 min).&lt;/p&gt;
+&lt;ol type="a"&gt;
+&lt;li&gt;&lt;b&gt;(5 pts)&lt;/b&gt; Define inputs, trigger, and outputs.&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;(10 pts)&lt;/b&gt; Write all steps in YAML pseudocode with decision gates.&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;(5 pts)&lt;/b&gt; Identify which steps require human approval and justify.&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;(5 pts)&lt;/b&gt; Describe how you would test this safely.&lt;/li&gt;
+&lt;/ol&gt;</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>25</responsefieldlines>
+    <graderinfo format="html">
+      <text>&lt;p&gt;&lt;b&gt;Marking (25 pts):&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;(a) 5 pts: Inputs include source_ip, failed_count, any_successful_logins. Trigger defined. Outputs include risk_score, case_id, action_taken.&lt;/p&gt;
+&lt;p&gt;(b) 10 pts: Parallel enrichment (VT + AbuseIPDB + geo), risk scoring, P1 branch on successful login, severity branch on score, notification. YAML structure correct.&lt;/p&gt;
+&lt;p&gt;(c) 5 pts: Firewall block requires human approval (blast radius / false positive risk). Justified with specific reason. Account lockout is optional human gate.&lt;/p&gt;
+&lt;p&gt;(d) 5 pts: Mock environment, known-malicious test IPs, test both success and failure paths, non-production firewall for block tests, never test with real block in production.&lt;/p&gt;</text>
+    </graderinfo>
+    <defaultgrade>25</defaultgrade>
+  </question>
+
+  <question type="essay">
+    <name>Q7: SOC Process Redesign</name>
+    <questiontext format="html">
+      <text>&lt;p&gt;A healthcare SOC: 4 analysts, 24/7, 12,000 alerts/month, 92% FP rate, MTTD 6h, P2 SLA met only 65%. Night shift analyst spends 4/8 hours on FP processing. No SOAR.&lt;/p&gt;
+&lt;ol type="a"&gt;
+&lt;li&gt;&lt;b&gt;(5 pts)&lt;/b&gt; Identify root causes of P2 SLA failure. What data would confirm your hypotheses?&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;(10 pts)&lt;/b&gt; Design a 90-day improvement plan with specific, measurable actions.&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;(5 pts)&lt;/b&gt; If you could implement only ONE change in week 1, what would it be and why?&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;(5 pts)&lt;/b&gt; Write 3 success metrics to evaluate your plan at 90 days.&lt;/li&gt;
+&lt;/ol&gt;</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>25</responsefieldlines>
+    <graderinfo format="html">
+      <text>&lt;p&gt;&lt;b&gt;Marking (25 pts):&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;(a) 5 pts: Hypotheses include night shift overload (single analyst + 50% FP time), manual enrichment bottleneck, possible shift transition gaps. Data: P2 breach time distribution, per-analyst breach rate, enrichment time logs.&lt;/p&gt;
+&lt;p&gt;(b) 10 pts: Three phases across 30/60/90 days, each with specific actions. Include FP reduction, SOAR deployment, and process changes. Each action has a measurable target.&lt;/p&gt;
+&lt;p&gt;(c) 5 pts: Best answer is FP rule suppression (highest leverage, immediate impact, no tools needed). Accept SOAR deployment if well-justified, but note the 3-6 month timeline.&lt;/p&gt;
+&lt;p&gt;(d) 5 pts: Three SMART metrics (specific, measurable). Examples: P2 SLA compliance % target, FP rate target, night shift FP processing time target.&lt;/p&gt;</text>
+    </graderinfo>
+    <defaultgrade>25</defaultgrade>
+  </question>
+
+</quiz>

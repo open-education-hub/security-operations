@@ -1,0 +1,12 @@
+
+services:
+  linux-harden:
+    build: .
+    container_name: linux-hardening-guide
+    cap_add:
+      - AUDIT_WRITE
+      - AUDIT_CONTROL
+      - SYS_ADMIN
+      - NET_ADMIN
+    stdin_open: true
+    tty: true

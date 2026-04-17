@@ -1,0 +1,162 @@
+# =============================================================================
+# Snort 3 Rule Reference Sheet
+# Session 02 — Network Infrastructure Monitoring
+# =============================================================================
+# This file contains working reference rules and rule templates.
+# Use these as a starting point for Drill 01 (Intermediate).
+#
+# Rule syntax (Snort 3):
+#   action proto src_ip src_port direction dst_ip dst_port (options;)
+#
+# Actions:     alert, drop, pass, reject, rewrite
+# Protocols:   tcp, udp, icmp, ip
+# Direction:   -> (one-way), <> (bidirectional)
+# =============================================================================
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SECTION 1: WORKING EXAMPLE RULES (Study these before attempting the drill)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Example 1: Detect HTTP User-Agent containing "sqlmap"
+alert tcp $EXTERNAL_NET any -> $HTTP_SERVERS 80 \
+    (msg:"SQL Injection Tool sqlmap Detected"; \
+     flow:to_server,established; \
+     content:"sqlmap"; http_header; nocase; \
+     sid:1000001; rev:1; \
+     classtype:web-application-attack; priority:1;)
+
+# Example 2: Detect SSH login failures (requires syslog alerting, not PCAP)
+# For network-level detection, detect multiple SYN connections to port 22:
+alert tcp $EXTERNAL_NET any -> $HOME_NET 22 \
+    (msg:"SSH Brute Force Attempt - Multiple Connections"; \
+     flow:to_server; flags:S,12; \
+     threshold: type both, track by_src, count 5, seconds 30; \
+     sid:1000002; rev:2; \
+     classtype:attempted-admin; priority:1;)
+
+# Example 3: Detect Telnet connections (any — cleartext protocol is policy violation)
+alert tcp any any -> $HOME_NET 23 \
+    (msg:"Telnet Connection Attempt - Insecure Protocol"; \
+     flow:to_server; flags:S,12; \
+     sid:1000003; rev:1; \
+     classtype:policy-violation; priority:2;)
+
+# Example 4: Detect DNS queries (simple example)
+alert udp $HOME_NET any -> any 53 \
+    (msg:"DNS Query for Suspicious Domain"; \
+     content:"evil-domain"; nocase; \
+     sid:1000004; rev:1; \
+     classtype:trojan-activity; priority:1;)
+
+# Example 5: Detect FTP authentication (USER command)
+alert tcp $HOME_NET any -> $EXTERNAL_NET 21 \
+    (msg:"FTP Clear-text Username to External Server"; \
+     flow:to_server,established; \
+     content:"USER "; offset:0; depth:5; nocase; \
+     sid:1000005; rev:1; \
+     classtype:policy-violation; priority:2;)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SECTION 2: RULE OPTION REFERENCE
+# ─────────────────────────────────────────────────────────────────────────────
+
+# content: "string"        — match literal string in payload
+# content: "|XX XX XX|"    — match hex bytes (e.g., |00 0d 0a| = \r\n)
+# nocase                   — case-insensitive match
+# offset:N                 — start matching at byte N from start of payload
+# depth:N                  — only match within first N bytes of payload
+# distance:N               — next content must be N bytes after previous match
+# within:N                 — next content must be within N bytes of previous match
+# http_uri                 — apply content match only to HTTP URI field
+# http_header              — apply content match only to HTTP headers
+# http_method              — apply content match only to HTTP method field
+# flow:to_server           — match traffic going to the server
+# flow:to_client           — match traffic going to the client
+# flow:established         — only match on fully established connections
+# flags:S                  — match TCP SYN flag
+# flags:S,12               — match SYN flag; ignore bits 1,2 (reserved)
+# flags:!APUR              — NOT ACK, PUSH, URG, RST (used for pure SYN)
+# threshold: type both, track by_src, count N, seconds T
+#                          — alert when N matches in T seconds from same source
+# pcre:"/regex/"           — Perl-compatible regular expression match
+# msg:"text"               — alert message (required)
+# sid:XXXXXXX              — signature ID (required; use 2000001+ for custom)
+# rev:N                    — revision number (required)
+# classtype:X              — classification type (see list below)
+# priority:N               — alert priority (1=highest, 4=lowest)
+# reference:url,example.com — link to external reference
+
+# Classtype values:
+#   attempted-admin        — Login/admin access attempt
+#   attempted-recon        — Reconnaissance/scanning
+#   attempted-user         — User privilege attempt
+#   denial-of-service      — DoS attack
+#   misc-attack            — Miscellaneous attack
+#   policy-violation       — Policy violation (e.g., Telnet, FTP)
+#   shellcode-detect       — Shellcode in payload
+#   trojan-activity        — Trojan/malware behaviour
+#   web-application-attack — Web app attack (XSS, SQLi, LFI, etc.)
+#   network-scan           — Network scanning
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SECTION 3: COMMON DETECTION PATTERNS
+# ─────────────────────────────────────────────────────────────────────────────
+
+# TCP SYN scan (many SYN, no ACK, to many ports):
+# alert tcp $EXTERNAL_NET any -> $HOME_NET any \
+#     (flags:S,!APUR; threshold: type both, track by_src, count 20, seconds 5; ...)
+
+# ICMP flood (many pings from one source):
+# alert icmp $EXTERNAL_NET any -> $HOME_NET any \
+#     (itype:8; threshold: type both, track by_src, count 100, seconds 5; ...)
+
+# HTTP path traversal:
+# alert tcp ... -> ... 80 \
+#     (content:"../"; http_uri; nocase; ...)
+
+# SMB on non-standard port (not 445):
+# alert tcp any any -> $HOME_NET !445 \
+#     (content:"|ff|SMB"; ...)
+
+# Base64-encoded commands in HTTP (webshell):
+# alert tcp ... -> ... 80 \
+#     (content:"cmd="; http_uri; pcre:"/cmd=[A-Za-z0-9+\/=]{20}/"; ...)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SECTION 4: DRILL 01 TEMPLATE (Fill in the ??? sections)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Scenario 1: Telnet to management network
+# alert ??? ??? ??? -> ??? ??? \
+#     (msg:"???"; ???; sid:2000001; rev:1; classtype:???;)
+
+# Scenario 2a: HTTP directory traversal (literal ../)
+# alert ??? ??? ??? -> ??? ??? \
+#     (msg:"???"; ???; sid:2000002; rev:1; classtype:???;)
+
+# Scenario 2b: HTTP directory traversal (URL-encoded)
+# alert ??? ??? ??? -> ??? ??? \
+#     (msg:"???"; ???; sid:2000003; rev:1; classtype:???;)
+
+# Scenario 3: FTP PASS command to external server
+# alert ??? ??? ??? -> ??? ??? \
+#     (msg:"???"; ???; sid:2000004; rev:1; classtype:???;)
+
+# Scenario 4a: DNS query for update.malware-c2.xyz
+# alert ??? ??? ??? -> ??? ??? \
+#     (msg:"???"; ???; sid:2000005; rev:1; classtype:???;)
+
+# Scenario 4b: DNS query for beacon.evil-ops.net
+# alert ??? ??? ??? -> ??? ??? \
+#     (msg:"???"; ???; sid:2000006; rev:1; classtype:???;)
+
+# Scenario 4c: DNS query for checkin.badactor.io
+# alert ??? ??? ??? -> ??? ??? \
+#     (msg:"???"; ???; sid:2000007; rev:1; classtype:???;)
+
+# Scenario 5: EternalBlue MS17-010 SMB exploit
+# alert ??? ??? ??? -> ??? ??? \
+#     (msg:"???"; ???; sid:2000008; rev:1; classtype:???;)

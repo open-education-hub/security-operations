@@ -1,0 +1,8 @@
+services:
+  veris-api:
+    build: .
+    container_name: veris-community-api
+    ports:
+      - "8080:8080"
+    environment:
+      - PYTHONPATH=/app

@@ -1,0 +1,389 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      text { font-family: 'Courier New', Consolas, monospace; }
+      .title { font-size: 20px; font-weight: bold; fill: #e2e8f0; }
+      .label { font-size: 12px; fill: #cbd5e1; }
+      .sublabel { font-size: 10px; fill: #94a3b8; }
+      .box-title { font-size: 13px; font-weight: bold; fill: #f1f5f9; }
+      .box-text { font-size: 10px; fill: #cbd5e1; }
+      .arrow-label { font-size: 9px; fill: #64748b; }
+      .section-label { font-size: 11px; font-weight: bold; fill: #94a3b8; letter-spacing: 2px; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#475569"/>
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#22c55e"/>
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f97316"/>
+    </marker>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#0f172a"/>
+
+  <!-- Grid lines (subtle) -->
+  <g opacity="0.05" stroke="#94a3b8" stroke-width="0.5">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="0" y1="700" x2="1200" y2="700"/>
+    <line x1="200" y1="0" x2="200" y2="800"/>
+    <line x1="400" y1="0" x2="400" y2="800"/>
+    <line x1="600" y1="0" x2="600" y2="800"/>
+    <line x1="800" y1="0" x2="800" y2="800"/>
+    <line x1="1000" y1="0" x2="1000" y2="800"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="38" class="title" text-anchor="middle">Session 03 — Security Data Pipeline: From Sources to Alerts</text>
+  <text x="600" y="58" font-size="11" fill="#64748b" text-anchor="middle">Data Categories · Normalization · Aggregation · SIEM Analysis · TI Enrichment · Output</text>
+
+  <!-- ===== LAYER 0: Section Labels ===== -->
+  <text x="95" y="90" class="section-label" text-anchor="middle">DATA SOURCES</text>
+  <text x="330" y="90" class="section-label" text-anchor="middle">COLLECTION</text>
+  <text x="530" y="90" class="section-label" text-anchor="middle">NORMALIZATION</text>
+  <text x="730" y="90" class="section-label" text-anchor="middle">SIEM / ANALYSIS</text>
+  <text x="960" y="90" class="section-label" text-anchor="middle">ENRICHMENT &amp; OUTPUT</text>
+
+  <!-- Divider lines between sections -->
+  <line x1="195" y1="75" x2="195" y2="720" stroke="#1e293b" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="430" y1="75" x2="430" y2="720" stroke="#1e293b" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="620" y1="75" x2="620" y2="720" stroke="#1e293b" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="840" y1="75" x2="840" y2="720" stroke="#1e293b" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- ===== LAYER 1: DATA SOURCE BOXES ===== -->
+
+  <!-- Endpoint -->
+  <rect x="15" y="105" width="160" height="78" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <rect x="15" y="105" width="160" height="18" rx="6" fill="#1d4ed8"/>
+  <rect x="15" y="117" width="160" height="6" fill="#1d4ed8"/>
+  <text x="95" y="119" class="box-title" text-anchor="middle" font-size="11">ENDPOINT</text>
+  <text x="25" y="137" class="box-text">• Windows Event Logs</text>
+  <text x="25" y="150" class="box-text">• Sysmon (proc/net/file)</text>
+  <text x="25" y="163" class="box-text">• EDR telemetry</text>
+  <text x="25" y="176" class="box-text">• Linux auditd</text>
+
+  <!-- Network -->
+  <rect x="15" y="200" width="160" height="78" rx="6" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5"/>
+  <rect x="15" y="200" width="160" height="18" rx="6" fill="#6d28d9"/>
+  <rect x="15" y="212" width="160" height="6" fill="#6d28d9"/>
+  <text x="95" y="214" class="box-title" text-anchor="middle" font-size="11">NETWORK</text>
+  <text x="25" y="232" class="box-text">• Firewall logs</text>
+  <text x="25" y="245" class="box-text">• NetFlow / IPFIX</text>
+  <text x="25" y="258" class="box-text">• Zeek (conn/dns/http)</text>
+  <text x="25" y="271" class="box-text">• Proxy / IDS/IPS</text>
+
+  <!-- Authentication -->
+  <rect x="15" y="295" width="160" height="78" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <rect x="15" y="295" width="160" height="18" rx="6" fill="#b45309"/>
+  <rect x="15" y="307" width="160" height="6" fill="#b45309"/>
+  <text x="95" y="309" class="box-title" text-anchor="middle" font-size="11">AUTHENTICATION</text>
+  <text x="25" y="327" class="box-text">• Active Directory / LDAP</text>
+  <text x="25" y="340" class="box-text">• VPN / Remote access</text>
+  <text x="25" y="353" class="box-text">• MFA platform logs</text>
+  <text x="25" y="366" class="box-text">• Okta / Azure AD</text>
+
+  <!-- Application -->
+  <rect x="15" y="390" width="160" height="78" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <rect x="15" y="390" width="160" height="18" rx="6" fill="#065f46"/>
+  <rect x="15" y="402" width="160" height="6" fill="#065f46"/>
+  <text x="95" y="404" class="box-title" text-anchor="middle" font-size="11">APPLICATION</text>
+  <text x="25" y="422" class="box-text">• Web server logs</text>
+  <text x="25" y="435" class="box-text">• Database audit logs</text>
+  <text x="25" y="448" class="box-text">• Custom app logs (JSON)</text>
+  <text x="25" y="461" class="box-text">• API gateway logs</text>
+
+  <!-- DNS -->
+  <rect x="15" y="485" width="160" height="68" rx="6" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5"/>
+  <rect x="15" y="485" width="160" height="18" rx="6" fill="#0e7490"/>
+  <rect x="15" y="497" width="160" height="6" fill="#0e7490"/>
+  <text x="95" y="499" class="box-title" text-anchor="middle" font-size="11">DNS</text>
+  <text x="25" y="517" class="box-text">• Recursive resolver logs</text>
+  <text x="25" y="530" class="box-text">• NXDomain responses</text>
+  <text x="25" y="543" class="box-text">• Passive DNS records</text>
+
+  <!-- Cloud -->
+  <rect x="15" y="570" width="160" height="78" rx="6" fill="#1e293b" stroke="#ec4899" stroke-width="1.5"/>
+  <rect x="15" y="570" width="160" height="18" rx="6" fill="#9d174d"/>
+  <rect x="15" y="582" width="160" height="6" fill="#9d174d"/>
+  <text x="95" y="584" class="box-title" text-anchor="middle" font-size="11">CLOUD</text>
+  <text x="25" y="602" class="box-text">• AWS CloudTrail / VPC Flow</text>
+  <text x="25" y="615" class="box-text">• Azure Monitor / AD Logs</text>
+  <text x="25" y="628" class="box-text">• GCP Cloud Audit Logs</text>
+  <text x="25" y="641" class="box-text">• Kubernetes API audit</text>
+
+  <!-- ===== ARROWS: Sources → Collection ===== -->
+  <line x1="176" y1="144" x2="215" y2="200" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrowhead-blue)" opacity="0.7"/>
+  <line x1="176" y1="239" x2="215" y2="260" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrowhead)" opacity="0.7"/>
+  <line x1="176" y1="334" x2="215" y2="300" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrowhead)" opacity="0.7"/>
+  <line x1="176" y1="429" x2="215" y2="370" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrowhead)" opacity="0.7"/>
+  <line x1="176" y1="519" x2="215" y2="400" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#arrowhead)" opacity="0.7"/>
+  <line x1="176" y1="609" x2="215" y2="430" stroke="#ec4899" stroke-width="1.5" marker-end="url(#arrowhead)" opacity="0.7"/>
+
+  <!-- ===== LAYER 2: COLLECTION ===== -->
+  <rect x="210" y="150" width="200" height="300" rx="8" fill="#0f1f35" stroke="#334155" stroke-width="1.5"/>
+  <text x="310" y="175" class="box-title" text-anchor="middle">LOG COLLECTION LAYER</text>
+
+  <!-- Agent box -->
+  <rect x="222" y="185" width="176" height="60" rx="5" fill="#1e293b" stroke="#3b82f6" stroke-width="1"/>
+  <text x="310" y="200" class="label" text-anchor="middle" font-weight="bold">Agent-Based</text>
+  <text x="310" y="214" class="box-text" text-anchor="middle">Splunk UF · Winlogbeat</text>
+  <text x="310" y="227" class="box-text" text-anchor="middle">Filebeat · Fluent Bit · NXLog</text>
+  <text x="310" y="240" class="sublabel" text-anchor="middle">Runs on each host</text>
+
+  <!-- Syslog box -->
+  <rect x="222" y="255" width="176" height="50" rx="5" fill="#1e293b" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="310" y="270" class="label" text-anchor="middle" font-weight="bold">Syslog Forwarding</text>
+  <text x="310" y="284" class="box-text" text-anchor="middle">rsyslog · syslog-ng</text>
+  <text x="310" y="297" class="sublabel" text-anchor="middle">UDP/514 · TCP-TLS/6514</text>
+
+  <!-- API Pull box -->
+  <rect x="222" y="315" width="176" height="50" rx="5" fill="#1e293b" stroke="#ec4899" stroke-width="1"/>
+  <text x="310" y="330" class="label" text-anchor="middle" font-weight="bold">API Pull</text>
+  <text x="310" y="344" class="box-text" text-anchor="middle">CloudTrail → S3 → Lambda</text>
+  <text x="310" y="357" class="sublabel" text-anchor="middle">Azure Event Hub · Pub/Sub</text>
+
+  <!-- Message Queue box -->
+  <rect x="222" y="375" width="176" height="60" rx="5" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>
+  <text x="310" y="390" class="label" text-anchor="middle" font-weight="bold">Message Queue (Buffer)</text>
+  <text x="310" y="404" class="box-text" text-anchor="middle">Apache Kafka</text>
+  <text x="310" y="417" class="box-text" text-anchor="middle">Redis Streams · AWS Kinesis</text>
+  <text x="310" y="430" class="sublabel" text-anchor="middle">Decouples ingest from storage</text>
+
+  <!-- Arrow Collection → Normalization -->
+  <line x1="411" y1="305" x2="445" y2="305" stroke="#475569" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- ===== LAYER 3: NORMALIZATION (Logstash) ===== -->
+  <rect x="440" y="150" width="175" height="300" rx="8" fill="#0f1f35" stroke="#334155" stroke-width="1.5"/>
+  <text x="527" y="175" class="box-title" text-anchor="middle">NORMALIZATION</text>
+
+  <!-- Parsing box -->
+  <rect x="452" y="185" width="151" height="55" rx="5" fill="#1e293b" stroke="#f97316" stroke-width="1"/>
+  <text x="527" y="200" class="label" text-anchor="middle" font-weight="bold">Parsing (Logstash)</text>
+  <text x="527" y="213" class="box-text" text-anchor="middle">grok · json · kv</text>
+  <text x="527" y="226" class="box-text" text-anchor="middle">CEF · Syslog · XML</text>
+  <text x="527" y="235" class="sublabel" text-anchor="middle">Field extraction</text>
+
+  <!-- Schema Mapping box -->
+  <rect x="452" y="250" width="151" height="60" rx="5" fill="#1e293b" stroke="#22c55e" stroke-width="1"/>
+  <text x="527" y="265" class="label" text-anchor="middle" font-weight="bold">Schema Mapping</text>
+  <text x="527" y="279" class="box-text" text-anchor="middle">ECS / Splunk CIM</text>
+  <text x="527" y="292" class="box-text" text-anchor="middle">src_ip · dst_ip · user</text>
+  <text x="527" y="305" class="sublabel" text-anchor="middle">Common field names</text>
+
+  <!-- Timestamp box -->
+  <rect x="452" y="320" width="151" height="45" rx="5" fill="#1e293b" stroke="#06b6d4" stroke-width="1"/>
+  <text x="527" y="335" class="label" text-anchor="middle" font-weight="bold">Timestamping</text>
+  <text x="527" y="349" class="box-text" text-anchor="middle">UTC · ISO8601 · NTP sync</text>
+  <text x="527" y="360" class="sublabel" text-anchor="middle">@timestamp normalization</text>
+
+  <!-- Enrichment pre-SIEM box -->
+  <rect x="452" y="375" width="151" height="60" rx="5" fill="#1e293b" stroke="#a855f7" stroke-width="1"/>
+  <text x="527" y="390" class="label" text-anchor="middle" font-weight="bold">Basic Enrichment</text>
+  <text x="527" y="404" class="box-text" text-anchor="middle">GeoIP (MaxMind)</text>
+  <text x="527" y="417" class="box-text" text-anchor="middle">DNS reverse lookup</text>
+  <text x="527" y="430" class="sublabel" text-anchor="middle">Asset tagging</text>
+
+  <!-- Arrow Normalization → SIEM -->
+  <line x1="616" y1="305" x2="648" y2="305" stroke="#475569" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- ===== LAYER 4: SIEM / ANALYSIS ===== -->
+  <rect x="645" y="110" width="190" height="520" rx="8" fill="#0a1628" stroke="#1d4ed8" stroke-width="2" filter="url(#glow)"/>
+  <text x="740" y="135" class="box-title" text-anchor="middle" font-size="14">SIEM / ANALYTICS</text>
+  <text x="740" y="150" class="sublabel" text-anchor="middle">Splunk ES · Elastic Security</text>
+
+  <!-- Storage -->
+  <rect x="657" y="162" width="166" height="48" rx="5" fill="#1e293b" stroke="#3b82f6" stroke-width="1"/>
+  <text x="740" y="177" class="label" text-anchor="middle" font-weight="bold">Indexed Storage</text>
+  <text x="740" y="191" class="box-text" text-anchor="middle">Elasticsearch · Splunk Index</text>
+  <text x="740" y="203" class="sublabel" text-anchor="middle">Hot / Warm / Cold tiers</text>
+
+  <!-- Search & Query -->
+  <rect x="657" y="220" width="166" height="55" rx="5" fill="#1e293b" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="740" y="235" class="label" text-anchor="middle" font-weight="bold">Search &amp; Query</text>
+  <text x="740" y="249" class="box-text" text-anchor="middle">SPL (Splunk) · KQL (Elastic)</text>
+  <text x="740" y="262" class="box-text" text-anchor="middle">EQL · Sigma rules</text>
+  <text x="740" y="271" class="sublabel" text-anchor="middle">Ad-hoc &amp; scheduled</text>
+
+  <!-- Correlation Engine -->
+  <rect x="657" y="285" width="166" height="70" rx="5" fill="#1e2d4a" stroke="#f97316" stroke-width="1.5"/>
+  <text x="740" y="301" class="label" text-anchor="middle" font-weight="bold" fill="#fb923c">CORRELATION ENGINE</text>
+  <text x="740" y="315" class="box-text" text-anchor="middle">Threshold rules</text>
+  <text x="740" y="328" class="box-text" text-anchor="middle">Sequence rules (multi-step)</text>
+  <text x="740" y="341" class="box-text" text-anchor="middle">Behavioral baselines</text>
+  <text x="740" y="350" class="sublabel" text-anchor="middle">MITRE ATT&amp;CK mapping</text>
+
+  <!-- Dashboards -->
+  <rect x="657" y="365" width="166" height="55" rx="5" fill="#1e293b" stroke="#22c55e" stroke-width="1"/>
+  <text x="740" y="380" class="label" text-anchor="middle" font-weight="bold">Dashboards</text>
+  <text x="740" y="394" class="box-text" text-anchor="middle">Kibana · Splunk Dashboards</text>
+  <text x="740" y="407" class="box-text" text-anchor="middle">Alert queue · Hunt views</text>
+  <text x="740" y="416" class="sublabel" text-anchor="middle">Operational + Executive</text>
+
+  <!-- Case Management -->
+  <rect x="657" y="430" width="166" height="45" rx="5" fill="#1e293b" stroke="#06b6d4" stroke-width="1"/>
+  <text x="740" y="445" class="label" text-anchor="middle" font-weight="bold">Case Management</text>
+  <text x="740" y="459" class="box-text" text-anchor="middle">TheHive · Jira · Splunk ES</text>
+  <text x="740" y="468" class="sublabel" text-anchor="middle">Incident tracking</text>
+
+  <!-- Threat Hunting -->
+  <rect x="657" y="485" width="166" height="45" rx="5" fill="#1e293b" stroke="#a855f7" stroke-width="1"/>
+  <text x="740" y="500" class="label" text-anchor="middle" font-weight="bold">Threat Hunting</text>
+  <text x="740" y="514" class="box-text" text-anchor="middle">Hypothesis-driven queries</text>
+  <text x="740" y="523" class="sublabel" text-anchor="middle">Historical analysis</text>
+
+  <!-- Retention Policy -->
+  <rect x="657" y="540" width="166" height="78" rx="5" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+  <text x="740" y="556" class="label" text-anchor="middle" font-weight="bold">Retention Policy</text>
+  <text x="740" y="569" class="box-text" text-anchor="middle">Hot: 90d · Warm: 12mo</text>
+  <text x="740" y="582" class="box-text" text-anchor="middle">Cold archive: 7yr</text>
+  <text x="740" y="595" class="box-text" text-anchor="middle">GDPR · HIPAA · PCI-DSS</text>
+  <text x="740" y="608" class="sublabel" text-anchor="middle">Compliance-driven</text>
+
+  <!-- Arrow SIEM → Enrichment -->
+  <line x1="836" y1="305" x2="868" y2="305" stroke="#475569" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- ===== LAYER 5: TI ENRICHMENT ===== -->
+  <rect x="865" y="150" width="175" height="185" rx="8" fill="#0f1f35" stroke="#334155" stroke-width="1.5"/>
+  <text x="952" y="173" class="box-title" text-anchor="middle">TI ENRICHMENT</text>
+
+  <!-- MISP -->
+  <rect x="877" y="183" width="151" height="50" rx="5" fill="#1e293b" stroke="#ec4899" stroke-width="1"/>
+  <text x="952" y="198" class="label" text-anchor="middle" font-weight="bold">MISP</text>
+  <text x="952" y="211" class="box-text" text-anchor="middle">IOC lookup · Event sharing</text>
+  <text x="952" y="224" class="box-text" text-anchor="middle">TLP tags · STIX/TAXII feeds</text>
+
+  <!-- VirusTotal -->
+  <rect x="877" y="243" width="151" height="40" rx="5" fill="#1e293b" stroke="#f97316" stroke-width="1"/>
+  <text x="952" y="258" class="label" text-anchor="middle" font-weight="bold">VirusTotal API</text>
+  <text x="952" y="271" class="box-text" text-anchor="middle">Hash · URL · Domain · IP</text>
+
+  <!-- Commercial feeds -->
+  <rect x="877" y="293" width="151" height="30" rx="5" fill="#1e293b" stroke="#94a3b8" stroke-width="1"/>
+  <text x="952" y="308" class="label" text-anchor="middle" font-weight="bold">Commercial Feeds</text>
+  <text x="952" y="318" class="sublabel" text-anchor="middle">Recorded Future · Mandiant</text>
+
+  <!-- ===== OUTPUT: ALERTS ===== -->
+  <rect x="865" y="360" width="175" height="270" rx="8" fill="#0f1f35" stroke="#334155" stroke-width="1.5"/>
+  <text x="952" y="383" class="box-title" text-anchor="middle">ALERT OUTPUT</text>
+
+  <!-- Alert Priority -->
+  <rect x="877" y="392" width="151" height="65" rx="5" fill="#1e293b" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="952" y="407" class="label" text-anchor="middle" font-weight="bold" fill="#f87171">CRITICAL / HIGH</text>
+  <text x="952" y="420" class="box-text" text-anchor="middle">Ransomware behavior</text>
+  <text x="952" y="433" class="box-text" text-anchor="middle">Lateral movement detected</text>
+  <text x="952" y="446" class="box-text" text-anchor="middle">Data exfiltration in progress</text>
+  <text x="952" y="454" class="sublabel" text-anchor="middle">Immediate response required</text>
+
+  <rect x="877" y="467" width="151" height="55" rx="5" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>
+  <text x="952" y="481" class="label" text-anchor="middle" font-weight="bold" fill="#fbbf24">MEDIUM</text>
+  <text x="952" y="494" class="box-text" text-anchor="middle">Brute-force attempt</text>
+  <text x="952" y="507" class="box-text" text-anchor="middle">Anomalous login pattern</text>
+  <text x="952" y="516" class="sublabel" text-anchor="middle">Investigate within 2h</text>
+
+  <rect x="877" y="532" width="151" height="40" rx="5" fill="#1e293b" stroke="#22c55e" stroke-width="1"/>
+  <text x="952" y="546" class="label" text-anchor="middle" font-weight="bold" fill="#86efac">LOW / INFO</text>
+  <text x="952" y="559" class="box-text" text-anchor="middle">Unusual port scan · Recon</text>
+  <text x="952" y="568" class="sublabel" text-anchor="middle">Review within 24h</text>
+
+  <!-- Notification channels -->
+  <rect x="877" y="582" width="151" height="40" rx="5" fill="#1e293b" stroke="#6366f1" stroke-width="1"/>
+  <text x="952" y="597" class="label" text-anchor="middle" font-weight="bold">Notification</text>
+  <text x="952" y="610" class="box-text" text-anchor="middle">Email · PagerDuty · Slack</text>
+  <text x="952" y="619" class="sublabel" text-anchor="middle">SOAR integration</text>
+
+  <!-- Arrow: TI → SIEM (feedback) -->
+  <path d="M 865 238 C 840 238 840 320 836 320" stroke="#22c55e" stroke-width="1.5" fill="none" marker-end="url(#arrowhead-green)" stroke-dasharray="4,3" opacity="0.7"/>
+  <text x="845" y="278" class="arrow-label" text-anchor="middle">IOC</text>
+  <text x="845" y="288" class="arrow-label" text-anchor="middle">match</text>
+
+  <!-- Arrow: TI Enrichment → Alert Output (internal) -->
+  <line x1="952" y1="336" x2="952" y2="358" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+  <!-- ===== IOC TYPES LEGEND (bottom) ===== -->
+  <rect x="15" y="665" width="1170" height="120" rx="8" fill="#0f1f35" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="600" y="685" class="box-title" text-anchor="middle">INDICATOR OF COMPROMISE (IOC) TYPES</text>
+
+  <!-- IP -->
+  <rect x="30" y="695" width="130" height="75" rx="5" fill="#1e293b" stroke="#ef4444" stroke-width="1"/>
+  <text x="95" y="710" class="label" text-anchor="middle" fill="#f87171">IP ADDRESSES</text>
+  <text x="95" y="723" class="box-text" text-anchor="middle">C2 server IPs</text>
+  <text x="95" y="736" class="box-text" text-anchor="middle">Scanning hosts</text>
+  <text x="95" y="749" class="sublabel" text-anchor="middle">Lifespan: hours–days</text>
+  <text x="95" y="762" class="sublabel" text-anchor="middle">Low specificity</text>
+
+  <!-- Hashes -->
+  <rect x="175" y="695" width="155" height="75" rx="5" fill="#1e293b" stroke="#f97316" stroke-width="1"/>
+  <text x="252" y="710" class="label" text-anchor="middle" fill="#fb923c">FILE HASHES</text>
+  <text x="252" y="723" class="box-text" text-anchor="middle">MD5 / SHA1 / SHA256</text>
+  <text x="252" y="736" class="box-text" text-anchor="middle">Malware fingerprints</text>
+  <text x="252" y="749" class="sublabel" text-anchor="middle">Lifespan: weeks</text>
+  <text x="252" y="762" class="sublabel" text-anchor="middle">High specificity</text>
+
+  <!-- Domains -->
+  <rect x="345" y="695" width="155" height="75" rx="5" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>
+  <text x="422" y="710" class="label" text-anchor="middle" fill="#fbbf24">DOMAINS</text>
+  <text x="422" y="723" class="box-text" text-anchor="middle">C2 domains · Phishing</text>
+  <text x="422" y="736" class="box-text" text-anchor="middle">DGA-generated names</text>
+  <text x="422" y="749" class="sublabel" text-anchor="middle">Lifespan: days–weeks</text>
+  <text x="422" y="762" class="sublabel" text-anchor="middle">Medium specificity</text>
+
+  <!-- User Agents -->
+  <rect x="515" y="695" width="155" height="75" rx="5" fill="#1e293b" stroke="#22c55e" stroke-width="1"/>
+  <text x="592" y="710" class="label" text-anchor="middle" fill="#86efac">USER AGENTS</text>
+  <text x="592" y="723" class="box-text" text-anchor="middle">HTTP library defaults</text>
+  <text x="592" y="736" class="box-text" text-anchor="middle">Malware-specific strings</text>
+  <text x="592" y="749" class="sublabel" text-anchor="middle">Lifespan: months</text>
+  <text x="592" y="762" class="sublabel" text-anchor="middle">Medium specificity</text>
+
+  <!-- Filenames -->
+  <rect x="685" y="695" width="155" height="75" rx="5" fill="#1e293b" stroke="#06b6d4" stroke-width="1"/>
+  <text x="762" y="710" class="label" text-anchor="middle" fill="#67e8f9">FILENAMES/PATHS</text>
+  <text x="762" y="723" class="box-text" text-anchor="middle">Malware drop locations</text>
+  <text x="762" y="736" class="box-text" text-anchor="middle">Double extensions</text>
+  <text x="762" y="749" class="sublabel" text-anchor="middle">Lifespan: weeks</text>
+  <text x="762" y="762" class="sublabel" text-anchor="middle">Medium specificity</text>
+
+  <!-- YARA / Sigma -->
+  <rect x="855" y="695" width="155" height="75" rx="5" fill="#1e293b" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="932" y="710" class="label" text-anchor="middle" fill="#c4b5fd">YARA / SIGMA RULES</text>
+  <text x="932" y="723" class="box-text" text-anchor="middle">Pattern-based detection</text>
+  <text x="932" y="736" class="box-text" text-anchor="middle">TTP-level indicators</text>
+  <text x="932" y="749" class="sublabel" text-anchor="middle">Lifespan: months–years</text>
+  <text x="932" y="762" class="sublabel" text-anchor="middle">High durability</text>
+
+  <!-- TTPs -->
+  <rect x="1025" y="695" width="145" height="75" rx="5" fill="#1e293b" stroke="#ec4899" stroke-width="1"/>
+  <text x="1097" y="710" class="label" text-anchor="middle" fill="#f9a8d4">ATT&amp;CK TTPs</text>
+  <text x="1097" y="723" class="box-text" text-anchor="middle">Tactics · Techniques</text>
+  <text x="1097" y="736" class="box-text" text-anchor="middle">Procedures (hardest to change)</text>
+  <text x="1097" y="749" class="sublabel" text-anchor="middle">Lifespan: years</text>
+  <text x="1097" y="762" class="sublabel" text-anchor="middle">Highest value</text>
+
+  <!-- Pyramid of Pain label -->
+  <text x="600" y="645" class="arrow-label" text-anchor="middle" font-size="9" fill="#475569">← EASIER FOR ATTACKER TO CHANGE · · · · · · · · · · · · · · · · · · · · · HARDER FOR ATTACKER TO CHANGE →</text>
+  <!-- Arrow under Pyramid label -->
+  <line x1="30" y1="655" x2="1170" y2="655" stroke="#1e293b" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+  <text x="600" y="664" class="sublabel" text-anchor="middle">David Bianco's Pyramid of Pain — higher IOC types impose greater cost on adversary when detected</text>
+
+  <!-- ===== FLOW SUMMARY (mini pipeline near bottom) ===== -->
+
+  <!-- Copyright / session label -->
+  <text x="600" y="792" font-size="9" fill="#334155" text-anchor="middle">Security Operations Master Class · Session 03: Data Categories and Analysis · Digital4Security</text>
+</svg>

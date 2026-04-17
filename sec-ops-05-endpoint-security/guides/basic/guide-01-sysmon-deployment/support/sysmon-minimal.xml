@@ -1,0 +1,256 @@
+<!--
+  Sysmon Minimal Configuration - Security Operations Course
+  Guide 01: Deploying and Configuring Sysmon
+
+  Schema version: 4.82
+  Purpose: Minimal production-ready configuration for workstation/server monitoring.
+           Captures the most security-relevant events while controlling log volume.
+
+  Event IDs covered:
+    1  - Process Create
+    3  - Network Connect
+    8  - CreateRemoteThread (injection detection)
+    10 - Process Access (LSASS / credential dumping)
+    11 - File Create
+    12 - Registry Add/Delete
+    13 - Registry Value Set
+    22 - DNS Query
+    25 - Process Tampering (image is replaced)
+
+  Usage (Windows, run as Administrator):
+    sysmon64.exe -accepteula -i sysmon-minimal.xml
+    sysmon64.exe -c sysmon-minimal.xml   (update running config)
+    sysmon64.exe -s                       (print current schema)
+
+  Tuning guidance:
+    - Event ID 3 is high-volume. Extend the exclude list as you learn your environment.
+    - Event ID 11 can also be high-volume. Add more extensions/paths as needed.
+    - Event ID 22 is generally safe to enable without filtering; DNS volume is manageable.
+    - Event ID 7 (ImageLoad) is NOT included - it generates extreme volume. Enable only
+      on high-value systems when investigating a specific incident.
+-->
+<Sysmon schemaversion="4.82">
+
+  <!-- Compute these hashes for every file and process event -->
+  <HashAlgorithms>MD5,SHA256,IMPHASH</HashAlgorithms>
+
+  <!-- Verify code-signing certificate revocation status on file events -->
+  <CheckRevocation/>
+
+  <EventFiltering>
+
+    <!-- ================================================================
+         EVENT ID 1: Process Create
+         Strategy: exclude-based (log everything except known-good noise)
+         ================================================================ -->
+    <RuleGroup name="" groupRelation="or">
+      <ProcessCreate onmatch="exclude">
+        <!-- Windows Defender / Security essentials - high volume, benign -->
+        <Image condition="begin with">C:\Program Files\Windows Defender\</Image>
+        <Image condition="end with">MsMpEng.exe</Image>
+        <Image condition="end with">NisSrv.exe</Image>
+
+        <!-- Windows Update infrastructure -->
+        <CommandLine condition="contains">C:\Windows\SoftwareDistribution\</CommandLine>
+        <Image condition="begin with">C:\Windows\SoftwareDistribution\</Image>
+
+        <!-- WMI infrastructure - extremely noisy, low detection value -->
+        <Image condition="begin with">C:\Windows\System32\wbem\</Image>
+        <Image condition="begin with">C:\Windows\SysWOW64\wbem\</Image>
+
+        <!-- Font cache service -->
+        <Image condition="end with">fontdrvhost.exe</Image>
+
+        <!-- Sysmon itself -->
+        <Image condition="end with">Sysmon.exe</Image>
+        <Image condition="end with">Sysmon64.exe</Image>
+
+        <!-- Google Chrome / Edge helper processes (very high volume) -->
+        <!-- Uncomment if you have these browsers widely deployed:
+        <Image condition="contains">\Google\Chrome\Application\</Image>
+        <Image condition="contains">\Microsoft\Edge\Application\</Image>
+        -->
+      </ProcessCreate>
+    </RuleGroup>
+
+    <!-- ================================================================
+         EVENT ID 3: Network Connect
+         Strategy: include-based (only log interesting connections)
+         Rationale: Network connections are extremely high volume.
+                    We capture scripting engines + non-standard ports.
+         ================================================================ -->
+    <RuleGroup name="" groupRelation="or">
+      <NetworkConnect onmatch="include">
+        <!-- Scripting / LOLBin processes making network connections are suspicious -->
+        <Image condition="end with">powershell.exe</Image>
+        <Image condition="end with">pwsh.exe</Image>
+        <Image condition="end with">wscript.exe</Image>
+        <Image condition="end with">cscript.exe</Image>
+        <Image condition="end with">mshta.exe</Image>
+        <Image condition="end with">regsvr32.exe</Image>
+        <Image condition="end with">rundll32.exe</Image>
+        <Image condition="end with">msiexec.exe</Image>
+        <Image condition="end with">certutil.exe</Image>
+        <Image condition="end with">bitsadmin.exe</Image>
+
+        <!-- Office applications making network connections (macro/payload download) -->
+        <Image condition="end with">WINWORD.EXE</Image>
+        <Image condition="end with">EXCEL.EXE</Image>
+        <Image condition="end with">POWERPNT.EXE</Image>
+        <Image condition="end with">OUTLOOK.EXE</Image>
+
+        <!-- Connections to non-standard ports (potential C2) -->
+        <!-- Note: this captures A LOT. Tune by adding your known-good destinations.
+             Remove or comment out this section if volume is too high. -->
+        <DestinationPort condition="is">4444</DestinationPort>
+        <DestinationPort condition="is">1337</DestinationPort>
+        <DestinationPort condition="is">8443</DestinationPort>
+        <DestinationPort condition="is">8080</DestinationPort>
+      </NetworkConnect>
+    </RuleGroup>
+
+    <!-- ================================================================
+         EVENT ID 8: CreateRemoteThread
+         Strategy: include everything (no filter) - very rare in normal ops
+         Detects: DLL injection, shellcode injection, process hollowing
+         Note: This event fires at ~0.01% of Event ID 1 rate. Safe to log all.
+         ================================================================ -->
+    <RuleGroup name="" groupRelation="or">
+      <CreateRemoteThread onmatch="include">
+        <!-- Log everything: CreateRemoteThread is rare in benign activity -->
+        <!-- Known false positives: debuggers (Visual Studio), JVM, some AV engines -->
+        <!-- Exclusion examples (uncomment if needed):
+        <SourceImage condition="begin with">C:\Program Files\Microsoft Visual Studio\</SourceImage>
+        <SourceImage condition="contains">MsMpEng.exe</SourceImage>
+        <SourceImage condition="end with">java.exe</SourceImage>
+        -->
+      </CreateRemoteThread>
+    </RuleGroup>
+
+    <!-- ================================================================
+         EVENT ID 10: Process Access
+         Strategy: include-based on high-value targets only
+         Detects: LSASS credential dumping (Mimikatz etc.)
+         Note: LSASS access by unsigned/unexpected processes = near-zero FP
+         ================================================================ -->
+    <RuleGroup name="" groupRelation="or">
+      <ProcessAccess onmatch="include">
+        <!-- LSASS: the primary credential dumping target -->
+        <TargetImage condition="end with">lsass.exe</TargetImage>
+        <!-- WinLogon: sometimes targeted for credential extraction -->
+        <TargetImage condition="end with">winlogon.exe</TargetImage>
+        <!-- ADFS token service: targeted in Golden SAML attacks -->
+        <TargetImage condition="end with">Microsoft.IdentityServer.ServiceHost.exe</TargetImage>
+      </ProcessAccess>
+    </RuleGroup>
+
+    <!-- Exclude known-legitimate processes that access LSASS -->
+    <RuleGroup name="" groupRelation="or">
+      <ProcessAccess onmatch="exclude">
+        <!-- Windows Defender (MsMpEng) legitimately scans LSASS -->
+        <SourceImage condition="end with">MsMpEng.exe</SourceImage>
+        <!-- WMI provider host - expected to query LSASS occasionally -->
+        <SourceImage condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</SourceImage>
+        <!-- Task Manager reads process memory for display purposes -->
+        <SourceImage condition="end with">Taskmgr.exe</SourceImage>
+        <!-- Process Hacker / Sysinternals (your own IR tools) -->
+        <!-- Uncomment when using these tools in investigation:
+        <SourceImage condition="end with">procexp64.exe</SourceImage>
+        <SourceImage condition="end with">procexp.exe</SourceImage>
+        -->
+      </ProcessAccess>
+    </RuleGroup>
+
+    <!-- ================================================================
+         EVENT ID 11: File Create
+         Strategy: include-based on high-risk locations and extensions
+         Detects: Droppers, payloads, scripts written to user-writable dirs
+         ================================================================ -->
+    <RuleGroup name="" groupRelation="or">
+      <FileCreate onmatch="include">
+        <!-- Executables and scripts in user-writable locations -->
+        <TargetFilename condition="contains">\AppData\Local\Temp\</TargetFilename>
+        <TargetFilename condition="contains">\AppData\Roaming\</TargetFilename>
+        <TargetFilename condition="contains">\Temp\</TargetFilename>
+        <TargetFilename condition="contains">\ProgramData\</TargetFilename>
+        <TargetFilename condition="contains">\Users\Public\</TargetFilename>
+
+        <!-- Script files anywhere on the filesystem -->
+        <TargetFilename condition="end with">.ps1</TargetFilename>
+        <TargetFilename condition="end with">.vbs</TargetFilename>
+        <TargetFilename condition="end with">.vbe</TargetFilename>
+        <TargetFilename condition="end with">.bat</TargetFilename>
+        <TargetFilename condition="end with">.cmd</TargetFilename>
+        <TargetFilename condition="end with">.hta</TargetFilename>
+        <TargetFilename condition="end with">.wsf</TargetFilename>
+        <TargetFilename condition="end with">.jse</TargetFilename>
+
+        <!-- Executables in user-writable locations -->
+        <TargetFilename condition="end with">.exe</TargetFilename>
+        <TargetFilename condition="end with">.dll</TargetFilename>
+      </FileCreate>
+    </RuleGroup>
+
+    <!-- Exclude high-volume legitimate creates that match the above patterns -->
+    <RuleGroup name="" groupRelation="or">
+      <FileCreate onmatch="exclude">
+        <!-- Windows Update creates .exe files in Temp frequently -->
+        <Image condition="begin with">C:\Windows\System32\wuauclt.exe</Image>
+        <TargetFilename condition="contains">\SoftwareDistribution\Download\</TargetFilename>
+        <!-- Browser cache (if you used *.exe above broadly) -->
+        <!-- <TargetFilename condition="contains">\AppData\Local\Google\Chrome\User Data\</TargetFilename> -->
+      </FileCreate>
+    </RuleGroup>
+
+    <!-- ================================================================
+         EVENT IDs 12, 13, 14: Registry Events
+         Strategy: include-based on persistence and hijack locations
+         Detects: Registry-based persistence, DLL hijacking setup
+         ================================================================ -->
+    <RuleGroup name="" groupRelation="or">
+      <RegistryEvent onmatch="include">
+        <!-- Autorun / startup persistence -->
+        <TargetObject condition="contains">SOFTWARE\Microsoft\Windows\CurrentVersion\Run</TargetObject>
+        <TargetObject condition="contains">SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce</TargetObject>
+        <TargetObject condition="contains">SOFTWARE\Microsoft\Windows\CurrentVersion\RunServices</TargetObject>
+        <TargetObject condition="contains">SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon</TargetObject>
+
+        <!-- Shell execution hooks -->
+        <TargetObject condition="contains">SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders</TargetObject>
+        <TargetObject condition="contains">SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders</TargetObject>
+
+        <!-- Image File Execution Options - used for debugger hijacks and persistence -->
+        <TargetObject condition="contains">SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</TargetObject>
+
+        <!-- COM hijacking locations -->
+        <TargetObject condition="contains">SOFTWARE\Classes\CLSID</TargetObject>
+
+        <!-- AppCert DLLs - DLL loading persistence -->
+        <TargetObject condition="contains">SYSTEM\CurrentControlSet\Control\Session Manager\AppCertDlls</TargetObject>
+
+        <!-- Security providers - credential theft persistence (Mimikatz mimilib.dll) -->
+        <TargetObject condition="contains">SYSTEM\CurrentControlSet\Control\SecurityProviders</TargetObject>
+
+        <!-- LSA authentication packages -->
+        <TargetObject condition="contains">SYSTEM\CurrentControlSet\Control\Lsa</TargetObject>
+      </RegistryEvent>
+    </RuleGroup>
+
+    <!-- ================================================================
+         EVENT ID 22: DNS Query
+         Strategy: no filter (log all queries)
+         Detects: C2 beacon domains, DNS tunneling, data exfil via DNS
+         Note: DNS queries are relatively low volume and high signal.
+               Do not filter this - it's too valuable for C2 detection.
+         ================================================================ -->
+    <!-- No rules needed: absence of RuleGroup means log ALL DNS queries -->
+
+    <!-- ================================================================
+         EVENT ID 25: Process Tampering (Process image replaced)
+         Strategy: no filter (log all - very rare)
+         Detects: Process hollowing, process doppelgänging
+         ================================================================ -->
+    <!-- No rules needed: log all process tampering events -->
+
+  </EventFiltering>
+</Sysmon>

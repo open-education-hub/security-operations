@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 08 Entry Quiz: Event Correlation and Normalization</name>
+  <intro>Assess prerequisite knowledge before the session. 5 multiple-choice questions. Select the single best answer.</intro>
+
+  <question type="multichoice">
+    <name>Q1: Cross-Source Query Challenge</name>
+    <questiontext format="html">
+      <text>A Security Operations Center ingests logs from 12 different security tools. An analyst wants to run a query to find all authentication failures regardless of which tool generated the log. What is the primary obstacle to writing this single query?</text>
+    </questiontext>
+    <answer fraction="0"><text>Authentication failures are too rare to query across all sources</text></answer>
+    <answer fraction="100"><text>Different tools use different field names for the same concepts (e.g., source IP, username)</text><feedback><text>Correct. Without normalization, each source uses its own naming conventions. Log normalization solves this by mapping all sources to a common schema.</text></feedback></answer>
+    <answer fraction="0"><text>SIEM query languages cannot handle multiple log sources simultaneously</text></answer>
+    <answer fraction="0"><text>Authentication events always require real-time processing</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q2: Syslog Priority Value</name>
+    <questiontext format="html">
+      <text>In the syslog format &lt;code&gt;&lt;165&gt;1 2024-12-14T07:42:01Z host sshd 3822 - Failed password&lt;/code&gt;, what does the number &lt;code&gt;165&lt;/code&gt; represent?</text>
+    </questiontext>
+    <answer fraction="0"><text>The message ID</text></answer>
+    <answer fraction="0"><text>The syslog version</text></answer>
+    <answer fraction="100"><text>The priority value, encoding both facility and severity</text><feedback><text>Correct. The PRI field = (facility × 8) + severity. PRI 165 = facility 20 (local4) × 8 + 5 (notice). The PID is 3822.</text></feedback></answer>
+    <answer fraction="0"><text>The process identifier (PID)</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q3: Parsing vs Normalization</name>
+    <questiontext format="html">
+      <text>Which of the following best describes the difference between &lt;b&gt;parsing&lt;/b&gt; and &lt;b&gt;normalization&lt;/b&gt; in log processing?</text>
+    </questiontext>
+    <answer fraction="0"><text>Parsing is done at the source; normalization happens at the SIEM</text></answer>
+    <answer fraction="100"><text>Parsing extracts structured fields from raw text; normalization maps those fields to a standard schema</text><feedback><text>Correct. These are two distinct pipeline stages. Parsing gives you fields; normalization gives you standard field names.</text></feedback></answer>
+    <answer fraction="0"><text>Parsing converts logs to JSON; normalization compresses them for storage</text></answer>
+    <answer fraction="0"><text>There is no meaningful difference — the terms are interchangeable</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q4: False Positives and TP Rate</name>
+    <questiontext format="html">
+      <text>A SOC analyst notices that a detection rule generates 300 alerts per day, but only about 15 turn out to be actual attacks. What is this phenomenon called, and what is the true positive (TP) rate?</text>
+    </questiontext>
+    <answer fraction="0"><text>False negative storm; TP rate is 95%</text></answer>
+    <answer fraction="100"><text>Alert fatigue caused by false positives; TP rate is 5%</text><feedback><text>Correct. TP rate = 15/300 = 5%. High false positive rates lead to alert fatigue, where analysts become desensitized and may miss real incidents.</text></feedback></answer>
+    <answer fraction="0"><text>Threshold misconfiguration; TP rate is 15%</text></answer>
+    <answer fraction="0"><text>Normalization error; TP rate is 50%</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Q5: Correlation vs Single-Event Detection</name>
+    <questiontext format="html">
+      <text>Which of the following best describes what a &lt;b&gt;correlation rule&lt;/b&gt; does compared to a &lt;b&gt;single-event detection rule&lt;/b&gt;?</text>
+    </questiontext>
+    <answer fraction="0"><text>Correlation rules are faster to execute; single-event rules require more computation</text></answer>
+    <answer fraction="100"><text>Correlation rules analyze relationships between multiple events over time; single-event rules evaluate one event independently</text><feedback><text>Correct. Single-event rules evaluate each event in isolation. Correlation rules combine multiple events — counting failures over time, or detecting attack sequences.</text></feedback></answer>
+    <answer fraction="0"><text>Correlation rules only work with Windows event logs; single-event rules work with any log source</text></answer>
+    <answer fraction="0"><text>Correlation rules require machine learning; single-event rules use regex</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>1</single>
+  </question>
+
+</quiz>

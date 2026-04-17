@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="shortanswer">
+    <name><text>Practice Q1: Splunk brute force query</text></name>
+    <questiontext format="html">
+      <text><![CDATA[Write a Splunk SPL query to count the number of failed SSH login attempts grouped by source IP address. Use index=main and sourcetype=linux_secure.]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>index=main sourcetype=linux_secure "Failed password" | rex "from (?&lt;src_ip&gt;\d+\.\d+\.\d+\.\d+)" | stats count by src_ip</text>
+    </answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>Practice Q2: Alert triage stages</text></name>
+    <questiontext format="html">
+      <text><![CDATA[List the four main stages of alert triage in order (one per line).]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Alert generated, Classification, Investigation, Action</text>
+    </answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>Practice Q3: Response to C2 DNS alert</text></name>
+    <questiontext format="html">
+      <text><![CDATA[During the lab, an alert showed "DNS query to known malware C2 domain." What is the most critical immediate action a Tier 1 analyst should take?]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Escalate to Tier 2 and recommend isolating the affected machine</text>
+    </answer>
+    <answer fraction="100">
+      <text>Isolate the affected machine and escalate</text>
+    </answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>Practice Q4: Three SOC KPIs</text></name>
+    <questiontext format="html">
+      <text><![CDATA[Name three KPIs used to measure SOC performance (acronyms acceptable).]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>MTTD, MTTR, False Positive Rate</text>
+    </answer>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>Practice Q5: SOAR vs SIEM difference</text></name>
+    <questiontext format="html">
+      <text><![CDATA[In one sentence, what is the key difference between a SIEM and a SOAR platform?]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>SIEM collects and correlates logs to detect and alert, while SOAR automates response workflows and orchestrates actions across tools.</text>
+    </answer>
+  </question>
+
+  <question type="essay">
+    <name><text>Practice Q6: Alert triage scenario - account compromise</text></name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>You are a Tier 1 analyst and receive the following alert:</p>
+        <blockquote>
+          <em>User jsmith attempted to log in from IP 203.0.113.100 (geolocation: North Korea) at 03:15 AM.
+          15 failed attempts followed by 1 successful login. The user then accessed the HR database and downloaded 3,000 records.</em>
+        </blockquote>
+        <p>Describe your complete triage process, including: your classification, severity assessment,
+        actions taken, and what information you would include in your escalation to Tier 2. (150-250 words)</p>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>15</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p>Award full marks for answers that include:</p>
+        <ul>
+          <li>True Positive / Critical severity classification</li>
+          <li>Context check (North Korea IP, 3AM, HR database)</li>
+          <li>Immediate containment: disable jsmith account, block IP</li>
+          <li>Preserve evidence: HR access logs</li>
+          <li>Escalation details: timeline, IP, data accessed, MITRE techniques</li>
+          <li>Recognition this is a potential data breach</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name><text>Practice Q7: Alert fatigue - causes, consequences, mitigation</text></name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>Explain the concept of "alert fatigue" in a SOC environment. What causes it, what are its consequences,
+        and what strategies can a SOC implement to mitigate it?
+        Provide at least 3 specific mitigation strategies with justification. (200-300 words)</p>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>20</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p>Award full marks for answers that include:</p>
+        <ul>
+          <li>Clear definition of alert fatigue</li>
+          <li>Causes: high volume, high false positive rate, poor tuning</li>
+          <li>Consequences: missed threats, analyst burnout, slower response</li>
+          <li>At least 3 mitigation strategies with reasoning (e.g., rule tuning, SOAR automation, alert prioritization)</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+</quiz>

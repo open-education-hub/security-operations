@@ -1,0 +1,32 @@
+# Elasticsearch configuration for SOC Project 01
+# WARNING: Security is disabled — for lab/educational use only
+
+cluster.name: soc-lab
+node.name: soc-node-01
+
+# Single-node discovery
+discovery.type: single-node
+
+# Network
+network.host: 0.0.0.0
+http.port: 9200
+
+# Disable security for lab environment
+xpack.security.enabled: false
+xpack.security.http.ssl.enabled: false
+xpack.security.transport.ssl.enabled: false
+
+# Disable monitoring collection overhead
+xpack.monitoring.collection.enabled: false
+
+# Data path (uses Docker volume)
+path.data: /usr/share/elasticsearch/data
+path.logs: /usr/share/elasticsearch/logs
+
+# JVM heap — keep small for lab (overridden via ES_JAVA_OPTS env var)
+# Set ES_JAVA_OPTS="-Xms512m -Xmx512m" in docker-compose.yml
+
+# Allow cross-origin requests from Kibana
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+http.cors.allow-headers: "Authorization, X-Requested-With, Content-Type, Content-Length"

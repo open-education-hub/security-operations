@@ -1,0 +1,7 @@
+services:
+  edr-demo:
+    build: .
+    container_name: edr-concepts-demo
+    volumes:
+      - ./sample_events.jsonl:/app/sample_events.jsonl:ro
+    command: python3 edr_analyzer.py --mode timeline

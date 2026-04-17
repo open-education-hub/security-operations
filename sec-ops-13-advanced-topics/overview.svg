@@ -1,0 +1,225 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <style>
+      text { font-family: 'Segoe UI', Arial, sans-serif; }
+      .title { font-size: 22px; font-weight: bold; fill: #e6edf3; }
+      .subtitle { font-size: 13px; fill: #8b949e; }
+      .box-title { font-size: 13px; font-weight: bold; fill: #e6edf3; }
+      .box-text { font-size: 11px; fill: #c9d1d9; }
+      .label { font-size: 11px; fill: #8b949e; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6e7681"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#0d1117"/>
+
+  <!-- Title -->
+  <text x="600" y="38" class="title" text-anchor="middle">Session 13: Advanced Topics in Cybersecurity</text>
+  <text x="600" y="58" class="subtitle" text-anchor="middle">Cloud Security · Zero Trust · Threat Intel · Purple Teaming · AI · Regulations</text>
+
+  <!-- ====== TOP-LEFT: Cloud Security ====== -->
+  <rect x="30" y="75" width="350" height="155" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="205" y="97" class="box-title" text-anchor="middle" fill="#58a6ff">Cloud Security</text>
+  <!-- Shared responsibility -->
+  <rect x="45" y="105" width="148" height="112" rx="5" fill="#0d1f3c" stroke="#388bfd" stroke-width="1"/>
+  <text x="119" y="121" class="box-text" text-anchor="middle" font-weight="bold" fill="#79c0ff">Shared Responsibility</text>
+  <text x="55" y="137" class="box-text" fill="#8b949e">IaaS: OS/Apps by customer</text>
+  <text x="55" y="151" class="box-text" fill="#8b949e">PaaS: Data/Identity</text>
+  <text x="55" y="165" class="box-text" fill="#8b949e">SaaS: Data/Access only</text>
+  <text x="55" y="179" class="box-text" fill="#8b949e">Logging: CloudTrail/Azure</text>
+  <text x="55" y="193" class="box-text" fill="#8b949e">Activity Log/GCP Audit</text>
+  <!-- Cloud threats -->
+  <rect x="203" y="105" width="163" height="112" rx="5" fill="#1a0d0d" stroke="#ff7b72" stroke-width="1"/>
+  <text x="285" y="121" class="box-text" text-anchor="middle" font-weight="bold" fill="#ff7b72">Cloud Threats</text>
+  <text x="213" y="137" class="box-text" fill="#8b949e">Misconfigured storage</text>
+  <text x="213" y="151" class="box-text" fill="#8b949e">Overprivileged IAM</text>
+  <text x="213" y="165" class="box-text" fill="#8b949e">Exposed cloud console</text>
+  <text x="213" y="179" class="box-text" fill="#8b949e">Lateral movement via roles</text>
+  <text x="213" y="193" class="box-text" fill="#8b949e">Shadow IT</text>
+
+  <!-- ====== TOP-CENTER: Zero Trust ====== -->
+  <rect x="395" y="75" width="380" height="155" rx="8" fill="#161b22" stroke="#d2a8ff" stroke-width="1.5"/>
+  <text x="585" y="97" class="box-title" text-anchor="middle" fill="#d2a8ff">Zero Trust Architecture</text>
+  <!-- Pillars -->
+  <rect x="410" y="105" width="165" height="112" rx="5" fill="#1a1a2e" stroke="#d2a8ff" stroke-width="1"/>
+  <text x="492" y="121" class="box-text" text-anchor="middle" font-weight="bold" fill="#d2a8ff">Core Pillars</text>
+  <text x="420" y="137" class="box-text" fill="#8b949e">Never trust, always verify</text>
+  <text x="420" y="151" class="box-text" fill="#8b949e">Least-privilege access</text>
+  <text x="420" y="165" class="box-text" fill="#8b949e">Micro-segmentation</text>
+  <text x="420" y="179" class="box-text" fill="#8b949e">Continuous validation</text>
+  <text x="420" y="193" class="box-text" fill="#8b949e">Identity is the perimeter</text>
+  <!-- Controls -->
+  <rect x="585" y="105" width="175" height="112" rx="5" fill="#1a1a2e" stroke="#a371f7" stroke-width="1"/>
+  <text x="672" y="121" class="box-text" text-anchor="middle" font-weight="bold" fill="#a371f7">Key Controls</text>
+  <text x="595" y="137" class="box-text" fill="#8b949e">MFA everywhere</text>
+  <text x="595" y="151" class="box-text" fill="#8b949e">ZTNA / BeyondCorp</text>
+  <text x="595" y="165" class="box-text" fill="#8b949e">Identity-aware proxy</text>
+  <text x="595" y="179" class="box-text" fill="#8b949e">Device health checks</text>
+  <text x="595" y="193" class="box-text" fill="#8b949e">Encrypted all-links</text>
+
+  <!-- ====== TOP-RIGHT: Threat Intelligence ====== -->
+  <rect x="790" y="75" width="380" height="155" rx="8" fill="#161b22" stroke="#e3b341" stroke-width="1.5"/>
+  <text x="980" y="97" class="box-title" text-anchor="middle" fill="#e3b341">Threat Intelligence (STIX/TAXII)</text>
+  <rect x="805" y="105" width="165" height="112" rx="5" fill="#1c1c0e" stroke="#e3b341" stroke-width="1"/>
+  <text x="887" y="121" class="box-text" text-anchor="middle" font-weight="bold" fill="#e3b341">STIX Objects</text>
+  <text x="815" y="137" class="box-text" fill="#8b949e">Indicator (IP, hash, domain)</text>
+  <text x="815" y="151" class="box-text" fill="#8b949e">Threat Actor</text>
+  <text x="815" y="165" class="box-text" fill="#8b949e">Campaign / Attack Pattern</text>
+  <text x="815" y="179" class="box-text" fill="#8b949e">Course of Action</text>
+  <text x="815" y="193" class="box-text" fill="#8b949e">Malware / Tool</text>
+  <rect x="980" y="105" width="175" height="112" rx="5" fill="#1c1c0e" stroke="#ffa657" stroke-width="1"/>
+  <text x="1067" y="121" class="box-text" text-anchor="middle" font-weight="bold" fill="#ffa657">TAXII &amp; Feeds</text>
+  <text x="990" y="137" class="box-text" fill="#8b949e">TAXII Server/Client</text>
+  <text x="990" y="151" class="box-text" fill="#8b949e">Collection / Channel</text>
+  <text x="990" y="165" class="box-text" fill="#8b949e">MISP, OpenCTI</text>
+  <text x="990" y="179" class="box-text" fill="#8b949e">ISAC feeds (FS-ISAC, H-ISAC)</text>
+  <text x="990" y="193" class="box-text" fill="#8b949e">AlienVault OTX, VirusTotal</text>
+
+  <!-- ====== MIDDLE ROW: Purple Teaming | AI in SOC | SOC Maturity ====== -->
+  <!-- Purple Teaming -->
+  <rect x="30" y="248" width="350" height="150" rx="8" fill="#161b22" stroke="#ff7b72" stroke-width="1.5"/>
+  <text x="205" y="270" class="box-title" text-anchor="middle" fill="#ff7b72">Purple Teaming</text>
+  <rect x="45" y="278" width="148" height="106" rx="5" fill="#1a0d0d" stroke="#ff7b72" stroke-width="1"/>
+  <text x="119" y="294" class="box-text" text-anchor="middle" font-weight="bold" fill="#ff7b72">Red Team</text>
+  <text x="55" y="310" class="box-text" fill="#8b949e">Adversary simulation</text>
+  <text x="55" y="324" class="box-text" fill="#8b949e">ATT&amp;CK technique use</text>
+  <text x="55" y="338" class="box-text" fill="#8b949e">Assume-breach testing</text>
+  <text x="55" y="352" class="box-text" fill="#8b949e">C2 infrastructure</text>
+  <text x="55" y="366" class="box-text" fill="#8b949e">Lateral movement drills</text>
+  <rect x="203" y="278" width="163" height="106" rx="5" fill="#0d2d1a" stroke="#56d364" stroke-width="1"/>
+  <text x="285" y="294" class="box-text" text-anchor="middle" font-weight="bold" fill="#56d364">Blue Team</text>
+  <text x="213" y="310" class="box-text" fill="#8b949e">Detection coverage map</text>
+  <text x="213" y="324" class="box-text" fill="#8b949e">Alert tuning + triage</text>
+  <text x="213" y="338" class="box-text" fill="#8b949e">Playbook improvement</text>
+  <text x="213" y="352" class="box-text" fill="#8b949e">SOC visibility gaps</text>
+  <text x="213" y="366" class="box-text" fill="#8b949e">SIEM rule updates</text>
+
+  <!-- AI in SOC -->
+  <rect x="395" y="248" width="380" height="150" rx="8" fill="#161b22" stroke="#56d364" stroke-width="1.5"/>
+  <text x="585" y="270" class="box-title" text-anchor="middle" fill="#56d364">Security Automation &amp; AI in SOC</text>
+  <rect x="410" y="278" width="165" height="106" rx="5" fill="#0d2d1a" stroke="#3fb950" stroke-width="1"/>
+  <text x="492" y="294" class="box-text" text-anchor="middle" font-weight="bold" fill="#3fb950">SOAR Capabilities</text>
+  <text x="420" y="310" class="box-text" fill="#8b949e">Automated playbooks</text>
+  <text x="420" y="324" class="box-text" fill="#8b949e">Alert triage / enrichment</text>
+  <text x="420" y="338" class="box-text" fill="#8b949e">IP/domain lookup</text>
+  <text x="420" y="352" class="box-text" fill="#8b949e">Ticket creation auto</text>
+  <text x="420" y="366" class="box-text" fill="#8b949e">MTTR reduction</text>
+  <rect x="585" y="278" width="175" height="106" rx="5" fill="#0d2d1a" stroke="#39d353" stroke-width="1"/>
+  <text x="672" y="294" class="box-text" text-anchor="middle" font-weight="bold" fill="#39d353">AI / ML Use Cases</text>
+  <text x="595" y="310" class="box-text" fill="#8b949e">Anomaly detection (UEBA)</text>
+  <text x="595" y="324" class="box-text" fill="#8b949e">NLP for log parsing</text>
+  <text x="595" y="338" class="box-text" fill="#8b949e">LLM-assisted triage</text>
+  <text x="595" y="352" class="box-text" fill="#8b949e">Threat: AI-gen phishing</text>
+  <text x="595" y="366" class="box-text" fill="#8b949e">Deepfake voice attacks</text>
+
+  <!-- SOC Maturity & Metrics -->
+  <rect x="790" y="248" width="380" height="150" rx="8" fill="#161b22" stroke="#a371f7" stroke-width="1.5"/>
+  <text x="980" y="270" class="box-title" text-anchor="middle" fill="#a371f7">SOC Maturity &amp; Metrics</text>
+  <rect x="805" y="278" width="165" height="106" rx="5" fill="#1a1a2e" stroke="#d2a8ff" stroke-width="1"/>
+  <text x="887" y="294" class="box-text" text-anchor="middle" font-weight="bold" fill="#d2a8ff">Maturity Levels</text>
+  <text x="815" y="310" class="box-text" fill="#8b949e">L1: Initial / reactive</text>
+  <text x="815" y="324" class="box-text" fill="#8b949e">L2: Defined processes</text>
+  <text x="815" y="338" class="box-text" fill="#8b949e">L3: Proactive hunting</text>
+  <text x="815" y="352" class="box-text" fill="#8b949e">L4: Threat intel-driven</text>
+  <text x="815" y="366" class="box-text" fill="#8b949e">L5: Continuous learning</text>
+  <rect x="980" y="278" width="175" height="106" rx="5" fill="#1a1a2e" stroke="#a371f7" stroke-width="1"/>
+  <text x="1067" y="294" class="box-text" text-anchor="middle" font-weight="bold" fill="#a371f7">Key KPIs</text>
+  <text x="990" y="310" class="box-text" fill="#8b949e">MTTD / MTTR / MTTC</text>
+  <text x="990" y="324" class="box-text" fill="#8b949e">False positive rate</text>
+  <text x="990" y="338" class="box-text" fill="#8b949e">Alert volume trend</text>
+  <text x="990" y="352" class="box-text" fill="#8b949e">Detection coverage %</text>
+  <text x="990" y="366" class="box-text" fill="#8b949e">Playbook exec rate</text>
+
+  <!-- ====== LOWER ROW: Regulations | Supply Chain | Deception ====== -->
+  <!-- EU Regulations -->
+  <rect x="30" y="415" width="560" height="135" rx="8" fill="#161b22" stroke="#ffa657" stroke-width="1.5"/>
+  <text x="310" y="436" class="box-title" text-anchor="middle" fill="#ffa657">European Regulatory Landscape</text>
+  <rect x="45" y="445" width="160" height="90" rx="5" fill="#2d1500" stroke="#ffa657" stroke-width="1"/>
+  <text x="125" y="461" class="box-text" text-anchor="middle" font-weight="bold" fill="#ffa657">NIS2 Directive</text>
+  <text x="55" y="477" class="box-text" fill="#8b949e">Essential/important entities</text>
+  <text x="55" y="491" class="box-text" fill="#8b949e">24h incident notification</text>
+  <text x="55" y="505" class="box-text" fill="#8b949e">Supply chain security</text>
+  <text x="55" y="519" class="box-text" fill="#8b949e">Management liability</text>
+  <rect x="215" y="445" width="160" height="90" rx="5" fill="#1c1c0e" stroke="#e3b341" stroke-width="1"/>
+  <text x="295" y="461" class="box-text" text-anchor="middle" font-weight="bold" fill="#e3b341">DORA</text>
+  <text x="225" y="477" class="box-text" fill="#8b949e">Financial sector focus</text>
+  <text x="225" y="491" class="box-text" fill="#8b949e">ICT risk management</text>
+  <text x="225" y="505" class="box-text" fill="#8b949e">Threat-led pen testing</text>
+  <text x="225" y="519" class="box-text" fill="#8b949e">3rd-party ICT oversight</text>
+  <rect x="385" y="445" width="190" height="90" rx="5" fill="#0d1f3c" stroke="#58a6ff" stroke-width="1"/>
+  <text x="480" y="461" class="box-text" text-anchor="middle" font-weight="bold" fill="#79c0ff">Cyber Resilience Act</text>
+  <text x="395" y="477" class="box-text" fill="#8b949e">Products with digital elements</text>
+  <text x="395" y="491" class="box-text" fill="#8b949e">Security-by-design mandate</text>
+  <text x="395" y="505" class="box-text" fill="#8b949e">Vuln disclosure obligations</text>
+  <text x="395" y="519" class="box-text" fill="#8b949e">CE marking for IoT/software</text>
+
+  <!-- Supply Chain + Deception -->
+  <rect x="605" y="415" width="565" height="135" rx="8" fill="#161b22" stroke="#39d353" stroke-width="1.5"/>
+  <text x="887" y="436" class="box-title" text-anchor="middle" fill="#39d353">Supply Chain &amp; Deception Technologies</text>
+  <rect x="620" y="445" width="250" height="90" rx="5" fill="#0d2d1a" stroke="#3fb950" stroke-width="1"/>
+  <text x="745" y="461" class="box-text" text-anchor="middle" font-weight="bold" fill="#3fb950">Supply Chain Security</text>
+  <text x="630" y="477" class="box-text" fill="#8b949e">SolarWinds / 3CX attacks</text>
+  <text x="630" y="491" class="box-text" fill="#8b949e">SBOM: Software Bill of Materials</text>
+  <text x="630" y="505" class="box-text" fill="#8b949e">Vendor risk assessment</text>
+  <text x="630" y="519" class="box-text" fill="#8b949e">Code signing + integrity checks</text>
+  <rect x="880" y="445" width="275" height="90" rx="5" fill="#0d2d1a" stroke="#39d353" stroke-width="1"/>
+  <text x="1017" y="461" class="box-text" text-anchor="middle" font-weight="bold" fill="#39d353">Deception &amp; Honeypots</text>
+  <text x="890" y="477" class="box-text" fill="#8b949e">Honeypot / Honeynet</text>
+  <text x="890" y="491" class="box-text" fill="#8b949e">Honey tokens (fake creds)</text>
+  <text x="890" y="505" class="box-text" fill="#8b949e">Canary files / DNS canaries</text>
+  <text x="890" y="519" class="box-text" fill="#8b949e">Deception fabric platforms</text>
+
+  <!-- ====== BOTTOM: Privacy / GDPR | Emerging Threats | Career ====== -->
+  <rect x="30" y="567" width="380" height="210" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="220" y="588" class="box-title" text-anchor="middle" fill="#58a6ff">Privacy by Design &amp; GDPR</text>
+  <rect x="45" y="596" width="352" height="65" rx="5" fill="#0d1f3c" stroke="#388bfd" stroke-width="1"/>
+  <text x="221" y="612" class="box-text" text-anchor="middle" font-weight="bold" fill="#79c0ff">7 Principles (Privacy by Design)</text>
+  <text x="55" y="628" class="box-text" fill="#8b949e">Proactive · Privacy as default · Privacy embedded</text>
+  <text x="55" y="642" class="box-text" fill="#8b949e">Full functionality · E2E security · Visibility · User-centric</text>
+  <text x="55" y="656" class="box-text" fill="#8b949e">Data minimisation · Pseudonymisation · Right to erasure</text>
+  <rect x="45" y="671" width="165" height="92" rx="5" fill="#0d1f3c" stroke="#388bfd" stroke-width="1"/>
+  <text x="127" y="687" class="box-text" text-anchor="middle" font-weight="bold" fill="#79c0ff">GDPR Obligations</text>
+  <text x="55" y="703" class="box-text" fill="#8b949e">72h breach notification</text>
+  <text x="55" y="717" class="box-text" fill="#8b949e">DPA / CISO alignment</text>
+  <text x="55" y="731" class="box-text" fill="#8b949e">DPIA for high-risk</text>
+  <text x="55" y="745" class="box-text" fill="#8b949e">Lawful basis for logs</text>
+  <rect x="220" y="671" width="165" height="92" rx="5" fill="#1a1a2e" stroke="#a371f7" stroke-width="1"/>
+  <text x="302" y="687" class="box-text" text-anchor="middle" font-weight="bold" fill="#d2a8ff">SOC-GDPR Tension</text>
+  <text x="230" y="703" class="box-text" fill="#8b949e">Log retention limits</text>
+  <text x="230" y="717" class="box-text" fill="#8b949e">User behaviour monitoring</text>
+  <text x="230" y="731" class="box-text" fill="#8b949e">Consent for DLP tools</text>
+  <text x="230" y="745" class="box-text" fill="#8b949e">Anonymise in testing</text>
+
+  <!-- Emerging Threats -->
+  <rect x="425" y="567" width="370" height="210" rx="8" fill="#161b22" stroke="#ff7b72" stroke-width="1.5"/>
+  <text x="610" y="588" class="box-title" text-anchor="middle" fill="#ff7b72">Emerging Threats</text>
+  <rect x="440" y="596" width="340" height="60" rx="5" fill="#1a0d0d" stroke="#ff7b72" stroke-width="1"/>
+  <text x="610" y="612" class="box-text" text-anchor="middle" font-weight="bold" fill="#ff7b72">AI-Powered Attacks</text>
+  <text x="450" y="628" class="box-text" fill="#8b949e">LLM-generated phishing (personalised, grammar-perfect)</text>
+  <text x="450" y="642" class="box-text" fill="#8b949e">Deepfake voice/video for CEO fraud · AI-assisted fuzzing</text>
+  <rect x="440" y="665" width="340" height="60" rx="5" fill="#1a0a1a" stroke="#d2a8ff" stroke-width="1"/>
+  <text x="610" y="681" class="box-text" text-anchor="middle" font-weight="bold" fill="#d2a8ff">Quantum Computing Risks</text>
+  <text x="450" y="697" class="box-text" fill="#8b949e">Shor's algorithm breaks RSA/ECC</text>
+  <text x="450" y="711" class="box-text" fill="#8b949e">Harvest now, decrypt later (HNDL)</text>
+  <rect x="440" y="733" width="340" height="38" rx="5" fill="#0d2d1a" stroke="#3fb950" stroke-width="1"/>
+  <text x="610" y="749" class="box-text" text-anchor="middle" font-weight="bold" fill="#3fb950">Post-Quantum Cryptography (NIST)</text>
+  <text x="450" y="763" class="box-text" fill="#8b949e">ML-KEM (Kyber) · ML-DSA (Dilithium) · SPHINCS+</text>
+
+  <!-- Career -->
+  <rect x="810" y="567" width="360" height="210" rx="8" fill="#161b22" stroke="#e3b341" stroke-width="1.5"/>
+  <text x="990" y="588" class="box-title" text-anchor="middle" fill="#e3b341">Career Development</text>
+  <rect x="825" y="596" width="330" height="58" rx="5" fill="#1c1c0e" stroke="#e3b341" stroke-width="1"/>
+  <text x="990" y="612" class="box-text" text-anchor="middle" font-weight="bold" fill="#e3b341">Certifications</text>
+  <text x="835" y="628" class="box-text" fill="#8b949e">Entry: CompTIA Security+, CC (ISC2)</text>
+  <text x="835" y="642" class="box-text" fill="#8b949e">Mid: CEH, GCIA, CySA+ · Senior: CISSP, CISM</text>
+  <rect x="825" y="663" width="330" height="57" rx="5" fill="#1c1c0e" stroke="#ffa657" stroke-width="1"/>
+  <text x="990" y="679" class="box-text" text-anchor="middle" font-weight="bold" fill="#ffa657">SOC Role Progression</text>
+  <text x="835" y="695" class="box-text" fill="#8b949e">L1 Analyst → L2 Investigator → L3 Expert</text>
+  <text x="835" y="709" class="box-text" fill="#8b949e">Threat Hunter / Incident Responder / SOC Lead</text>
+  <rect x="825" y="729" width="330" height="43" rx="5" fill="#0d2d1a" stroke="#56d364" stroke-width="1"/>
+  <text x="990" y="745" class="box-text" text-anchor="middle" font-weight="bold" fill="#56d364">Security Culture</text>
+  <text x="835" y="761" class="box-text" fill="#8b949e">Phishing simulations · Security champions · Blameless PMs</text>
+</svg>

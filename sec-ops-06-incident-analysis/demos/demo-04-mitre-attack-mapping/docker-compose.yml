@@ -1,0 +1,18 @@
+services:
+  attack:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: demo04-attack
+    volumes:
+      - ./data:/data:ro
+      - output-data:/output
+    networks:
+      - demo04-net
+
+networks:
+  demo04-net:
+    driver: bridge
+
+volumes:
+  output-data:

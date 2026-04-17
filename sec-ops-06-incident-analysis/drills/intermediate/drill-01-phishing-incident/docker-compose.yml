@@ -1,0 +1,51 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: drill01-es
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=changeme
+      - xpack.security.enabled=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9201:9200"
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "-u", "elastic:changeme", "http://localhost:9200/_cluster/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    networks:
+      - drill01-net
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: drill01-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=changeme
+    ports:
+      - "5601:5601"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - drill01-net
+
+  loader:
+    build:
+      context: ./scenario
+    container_name: drill01-loader
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    environment:
+      - ES_HOST=http://elasticsearch:9200
+      - ES_USER=elastic
+      - ES_PASS=changeme
+    networks:
+      - drill01-net
+
+networks:
+  drill01-net:
+    driver: bridge

@@ -1,0 +1,13 @@
+
+services:
+  log-analysis:
+    build: .
+    container_name: log-analysis-guide
+    cap_add:
+      - AUDIT_WRITE
+      - AUDIT_CONTROL
+    volumes:
+      - ./scripts:/scripts
+      - ./samples:/var/log/samples
+    stdin_open: true
+    tty: true

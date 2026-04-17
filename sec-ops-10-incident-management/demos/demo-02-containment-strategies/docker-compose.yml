@@ -1,0 +1,21 @@
+
+services:
+  compromised-host:
+    image: ubuntu:22.04
+    container_name: compromised-host
+    command: ["sleep", "infinity"]
+    volumes:
+      - ./evidence-scripts:/evidence
+
+  firewall:
+    image: ubuntu:22.04
+    container_name: firewall
+    command: ["sleep", "infinity"]
+    cap_add:
+      - NET_ADMIN
+
+  mock-edr:
+    build: ./mock-edr
+    container_name: mock-edr
+    ports:
+      - "8080:8080"

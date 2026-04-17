@@ -1,0 +1,103 @@
+FROM ubuntu:22.04
+
+LABEL maintainer="digital4security"
+LABEL description="Advanced Drill 01 - Linux Hardening Audit (intentionally misconfigured)"
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    openssh-server \
+    sudo \
+    libpam-pwquality \
+    passwd \
+    procps \
+    net-tools \
+    iproute2 \
+    python3 \
+    findutils \
+    && rm -rf /var/lib/apt/lists/*
+
+# ── Intentional misconfigurations for auditing ───────────────────────────────
+
+# 1. Dangerous sysctl settings (ASLR disabled, IP forwarding on, no syncookies)
+RUN cat > /etc/sysctl.d/99-audit-target.conf << 'EOF'
+# INTENTIONALLY MISCONFIGURED FOR DRILL
+kernel.randomize_va_space = 0
+net.ipv4.ip_forward = 1
+net.ipv4.conf.all.accept_redirects = 1
+net.ipv4.conf.all.send_redirects = 1
+net.ipv4.tcp_syncookies = 0
+net.ipv4.conf.all.log_martians = 0
+net.ipv4.conf.all.rp_filter = 0
+EOF
+
+# 2. Weak SSH configuration
+RUN mkdir -p /etc/ssh && cat > /etc/ssh/sshd_config << 'EOF'
+Port 22
+Protocol 2
+HostKey /etc/ssh/ssh_host_rsa_key
+PermitRootLogin yes
+PasswordAuthentication yes
+PermitEmptyPasswords no
+MaxAuthTries 6
+X11Forwarding yes
+AllowTcpForwarding yes
+ClientAliveInterval 0
+LoginGraceTime 120
+UsePAM yes
+EOF
+
+# 3. Weak PAM password policy (no complexity requirements)
+RUN sed -i 's/password.*pam_pwquality.*/password requisite pam_pwquality.so retry=3 minlen=6/' \
+    /etc/pam.d/common-password 2>/dev/null || true
+
+# 4. Weak /etc/login.defs
+RUN sed -i 's/^PASS_MAX_DAYS.*/PASS_MAX_DAYS   9999/' /etc/login.defs && \
+    sed -i 's/^PASS_MIN_DAYS.*/PASS_MIN_DAYS   0/' /etc/login.defs && \
+    sed -i 's/^PASS_WARN_AGE.*/PASS_WARN_AGE   0/' /etc/login.defs
+
+# 5. Service accounts with interactive shells
+RUN useradd -m -s /bin/bash postgres 2>/dev/null || true && \
+    useradd -m -s /bin/bash www-data-svc 2>/dev/null || true
+
+# 6. World-writable file in production directory
+RUN mkdir -p /opt/app && \
+    echo "#!/bin/bash" > /opt/app/deploy.sh && \
+    chmod 777 /opt/app/deploy.sh && \
+    touch /opt/app/config.db && chmod 666 /opt/app/config.db
+
+# 7. SUID python3
+RUN chmod u+s /usr/bin/python3 2>/dev/null || true
+
+# 8. /tmp not isolated (no separate mount — just flag the fstab)
+RUN cat > /etc/fstab << 'EOF'
+# /etc/fstab - MISCONFIGURED: /tmp not hardened
+proc           /proc           proc    defaults                    0 0
+/dev/sda1      /               ext4    errors=remount-ro           0 1
+# Missing: /tmp with noexec,nosuid,nodev
+# Missing: /home with nodev
+EOF
+
+# 9. Simulated PostgreSQL config (simplified)
+RUN mkdir -p /etc/postgresql/15/main && \
+    cat > /etc/postgresql/15/main/postgresql.conf << 'EOF'
+listen_addresses = '*'
+port = 5432
+ssl = off
+log_connections = off
+log_disconnections = off
+password_encryption = md5
+log_min_duration_statement = -1
+EOF
+
+RUN cat > /etc/postgresql/15/main/pg_hba.conf << 'EOF'
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+local   all             all                                     trust
+host    all             all             0.0.0.0/0               md5
+host    all             all             ::/0                    md5
+EOF
+
+# 10. Audit helper script
+COPY scripts/ /audit/scripts/
+
+CMD ["/bin/bash"]

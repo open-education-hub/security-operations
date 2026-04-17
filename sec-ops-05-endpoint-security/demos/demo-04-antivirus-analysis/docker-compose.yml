@@ -1,0 +1,5 @@
+services:
+  clamav-demo:
+    build: .
+    container_name: clamav-demo
+    command: bash /app/run_demo.sh

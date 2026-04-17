@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="shortanswer">
+    <name><text>VERIS Practice Quiz Q1 - Confidence Field</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What is the purpose of the VERIS <code>confidence</code> field, and what are its four possible values?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>The confidence field indicates how certain the analyst is about the accuracy of the VERIS record. Possible values are: None, Low, Medium, High.</text>
+      <feedback><text>Correct! Confidence is a top-level field that signals the reliability of the entire record.</text></feedback>
+    </answer>
+    <usecase>0</usecase>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>VERIS Practice Quiz Q2 - Internal vs Partner Actor</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Explain the difference between the VERIS actor types "Internal" and "Partner." Give one example of each.</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Internal actors belong to the victim organization (employees, admins). Partner actors are from third-party organizations with a business relationship (vendors, IT providers). Example internal: malicious employee. Example partner: IT contractor who misconfigures a system.</text>
+      <feedback><text>Correct! The key distinction is organizational membership and the nature of the access relationship.</text></feedback>
+    </answer>
+    <usecase>0</usecase>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>VERIS Practice Quiz Q3 - Ransomware Attributes</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A ransomware attack encrypts all files on a company's servers. No data exfiltration was confirmed. Which VERIS CIA attributes apply and why?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Availability (Extortion, Interruption) because files are encrypted and inaccessible. Integrity (Install code) because malware was installed. Confidentiality should NOT be added since no data exfiltration was confirmed.</text>
+      <feedback><text>Correct! Only confirmed impacts should be recorded. Availability and Integrity apply; Confidentiality does not without evidence of data disclosure.</text></feedback>
+    </answer>
+    <usecase>0</usecase>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>VERIS Practice Quiz Q4 - DBIR and n= Notation</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What is the DBIR, and what is meant by the term "n =" in the context of DBIR findings?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>The DBIR (Data Breach Investigations Report) is Verizon's annual statistical analysis of security incidents using VERIS data. n= indicates the number of incidents in the sample for a specific finding — larger n means more reliable results.</text>
+      <feedback><text>Correct! Sample size is critical context for interpreting DBIR statistics.</text></feedback>
+    </answer>
+    <usecase>0</usecase>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>VERIS Practice Quiz Q5 - Asset Type Prefixes</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Name four VERIS asset type prefixes and give one example of a specific variety for each.</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>S (Server): S-Database. U (User Device): U-Laptop. N (Network): N-Firewall. M (Media): M-Flash drive. (Also acceptable: P-Person, T-Terminal)</text>
+      <feedback><text>Correct! VERIS uses single-letter prefixes to categorize asset types in the schema.</text></feedback>
+    </answer>
+    <usecase>0</usecase>
+  </question>
+
+  <question type="shortanswer">
+    <name><text>VERIS Practice Quiz Q6 - Hacking vs Malware</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What is the difference between VERIS <code>action.hacking</code> and <code>action.malware</code>? Give a scenario where both would apply to the same incident.</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Hacking is using technical techniques to gain unauthorized access (exploiting vulnerabilities, stolen credentials). Malware is malicious software installed on systems (ransomware, keyloggers, backdoors). Both apply when an attacker exploits a vulnerability to gain access (Hacking) and then installs a backdoor for persistence (Malware).</text>
+      <feedback><text>Correct! Hacking and Malware are distinct action categories that often appear together in multi-stage attacks.</text></feedback>
+    </answer>
+    <usecase>0</usecase>
+  </question>
+
+  <question type="essay">
+    <name><text>VERIS Practice Quiz Q7 - Full Incident Coding</text></name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>Describe the full VERIS coding for the following incident. Provide the Actor, Action, Asset, and Attribute sections as JSON and explain your classification decisions.</p>
+        <p><strong>Scenario:</strong> A healthcare company's IT manager used their administrative credentials to access a terminated employee's email account and read private communications. The access was not authorized by HR or legal. The IT manager exported 120 emails before the activity was discovered by an audit two months later. No emails were shared externally.</p>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>20</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p>Full marks for:</p>
+        <ul>
+          <li>Actor: Internal (System admin) — NOT external since the IT manager has organizational access</li>
+          <li>Action: Misuse (Privilege abuse) — NOT hacking since no system was exploited; legitimate access was misused</li>
+          <li>Asset: S-Mail and P-End-user</li>
+          <li>Attribute: Confidentiality (data_disclosure: Yes, variety: Internal, amount: 120)</li>
+          <li>NO availability or integrity impact — files were read but not modified or made unavailable</li>
+          <li>Explanation of why "misuse" vs "hacking" is the correct action type</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name><text>VERIS Practice Quiz Q8 - Third-Party Breach Coding</text></name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>A financial institution's third-party payroll provider suffers a breach. Attackers compromise the provider's systems and steal employee PII (names, social security numbers, salaries) for 3,000 employees.</p>
+        <p>From the financial institution's perspective as the victim, how would the VERIS actor and action be coded, and why? What key insight does this scenario illustrate about VERIS victim perspective?</p>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>15</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p>Full marks for a response that covers:</p>
+        <ul>
+          <li>Actor: External (Unknown or Organized crime depending on available information)</li>
+          <li>Recognition that there may be a secondary Partner actor (the payroll provider whose controls failed)</li>
+          <li>Action: Hacking (if known) or Unknown — documenting based on what the provider reported</li>
+          <li>Attribute: Confidentiality — data_disclosure: Yes, variety: Personal, amount: 3000</li>
+          <li>Key insight: VERIS records the incident from the VICTIM's perspective, not the attacker's perspective</li>
+          <li>Mention of victim.secondary or partner relationship to capture the provider's role</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name><text>VERIS Practice Quiz Q9 - VERIS vs ATT&CK Comparison</text></name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>Compare and contrast VERIS with MITRE ATT&amp;CK. In what situations would you use each framework, and how can they be used together in a SOC environment?</p>
+        <p>Your answer should be approximately 300–400 words.</p>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>25</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p>Full marks for a response that covers:</p>
+        <ul>
+          <li>VERIS purpose: incident recording, retrospective, high-level categories, statistical analysis, VCDB/DBIR</li>
+          <li>ATT&CK purpose: adversary behavior, granular techniques, detection engineering, prospective and retrospective</li>
+          <li>Key differences: granularity, use case, data availability</li>
+          <li>SOC integration: VERIS for incident closure records and trend reporting; ATT&CK for detection rule mapping</li>
+          <li>How VERIS data informs ATT&CK priorities (high-frequency VERIS actions → high-priority ATT&CK detections)</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <question type="essay">
+    <name><text>VERIS Practice Quiz Q10 - VCDB Contribution Considerations</text></name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>Your SOC has been asked to contribute historical incident data to the VCDB (VERIS Community Database). What are three key considerations you must address before submitting, and how does VERIS support each consideration?</p>
+      ]]></text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>20</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p>Full marks for identifying and explaining three of the following considerations:</p>
+        <ul>
+          <li><strong>Data anonymization / victim de-identification:</strong> Remove victim name, use UUID for victim_id, use industry/size fields only. VERIS supports this through optional victim identification fields.</li>
+          <li><strong>Completeness and confidence:</strong> Use "Unknown" for unknown fields, set confidence level appropriately, do not fabricate values. VERIS supports this with the confidence field and Universal Unknown values.</li>
+          <li><strong>Legal review / consent:</strong> Check for NDA, regulatory, or privilege restrictions before sharing. VERIS's minimal PII schema makes legal review easier.</li>
+          <li><strong>Accuracy of classification:</strong> Ensure 4A classifications are correct before submitting. Incorrect data degrades VCDB quality and DBIR reliability.</li>
+          <li><strong>Minimum required fields:</strong> VCDB requires certain fields (schema_version, incident_id, etc.) to be present. VERIS schema defines required vs optional fields.</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+</quiz>

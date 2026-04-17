@@ -1,0 +1,11 @@
+
+services:
+  linux-incident-02:
+    build: .
+    container_name: linux-incident-02
+    hostname: web-prod-03
+    stdin_open: true
+    tty: true
+    environment:
+      - DRILL_NAME=intermediate-drill-02-linux-incident
+      - DRILL_LEVEL=intermediate

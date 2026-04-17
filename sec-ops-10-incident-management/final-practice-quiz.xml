@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 10 Final Practice Quiz: Incident Response and Management</name>
+  <intro>5 short-answer and 2 long-answer questions covering IR frameworks, GDPR notification, forensics, containment decisions, and communication. Compare your answers with the sample answers in the .md version. Total: 100 points.</intro>
+
+  <question type="essay">
+    <name>Q1: SANS PICERL vs NIST 800-61</name>
+    <questiontext format="html">
+      <text>Compare the SANS PICERL and NIST SP 800-61 IR frameworks. What does SANS add that NIST groups together? Which would you recommend and why?</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>8</responsefieldlines>
+    <graderinfo format="html"><text>Full marks: correctly identifies NIST 4-phase structure, SANS 6-phase structure, explains that SANS separates Containment/Eradication and uses Identification vs Detection. Recommendation with justification.</text></graderinfo>
+    <defaultgrade>10</defaultgrade>
+  </question>
+
+  <question type="essay">
+    <name>Q2: GDPR Notification Decision</name>
+    <questiontext format="html">
+      <text>A company's HR files (employee names, salaries, addresses) were encrypted by ransomware AND accessed by the attacker. The CEO asks: "Do we need to tell the Data Protection Authority?" What is your answer and why?</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>8</responsefieldlines>
+    <graderinfo format="html"><text>Full marks: Yes — encryption = availability breach = GDPR Art. 4(12) breach. Access = confidentiality breach. Must notify DPA within 72h. Salary + address data = likely high risk to individuals = also notify individuals. Mention 72h deadline specifically.</text></graderinfo>
+    <defaultgrade>10</defaultgrade>
+  </question>
+
+  <question type="essay">
+    <name>Q3: Volatile Evidence</name>
+    <questiontext format="html">
+      <text>Why must you collect volatile evidence before performing network isolation? Give three specific examples of volatile artifacts that would be lost.</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>8</responsefieldlines>
+    <graderinfo format="html"><text>Full marks: correct explanation (isolation changes system state, network-dependent artifacts lost), 3 specific examples (e.g., active connections/netstat, running processes, ARP table, open network sockets, memory contents with C2 IP).</text></graderinfo>
+    <defaultgrade>10</defaultgrade>
+  </question>
+
+  <question type="essay">
+    <name>Q4: Root Cause Analysis</name>
+    <questiontext format="html">
+      <text>A PIR identifies the root cause as "employee clicked a phishing link." Why is this inadequate? Apply the 5 Whys to find a better root cause.</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>10</responsefieldlines>
+    <graderinfo format="html"><text>Full marks: explains that "user clicked" is a symptom not a systemic cause, applies 5 Whys correctly reaching a systemic/process cause (not an individual cause), generates a systemic action item.</text></graderinfo>
+    <defaultgrade>10</defaultgrade>
+  </question>
+
+  <question type="essay">
+    <name>Q5: Monitor vs Isolate — APT</name>
+    <questiontext format="html">
+      <text>An APT group has been on your network for 3 weeks. A colleague says: "Isolate all affected systems immediately." Why might monitoring be preferable? What are the risks of your approach?</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>8</responsefieldlines>
+    <graderinfo format="html"><text>Full marks: explains that isolation alerts the APT (allows evidence destruction, activation of dormant implants), monitoring enables full scope assessment, risk of monitoring = continued attacker access. Balance of evidence value vs ongoing harm.</text></graderinfo>
+    <defaultgrade>10</defaultgrade>
+  </question>
+
+  <question type="essay">
+    <name>Q6: Insider Threat IR Plan</name>
+    <questiontext format="html">
+      <text>&lt;p&gt;IT engineer (production server access) on 2-week notice is transferring large amounts of files to personal OneDrive. Started 3 days before resignation notice. Prior disciplinary meeting 2 months ago.&lt;/p&gt;
+&lt;ol type="a"&gt;
+&lt;li&gt;(5 pts) Classify the incident and severity.&lt;/li&gt;
+&lt;li&gt;(10 pts) Write a sequenced containment and investigation plan.&lt;/li&gt;
+&lt;li&gt;(5 pts) What legal/HR constraints affect your response?&lt;/li&gt;
+&lt;li&gt;(5 pts) What evidence must be preserved for legal proceedings?&lt;/li&gt;
+&lt;/ol&gt;</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>25</responsefieldlines>
+    <graderinfo format="html"><text>(a) P1/P2 insider data exfiltration, possibly with malicious intent given context. (b) Containment plan: preserve logs first, then monitor (don't alert engineer yet), involve HR/Legal before account disable, coordinate timing with termination. (c) Employment law constraints — cannot terminate without HR, evidence handling must meet employment tribunal standards. (d) Evidence: OneDrive access logs, file transfer logs, authentication logs, DLP logs, email, badge access. All must maintain chain of custody.</text></graderinfo>
+    <defaultgrade>25</defaultgrade>
+  </question>
+
+  <question type="essay">
+    <name>Q7: Ransomware Communication Plan</name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Manufacturing company, 250 employees, B2B, processes supplier PII. Confirmed ransomware, production line affected.&lt;/p&gt;
+&lt;ol type="a"&gt;
+&lt;li&gt;(5 pts) Who must be notified and when?&lt;/li&gt;
+&lt;li&gt;(10 pts) Write CEO executive brief in SBAR format.&lt;/li&gt;
+&lt;li&gt;(5 pts) Write first paragraph of DPA GDPR notification.&lt;/li&gt;
+&lt;li&gt;(5 pts) Draft a brief employee communication.&lt;/li&gt;
+&lt;/ol&gt;</text>
+    </questiontext>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>25</responsefieldlines>
+    <graderinfo format="html"><text>(a) Immediate: IT/SOC team, CISO, legal. Within 24h: insurance, cyber response firm if retainer. Within 72h: DPA (GDPR), affected suppliers if their PII was exfiltrated. (b) SBAR: S=confirmed ransomware, production down; B=detection time, how spread, backup status; A=severity, data at risk, estimated recovery; R=immediate actions, resource needs. (c) DPA letter must include: who you are, what happened, what data, when discovered, how many affected, what actions taken. (d) Employee comms: factual, calm, no speculation, describe what happened briefly, what IT is doing, what employees should do.</text></graderinfo>
+    <defaultgrade>25</defaultgrade>
+  </question>
+
+</quiz>

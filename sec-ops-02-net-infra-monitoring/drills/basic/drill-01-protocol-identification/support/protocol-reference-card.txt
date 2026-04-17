@@ -1,0 +1,269 @@
+DRILL 01 — Protocol Identification Reference Card
+Security Operations — Session 02 (Basic)
+==============================================================================================
+Use this card during the drill to identify protocols from packet headers, log lines,
+and network exchanges. Keep it alongside the drill README.
+==============================================================================================
+
+QUICK PORT LOOKUP
+-----------------
+If you see a destination port, start here:
+
+Port   Proto  Protocol         Key identifying features
+-----  -----  ---------------  ---------------------------------------------------------------
+20/21  TCP    FTP              Banner: "220 ... FTP Server"; USER/PASS in cleartext
+22     TCP    SSH              Banner: "SSH-2.0-OpenSSH_..."; encrypted after handshake
+23     TCP    Telnet           Cleartext interactive session; login:/password: prompts
+25     TCP    SMTP             Banner: "220 mail..."; EHLO / MAIL FROM: / RCPT TO:
+53     UDP    DNS              Binary or decoded query/response; destination always port 53
+67/68  UDP    DHCP             Broadcast (255.255.255.255); DISCOVER/OFFER/REQUEST/ACK
+80     TCP    HTTP             Starts with GET/POST/HTTP/1 in payload (cleartext)
+110    TCP    POP3             "+OK" / "-ERR" responses
+143    TCP    IMAP             "* OK ... IMAP4rev1 ready" greeting
+389    TCP    LDAP             Binary protocol; Active Directory authentication
+443    TCP    HTTPS            TLS handshake (\x16\x03); encrypted; check SNI + certificate
+445    TCP    SMB              Binary; Windows file sharing; targeted by WannaCry
+1433   TCP    MS SQL Server    Database; should NOT be internet-facing
+3306   TCP    MySQL            Database; cleartext if not TLS-wrapped
+3389   TCP    RDP              TLS handshake; "credssp" negotiation for Windows Remote Desktop
+4444   TCP    Metasploit       No official protocol; default Meterpreter reverse shell port
+8080   TCP    HTTP (alt)       Same as HTTP; may indicate proxy, dev server, or C2
+
+If the port is NOT in this list:
+  1. Check the payload first 4-8 bytes (magic bytes — see Guide 02 cheat sheet)
+  2. Check if it could be a high port from an asymmetric C2 or tunnelled service
+
+==============================================================================================
+
+ARP IDENTIFICATION
+------------------
+ARP has no IP header — it is Layer 2 only.
+Giveaways in a packet excerpt:
+  - Destination MAC: ff:ff:ff:ff:ff:ff  (broadcast)
+  - No "Protocol: TCP/UDP/ICMP" line — it is non-IP
+  - Payload hex: 00 01 08 00 06 04  (ARP request opcode + IPv4)
+  - Sender IP and Target IP present; Target MAC = 00:00:00:00:00:00 (unknown)
+
+ARP request:  "Who has <target IP>? Tell <sender IP>"
+ARP reply:    "<target IP> is at <MAC>"
+
+ARP attack indicators:
+  - Same IP, different MACs in two ARP replies
+  - Unsolicited ARP reply (gratuitous ARP) for the gateway
+  - Very high ARP traffic rate (hundreds per second)
+
+==============================================================================================
+
+TCP FLAG COMBINATIONS
+----------------------
+Flags seen → What it means
+
+SYN only                    → New connection attempt (normal) OR port scan probe
+SYN then RST reply          → Destination port is CLOSED
+SYN then no reply           → Port is FILTERED (firewall drops silently)
+SYN-ACK                     → Server accepted connection
+SYN then SYN-ACK then ACK   → Normal 3-way handshake complete
+FIN                         → Sender has finished sending data (graceful close)
+RST                         → Abrupt connection reset (error, block, or attack)
+SYN to many sequential ports → PORT SCAN (SYN scan)
+FIN to port, no prior SYN   → FIN SCAN (stealth)
+No flags (NULL)             → NULL SCAN (stealth; RFC violation)
+URG + PSH + FIN             → XMAS SCAN (all "data" flags on)
+Many SYN, no SYN-ACK back   → SYN FLOOD (DoS attack in progress)
+
+Port scan tell-tale signs:
+  * Source port increments by 1 each packet (12341, 12342, 12343...)
+  * Sequential destination ports (22, 23, 24, 25...)
+  * Many RST replies back to scanner = scanner hitting closed ports
+  * All from one source IP in a short window (<5 seconds for 20+ ports)
+
+==============================================================================================
+
+DNS — WHAT TO LOOK FOR
+-----------------------
+Normal DNS query:
+  - UDP (occasionally TCP for large responses)
+  - Destination port 53
+  - Query type A (address lookup) or AAAA (IPv6 address)
+  - Short, recognisable domain name (www.google.com, windows.com)
+  - Resolver: corporate DNS server (not 8.8.8.8 unless policy says so)
+
+Red flags:
+  - TXT record query with a very long subdomain  → DNS tunnelling / C2
+  - Random-looking subdomain > 30 chars           → DGA malware or DNS tunnelling
+  - Many NXDOMAIN responses per minute            → DGA (malware generating random domains)
+  - Query for internal hostname to external DNS   → topology leak, misconfiguration
+  - MX or PTR queries from a workstation          → malware doing email recon
+
+DNS tunnelling signature:
+  Query name:  <base64-encoded-data>.<c2domain.tld>
+  Query type:  TXT (to carry data back in the response)
+  Answer:      Encoded command or acknowledgement
+  Example:     "ACK:cmd:whoami:result:cm9vdA=="  (cm9vdA== = base64("root"))
+
+==============================================================================================
+
+FTP — CLEARTEXT CREDENTIAL EXPOSURE
+-------------------------------------
+FTP control channel is ALWAYS cleartext on port 21.
+Authentication sequence (always visible in packet capture):
+
+  Server → "220 <FTP server banner>"
+  Client → "USER <username>"
+  Server → "331 Password required"
+  Client → "PASS <plaintext password>"    ← CREDENTIAL VISIBLE IN PCAP
+  Server → "230 User logged in" (or 530 = failure)
+
+Other FTP commands to watch:
+  RETR <path>   Download file from server       ← data theft if sensitive path
+  STOR <path>   Upload file to server
+  LIST / NLST   Directory listing               ← reconnaissance
+  CWD <path>    Change directory
+
+FTP to external IP + sensitive path (e.g., /etc/passwd) = data exfiltration
+
+==============================================================================================
+
+SYSLOG PRIORITY FIELD
+-----------------------
+syslog format:  <priority>timestamp hostname process[pid]: message
+priority = (facility * 8) + severity
+
+Facility codes (common):
+  0   kernel
+  1   user-level
+  2   mail
+  3   system daemons
+  4   security / auth    ← SSH, login failures
+  10  security / auth    ← same, used by some systems
+
+Severity codes:
+  0  Emergency     System unusable
+  1  Alert         Immediate action needed
+  2  Critical      Critical conditions
+  3  Error         Error conditions          ← <11> = facility 1, sev 3
+  4  Warning       Warning conditions
+  5  Notice        Normal but significant
+  6  Info          Informational
+  7  Debug
+
+Example:
+  <11>  = priority 11 = facility 1 (user), severity 3 (Error)
+  <86>  = priority 86 = facility 10 (auth), severity 6 (Info)
+
+SSH brute force in syslog:
+  - "Failed password for root from X.X.X.X" repeated rapidly
+  - Source port increments by 1 each attempt = automated tool
+  - Followed by "Accepted password for root" = COMPROMISE
+
+==============================================================================================
+
+HTTP ATTACK PATTERNS
+---------------------
+SQL Injection indicators in URI:
+  '+UNION+SELECT              UNION-based SQLi (extracting data from database)
+  '+OR+1=1--                  Boolean-based SQLi (always-true condition)
+  ';+DROP+TABLE               Destructive SQLi
+  ../../../etc/passwd         Path traversal (trying to read system files)
+  %27, %3D, %3B               URL-encoded quotes, equals, semicolons (WAF evasion)
+  <script>alert(1)</script>   XSS (Cross-Site Scripting) probe
+
+Tool User-Agents (not browsers):
+  sqlmap/           → automated SQL injection tool
+  nikto/            → web vulnerability scanner
+  python-requests/  → Python script (not a browser)
+  go-http-client/   → Go program (not a browser)
+  curl/             → command-line tool
+  wget/             → command-line tool
+  Nmap Scripting    → Nmap HTTP script
+
+HTTP response codes that indicate attack impact:
+  500 Internal Server Error + SQL error in body  → SQLi may have worked
+  200 OK on /admin/ path                         → attacker has admin access
+  200 OK on /etc/passwd or /.git/               → path traversal succeeded
+
+==============================================================================================
+
+ZEEK CONN.LOG — BEACONING PATTERN
+-----------------------------------
+A C2 beacon looks like this in conn.log:
+
+ts          id.orig_h   id.resp_h       id.resp_p  proto  duration  orig_bytes  resp_bytes  conn_state
+<T>         10.10.5.77  185.220.101.50  443        tcp    0.45      256         512         SF
+<T+60>      10.10.5.77  185.220.101.50  443        tcp    0.42      256         512         SF
+<T+120>     10.10.5.77  185.220.101.50  443        tcp    0.41      256         512         SF
+
+Beacon indicators:
+  ✓ Same source and destination IP/port every time
+  ✓ Regular interval (T, T+60, T+120... zero jitter = automated tool)
+  ✓ Identical or near-identical byte counts (fixed-size heartbeat protocol)
+  ✓ All connections successful (SF = established and cleanly closed)
+  ✓ Runs 24+ hours (persistent malware, not human activity)
+
+Human browsing pattern:
+  ✗ Irregular timing (human doesn't click exactly every 60 seconds)
+  ✗ Varying byte counts (different pages, images, content)
+  ✗ Multiple destinations (user browses different sites)
+
+==============================================================================================
+
+NETFLOW — DATA EXFILTRATION INDICATORS
+-----------------------------------------
+NetFlow record fields:
+  Date flow start   Timestamp
+  Dur               Duration in seconds
+  Proto             TCP/UDP/ICMP
+  Src IP:Port       Source
+  Dst IP:Port       Destination
+  Fl                TCP flags (UAPRSF = all flags = suspicious)
+  Tos               Type of Service
+  Pkts              Packet count
+  Bytes             Total bytes transferred
+
+Exfiltration indicators:
+  * Large bytes (> 1 MB) to external IP from internal workstation
+  * During off-hours (2 AM, weekend)
+  * To cloud storage (S3, Azure Blob, Google Drive) from unusual source
+  * Flags "UAPRSF" (all flags set) is unusual for normal TCP sessions
+  * Finance / HR department workstations sending data to unknown external IPs
+
+Normal file upload comparison:
+  1 MB document    → ~1,000,000 bytes
+  Full email inbox → ~100 MB
+  Compressed DB    → 10–100 MB
+  Source code repo → 50–500 MB
+
+==============================================================================================
+
+DECISION FRAMEWORK: NORMAL / SUSPICIOUS / MALICIOUS
+-----------------------------------------------------
+NORMAL — ignore unless context changes:
+  ARP request for default gateway MAC
+  DNS A query to corporate resolver for a known domain
+  TCP 3-way handshake to a well-known port
+  HTTPS to a known service (Google, Microsoft, internal servers)
+  Syslog "info" messages from scheduled tasks
+
+SUSPICIOUS — investigate, do not escalate yet:
+  DNS queries to external resolver (8.8.8.8) instead of corporate DNS
+  Internal-to-internal RDP without known admin context
+  Single large data transfer to cloud storage during business hours
+  New device appearing on the network (unknown MAC)
+  Outbound connections to unusual top-level domains (.ru, .cn, .su, .top)
+
+MALICIOUS — escalate immediately and consider isolation:
+  Port scan (sequential SYN to many ports in seconds)
+  DNS tunnelling (long random subdomain + TXT query = C2)
+  FTP credentials + sensitive file retrieval (e.g., /etc/passwd)
+  SSH brute force followed by successful root login
+  SQL injection with error response confirming vulnerability
+  HTTPS beacon to same IP every 60 seconds for 24 hours
+  Process / tool (sqlmap, Metasploit) User-Agent in HTTP
+
+RECOMMENDED ACTIONS:
+  Ignore      → Document that you reviewed it; no further action
+  Investigate → Correlate with other logs; check user context; check threat intel
+  Block       → Add firewall rule; update DNS sinkhole; revoke access
+  Escalate    → Notify SOC Tier 2 / security manager; preserve evidence
+  Isolate     → Disconnect host from network (do NOT power off — preserve RAM)
+  IR          → Invoke Incident Response plan; notify CISO/legal

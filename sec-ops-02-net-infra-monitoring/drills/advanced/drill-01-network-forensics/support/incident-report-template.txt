@@ -1,0 +1,181 @@
+INCIDENT RESPONSE REPORT TEMPLATE
+===================================
+Incident ID:    IR-2024-____
+Date Detected:  ________________
+Analyst:        ________________
+Status:         [ ] Active  [ ] Contained  [ ] Closed
+Severity:       [ ] P1-Critical  [ ] P2-High  [ ] P3-Medium  [ ] P4-Low
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 1: EXECUTIVE SUMMARY (100 words, non-technical audience)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[Write 3-5 sentences covering:
+ - What happened (in plain language)
+ - When it happened
+ - What systems/data were affected
+ - Immediate actions taken
+ - Business impact]
+
+
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 2: ATTACK TIMELINE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+| UTC Timestamp            | Event Description                    | Source Artefact |
+|--------------------------|--------------------------------------|-----------------|
+| YYYY-MM-DD HH:MM:SS UTC  |                                      |                 |
+| YYYY-MM-DD HH:MM:SS UTC  |                                      |                 |
+| YYYY-MM-DD HH:MM:SS UTC  |                                      |                 |
+| YYYY-MM-DD HH:MM:SS UTC  |                                      |                 |
+| YYYY-MM-DD HH:MM:SS UTC  |                                      |                 |
+
+Attack phase summary:
+  Phase 1 - Initial Access:     _____ UTC to _____ UTC
+  Phase 2 - Execution:          _____ UTC
+  Phase 3 - Reconnaissance:     _____ UTC to _____ UTC
+  Phase 4 - Lateral Movement:   _____ UTC to _____ UTC
+  Phase 5 - Exfiltration:       _____ UTC to _____ UTC
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 3: TECHNICAL SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Initial access vector:
+  [How did the attacker gain initial access?]
+
+Exploitation method:
+  [What vulnerability or technique was used?]
+
+Persistence mechanism:
+  [How did the attacker maintain access?]
+
+Lateral movement technique:
+  [How did the attacker move between systems?]
+
+Exfiltration method:
+  [How was data taken out? To where?]
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 4: AFFECTED SYSTEMS AND DATA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+| IP Address     | Hostname     | Role           | Impact           | Evidence |
+|----------------|--------------|----------------|------------------|----------|
+|                |              |                |                  |          |
+|                |              |                |                  |          |
+|                |              |                |                  |          |
+
+Data exfiltrated:
+  File/archive:   ______________
+  Size:           ______________
+  Destination:    ______________
+  Data type:      ______________
+  Confirmed:      [ ] Yes  [ ] Suspected  [ ] No
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 5: IMMEDIATE CONTAINMENT ACTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Actions taken:
+  [ ] Isolated [hostname/IP] from network at ______ UTC
+  [ ] Blocked attacker IP [IP address] at perimeter firewall
+  [ ] Blocked C2 domain [domain] at DNS resolver
+  [ ] Reset credentials for [accounts]
+  [ ] Preserved memory dump of [hostname]
+  [ ] Preserved disk image of [hostname]
+
+Actions recommended (not yet taken):
+  1. _______________________________________________
+  2. _______________________________________________
+  3. _______________________________________________
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 6: EVIDENCE PRESERVED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+| Evidence Item               | SHA-256 Hash                          | Collected By | Date/Time (UTC) |
+|-----------------------------|---------------------------------------|--------------|-----------------|
+| conn.log                    |                                       |              |                 |
+| dns.log                     |                                       |              |                 |
+| http.log                    |                                       |              |                 |
+| files.log                   |                                       |              |                 |
+| firewall-allow-block.log    |                                       |              |                 |
+| memory-dump-[hostname].bin  |                                       |              |                 |
+
+Chain of custody:
+  Custodian:     _______________________________________________
+  Storage:       _______________________________________________
+  Access log:    _______________________________________________
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 7: REGULATORY NOTIFICATION ASSESSMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+GDPR Article 33 (breach notification to supervisory authority):
+  Personal data involved:    [ ] Yes  [ ] No  [ ] Unknown
+  Categories of data:        _______________________________________________
+  Approx. no. individuals:   _______________________________________________
+  72-hour deadline:          _______________________________________________
+  DPO notified:              [ ] Yes, at ______________ UTC
+  Supervisory authority:     _______________________________________________
+  Notification status:       [ ] Pending  [ ] Submitted  [ ] Not Required
+
+GDPR Article 34 (notification to data subjects):
+  High risk to individuals:  [ ] Yes  [ ] No  [ ] Assessment needed
+  Notification plan:         _______________________________________________
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 8: INDICATORS OF COMPROMISE (IoCs)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IP Addresses:
+  _______________   [Description]
+  _______________   [Description]
+
+Domains:
+  _______________   [Description]
+  _______________   [Description]
+
+File hashes (SHA-256):
+  ________________________________  [filename/description]
+  ________________________________  [filename/description]
+
+URLs:
+  _______________________________________________
+  _______________________________________________
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 9: RECOMMENDATIONS (LONG-TERM)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Root cause:
+  [Why was this possible? What control failed?]
+
+Preventive measures:
+  1. _______________________________________________
+  2. _______________________________________________
+  3. _______________________________________________
+
+Detective measures (improve monitoring):
+  1. _______________________________________________
+  2. _______________________________________________
+
+Corrective measures (fix the vulnerability):
+  1. _______________________________________________
+  2. _______________________________________________
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Report approved by:  ___________________________  Date: _______________
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

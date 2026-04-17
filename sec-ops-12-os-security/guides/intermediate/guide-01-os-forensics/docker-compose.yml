@@ -1,0 +1,16 @@
+
+services:
+  forensics:
+    build: .
+    container_name: os-forensics-guide
+    cap_add:
+      - AUDIT_WRITE
+      - AUDIT_CONTROL
+    volumes:
+      - ./scripts:/scripts
+      - evidence:/evidence
+    stdin_open: true
+    tty: true
+
+volumes:
+  evidence:

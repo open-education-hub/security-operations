@@ -1,0 +1,314 @@
+PROTOCOL ANALYSIS CHEAT SHEET
+Security Operations — Session 02
+==============================================================================================
+
+ETHERNET / LAYER 2
+------------------
+EtherType values (bytes 12-13 of Ethernet frame):
+  0x0800  IPv4
+  0x0806  ARP
+  0x86DD  IPv6
+  0x8100  802.1Q VLAN tag
+
+Broadcast MAC: ff:ff:ff:ff:ff:ff   → goes to all hosts on the LAN
+
+ARP Opcode field:
+  0x0001  Request  ("Who has <IP>? Tell <IP>")
+  0x0002  Reply    ("<IP> is at <MAC>")
+
+ARP attack signals:
+  * Same IP claimed by two different MACs         → ARP poisoning
+  * Gratuitous ARP (reply with no prior request)  → may be poisoning gateway
+  * Hundreds of ARP packets/second                → ARP flood / scan
+
+==============================================================================================
+
+IP (IPv4) HEADER — KEY FIELDS
+------------------------------
+Field         Offset  Size  Notes
+----------    ------  ----  ------------------------------------------------------------------
+Version          0     4b   Always 4 for IPv4
+IHL              0     4b   Header length in 32-bit words (usually 5 = 20 bytes)
+TTL              8     1B   Decremented by each router; 0 = packet discarded
+Protocol         9     1B   6=TCP, 17=UDP, 1=ICMP, 89=OSPF, 47=GRE
+Source IP       12     4B
+Destination IP  16     4B
+Flags           6      3b   bit1=DF(Don't Fragment), bit2=MF(More Fragments)
+Fragment Offset  6     13b  Position of fragment in original datagram
+
+TTL OS fingerprinting (initial values):
+  64   Linux, macOS, Android
+  128  Windows
+  255  Cisco IOS, some Unix
+  254  Solaris, AIX
+
+IP fragment attack patterns:
+  ip.flags.mf == 1        → more fragments coming (not the last fragment)
+  ip.frag_offset > 0      → this is a fragment (not the first one)
+  Overlapping fragments   → Teardrop attack (crashed old OS TCP stacks)
+
+==============================================================================================
+
+TCP FLAGS (1 byte — 6 flags)
+-----------------------------
+Flag  Bit  Meaning
+----  ---  ------------------------------------------------------------
+URG   5    Urgent pointer valid
+ACK   4    Acknowledgement number valid
+PSH   3    Push — deliver to application immediately
+RST   2    Reset — abort connection
+SYN   1    Synchronise sequence numbers (connection initiation)
+FIN   0    Finish — sender has no more data
+
+Normal connection lifecycle:
+  OPEN:   SYN → SYN+ACK → ACK  (three-way handshake)
+  CLOSE:  FIN → FIN+ACK → ACK  (graceful four-way teardown)
+  ABORT:  RST  (abrupt reset, no acknowledgement)
+
+Flag combination meanings:
+  SYN only              Normal new connection / SYN scan probe
+  SYN+ACK               Server accepting connection
+  SYN → RST reply       Port is CLOSED at destination
+  SYN → no response     Port is FILTERED (firewall silently drops)
+  FIN only (no data)    FIN scan (stealth port scan, avoids SYN-based IDS)
+  NULL (no flags)       NULL scan (RFC violation — stealth)
+  URG+PSH+FIN           XMAS scan (named for "lit up like a Xmas tree")
+  RST                   Connection reset (error, firewall block, or RST injection)
+
+Port scan detection heuristics:
+  * SYN to many sequential ports from single source IP in <5 seconds
+  * High RST response rate (scanner hitting closed ports)
+  * Source port increments by 1 each packet (automated tool)
+  * Wireshark filter: tcp.flags.syn==1 && tcp.flags.ack==0
+
+==============================================================================================
+
+WELL-KNOWN TCP/UDP PORTS
+-------------------------
+Port   Proto  Service    Security notes
+-----  -----  ---------  -------------------------------------------------------------------
+20/21  TCP    FTP        CLEARTEXT — username and password visible; use SFTP instead
+22     TCP    SSH        Encrypted; target for brute force; banner reveals server version
+23     TCP    Telnet     CLEARTEXT — everything visible; should never be in use
+25     TCP    SMTP       Email submission; open relays allow spam; STARTTLS expected
+53     UDP/T  DNS        DNS tunnelling attack vector; TXT/MX queries may be suspicious
+67/68  UDP    DHCP       Rogue DHCP server attack: client gets attacker as default gateway
+80     TCP    HTTP       CLEARTEXT — credentials, cookies, data all visible
+110    TCP    POP3       CLEARTEXT email retrieval; use IMAPS/POP3S
+143    TCP    IMAP       Email; STARTTLS or TLS expected
+389    TCP    LDAP       Directory; CLEARTEXT; use LDAPS (636)
+443    TCP    HTTPS      Encrypted HTTP; check certificate validity and cipher suite
+445    TCP    SMB        Windows file sharing; WannaCry/EternalBlue exploit target
+1433   TCP    MSSQL      Database; should never be internet-facing; data exfil target
+1521   TCP    Oracle DB  Database
+3306   TCP    MySQL      Database
+3389   TCP    RDP        Windows Remote Desktop; brute force target; BlueKeep exploit
+4444   TCP    Metasploit Default Meterpreter listener port (highly suspicious)
+5985   TCP    WinRM      Windows remote management; lateral movement vector
+6667   TCP    IRC        Old-school C2 channel; malware botnet command channel
+8080   TCP    HTTP alt   Proxy, attacker C2, dev servers; why is a server using non-80?
+8443   TCP    HTTPS alt  Alt HTTPS; often attacker C2
+
+"Any unexpected high port (>1024) on a known server = investigate"
+
+==============================================================================================
+
+DNS RECORD TYPES
+-----------------
+Type   Meaning                    Security relevance
+-----  -------------------------  -----------------------------------------------------------
+A      IPv4 address               Most common; fast-flux = rapid TTL changes
+AAAA   IPv6 address
+CNAME  Canonical name (alias)     Used in domain fronting attacks
+MX     Mail exchange              Queried by workstations = suspicious (spam bot?)
+TXT    Text record                DNS tunnelling encodes data here; also DMARC/SPF
+PTR    Reverse lookup             PTR for internal IP to external DNS = topology leak
+NS     Name server
+SOA    Start of authority
+SRV    Service locator            Used by Active Directory; misconfig leaks topology
+
+DNS response codes (rcode):
+  0   NOERROR    Query succeeded
+  1   FORMERR    Format error
+  2   SERVFAIL   Server failure (resolver couldn't get an answer)
+  3   NXDOMAIN   Name does not exist  ← many = DGA malware / C2 beacon
+  5   REFUSED    Server refused query
+
+Suspicious DNS patterns:
+  Pattern                                  Explanation
+  --------------------------------------   ---------------------------------------------
+  Subdomain > 50 chars (random-looking)    DNS tunnelling (data encoded in subdomain)
+  Many NXDOMAIN responses                  DGA malware generating random domain names
+  TXT record queries with long subdomains  DNS C2/tunnelling
+  MX queries from a workstation            Spam bot or malware doing email recon
+  External DNS (8.8.8.8) instead of corp  Bypasses DNS sinkhole / monitoring
+  PTR lookup for 10.x.x.x to 8.8.8.8     Internal hostname leaked to external DNS
+
+DNS tunnelling detection:
+  - tshark filter: dns.qry.name length > 50
+  - Unusually high TXT query volume from a single host
+  - Consistent subdomain entropy (random-looking characters)
+  - High query rate to same second-level domain
+
+==============================================================================================
+
+HTTP — KEY FIELDS
+------------------
+Request methods:
+  GET     Retrieve resource (no body)       Safe; idempotent
+  POST    Submit data (has body)            Credential submissions, file uploads, API calls
+  PUT     Create/replace resource           API; can upload malicious files
+  DELETE  Delete resource                   Dangerous if misconfigured
+  HEAD    GET but headers only              Scanning/fingerprinting
+  OPTIONS Discover allowed methods          CORS; scanning
+
+Security-relevant request headers:
+  Authorization: Basic <base64>   → base64 decode to get username:password
+  Cookie: session=<token>         → session token; theft = session hijacking
+  User-Agent: sqlmap/1.7.8        → tool fingerprint (scanner/attack tool)
+  Referer: http://...             → navigation path; can leak internal URLs
+
+HTTP response codes:
+  200  OK                Normal
+  301  Moved Permanently  Redirect; could redirect to malicious site
+  302  Found (redirect)   Temporary redirect
+  401  Unauthorised       Authentication required; many 401s = brute force in progress
+  403  Forbidden          Access denied; many 403s = path traversal / scanning
+  404  Not Found          Missing resource; many 404s = directory/file scanning
+  500  Internal Error     Application crash; SQLi or injection may have succeeded
+  503  Unavailable        Overloaded; may indicate DoS attack
+
+Base64 decoder (for Authorization: Basic):
+  echo "YWxpY2U6cGFzc3dvcmQ=" | base64 -d
+  → alice:password
+
+Common malicious User-Agent strings:
+  sqlmap           SQL injection tool (sqlmap.org)
+  nikto            Web vulnerability scanner
+  nmap             Port scanner
+  python-requests  Python scripts (not a browser; suspicious on servers)
+  go-http-client   Go language HTTP library (not a browser)
+  curl/wget        Command-line downloaders (not a browser on a workstation)
+
+==============================================================================================
+
+PAYLOAD MAGIC BYTES (identify protocol from raw bytes)
+-------------------------------------------------------
+Bytes (hex)          ASCII equivalent    Protocol / Format
+-------------------  ------------------  -------------------------------------------
+47 45 54 20          "GET "              HTTP request (method GET)
+48 54 54 50 2f 31    "HTTP/1"            HTTP response
+53 53 48 2d 32 2e    "SSH-2."            SSH banner
+32 32 30 20          "220 "              FTP or SMTP server banner
+45 48 4c 4f          "EHLO"              SMTP
+55 53 45 52 20       "USER "             FTP authentication
+2b 4f 4b             "+OK"               POP3 response
+2a 20 4f 4b          "* OK"              IMAP response
+16 03 01/02/03       n/a                 TLS 1.0/1.1/1.2 handshake
+16 03 04             n/a                 TLS 1.3 record (but uses 0x0303 on wire)
+25 50 44 46          "%PDF"              PDF file
+50 4b 03 04          "PK\x03\x04"        ZIP / Office OpenXML / JAR / APK
+4d 5a                "MZ"                Windows PE executable (EXE/DLL/etc.)
+7f 45 4c 46          ".ELF"              Linux ELF executable
+ff d8 ff             n/a                 JPEG image
+89 50 4e 47          ".PNG"              PNG image
+1f 8b                n/a                 gzip compressed data
+fd 37 7a 58 5a 00    ".7zXZ\x00"         xz compressed
+52 61 72 21          "Rar!"              RAR archive
+
+==============================================================================================
+
+TLS / SSL
+---------
+TLS version mapping:
+  Wire version  TLS version  Status
+  0x0300        SSL 3.0      BROKEN (POODLE) — should not be seen
+  0x0301        TLS 1.0      DEPRECATED — PCI-DSS forbids for cardholder data
+  0x0302        TLS 1.1      DEPRECATED
+  0x0303        TLS 1.2      Acceptable; many broken ciphers exist
+  0x0304        TLS 1.3      Current standard; best
+
+Broken cipher suites (red flags if observed):
+  RC4-*         RC4 broken 2013; bar 2015 (RFC 7465)
+  *-MD5         MD5 broken for digital signatures
+  *-NULL-*      No encryption whatsoever
+  *-DES-*       DES broken (56-bit key); 3DES being phased out
+  *-EXPORT-*    Intentionally weakened export ciphers (FREAK attack)
+  ANON-*        No server authentication (trivial MITM)
+
+Certificate warning indicators:
+  Self-signed         No CA validation; could be any server
+  Expired certificate  Server does not maintain valid cert (sloppy or attacker)
+  Hostname mismatch   IP in packet does not match CN/SAN in cert (MITM indicator)
+  Issued to IP only   Legitimate certs use hostnames; IP-only = attacker setup
+
+Wireshark filters:
+  ssl.handshake.type == 1    ClientHello (new TLS session)
+  ssl.handshake.type == 2    ServerHello (server cipher/cert choice)
+  ssl.alert_message          TLS alert (error or closure)
+  tls.handshake.extensions_server_name    SNI hostname (what domain was requested)
+
+==============================================================================================
+
+ZEEK CONN.LOG FIELDS QUICK REFERENCE
+--------------------------------------
+Field          Meaning
+-----------    -----------------------------------------------------------------------
+ts             Unix timestamp of connection start
+uid            Unique connection ID (trace across log types)
+id.orig_h      Source IP
+id.orig_p      Source port
+id.resp_h      Destination IP
+id.resp_p      Destination port
+proto          tcp / udp / icmp
+service        Detected application protocol (http, dns, ssh, etc.)
+duration       Connection duration in seconds
+orig_bytes     Bytes from originator (client → server)
+resp_bytes     Bytes from responder (server → client)
+conn_state     Connection termination state (see below)
+history        Sequence of packet flags seen (see below)
+
+conn_state values:
+  SF     Normal established + closed (SYN SYN-ACK DATA FIN)
+  S0     SYN sent, no response (filtered or no server)
+  S1     SYN sent, SYN-ACK received, but connection not closed
+  REJ    SYN sent, RST received (port closed)
+  RSTO   Originator sent RST to close
+  RSTR   Responder sent RST to close
+  SHR    Responder sent FIN, no reply from originator
+  OTH    No SYN seen; mid-flow capture
+
+conn_state attack correlation:
+  Many S0     → SYN scan / SYN flood (no responses)
+  Many REJ    → Port scan (closed ports returning RST)
+  Many RSTO   → RST injection / firewall blocking mid-connection
+  All SF, same bytes every 60s → C2 beacon
+
+==============================================================================================
+
+QUICK PROTOCOL IDENTIFICATION GUIDE
+------------------------------------
+Step 1: Check destination port
+  - Known port? → likely that protocol (but verify payload)
+  - Unknown high port? → investigate further
+
+Step 2: Check IP layer
+  - TTL value → OS guess
+  - Fragmentation? → possible IDS evasion or Teardrop
+
+Step 3: Examine payload first bytes
+  - Printable ASCII? → likely text protocol (HTTP, SMTP, FTP, Telnet)
+  - Binary magic bytes? → see table above
+  - Random-looking, high entropy? → likely encrypted (TLS, SSH, or tunnelling)
+  - All zeros? → padding, keepalive, or C2 fixed-size message
+
+Step 4: Look at connection patterns
+  - Single long connection, large bytes → file transfer or sustained C2
+  - Many short connections, identical bytes → C2 beacon (heartbeat)
+  - Connections every N seconds exactly → automated agent (no jitter = tool)
+  - Sequential port numbers → port scan
+
+Step 5: Cross-reference with other protocols
+  - DNS query for the destination IP (is it a known domain or just an IP?)
+  - Other connections from the same source host
+  - HTTP User-Agent or TLS SNI/certificate if applicable

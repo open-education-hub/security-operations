@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="multichoice">
+    <name><text>Advanced Topics Final Quiz Q1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A developer at your company accidentally set an S3 bucket to <code>public-read-write</code>. What is the MOST serious risk this creates?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Anyone on the internet can upload malware or download confidential files</text><feedback><text>Correct! A public-read-write bucket allows anyone on the internet to both read (exfiltrate confidential data) and write (upload malware, incur costs, host malicious content using your company's URL). This is one of the most common and dangerous cloud misconfigurations.</text></feedback></answer>
+    <answer fraction="0"><text>The bucket consumes more storage than allocated</text><feedback><text>Incorrect. While public write access can lead to unexpected storage costs (from others uploading files), the most serious risk is confidential data exposure and the ability for attackers to upload malicious content.</text></feedback></answer>
+    <answer fraction="0"><text>The bucket's encryption is automatically disabled</text><feedback><text>Incorrect. The ACL setting does not affect encryption configuration. Encryption and access control are independent settings.</text></feedback></answer>
+    <answer fraction="0"><text>The bucket becomes inaccessible to internal users</text><feedback><text>Incorrect. Public access does not remove access for authorised internal users — it adds public access on top of existing permissions.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>Advanced Topics Final Quiz Q2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In STIX 2.1, what is a "Relationship" object used for?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Linking two STIX Domain Objects (e.g., connecting a Threat Actor to a Malware object)</text><feedback><text>Correct! STIX Relationship Objects (SROs) connect two Domain Objects with a typed relationship, such as "threat-actor USES malware" or "indicator INDICATES malware." This relational model encodes the full threat story, not just isolated IOCs.</text></feedback></answer>
+    <answer fraction="0"><text>Describing a specific IP address or file hash indicator</text><feedback><text>Incorrect. Individual indicators (IP addresses, hashes, domains) are described by the "indicator" STIX Domain Object, not a Relationship object.</text></feedback></answer>
+    <answer fraction="0"><text>Specifying which TAXII server distributes the intelligence</text><feedback><text>Incorrect. TAXII server information is not encoded in STIX objects. STIX describes the intelligence content; TAXII is the transport protocol.</text></feedback></answer>
+    <answer fraction="0"><text>Defining the Traffic Light Protocol marking for the bundle</text><feedback><text>Incorrect. TLP markings are applied via STIX Data Marking objects (Marking Definition), not Relationship objects.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>Advanced Topics Final Quiz Q3</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A Zero Trust policy requires "device posture checks." What does this mean?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Verifying that the accessing device meets security requirements (patched OS, EDR running, disk encrypted)</text><feedback><text>Correct! Device posture checks verify that the device attempting to access a resource is compliant with security policy — typically checking OS patch level, EDR/antivirus status, disk encryption, and device registration. Non-compliant devices can be denied access even if the user's identity is verified.</text></feedback></answer>
+    <answer fraction="0"><text>Checking that the user's physical location is within the office building</text><feedback><text>Incorrect. Zero Trust explicitly does not rely on physical location. It evaluates device health regardless of where the device is located.</text></feedback></answer>
+    <answer fraction="0"><text>Requiring users to physically show their badge to a camera before access is granted</text><feedback><text>Incorrect. Device posture refers to the security state of the computing device, verified automatically by an MDM/EDR agent, not by physical badge checks.</text></feedback></answer>
+    <answer fraction="0"><text>Scanning for hardware keyloggers on the device</text><feedback><text>Incorrect. While hardware security is important, device posture checks in Zero Trust specifically refer to software-based compliance signals (patch level, encryption, agent running status) reported by device management software.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>Advanced Topics Final Quiz Q4</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During a purple team exercise, the red team successfully executes Mimikatz to dump LSASS credentials without triggering any SIEM alert. What does this finding indicate?</p>]]></text></questiontext>
+    <answer fraction="100"><text>There is a detection gap for credential dumping that must be remediated</text><feedback><text>Correct! The purpose of a purple team exercise is to identify detection gaps. Mimikatz/LSASS dumping is a well-known ATT&amp;CK technique (T1003.001). Failing to detect it means the SOC's detection coverage for credential access is insufficient and specific remediation (ASR rules, Sysmon Event 10, EDR policy) is needed.</text></feedback></answer>
+    <answer fraction="0"><text>The SOC's network monitoring is insufficient</text><feedback><text>Incorrect. LSASS credential dumping is an endpoint event, not a network event. The gap is in endpoint detection (EDR/SIEM rules), not network monitoring.</text></feedback></answer>
+    <answer fraction="0"><text>The red team violated the rules of engagement</text><feedback><text>Incorrect. Mimikatz/credential dumping is a standard red team technique within scope for most purple team exercises. The finding is a SOC detection gap, not a rules violation.</text></feedback></answer>
+    <answer fraction="0"><text>This is expected and acceptable because Mimikatz is only used in targeted attacks</text><feedback><text>Incorrect. Mimikatz is extremely commonly used in a wide range of attacks including ransomware operations. Not detecting it is a critical gap that must be remediated, not accepted.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>Advanced Topics Final Quiz Q5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under the GDPR, when must an organisation notify the supervisory authority of a personal data breach?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Within 72 hours of becoming aware</text><feedback><text>Correct! GDPR Article 33 requires notification to the competent supervisory authority within 72 hours of becoming aware of a personal data breach, unless the breach is unlikely to result in a risk to individuals' rights and freedoms.</text></feedback></answer>
+    <answer fraction="0"><text>Within 24 hours</text><feedback><text>Incorrect. 24-hour notification is required under the NIS2 Directive (for significant cybersecurity incidents). GDPR requires notification within 72 hours.</text></feedback></answer>
+    <answer fraction="0"><text>Within 30 days</text><feedback><text>Incorrect. 30 days is the deadline for the follow-up detailed report under NIS2. GDPR requires notification within 72 hours of becoming aware of the breach.</text></feedback></answer>
+    <answer fraction="0"><text>Immediately, before any containment actions</text><feedback><text>Incorrect. GDPR does not require immediate notification — it allows up to 72 hours. Containment should begin immediately, with notification following as soon as the breach is confirmed but within 72 hours.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>Advanced Topics Final Quiz Q6</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The "Harvest Now, Decrypt Later" (HNDL) attack strategy is specifically relevant to which emerging threat?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Quantum computing's future ability to break current asymmetric encryption</text><feedback><text>Correct! HNDL refers to adversaries intercepting and storing encrypted traffic today, with the intention of decrypting it once quantum computers become powerful enough to break RSA/ECC. This is why NIST has standardised post-quantum cryptography algorithms (ML-KEM, ML-DSA) — to protect against future quantum decryption of today's communications.</text></feedback></answer>
+    <answer fraction="0"><text>AI-generated phishing emails</text><feedback><text>Incorrect. HNDL specifically refers to the quantum computing threat to asymmetric cryptography, not to AI-powered social engineering.</text></feedback></answer>
+    <answer fraction="0"><text>Supply chain attacks against software vendors</text><feedback><text>Incorrect. Supply chain attacks (like SolarWinds) target software build/update processes. HNDL is specifically about the future quantum threat to current encryption.</text></feedback></answer>
+    <answer fraction="0"><text>Ransomware attacks against cloud storage</text><feedback><text>Incorrect. Ransomware encrypts data to extort victims. HNDL is the opposite — it concerns adversaries storing currently encrypted data to decrypt it later using future quantum capabilities.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>Advanced Topics Final Quiz Q7</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a Software Bill of Materials (SBOM) and why is it important for supply chain security?</p>]]></text></questiontext>
+    <answer fraction="100"><text>A formal inventory of all software components and dependencies, used to identify vulnerable or malicious components</text><feedback><text>Correct! An SBOM lists all components (libraries, frameworks, dependencies) in a software product. When a vulnerability is discovered in a component (e.g., Log4Shell in Log4j), organisations with SBOMs can immediately determine if they are affected. Without an SBOM, identifying affected systems takes days or weeks.</text></feedback></answer>
+    <answer fraction="0"><text>An invoice for software licenses that lists costs per component</text><feedback><text>Incorrect. An SBOM is a security and compliance document listing technical components, not a financial invoice.</text></feedback></answer>
+    <answer fraction="0"><text>A backup of the software source code stored securely off-site</text><feedback><text>Incorrect. An SBOM is a manifest/inventory document, not a code backup. Code backups are a separate concern.</text></feedback></answer>
+    <answer fraction="0"><text>A checklist of software tests that must pass before deployment</text><feedback><text>Incorrect. Test checklists are part of software quality assurance. An SBOM is a component inventory used for vulnerability management and supply chain security.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+</quiz>

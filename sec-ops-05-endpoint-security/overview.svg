@@ -1,0 +1,341 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#0d1117"/>
+  
+  <!-- Title -->
+  <text x="600" y="38" font-family="monospace" font-size="22" fill="#58a6ff" text-anchor="middle" font-weight="bold">Session 05: Endpoint Security Technologies</text>
+  <text x="600" y="60" font-family="monospace" font-size="13" fill="#8b949e" text-anchor="middle">Endpoint Monitoring Architecture &amp; Attack Lifecycle</text>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 1: ENDPOINT TYPES (left column) -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="20" y="80" width="220" height="300" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="130" y="102" font-family="monospace" font-size="13" fill="#e6edf3" text-anchor="middle" font-weight="bold">ENDPOINT TYPES</text>
+  <line x1="30" y1="108" x2="230" y2="108" stroke="#30363d" stroke-width="1"/>
+
+  <!-- Workstation -->
+  <rect x="35" y="115" width="190" height="50" rx="5" fill="#1c2333" stroke="#388bfd" stroke-width="1"/>
+  <text x="130" y="133" font-family="monospace" font-size="11" fill="#79c0ff" text-anchor="middle">💻 Workstations</text>
+  <text x="130" y="150" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Windows / macOS / Linux</text>
+  <text x="130" y="162" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">User-facing, phishing targets</text>
+
+  <!-- Servers -->
+  <rect x="35" y="173" width="190" height="50" rx="5" fill="#1c2333" stroke="#388bfd" stroke-width="1"/>
+  <text x="130" y="191" font-family="monospace" font-size="11" fill="#79c0ff" text-anchor="middle">🖥 Servers &amp; DCs</text>
+  <text x="130" y="208" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Windows Server / Linux</text>
+  <text x="130" y="220" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">High-value targets</text>
+
+  <!-- Mobile -->
+  <rect x="35" y="231" width="190" height="50" rx="5" fill="#1c2333" stroke="#388bfd" stroke-width="1"/>
+  <text x="130" y="249" font-family="monospace" font-size="11" fill="#79c0ff" text-anchor="middle">📱 Mobile Devices</text>
+  <text x="130" y="266" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">iOS / Android (MDM)</text>
+  <text x="130" y="278" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Limited agent support</text>
+
+  <!-- IoT -->
+  <rect x="35" y="289" width="190" height="50" rx="5" fill="#1c2333" stroke="#388bfd" stroke-width="1"/>
+  <text x="130" y="307" font-family="monospace" font-size="11" fill="#79c0ff" text-anchor="middle">🔌 IoT / OT</text>
+  <text x="130" y="324" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Cameras / SCADA / ICS</text>
+  <text x="130" y="336" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Network-level monitoring</text>
+  <text x="130" y="348" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">only (no agents)</text>
+
+  <!-- Arrows from endpoint types to EDR -->
+  <line x1="240" y1="140" x2="290" y2="200" stroke="#388bfd" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="240" y1="198" x2="290" y2="210" stroke="#388bfd" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="240" y1="256" x2="290" y2="220" stroke="#388bfd" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="240" y1="314" x2="290" y2="230" stroke="#6e7681" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 2: EDR AGENT (center-left)         -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="280" y="140" width="200" height="200" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+  <text x="380" y="162" font-family="monospace" font-size="13" fill="#3fb950" text-anchor="middle" font-weight="bold">EDR AGENT</text>
+  <line x1="290" y1="168" x2="470" y2="168" stroke="#30363d" stroke-width="1"/>
+
+  <text x="295" y="186" font-family="monospace" font-size="10" fill="#e6edf3">Kernel-level driver</text>
+  <text x="295" y="202" font-family="monospace" font-size="10" fill="#e6edf3">+ User-space service</text>
+
+  <rect x="290" y="210" width="170" height="18" rx="3" fill="#1a3a2a"/>
+  <text x="375" y="223" font-family="monospace" font-size="9" fill="#3fb950" text-anchor="middle">Process creation events</text>
+  <rect x="290" y="231" width="170" height="18" rx="3" fill="#1a3a2a"/>
+  <text x="375" y="244" font-family="monospace" font-size="9" fill="#3fb950" text-anchor="middle">Network connections</text>
+  <rect x="290" y="252" width="170" height="18" rx="3" fill="#1a3a2a"/>
+  <text x="375" y="265" font-family="monospace" font-size="9" fill="#3fb950" text-anchor="middle">Registry / File I/O</text>
+  <rect x="290" y="273" width="170" height="18" rx="3" fill="#1a3a2a"/>
+  <text x="375" y="286" font-family="monospace" font-size="9" fill="#3fb950" text-anchor="middle">Memory / Injection</text>
+  <rect x="290" y="294" width="170" height="18" rx="3" fill="#1a3a2a"/>
+  <text x="375" y="307" font-family="monospace" font-size="9" fill="#3fb950" text-anchor="middle">DNS queries</text>
+
+  <!-- Arrow EDR → SIEM -->
+  <line x1="480" y1="240" x2="570" y2="240" stroke="#e3b341" stroke-width="2"/>
+  <polygon points="570,235 582,240 570,245" fill="#e3b341"/>
+  <text x="525" y="232" font-family="monospace" font-size="9" fill="#e3b341" text-anchor="middle">telemetry</text>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 3: SIEM (center)                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="582" y="140" width="220" height="200" rx="8" fill="#161b22" stroke="#e3b341" stroke-width="2"/>
+  <text x="692" y="162" font-family="monospace" font-size="13" fill="#e3b341" text-anchor="middle" font-weight="bold">SIEM PLATFORM</text>
+  <line x1="592" y1="168" x2="792" y2="168" stroke="#30363d" stroke-width="1"/>
+
+  <text x="597" y="186" font-family="monospace" font-size="10" fill="#e6edf3">Correlation Engine</text>
+  <rect x="592" y="192" width="200" height="15" rx="3" fill="#2d2a00"/>
+  <text x="692" y="203" font-family="monospace" font-size="9" fill="#e3b341" text-anchor="middle">Ingestion &amp; Normalization</text>
+  <rect x="592" y="210" width="200" height="15" rx="3" fill="#2d2a00"/>
+  <text x="692" y="221" font-family="monospace" font-size="9" fill="#e3b341" text-anchor="middle">Detection Rules / Analytics</text>
+  <rect x="592" y="228" width="200" height="15" rx="3" fill="#2d2a00"/>
+  <text x="692" y="239" font-family="monospace" font-size="9" fill="#e3b341" text-anchor="middle">Alert Queue</text>
+  <rect x="592" y="246" width="200" height="15" rx="3" fill="#2d2a00"/>
+  <text x="692" y="257" font-family="monospace" font-size="9" fill="#e3b341" text-anchor="middle">Historical Search</text>
+  <rect x="592" y="264" width="200" height="15" rx="3" fill="#2d2a00"/>
+  <text x="692" y="275" font-family="monospace" font-size="9" fill="#e3b341" text-anchor="middle">Threat Hunting Interface</text>
+  <rect x="592" y="282" width="200" height="15" rx="3" fill="#2d2a00"/>
+  <text x="692" y="293" font-family="monospace" font-size="9" fill="#e3b341" text-anchor="middle">Dashboards &amp; Reports</text>
+  <rect x="592" y="300" width="200" height="15" rx="3" fill="#2d2a00"/>
+  <text x="692" y="311" font-family="monospace" font-size="9" fill="#e3b341" text-anchor="middle">SOAR / Automation Triggers</text>
+
+  <!-- Arrow SIEM → SOC Analyst -->
+  <line x1="802" y1="240" x2="860" y2="240" stroke="#ff7b72" stroke-width="2"/>
+  <polygon points="860,235 872,240 860,245" fill="#ff7b72"/>
+  <text x="831" y="232" font-family="monospace" font-size="9" fill="#ff7b72" text-anchor="middle">alerts</text>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 4: SOC ANALYST (right)             -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="872" y="160" width="180" height="160" rx="8" fill="#161b22" stroke="#ff7b72" stroke-width="2"/>
+  <text x="962" y="182" font-family="monospace" font-size="13" fill="#ff7b72" text-anchor="middle" font-weight="bold">SOC ANALYST</text>
+  <line x1="882" y1="188" x2="1042" y2="188" stroke="#30363d" stroke-width="1"/>
+  <text x="887" y="206" font-family="monospace" font-size="10" fill="#e6edf3">① Triage Alert</text>
+  <text x="887" y="222" font-family="monospace" font-size="10" fill="#e6edf3">② Investigate Timeline</text>
+  <text x="887" y="238" font-family="monospace" font-size="10" fill="#e6edf3">③ Determine Scope</text>
+  <text x="887" y="254" font-family="monospace" font-size="10" fill="#e6edf3">④ Contain Endpoint</text>
+  <text x="887" y="270" font-family="monospace" font-size="10" fill="#e6edf3">⑤ Remediate</text>
+  <text x="887" y="286" font-family="monospace" font-size="10" fill="#e6edf3">⑥ Tune Detections</text>
+  <text x="887" y="302" font-family="monospace" font-size="10" fill="#e6edf3">⑦ Document IOCs</text>
+
+  <!-- Vendors box -->
+  <rect x="872" y="336" width="300" height="80" rx="8" fill="#161b22" stroke="#388bfd" stroke-width="1.5"/>
+  <text x="1022" y="355" font-family="monospace" font-size="12" fill="#79c0ff" text-anchor="middle" font-weight="bold">EDR VENDORS</text>
+  <text x="887" y="372" font-family="monospace" font-size="10" fill="#8b949e">CrowdStrike Falcon   SentinelOne</text>
+  <text x="887" y="389" font-family="monospace" font-size="10" fill="#8b949e">Microsoft Defender ATP  Carbon Black</text>
+  <text x="887" y="406" font-family="monospace" font-size="10" fill="#8b949e">Palo Alto Cortex XDR  Elastic Security</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 5: WINDOWS MONITORING (bottom-left)           -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="20" y="400" width="370" height="260" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <rect x="20" y="400" width="370" height="28" rx="8" fill="#1c2333"/>
+  <rect x="20" y="414" width="370" height="14" fill="#1c2333"/>
+  <text x="205" y="420" font-family="monospace" font-size="13" fill="#58a6ff" text-anchor="middle" font-weight="bold">🪟 WINDOWS MONITORING SOURCES</text>
+  <line x1="30" y1="428" x2="380" y2="428" stroke="#30363d" stroke-width="1"/>
+
+  <!-- Windows Event IDs column -->
+  <text x="35" y="446" font-family="monospace" font-size="11" fill="#79c0ff" font-weight="bold">Windows Event IDs</text>
+  <text x="35" y="462" font-family="monospace" font-size="9" fill="#e6edf3">4624  Successful logon</text>
+  <text x="35" y="476" font-family="monospace" font-size="9" fill="#e6edf3">4625  Failed logon (brute force)</text>
+  <text x="35" y="490" font-family="monospace" font-size="9" fill="#e6edf3">4648  Explicit credential logon</text>
+  <text x="35" y="504" font-family="monospace" font-size="9" fill="#e6edf3">4688  Process creation ⚡</text>
+  <text x="35" y="518" font-family="monospace" font-size="9" fill="#e6edf3">4698  Scheduled task created</text>
+  <text x="35" y="532" font-family="monospace" font-size="9" fill="#e6edf3">4719  Audit policy changed</text>
+  <text x="35" y="546" font-family="monospace" font-size="9" fill="#e6edf3">7045  New service installed</text>
+
+  <!-- Sysmon Events column -->
+  <text x="210" y="446" font-family="monospace" font-size="11" fill="#79c0ff" font-weight="bold">Sysmon Events</text>
+  <text x="210" y="462" font-family="monospace" font-size="9" fill="#e6edf3">E1   Process Create (full cmdline)</text>
+  <text x="210" y="476" font-family="monospace" font-size="9" fill="#e6edf3">E3   Network Connection</text>
+  <text x="210" y="490" font-family="monospace" font-size="9" fill="#e6edf3">E8   CreateRemoteThread (inject)</text>
+  <text x="210" y="504" font-family="monospace" font-size="9" fill="#e6edf3">E10  LSASS Access (cred dump)</text>
+  <text x="210" y="518" font-family="monospace" font-size="9" fill="#e6edf3">E13  Registry Value Set</text>
+  <text x="210" y="532" font-family="monospace" font-size="9" fill="#e6edf3">E22  DNS Query</text>
+  <text x="210" y="546" font-family="monospace" font-size="9" fill="#e6edf3">E25  Process Tampering</text>
+
+  <!-- PowerShell row -->
+  <rect x="30" y="555" width="350" height="18" rx="3" fill="#1c2333"/>
+  <text x="205" y="568" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">PowerShell: Event 4104 (Script Block) • Event 4103 (Module)</text>
+
+  <!-- LOLBins row -->
+  <rect x="30" y="576" width="350" height="18" rx="3" fill="#3d1a00"/>
+  <text x="205" y="589" font-family="monospace" font-size="9" fill="#ff7b72" text-anchor="middle">LOLBins: certutil • mshta • regsvr32 • wmic • bitsadmin • rundll32</text>
+
+  <rect x="30" y="597" width="350" height="18" rx="3" fill="#1a1a2e"/>
+  <text x="205" y="610" font-family="monospace" font-size="9" fill="#79c0ff" text-anchor="middle">Tools: Sysmon • Wazuh Agent • osquery • Microsoft Defender ATP</text>
+
+  <rect x="30" y="618" width="350" height="30" rx="3" fill="#1c2333"/>
+  <text x="205" y="630" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Persistence: HKCU\Run • Scheduled Tasks</text>
+  <text x="205" y="644" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Services (7045) • Startup Folder • WMI Subscriptions</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 6: LINUX MONITORING (bottom-center)           -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="402" y="400" width="370" height="260" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <rect x="402" y="400" width="370" height="28" rx="8" fill="#1c2333"/>
+  <rect x="402" y="414" width="370" height="14" fill="#1c2333"/>
+  <text x="587" y="420" font-family="monospace" font-size="13" fill="#3fb950" text-anchor="middle" font-weight="bold">🐧 LINUX MONITORING SOURCES</text>
+  <line x1="412" y1="428" x2="762" y2="428" stroke="#30363d" stroke-width="1"/>
+
+  <!-- auditd column -->
+  <text x="415" y="446" font-family="monospace" font-size="11" fill="#56d364" font-weight="bold">auditd Rules</text>
+  <text x="415" y="462" font-family="monospace" font-size="9" fill="#e6edf3">-w /etc/passwd -p wa</text>
+  <text x="415" y="476" font-family="monospace" font-size="9" fill="#e6edf3">-w /etc/shadow -p wa</text>
+  <text x="415" y="490" font-family="monospace" font-size="9" fill="#e6edf3">-S execve (exec tracking)</text>
+  <text x="415" y="504" font-family="monospace" font-size="9" fill="#e6edf3">-S connect (network)</text>
+  <text x="415" y="518" font-family="monospace" font-size="9" fill="#e6edf3">-w /etc/sudoers -p wa</text>
+  <text x="415" y="532" font-family="monospace" font-size="9" fill="#e6edf3">-w /etc/cron.d -p wa</text>
+  <text x="415" y="546" font-family="monospace" font-size="9" fill="#e6edf3">-a always,exit -S setuid</text>
+
+  <!-- Log Files column -->
+  <text x="595" y="446" font-family="monospace" font-size="11" fill="#56d364" font-weight="bold">Log Files</text>
+  <text x="595" y="462" font-family="monospace" font-size="9" fill="#e6edf3">/var/log/auth.log</text>
+  <text x="595" y="476" font-family="monospace" font-size="9" fill="#e6edf3">/var/log/secure</text>
+  <text x="595" y="490" font-family="monospace" font-size="9" fill="#e6edf3">/var/log/audit/audit.log</text>
+  <text x="595" y="504" font-family="monospace" font-size="9" fill="#e6edf3">/var/log/syslog</text>
+  <text x="595" y="518" font-family="monospace" font-size="9" fill="#e6edf3">/var/log/messages</text>
+  <text x="595" y="532" font-family="monospace" font-size="9" fill="#e6edf3">/var/log/cron</text>
+  <text x="595" y="546" font-family="monospace" font-size="9" fill="#e6edf3">/proc/[pid]/cmdline</text>
+
+  <!-- PAM row -->
+  <rect x="412" y="555" width="350" height="18" rx="3" fill="#1c2333"/>
+  <text x="587" y="568" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">PAM: pam_unix • pam_tty_audit • pam_faillock</text>
+
+  <!-- Persistence row -->
+  <rect x="412" y="576" width="350" height="18" rx="3" fill="#3d1a00"/>
+  <text x="587" y="589" font-family="monospace" font-size="9" fill="#ff7b72" text-anchor="middle">Persistence: cron • ~/.bashrc • authorized_keys • systemd units</text>
+
+  <rect x="412" y="597" width="350" height="18" rx="3" fill="#1a1a2e"/>
+  <text x="587" y="610" font-family="monospace" font-size="9" fill="#79c0ff" text-anchor="middle">Tools: auditd • Wazuh Agent • osquery • AIDE • Falco</text>
+
+  <rect x="412" y="618" width="350" height="30" rx="3" fill="#1c2333"/>
+  <text x="587" y="630" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Key Fields: auid (login identity) • ppid • exe • key</text>
+  <text x="587" y="644" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">aureport --auth • ausearch -k &lt;key&gt; • auditctl -l</text>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- SECTION 7: ATTACK LIFECYCLE (bottom-right)                -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <rect x="784" y="400" width="393" height="260" rx="8" fill="#161b22" stroke="#ff7b72" stroke-width="1.5"/>
+  <rect x="784" y="400" width="393" height="28" rx="8" fill="#261010"/>
+  <rect x="784" y="414" width="393" height="14" fill="#261010"/>
+  <text x="980" y="420" font-family="monospace" font-size="13" fill="#ff7b72" text-anchor="middle" font-weight="bold">ATTACK LIFECYCLE ON ENDPOINT</text>
+  <line x1="794" y1="428" x2="1167" y2="428" stroke="#30363d" stroke-width="1"/>
+
+  <!-- Phase boxes -->
+  <!-- 1. Initial Access -->
+  <rect x="794" y="435" width="175" height="42" rx="4" fill="#3d1010" stroke="#ff7b72" stroke-width="1"/>
+  <text x="881" y="452" font-family="monospace" font-size="10" fill="#ff7b72" text-anchor="middle" font-weight="bold">1. Initial Access</text>
+  <text x="881" y="468" font-family="monospace" font-size="9" fill="#ffa198" text-anchor="middle">Phishing • Drive-by • Exploit</text>
+
+  <!-- 2. Execution -->
+  <rect x="981" y="435" width="175" height="42" rx="4" fill="#3d2210" stroke="#f0883e" stroke-width="1"/>
+  <text x="1068" y="452" font-family="monospace" font-size="10" fill="#f0883e" text-anchor="middle" font-weight="bold">2. Execution</text>
+  <text x="1068" y="468" font-family="monospace" font-size="9" fill="#ffa657" text-anchor="middle">PowerShell • LOLBins • Macro</text>
+
+  <!-- Arrow -->
+  <line x1="969" y1="456" x2="979" y2="456" stroke="#8b949e" stroke-width="1.5"/>
+  <polygon points="977,452 983,456 977,460" fill="#8b949e"/>
+
+  <!-- 3. Persistence -->
+  <rect x="794" y="487" width="175" height="42" rx="4" fill="#1a2d10" stroke="#3fb950" stroke-width="1"/>
+  <text x="881" y="504" font-family="monospace" font-size="10" fill="#3fb950" text-anchor="middle" font-weight="bold">3. Persistence</text>
+  <text x="881" y="520" font-family="monospace" font-size="9" fill="#56d364" text-anchor="middle">Run Keys • Tasks • Services</text>
+
+  <!-- Arrow down from box 2 to row 2 -->
+  <line x1="1068" y1="477" x2="1068" y2="487" stroke="#8b949e" stroke-width="1.5"/>
+  <polygon points="1064,485 1068,491 1072,485" fill="#8b949e"/>
+
+  <!-- 4. Defense Evasion -->
+  <rect x="981" y="487" width="175" height="42" rx="4" fill="#1a1a3d" stroke="#79c0ff" stroke-width="1"/>
+  <text x="1068" y="504" font-family="monospace" font-size="10" fill="#79c0ff" text-anchor="middle" font-weight="bold">4. Defense Evasion</text>
+  <text x="1068" y="520" font-family="monospace" font-size="9" fill="#a5d6ff" text-anchor="middle">Process Inject • Obfusc • Hollow</text>
+
+  <!-- Arrow left -->
+  <line x1="969" y1="508" x2="979" y2="508" stroke="#8b949e" stroke-width="1.5"/>
+  <polygon points="971,504 965,508 971,512" fill="#8b949e"/>
+
+  <!-- 5. Credential Access -->
+  <rect x="794" y="539" width="175" height="42" rx="4" fill="#2d1a3d" stroke="#d2a8ff" stroke-width="1"/>
+  <text x="881" y="555" font-family="monospace" font-size="10" fill="#d2a8ff" text-anchor="middle" font-weight="bold">5. Credential Access</text>
+  <text x="881" y="571" font-family="monospace" font-size="9" fill="#e2c5ff" text-anchor="middle">LSASS Dump • Mimikatz • Kerberoast</text>
+
+  <!-- Arrow down from box 3 -->
+  <line x1="881" y1="529" x2="881" y2="539" stroke="#8b949e" stroke-width="1.5"/>
+  <polygon points="877,537 881,543 885,537" fill="#8b949e"/>
+
+  <!-- Arrow down from box 4 to box 6 -->
+  <line x1="1068" y1="529" x2="1068" y2="539" stroke="#8b949e" stroke-width="1.5"/>
+  <polygon points="1064,537 1068,543 1072,537" fill="#8b949e"/>
+
+  <!-- 6. Lateral Movement -->
+  <rect x="981" y="539" width="175" height="42" rx="4" fill="#3d2a00" stroke="#e3b341" stroke-width="1"/>
+  <text x="1068" y="555" font-family="monospace" font-size="10" fill="#e3b341" text-anchor="middle" font-weight="bold">6. Lateral Movement</text>
+  <text x="1068" y="571" font-family="monospace" font-size="9" fill="#f0c84d" text-anchor="middle">PtH • PsExec • WMIExec</text>
+
+  <!-- Arrow right -->
+  <line x1="969" y1="560" x2="979" y2="560" stroke="#8b949e" stroke-width="1.5"/>
+  <polygon points="977,556 983,560 977,564" fill="#8b949e"/>
+
+  <!-- 7. Impact -->
+  <rect x="794" y="591" width="175" height="42" rx="4" fill="#3d0000" stroke="#da3633" stroke-width="1"/>
+  <text x="881" y="608" font-family="monospace" font-size="10" fill="#ff6166" text-anchor="middle" font-weight="bold">7. Impact</text>
+  <text x="881" y="624" font-family="monospace" font-size="9" fill="#ff8080" text-anchor="middle">Ransomware • Exfil • Wiper</text>
+
+  <!-- Arrow down from box 5 -->
+  <line x1="881" y1="581" x2="881" y2="591" stroke="#8b949e" stroke-width="1.5"/>
+  <polygon points="877,589 881,595 885,589" fill="#8b949e"/>
+
+  <!-- MITRE Tags row -->
+  <rect x="794" y="641" width="362" height="15" rx="3" fill="#1c2333"/>
+  <text x="975" y="652" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">MITRE: T1059 • T1053 • T1547 • T1055 • T1036 • T1003</text>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 8: Legend / key concepts (bottom)  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="20" y="668" width="756" height="110" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+  <text x="398" y="686" font-family="monospace" font-size="12" fill="#e6edf3" text-anchor="middle" font-weight="bold">KEY CONCEPTS &amp; TOOL STACK</text>
+  <line x1="30" y1="692" x2="766" y2="692" stroke="#30363d" stroke-width="1"/>
+
+  <!-- AV vs EDR vs XDR -->
+  <rect x="30" y="698" width="115" height="34" rx="3" fill="#1c2333" stroke="#388bfd" stroke-width="1"/>
+  <text x="87" y="712" font-family="monospace" font-size="9" fill="#79c0ff" text-anchor="middle" font-weight="bold">AV</text>
+  <text x="87" y="726" font-family="monospace" font-size="8" fill="#8b949e" text-anchor="middle">File signatures only</text>
+
+  <rect x="153" y="698" width="115" height="34" rx="3" fill="#1c2333" stroke="#3fb950" stroke-width="1"/>
+  <text x="210" y="712" font-family="monospace" font-size="9" fill="#3fb950" text-anchor="middle" font-weight="bold">EDR</text>
+  <text x="210" y="726" font-family="monospace" font-size="8" fill="#8b949e" text-anchor="middle">AV + Behavior + Memory</text>
+
+  <rect x="276" y="698" width="115" height="34" rx="3" fill="#1c2333" stroke="#e3b341" stroke-width="1"/>
+  <text x="333" y="712" font-family="monospace" font-size="9" fill="#e3b341" text-anchor="middle" font-weight="bold">XDR</text>
+  <text x="333" y="726" font-family="monospace" font-size="8" fill="#8b949e" text-anchor="middle">EDR + Net + Cloud + Email</text>
+
+  <rect x="399" y="698" width="115" height="34" rx="3" fill="#1c2333" stroke="#d2a8ff" stroke-width="1"/>
+  <text x="456" y="712" font-family="monospace" font-size="9" fill="#d2a8ff" text-anchor="middle" font-weight="bold">HIDS</text>
+  <text x="456" y="726" font-family="monospace" font-size="8" fill="#8b949e" text-anchor="middle">FIM + Log Analysis</text>
+
+  <rect x="522" y="698" width="115" height="34" rx="3" fill="#1c2333" stroke="#f0883e" stroke-width="1"/>
+  <text x="579" y="712" font-family="monospace" font-size="9" fill="#f0883e" text-anchor="middle" font-weight="bold">Fileless</text>
+  <text x="579" y="726" font-family="monospace" font-size="8" fill="#8b949e" text-anchor="middle">Memory-only malware</text>
+
+  <rect x="645" y="698" width="112" height="34" rx="3" fill="#1c2333" stroke="#ff7b72" stroke-width="1"/>
+  <text x="701" y="712" font-family="monospace" font-size="9" fill="#ff7b72" text-anchor="middle" font-weight="bold">LOLBins</text>
+  <text x="701" y="726" font-family="monospace" font-size="8" fill="#8b949e" text-anchor="middle">Signed OS binary abuse</text>
+
+  <!-- Tools row 2 -->
+  <text x="40" y="750" font-family="monospace" font-size="10" fill="#8b949e">Tools:</text>
+  <rect x="82" y="738" width="80" height="18" rx="3" fill="#1c2333"/>
+  <text x="122" y="751" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">Sysmon</text>
+  <rect x="170" y="738" width="80" height="18" rx="3" fill="#1c2333"/>
+  <text x="210" y="751" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">auditd</text>
+  <rect x="258" y="738" width="80" height="18" rx="3" fill="#1c2333"/>
+  <text x="298" y="751" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">ClamAV</text>
+  <rect x="346" y="738" width="80" height="18" rx="3" fill="#1c2333"/>
+  <text x="386" y="751" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">Wazuh</text>
+  <rect x="434" y="738" width="80" height="18" rx="3" fill="#1c2333"/>
+  <text x="474" y="751" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">osquery</text>
+  <rect x="522" y="738" width="80" height="18" rx="3" fill="#1c2333"/>
+  <text x="562" y="751" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">OSSEC</text>
+  <rect x="610" y="738" width="80" height="18" rx="3" fill="#1c2333"/>
+  <text x="650" y="751" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">Falco</text>
+  <rect x="698" y="738" width="60" height="18" rx="3" fill="#1c2333"/>
+  <text x="728" y="751" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">AIDE</text>
+  <text x="40" y="770" font-family="monospace" font-size="9" fill="#8b949e">All demos use Docker containers. No cloud credentials required.</text>
+
+  <!-- Footer -->
+  <text x="600" y="793" font-family="monospace" font-size="10" fill="#30363d" text-anchor="middle">Session 05 | Security Operations Master Class | Digital4Security</text>
+</svg>

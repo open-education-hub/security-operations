@@ -1,0 +1,52 @@
+
+services:
+  # ─── Splunk Enterprise ──────────────────────────────────────────────────────
+  splunk:
+    image: splunk/splunk:9.2
+    container_name: demo03-splunk
+    environment:
+      SPLUNK_START_ARGS: "--accept-license"
+      SPLUNK_PASSWORD: "SecOpsDemo123!"
+      SPLUNK_RAM_MBs: "2048"
+    ports:
+      - "8000:8000"
+      - "8088:8088"
+      - "9997:9997"
+    volumes:
+      - splunk-data:/opt/splunk/var
+      - ./config/splunk/inputs.conf:/opt/splunk/etc/system/local/inputs.conf:ro
+      - ./config/splunk/props.conf:/opt/splunk/etc/system/local/props.conf:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 30s
+      timeout: 10s
+      retries: 15
+      start_period: 150s
+    networks:
+      - demo-net
+
+  # ─── Attack Simulator ───────────────────────────────────────────────────────
+  attack-simulator:
+    image: python:3.12-slim
+    container_name: demo03-attack-sim
+    volumes:
+      - ./scripts/attack_simulator.py:/app/attack_simulator.py:ro
+    command: >
+      sh -c "pip install requests --quiet &&
+             sleep 90 &&
+             python /app/attack_simulator.py"
+    depends_on:
+      splunk:
+        condition: service_healthy
+    environment:
+      - SPLUNK_HEC_URL=http://splunk:8088
+      - SPLUNK_HEC_TOKEN=demo03-token
+    networks:
+      - demo-net
+
+volumes:
+  splunk-data:
+
+networks:
+  demo-net:
+    driver: bridge

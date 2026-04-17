@@ -1,0 +1,150 @@
+[
+  {
+    "id": 1,
+    "system": "Corporate email (Exchange)",
+    "protocols": [
+      "TLS 1.2",
+      "S/MIME"
+    ],
+    "algorithms": [
+      "RSA-2048 (cert)",
+      "AES-256 (content)",
+      "SHA-256"
+    ],
+    "data_sensitivity": "HIGH",
+    "data_retention_years": 10,
+    "notes": "Encrypted emails are archived for compliance"
+  },
+  {
+    "id": 2,
+    "system": "VPN Gateway",
+    "protocols": [
+      "IPSec IKEv2"
+    ],
+    "algorithms": [
+      "ECDH P-256 (key exchange)",
+      "AES-256-GCM (data)",
+      "RSA-4096 (cert)"
+    ],
+    "data_sensitivity": "CRITICAL",
+    "data_retention_years": 0,
+    "notes": "Real-time traffic; no persistent storage"
+  },
+  {
+    "id": 3,
+    "system": "Code Signing Infrastructure",
+    "protocols": [
+      "Authenticode"
+    ],
+    "algorithms": [
+      "RSA-4096 (signatures)",
+      "SHA-256"
+    ],
+    "data_sensitivity": "CRITICAL",
+    "data_retention_years": 15,
+    "notes": "Signed binaries deployed to 50,000+ endpoints"
+  },
+  {
+    "id": 4,
+    "system": "Database Encryption (TDE)",
+    "protocols": [
+      "AES-256-CBC"
+    ],
+    "algorithms": [
+      "AES-256 (data)",
+      "RSA-2048 (key wrapping)"
+    ],
+    "data_sensitivity": "CRITICAL",
+    "data_retention_years": 25,
+    "notes": "Customer PII and financial records; 25-year retention"
+  },
+  {
+    "id": 5,
+    "system": "SSH Infrastructure",
+    "protocols": [
+      "SSH-2"
+    ],
+    "algorithms": [
+      "ECDH Curve25519 (key exchange)",
+      "Ed25519 (host keys)",
+      "AES-256-GCM"
+    ],
+    "data_sensitivity": "HIGH",
+    "data_retention_years": 0,
+    "notes": "Admin access to all servers"
+  },
+  {
+    "id": 6,
+    "system": "PKI / Certificate Authority",
+    "protocols": [
+      "X.509 v3"
+    ],
+    "algorithms": [
+      "RSA-4096 (Root CA)",
+      "RSA-2048 (Intermediate)",
+      "SHA-256"
+    ],
+    "data_sensitivity": "CRITICAL",
+    "data_retention_years": 20,
+    "notes": "Issues all internal and customer-facing certificates"
+  },
+  {
+    "id": 7,
+    "system": "Encrypted Backups",
+    "protocols": [
+      "Custom"
+    ],
+    "algorithms": [
+      "AES-256-CBC (data)",
+      "RSA-2048 (key transport)"
+    ],
+    "data_sensitivity": "CRITICAL",
+    "data_retention_years": 7,
+    "notes": "Daily encrypted backups stored offsite; 7-year retention"
+  },
+  {
+    "id": 8,
+    "system": "API Authentication (JWTs)",
+    "protocols": [
+      "REST/HTTP"
+    ],
+    "algorithms": [
+      "ECDSA P-256 (signatures)",
+      "HS256 HMAC"
+    ],
+    "data_sensitivity": "HIGH",
+    "data_retention_years": 1,
+    "notes": "Tokens expire after 1 hour; logs retained 1 year"
+  },
+  {
+    "id": 9,
+    "system": "IoT Sensor Network",
+    "protocols": [
+      "DTLS 1.2",
+      "CoAP"
+    ],
+    "algorithms": [
+      "ECDH P-256",
+      "AES-128-GCM",
+      "RSA-2048 (provisioning)"
+    ],
+    "data_sensitivity": "MEDIUM",
+    "data_retention_years": 5,
+    "notes": "2000 sensors; 10-year device lifetime; no OTA update capability"
+  },
+  {
+    "id": 10,
+    "system": "Long-term Document Archive",
+    "protocols": [
+      "CMS/PKCS#7"
+    ],
+    "algorithms": [
+      "RSA-2048 (enveloping)",
+      "AES-256 (content)",
+      "SHA-1 (legacy docs pre-2017)"
+    ],
+    "data_sensitivity": "HIGH",
+    "data_retention_years": 30,
+    "notes": "Legal documents; 30-year retention required; cannot be re-encrypted easily"
+  }
+]

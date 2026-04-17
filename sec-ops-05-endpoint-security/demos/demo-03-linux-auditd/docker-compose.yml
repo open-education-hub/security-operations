@@ -1,0 +1,8 @@
+services:
+  auditd-demo:
+    build: .
+    container_name: auditd-demo
+    # Note: --privileged is needed to use the real kernel audit subsystem.
+    # If not available, use the pre-generated sample file.
+    privileged: false
+    command: python3 /app/analyze_audit.py --file /app/audit.log.sample --detect

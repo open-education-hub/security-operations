@@ -1,0 +1,24 @@
+# Kibana configuration for SOC Project 01
+
+server.name: soc-kibana
+server.host: "0.0.0.0"
+server.port: 5601
+
+# Elasticsearch connection
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+
+# No authentication required (lab mode, security disabled on ES side)
+# Note: xpack.security.enabled belongs in elasticsearch.yml, not here.
+# Security is disabled via the XPACK_SECURITY_ENABLED=false env var set in docker-compose.
+
+# Disable telemetry
+telemetry.enabled: false
+telemetry.optIn: false
+
+# Logging
+logging.appenders.default:
+  type: console
+  layout:
+    type: pattern
+    pattern: "[%date] [%level] [%logger] %message"
+logging.root.level: info

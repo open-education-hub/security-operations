@@ -1,0 +1,294 @@
+DRILL 02 (INTERMEDIATE) — DELIVERABLE TEMPLATE
+Design a Network Monitoring Strategy: NovaCare Medical Group
+Security Operations — Session 02
+==============================================================================================
+Instructions:
+  Fill in every "?" in the tables below.
+  For Deliverable 6, write full paragraphs (100–200 words per question).
+  For Deliverable 7, justify each phase in terms of risk reduction.
+  Submit this completed file as your drill submission.
+
+  Reference material in this support/ directory:
+    novacare-network-topology.txt — network diagram and traffic flows
+    tool-reference.txt            — tool options with pros/cons (if provided)
+==============================================================================================
+
+DELIVERABLE 1: Asset Classification and Risk Matrix
+----------------------------------------------------
+Fill in Data Sensitivity, Exposure, Compliance Scope, and Threat Likelihood for each segment.
+
+Data Sensitivity options:  None / Low / Medium / High / Critical
+Exposure options:          Internal-only / WAN-connected / Internet-facing / External
+Compliance Scope:          List applicable regulations (GDPR / NIS2 / Internal policy / 7yr audit)
+Threat Likelihood options: Low / Medium / High / Critical
+
+| Segment                               | Data Sensitivity | Exposure | Compliance Scope | Threat Likelihood |
+|---------------------------------------|-----------------|---------|-----------------|------------------|
+| Site A — Clinical workstations        | ?               | ?       | ?               | ?                |
+| Site A — Medical devices              | ?               | ?       | ?               | ?                |
+| Site A — Clinical Wi-Fi               | ?               | ?       | ?               | ?                |
+| Site A — Guest Wi-Fi                  | ?               | ?       | ?               | ?                |
+| Site B — Clinical workstations        | ?               | ?       | ?               | ?                |
+| Site B — Medical devices              | ?               | ?       | ?               | ?                |
+| Data Centre — EHR Application Server  | ?               | ?       | ?               | ?                |
+| Data Centre — EHR Database            | ?               | ?       | ?               | ?                |
+| Data Centre — Active Directory        | ?               | ?       | ?               | ?                |
+| Data Centre — Internet uplink         | ?               | ?       | ?               | ?                |
+| Outpatient clinics                    | ?               | ?       | ?               | ?                |
+| Remote Access VPN                     | ?               | ?       | ?               | ?                |
+
+Key insight to explain (1-2 sentences — which segment is the highest-risk and why?):
+
+
+==============================================================================================
+
+DELIVERABLE 2: Monitoring Tool Selection
+-----------------------------------------
+For each monitoring need, choose a tool and justify your choice.
+
+| Monitoring Need                                    | Recommended Tool | Justification |
+|----------------------------------------------------|-----------------|---------------|
+| Full packet capture at internet perimeter          | ?               | ?             |
+| NSM sensor at Data Centre (EHR traffic analysis)   | ?               | ?             |
+| Flow-based monitoring across all sites             | ?               | ?             |
+| IDS/IPS at internet boundary                       | ?               | ?             |
+| Log aggregation and correlation                    | ?               | ?             |
+| Endpoint detection at clinical workstations        | ?               | ?             |
+| Medical device network monitoring                  | ?               | ?             |
+| VPN access monitoring                              | ?               | ?             |
+| Outpatient clinic monitoring (low budget)          | ?               | ?             |
+
+Notes / additional tools considered:
+
+
+==============================================================================================
+
+DELIVERABLE 3: Sensor Placement Design
+----------------------------------------
+Design 8 monitoring sensors. For each, fill in all five fields.
+
+Connection type options: Hardware TAP / SPAN port / Inline (IPS) / Agent / Log integration / Flow collector
+
+| Sensor ID | Location | Connection | Tool | Traffic Covered | Priority |
+|-----------|---------|------------|------|----------------|---------|
+| SENSOR-01 | ?       | ?          | ?    | ?              | Critical |
+| SENSOR-02 | ?       | ?          | ?    | ?              | Critical |
+| SENSOR-03 | ?       | ?          | ?    | ?              | High     |
+| SENSOR-04 | ?       | ?          | ?    | ?              | High     |
+| SENSOR-05 | ?       | ?          | ?    | ?              | High     |
+| SENSOR-06 | ?       | ?          | ?    | ?              | Medium   |
+| SENSOR-07 | ?       | ?          | ?    | ?              | Medium   |
+| SENSOR-08 | ?       | ?          | ?    | ?              | Medium   |
+
+Notes on key placement decisions (why TAP vs SPAN? why that location?):
+
+
+==============================================================================================
+
+DELIVERABLE 4: Data Collection and Retention Policy
+-----------------------------------------------------
+Design a retention policy. Budget constraint: 10 TB total storage.
+
+Assumptions you are making (fill in):
+  Internet uplink average utilisation:  ____% of 500 Mbps = ____ Mbps actual
+  Zeek log generation rate assumption:  ____ GB/hour per 100 Mbps
+  NetFlow generation rate assumption:   ____ MB/hour per 1 Gbps
+
+| Data Type                           | Collection Tool | Retention Period | Storage Estimate | Justification |
+|-------------------------------------|----------------|-----------------|-----------------|---------------|
+| Full PCAP (internet uplink)         | ?              | ?               | ?               | ?             |
+| Full PCAP (EHR server traffic)      | ?              | ?               | ?               | ?             |
+| Zeek logs (conn, dns, http, ssl)    | ?              | ?               | ?               | ?             |
+| IDS/IPS alerts                      | ?              | ?               | ?               | ?             |
+| NetFlow records                     | ?              | ?               | ?               | ?             |
+| Firewall logs                       | ?              | ?               | ?               | ?             |
+| EHR access logs                     | ?              | ?               | ?               | ?             |
+| VPN connection logs                 | ?              | ?               | ?               | ?             |
+
+Total estimated storage: ____ TB (must be ≤ 10 TB)
+
+GDPR consideration for PCAP files containing patient data:
+
+
+==============================================================================================
+
+DELIVERABLE 5: Alert and Escalation Framework
+----------------------------------------------
+
+5.1 Alert Tiers
+---------------
+Define 3 severity tiers for NovaCare.
+
+| Tier | Name | Examples | Response Time | Notify | Initial Action |
+|------|------|---------|---------------|--------|----------------|
+| P1   | ?    | ?       | ?             | ?      | ?              |
+| P2   | ?    | ?       | ?             | ?      | ?              |
+| P3   | ?    | ?       | ?             | ?      | ?              |
+
+5.2 Must-Have Detection Rules (healthcare-specific)
+----------------------------------------------------
+List 5 detection rules specific to the healthcare context.
+For each, explain WHY it matters specifically in healthcare (not just generally).
+
+Rule 1:
+  Detection logic:
+  Healthcare relevance:
+
+Rule 2:
+  Detection logic:
+  Healthcare relevance:
+
+Rule 3:
+  Detection logic:
+  Healthcare relevance:
+
+Rule 4:
+  Detection logic:
+  Healthcare relevance:
+
+Rule 5:
+  Detection logic:
+  Healthcare relevance:
+
+==============================================================================================
+
+DELIVERABLE 6: GDPR and Medical Privacy Compliance
+----------------------------------------------------
+Write 100–200 words for each question.
+
+6.1: How do you design the monitoring architecture to comply with GDPR while remaining effective?
+(Consider: data minimisation, special category data under Article 9, DPIA requirement)
+
+[Your answer — 100-200 words]
+
+
+
+
+6.2: What controls must be in place for SOC staff who can access network traffic from clinical Wi-Fi?
+(Consider: role-based access, access logging, data processing agreements, training)
+
+[Your answer — 100-200 words]
+
+
+
+
+6.3: How does your monitoring strategy support the 72-hour GDPR breach notification requirement?
+(Consider: which tool provides which evidence element; Article 33 notification content)
+
+[Your answer — 100-200 words]
+
+
+
+
+==============================================================================================
+
+DELIVERABLE 7: Budget Estimate and Phased Implementation
+---------------------------------------------------------
+
+Phase 1 (Month 1–2): Immediate / highest risk reduction
+--------------------------------------------------------
+What you do first and why:
+
+
+
+
+Specific actions:
+  1.
+  2.
+  3.
+
+Risk reduction achieved:
+
+
+Phase 2 (Month 3–6): Short-term / NSM foundation
+-------------------------------------------------
+What you build next and why:
+
+
+
+
+Specific actions:
+  1.
+  2.
+  3.
+  4.
+
+Risk reduction achieved:
+
+
+Phase 3 (Month 7–12): Long-term / complete coverage
+----------------------------------------------------
+What completes the programme and why:
+
+
+
+
+Specific actions:
+  1.
+  2.
+  3.
+  4.
+  5.
+
+Risk reduction achieved:
+
+
+Justification for your phasing order
+(What drove your prioritisation decisions?):
+
+
+
+
+==============================================================================================
+SELF-ASSESSMENT CHECKLIST (check before submitting)
+----------------------------------------------------
+
+Deliverable 1:
+[ ] All 12 rows completed
+[ ] Compliance Scope references specific regulations (not just "GDPR")
+[ ] At least one segment rated Critical threat likelihood with justification
+
+Deliverable 2:
+[ ] All 9 rows completed
+[ ] Justifications explain WHY the tool was chosen (not just WHAT it does)
+[ ] At least one tool choice acknowledges a healthcare-specific constraint
+
+Deliverable 3:
+[ ] All 8 sensors defined with all 5 fields filled in
+[ ] At least one sensor uses a hardware TAP (not just SPAN)
+[ ] At least one sensor addresses medical device monitoring
+[ ] At least one sensor addresses outpatient clinics
+
+Deliverable 4:
+[ ] All 8 data types addressed
+[ ] Total storage estimate stated and ≤ 10 TB
+[ ] Retention periods reference the 7-year audit requirement where relevant
+[ ] GDPR note on PCAP patient data included
+
+Deliverable 5:
+[ ] P1/P2/P3 tiers with response times and notification chains
+[ ] 5 detection rules listed, each with a specific healthcare relevance explanation
+[ ] At least one rule specifically addresses medical devices
+
+Deliverable 6:
+[ ] Each answer is 100–200 words
+[ ] 6.1 mentions DPIA and data minimisation
+[ ] 6.2 mentions role-based access and access logging
+[ ] 6.3 identifies which monitoring tool supports which part of Article 33
+
+Deliverable 7:
+[ ] Three phases with distinct priorities
+[ ] Each phase justified in terms of risk reduction
+[ ] Phase 1 addresses the most exposed / least monitored segments first
+
+==============================================================================================
+Scoring reminder:
+  Deliverable 1: Asset Classification              10 pts
+  Deliverable 2: Tool Selection                    10 pts
+  Deliverable 3: Sensor Placement                  15 pts
+  Deliverable 4: Retention Policy                  10 pts
+  Deliverable 5: Alert Framework                   15 pts
+  Deliverable 6: GDPR Compliance                   15 pts
+  Deliverable 7: Budget / Prioritisation           10 pts
+  Overall coherence and justification              15 pts
+  Total: 100 pts   |   Passing: 70 pts

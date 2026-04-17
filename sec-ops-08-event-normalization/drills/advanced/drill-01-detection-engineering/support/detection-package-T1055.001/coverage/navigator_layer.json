@@ -1,0 +1,154 @@
+{
+  "name": "DLL Injection Coverage Layer - T1055 Family",
+  "versions": {
+    "attack": "14",
+    "navigator": "4.9.1",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "Detection Engineering Drill - T1055.001 coverage map. Shows which sub-techniques are covered (green), partially covered (yellow), or not covered (red). Complete the empty entries as Part 5.1 of the drill.",
+  "filters": {
+    "platforms": ["Windows"]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": true,
+    "showName": true,
+    "showAggregateScores": true,
+    "countUnscored": false
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1055",
+      "score": 0,
+      "color": "#f0f0f0",
+      "comment": "Parent technique: Process Injection. Not directly detected — sub-techniques vary greatly.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1055.001",
+      "score": 1,
+      "color": "#52BE80",
+      "comment": "COVERED: primary-detection.yml (Sysmon EventID 8 CreateRemoteThread) + supporting-indicator.yml. Rule ID: DLL-INJ-001",
+      "enabled": true,
+      "metadata": [
+        {"name": "Rule", "value": "DLL-INJ-001"},
+        {"name": "Data Source", "value": "Sysmon EventID 8"},
+        {"name": "Coverage", "value": "HIGH"}
+      ]
+    },
+    {
+      "techniqueID": "T1055.002",
+      "score": 0,
+      "color": "#E74C3C",
+      "comment": "[STUDENT TASK] Portable Executable Injection. Not currently covered. What data source would detect this?",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1055.003",
+      "score": 0,
+      "color": "#E74C3C",
+      "comment": "[STUDENT TASK] Thread Execution Hijacking. Not currently covered.",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1055.004",
+      "score": 0,
+      "color": "#E74C3C",
+      "comment": "[STUDENT TASK] Asynchronous Procedure Call (APC). Not currently covered.",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1055.005",
+      "score": 0,
+      "color": "#E74C3C",
+      "comment": "[STUDENT TASK] Thread Local Storage. Not currently covered.",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1055.008",
+      "score": 0,
+      "color": "#E74C3C",
+      "comment": "[STUDENT TASK] Ptrace System Calls (Linux). Not in scope for Windows hunt.",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1055.009",
+      "score": 0,
+      "color": "#E74C3C",
+      "comment": "[STUDENT TASK] Proc Memory. Linux-specific.",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1055.011",
+      "score": 0.5,
+      "color": "#F39C12",
+      "comment": "[STUDENT TASK] Extra Window Memory Injection. Partial coverage via existing EventID 8 rule if CRT is used — but not all variants use CRT.",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1055.012",
+      "score": 0.5,
+      "color": "#F39C12",
+      "comment": "[STUDENT TASK] Process Hollowing. Partial: Sysmon EventID 25 (Process Tampering) may detect this. Check your Sysmon config.",
+      "enabled": true,
+      "metadata": [
+        {"name": "Partial Coverage", "value": "Sysmon EventID 25 if configured"}
+      ]
+    },
+    {
+      "techniqueID": "T1055.013",
+      "score": 0,
+      "color": "#E74C3C",
+      "comment": "[STUDENT TASK] Process Doppelgänging. Not currently covered. Difficult to detect without EDR API-level hooks.",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1055.014",
+      "score": 0,
+      "color": "#E74C3C",
+      "comment": "[STUDENT TASK] VDSO Hijacking. Linux-specific.",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1055.015",
+      "score": 0,
+      "color": "#E74C3C",
+      "comment": "[STUDENT TASK] ListPlanting. Relatively new technique, limited detection coverage.",
+      "enabled": true,
+      "metadata": []
+    }
+  ],
+  "gradient": {
+    "colors": ["#E74C3C", "#F39C12", "#52BE80"],
+    "minValue": 0,
+    "maxValue": 1
+  },
+  "legendItems": [
+    {"label": "Not Covered", "color": "#E74C3C"},
+    {"label": "Partial Coverage", "color": "#F39C12"},
+    {"label": "Covered", "color": "#52BE80"}
+  ],
+  "metadata": [],
+  "links": [],
+  "showTacticRowBackground": true,
+  "tacticRowBackground": "#dddddd",
+  "selectTechniquesAcrossTactics": true,
+  "selectSubtechniquesWithParent": false,
+  "selectVisibleTechniques": false
+}

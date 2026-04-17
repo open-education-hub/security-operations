@@ -1,0 +1,167 @@
+
+# Demo 03: Shuffle SOAR + Splunk Integration
+# Services: Shuffle SOAR (frontend, backend, orborus, opensearch) + Splunk Enterprise
+
+services:
+
+  # ── Shuffle SOAR Components ─────────────────────────────────────────────────
+
+  shuffle-frontend:
+    image: ghcr.io/shuffle/shuffle-frontend:latest
+    container_name: shuffle-frontend
+    hostname: shuffle-frontend
+    ports:
+      - "3001:80"
+      - "3443:443"
+    environment:
+      - BACKEND_HOSTNAME=shuffle-backend
+    depends_on:
+      - shuffle-backend
+    networks:
+      - soc-net
+    restart: unless-stopped
+
+  shuffle-backend:
+    image: ghcr.io/shuffle/shuffle-backend:latest
+    container_name: shuffle-backend
+    hostname: shuffle-backend
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./shuffle-apps:/shuffle-apps
+      - ./shuffle-files:/shuffle-files
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - SHUFFLE_APP_HOTLOAD_FOLDER=/shuffle-apps
+      - SHUFFLE_FILE_LOCATION=/shuffle-files
+      - OPENSEARCH_URL=http://shuffle-opensearch:9200
+      - SHUFFLE_ENCRYPTION_MODIFIER=your_random_32char_string_here
+      - SHUFFLE_CLOUDRUN_URL=http://shuffle-backend:5001
+      - SHUFFLE_DEFAULT_USERNAME=admin
+      - SHUFFLE_DEFAULT_PASSWORD=ShuffleSOAR2026!
+      - SHUFFLE_DEFAULT_APIKEY=mysecretshuffleapikey
+    depends_on:
+      shuffle-opensearch:
+        condition: service_healthy
+    networks:
+      - soc-net
+    restart: unless-stopped
+
+  shuffle-orborus:
+    image: ghcr.io/shuffle/shuffle-orborus:latest
+    container_name: shuffle-orborus
+    hostname: shuffle-orborus
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - SHUFFLE_APP_SDK_VERSION=1.1.0
+      - SHUFFLE_WORKER_VERSION=latest
+      - ORG_ID=default
+      - ENVIRONMENT_NAME=default
+      - BASE_URL=http://shuffle-backend:5001
+      - SHUFFLE_ORBORUS_EXECUTION_TIMEOUT=600
+      - SHUFFLE_ORBORUS_EXECUTION_CONCURRENCY=10
+      - CLEANUP=true
+    depends_on:
+      - shuffle-backend
+    networks:
+      - soc-net
+    restart: unless-stopped
+
+  shuffle-opensearch:
+    image: opensearchproject/opensearch:2.11.1
+    container_name: shuffle-opensearch
+    hostname: shuffle-opensearch
+    environment:
+      - discovery.type=single-node
+      - DISABLE_SECURITY_PLUGIN=true
+      - DISABLE_INSTALL_DEMO_CONFIG=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx1g"
+      - cluster.routing.allocation.disk.threshold_enabled=false
+    ports:
+      - "9201:9200"  # Offset to avoid conflict with Splunk/TheHive
+    volumes:
+      - shuffle-opensearch-data:/usr/share/opensearch/data
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    networks:
+      - soc-net
+    restart: unless-stopped
+
+  # ── Splunk Enterprise ────────────────────────────────────────────────────────
+
+  splunk:
+    image: splunk/splunk:9.2
+    container_name: splunk
+    hostname: splunk
+    ports:
+      - "8000:8000"    # Splunk Web UI
+      - "8089:8089"    # Splunk REST API (for SOAR integration)
+      - "9997:9997"    # Splunk forwarder input
+      - "8088:8088"    # HEC (HTTP Event Collector)
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=Splunk2026Admin!
+      - SPLUNK_LICENSE_URI=Free
+    volumes:
+      - splunk-data:/opt/splunk/var
+      - ./splunk-config/inputs.conf:/opt/splunk/etc/system/local/inputs.conf
+      - ./splunk-config/transforms.conf:/opt/splunk/etc/system/local/transforms.conf
+      - ./splunk-config/savedsearches.conf:/opt/splunk/etc/apps/search/local/savedsearches.conf
+      - ./sample-logs:/opt/splunk/var/spool/upload
+    networks:
+      - soc-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8000/en-US/account/login || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+
+  # ── Optional: n8n as alternative automation tool ─────────────────────────────
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    hostname: n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=n8nSOAR2026!
+      - WEBHOOK_URL=http://localhost:5678/
+    volumes:
+      - n8n-data:/home/node/.n8n
+    networks:
+      - soc-net
+    restart: unless-stopped
+    profiles:
+      - n8n  # Only start if --profile n8n is specified
+
+networks:
+  soc-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+volumes:
+  shuffle-opensearch-data:
+  splunk-data:
+  n8n-data:

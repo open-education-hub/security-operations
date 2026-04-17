@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>Session 04 Final Quiz — Fundamentals of Cryptography</name>
+  <description>Post-session assessment of cryptography concepts. 7 MCQ, 15 minutes, passing score 5/7.</description>
+
+  <question type="multichoice">
+    <name>Final Q1: ECB Mode Weakness</name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A developer stores encrypted database records using <strong>AES-128-ECB mode</strong>. An attacker gains read access to the encrypted database. Which statement is <strong>true</strong>?</p>]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text>The attacker cannot learn anything because AES-128 is unbreakable by brute force</text>
+      <feedback><text>Incorrect. While AES-128 is indeed brute-force resistant, ECB mode has a structural weakness that reveals information WITHOUT needing to break AES at all.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>The attacker can identify records that contain the same plaintext in the same position, even without the key</text>
+      <feedback><text>Correct! ECB encrypts each 16-byte block independently with the same key. Identical plaintext blocks → identical ciphertext blocks. An attacker can detect which records share the same data (e.g., same account balance) without ever breaking AES. This is why ECB must NEVER be used.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>ECB is actually stronger than CBC because it has no IV dependency</text>
+      <feedback><text>Incorrect. The absence of an IV is a weakness, not a strength. CBC's IV prevents identical plaintext blocks from producing identical ciphertext blocks.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The attacker must break SHA-256 first before exploiting ECB mode</text>
+      <feedback><text>Incorrect. The ECB weakness is entirely independent of hash functions. It exploits the deterministic block-by-block encryption, not any hash property.</text></feedback>
+    </answer>
+    <shuffleanswers>true</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Final Q2: Perfect Forward Secrecy</name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A security team discovers that the corporate VPN has <strong>PFS (Perfect Forward Secrecy) disabled</strong>. The VPN server's RSA private key is later stolen in a breach. What is the security impact compared to a PFS-enabled VPN?</p>]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text>No difference; RSA private key theft only affects future sessions</text>
+      <feedback><text>Incorrect. Without PFS, the RSA private key can decrypt past sessions too. This is exactly the risk PFS is designed to prevent.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Only sessions established after the theft are compromised</text>
+      <feedback><text>Incorrect. That would be the case with PFS enabled. Without PFS, historical sessions are also vulnerable.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>ALL previously recorded VPN sessions can now be decrypted by anyone who recorded the traffic</text>
+      <feedback><text>Correct! Without PFS, the session key is protected by the long-term RSA key. Anyone who recorded past encrypted traffic can now decrypt it using the stolen RSA key. With PFS (ephemeral ECDHE), each session generates unique keys that are immediately discarded, so past sessions remain secure even if the long-term key is compromised.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Only the authentication is affected; session data remains encrypted</text>
+      <feedback><text>Incorrect. The RSA key protects both authentication AND the key exchange that establishes the session encryption key. Stealing the RSA key allows recovering the session keys.</text></feedback>
+    </answer>
+    <shuffleanswers>true</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Final Q3: Beaconing Detection</name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A SIEM rule triggers on outbound HTTPS connections from a workstation with these characteristics:</p>
+<ul>
+<li>Connection interval: <strong>exactly 60 seconds</strong></li>
+<li>Certificate: issued <strong>1 day ago</strong></li>
+<li>Domain: registered <strong>3 days ago</strong></li>
+</ul>
+<p>What is the <strong>MOST likely</strong> explanation?</p>]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text>A scheduled Windows Update check</text>
+      <feedback><text>Incorrect. Windows Update connects to known Microsoft domains with long-established certificates, not newly-registered domains with brand-new certificates. Also, WU doesn't beacon at precisely 60-second intervals.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A legitimate cloud backup service with a new certificate</text>
+      <feedback><text>Incorrect. A legitimate service would use an established domain (months/years old), not one registered 3 days ago. The combination of all three indicators is highly suspicious.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>A malware C2 (command-and-control) beacon</text>
+      <feedback><text>Correct! The three indicators together are classic C2 beaconing: (1) exact 60s interval = Cobalt Strike default beacon sleep, (2) 1-day-old certificate = fresh malware infrastructure, (3) 3-day-old domain = newly registered for attack campaign. Legitimate software doesn't exhibit all three simultaneously.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A misconfigured network monitoring agent</text>
+      <feedback><text>Incorrect. A legitimate monitoring agent would use the organization's own domain/certificate infrastructure, not a brand-new external domain with a fresh certificate.</text></feedback>
+    </answer>
+    <shuffleanswers>true</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Final Q4: Password Hashing</name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which describes the <strong>CORRECT</strong> approach to password storage?</p>]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text>Hash passwords with SHA-256 and store the hash; compare hashes on login</text>
+      <feedback><text>Incorrect. SHA-256 is designed to be FAST (billions/second on GPU). Without a salt, identical passwords produce identical hashes (rainbow tables work). Slow password-specific KDFs (bcrypt, Argon2) are required.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Encrypt passwords with AES-256 and store the ciphertext</text>
+      <feedback><text>Incorrect. Encryption is reversible; if the AES key is compromised, all passwords are exposed in plaintext. Password hashing should be one-way — you should never need to "decrypt" a password.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Use bcrypt or Argon2 with a unique random salt per user; store the hash with the salt</text>
+      <feedback><text>Correct! bcrypt and Argon2 are intentionally slow (configurable work factor), making brute-force impractical. Per-user random salts prevent rainbow table attacks. The salt is stored alongside the hash (it doesn't need to be secret). This is the industry standard.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Hash passwords with MD5 and use a fixed salt applied to all passwords</text>
+      <feedback><text>Incorrect. MD5 is broken (fast and collision-prone). A fixed salt shared across all users is better than no salt but still allows dictionary attacks since an attacker only needs to crack one salt value for all users.</text></feedback>
+    </answer>
+    <shuffleanswers>true</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Final Q5: TLS Certificate Analysis</name>
+    <questiontext format="html">
+      <text><![CDATA[<p>During TLS analysis, you see the SNI field contains <strong>"secure-banking.paypa1.com"</strong> and the certificate was issued <strong>2 hours ago by Let's Encrypt</strong>. What should you conclude?</p>]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text>This is normal — Let's Encrypt issues certificates quickly and all HTTPS is equally secure</text>
+      <feedback><text>Incorrect. HTTPS (TLS) provides transport encryption but does NOT authenticate that a site is legitimate. Let's Encrypt only verifies domain control, not business identity. A criminal can get a Let's Encrypt cert for a phishing domain in minutes.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>This is likely a phishing site: the domain is a typosquat of "paypal.com" with a very fresh certificate</text>
+      <feedback><text>Correct! "paypa1.com" (number 1 instead of letter l) is a classic typosquat of paypal.com. A 2-hour-old Let's Encrypt certificate means fresh, quickly-spun-up infrastructure — typical of phishing campaigns. SOC should block this domain and alert users.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The connection is safe because Let's Encrypt only issues certificates to legitimate businesses</text>
+      <feedback><text>Incorrect. Let's Encrypt issues Domain Validated (DV) certificates to anyone who can prove control of the domain — no business identity verification is required. Phishing sites routinely use Let's Encrypt certificates.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The "1" instead of "l" is insignificant since browsers handle IDN normalization</text>
+      <feedback><text>Incorrect. "paypa1.com" uses an ASCII digit 1, not an IDN/Unicode lookalike. Browsers do NOT normalize this — it looks nearly identical to "paypal.com" to users but is a completely different domain. This is a significant phishing indicator.</text></feedback>
+    </answer>
+    <shuffleanswers>true</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Final Q6: Post-Quantum Risk</name>
+    <questiontext format="html">
+      <text><![CDATA[<p>An organization's critical data (25-year retention requirement) is protected with <strong>RSA-2048 encryption</strong>. In the context of post-quantum cryptography, what is the <strong>most accurate risk assessment</strong>?</p>]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text>No risk — RSA-2048 provides 112-bit security which is sufficient for any foreseeable threat</text>
+      <feedback><text>Incorrect. RSA-2048's 112-bit classical security is irrelevant against Shor's algorithm, which solves the integer factorization problem in polynomial time on a quantum computer. RSA-2048 provides ZERO quantum security.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>The data is at risk from "harvest now, decrypt later" attacks — adversaries recording encrypted data today could decrypt it with quantum computers before the 25-year retention ends</text>
+      <feedback><text>Correct! "Harvest now, decrypt later": adversaries record encrypted data today, then decrypt it when quantum computers become available (potentially within 5-15 years). Data retained until 2049 (25 years from 2024) will still be sensitive long after quantum computers may exist. RSA-2048 is broken by Shor's algorithm regardless of key size.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Only real-time attacks are relevant; stored encrypted data cannot be retroactively decrypted</text>
+      <feedback><text>Incorrect. This is precisely what "harvest now, decrypt later" attacks accomplish — storing encrypted data now to decrypt later when better tools (quantum computers) are available. AES-256 data stored long-term is safer; RSA-encrypted data is not.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>RSA-2048 is quantum-resistant because it uses a 2048-bit key which exceeds the 128-bit Grover threshold</text>
+      <feedback><text>Incorrect. Grover's algorithm (which threatens symmetric crypto like AES) is not the relevant attack against RSA. Shor's algorithm attacks RSA by solving integer factorization, and it completely breaks RSA regardless of key size. AES-256 is quantum-resistant; RSA is not.</text></feedback>
+    </answer>
+    <shuffleanswers>true</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name>Final Q7: Hash Integrity Verification</name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A file's SHA-256 hash is checked against a vendor-published checksum and they <strong>match</strong>. Which statement is <strong>most accurate</strong>?</p>]]></text>
+    </questiontext>
+    <answer fraction="0">
+      <text>The file is definitely authentic and unmodified since the vendor released it</text>
+      <feedback><text>Incorrect. The hash proves the file content matches what was hashed when the checksum was created. But if an attacker controls the distribution server, they can modify both the file AND the checksum file.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>The file content matches the state when the checksum was computed, BUT authenticity depends on trusting the source of the checksum itself</text>
+      <feedback><text>Correct! A matching hash proves content integrity relative to the checksum. But if the checksum was tampered with (e.g., attacker controls the server), a matching hash tells you nothing about authenticity. Checksums should be GPG-signed and/or distributed via a separate trusted channel. Also: a clean hash doesn't mean a file is safe — only unmodified from when it was hashed.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>SHA-256 collision resistance guarantees authenticity regardless of checksum distribution</text>
+      <feedback><text>Incorrect. SHA-256 collision resistance means you can't find two different inputs with the same hash — it doesn't prevent an attacker from replacing BOTH the file AND the checksum with a consistent malicious pair.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The file is safe to execute since SHA-256 is secure and cannot be forged</text>
+      <feedback><text>Incorrect. "Safe to execute" requires more than hash verification. The hash only proves the file wasn't modified from the hashed version. If the original vendor release itself contained malware, or if the checksum was replaced by an attacker, the file is not safe.</text></feedback>
+    </answer>
+    <shuffleanswers>true</shuffleanswers>
+    <single>true</single>
+  </question>
+
+</quiz>

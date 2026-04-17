@@ -1,0 +1,40 @@
+# NIST Post-Quantum Cryptography Standards (as of 2024)
+# =======================================================
+# NIST finalised the first three PQC standards in August 2024.
+
+== Key Encapsulation Mechanisms (KEM) — replaces RSA/ECDH for key exchange ==
+
+ML-KEM (Module-Lattice-Based KEM)
+  Standard: FIPS 203 (formerly CRYSTALS-Kyber)
+  Variants: ML-KEM-512 (Level 1), ML-KEM-768 (Level 3), ML-KEM-1024 (Level 5)
+  Use case: TLS key exchange, VPN IKE, email encryption
+  Public key size: ML-KEM-768 = 1184 bytes (vs ECDH P-256 = 64 bytes)
+  Recommendation: ML-KEM-768 for most use cases (Level 3 = equivalent to AES-192)
+
+== Digital Signatures — replaces RSA/ECDSA for signing ==
+
+ML-DSA (Module-Lattice-Based DSA)
+  Standard: FIPS 204 (formerly CRYSTALS-Dilithium)
+  Variants: ML-DSA-44, ML-DSA-65, ML-DSA-87
+  Use case: Code signing, TLS certificates, JWT signing
+  Public key size: ML-DSA-65 = 1952 bytes (vs RSA-4096 = 512 bytes)
+
+SLH-DSA (Stateless Hash-Based DSA)
+  Standard: FIPS 205 (formerly SPHINCS+)
+  Variants: SLH-DSA-128s/f, SLH-DSA-192s/f, SLH-DSA-256s/f
+  Use case: Long-lived signatures (root CA, code signing, archival)
+  Key generation: Slow (stateless — no state management needed)
+  Advantage: Security based on hash functions only — extremely well-understood
+
+== Migration Strategy ==
+
+Hybrid approach (recommended during transition):
+  - Run classical + PQC in parallel (X25519+ML-KEM-768 for TLS)
+  - This protects against classical AND quantum attackers simultaneously
+  - Standard: IETF draft-ietf-tls-hybrid-design
+
+Timeline:
+  2024: NIST standards published (FIPS 203/204/205)
+  2025: Major TLS libraries add PQC support (OpenSSL 3.4+, BoringSSL)
+  2026: Government systems required to begin PQC migration (CNSA 2.0)
+  2030: Classical asymmetric crypto deprecated for sensitive government use

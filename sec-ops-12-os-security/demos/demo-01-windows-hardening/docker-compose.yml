@@ -1,0 +1,10 @@
+services:
+  win-audit:
+    build: .
+    container_name: win-security-audit
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./scripts:/scripts
+      - ./reports:/reports
+    command: pwsh

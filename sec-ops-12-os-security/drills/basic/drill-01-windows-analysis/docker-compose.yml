@@ -1,0 +1,10 @@
+
+services:
+  win-drill:
+    image: mcr.microsoft.com/powershell:latest
+    container_name: win-analysis-drill
+    volumes:
+      - ./scripts:/scripts
+    stdin_open: true
+    tty: true
+    command: pwsh -NoExit -Command ". /scripts/load-drill.ps1"

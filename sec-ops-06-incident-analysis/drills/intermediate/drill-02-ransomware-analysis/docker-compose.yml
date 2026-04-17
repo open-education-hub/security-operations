@@ -1,0 +1,59 @@
+# Drill 02 - Ransomware Analysis Lab
+# Security Operations Course - Session 06
+#
+# Services:
+#   - Elasticsearch: internal only
+#   - Kibana:        http://localhost:5602  (elastic / changeme)
+#   - Data loader:   loads ransomware incident log data
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: drill02-es
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=changeme
+      - xpack.security.enabled=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9202:9200"
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "-u", "elastic:changeme", "http://localhost:9200/_cluster/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    networks:
+      - drill02-net
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: drill02-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=changeme
+    ports:
+      - "5602:5601"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - drill02-net
+
+  loader:
+    build:
+      context: ./scenario
+    container_name: drill02-loader
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    environment:
+      - ES_HOST=http://elasticsearch:9200
+      - ES_USER=elastic
+      - ES_PASS=changeme
+    networks:
+      - drill02-net
+
+networks:
+  drill02-net:
+    driver: bridge

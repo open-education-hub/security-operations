@@ -1,0 +1,58 @@
+[ca]
+default_ca = CA_default
+
+[CA_default]
+dir               = /home/razvan/orgs/upb/projects/digital4security/content/so/sec-ops-04-crypto-essentials/guides/intermediate/guide-01-pki-in-practice/support/pki/intermediate-ca
+certs             = $dir/certs
+crl_dir           = $dir/crl
+new_certs_dir     = $dir/newcerts
+database          = $dir/index.txt
+serial            = $dir/serial
+private_key       = $dir/private/intermediate-ca.key.pem
+certificate       = $dir/certs/intermediate-ca.crt.pem
+crlnumber         = $dir/crlnumber
+crl               = $dir/crl/intermediate-ca.crl.pem
+crl_extensions    = crl_ext
+default_crl_days  = 30
+default_md        = sha256
+preserve          = no
+policy            = policy_loose
+default_days      = 375
+
+[policy_loose]
+countryName            = optional
+stateOrProvinceName    = optional
+organizationName       = optional
+organizationalUnitName = optional
+commonName             = supplied
+emailAddress           = optional
+
+[req]
+default_bits       = 2048
+distinguished_name = req_distinguished_name
+string_mask        = utf8only
+default_md         = sha256
+
+[req_distinguished_name]
+countryName                    = Country Name
+countryName_default            = US
+organizationName               = Organization Name
+organizationName_default       = SOC Training Corp
+commonName                     = Common Name
+
+[server_cert]
+basicConstraints       = CA:false
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid,issuer
+keyUsage               = critical,digitalSignature,keyEncipherment
+extendedKeyUsage       = serverAuth
+
+[client_cert]
+basicConstraints       = CA:false
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid,issuer
+keyUsage               = critical,digitalSignature,nonRepudiation
+extendedKeyUsage       = clientAuth
+
+[crl_ext]
+authorityKeyIdentifier = keyid:always

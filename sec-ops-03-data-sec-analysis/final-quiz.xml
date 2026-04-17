@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>
+    <text>Session 03 Final Quiz — Data Categories and Analysis</text>
+  </name>
+  <intro>
+    <text>This quiz assesses knowledge gained during Session 03. There are 7 multiple-choice questions covering log normalization, SIEM analysis, IOC types, threat intelligence, and Splunk SPL. Passing score: 5/7.</text>
+  </intro>
+  <introformat>1</introformat>
+  <shuffleanswers>1</shuffleanswers>
+  <decimalpoints>0</decimalpoints>
+  <preferredbehaviour>deferredfeedback</preferredbehaviour>
+
+  <!-- Q1 -->
+  <question type="multichoice">
+    <name><text>Final Q1 — CEF vs ECS</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which of the following best describes the difference between <strong>CEF (Common Event Format)</strong> and <strong>ECS (Elastic Common Schema)</strong>?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answer fraction="0">
+      <text>CEF is used for storage while ECS is used for transport</text>
+      <feedback><text>This has it backwards. CEF is primarily a transport/wire format (sent over syslog), while ECS is a schema standard for indexed data at rest.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>CEF is a transport/wire format for log forwarding, while ECS is a schema standard defining field names and types for indexed data</text>
+      <feedback><text>Correct. CEF defines how to transmit an event (the wire format, typically over syslog). ECS defines what fields should be named and what types they should have in an index like Elasticsearch. CEF data can be parsed and mapped to ECS fields during Logstash ingestion.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>CEF is only for firewall logs, while ECS is for all log types</text>
+      <feedback><text>CEF can carry any type of security event — not just firewalls. It was developed by ArcSight and is used by many vendors including IDS/IPS, WAFs, endpoint tools, and more.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>CEF is a Splunk standard and ECS is an Elasticsearch standard — they are completely incompatible</text>
+      <feedback><text>CEF was developed by ArcSight (now Micro Focus), not Splunk. Splunk uses the Common Information Model (CIM). ECS is from Elastic. These standards can coexist — CEF data can be parsed into ECS fields.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Q2 -->
+  <question type="multichoice">
+    <name><text>Final Q2 — Logstash GeoIP Filter</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A security analyst sees this in a Logstash pipeline:</p>
+<pre>geoip {
+  source => "[source][ip]"
+  target => "[source][geo]"
+}</pre>
+<p>What does this Logstash filter do?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answer fraction="0">
+      <text>Validates that the source IP is not in a private address range</text>
+      <feedback><text>IP validation (private vs public) would use the cidrContains function or a mutate filter, not geoip. The geoip filter specifically performs geographic lookup.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Looks up the geographic location of the source IP and adds it as nested fields under source.geo</text>
+      <feedback><text>Correct. The geoip filter uses the MaxMind GeoIP database to enrich an IP address with city, country, region, and coordinates. The result is stored in the target field (source.geo.*), making it searchable in Elasticsearch and visualizable on maps in Kibana.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Converts the IP address to a hostname using reverse DNS</text>
+      <feedback><text>That would be the dns filter in Logstash (action => "reverse"). The geoip filter specifically does geographic database lookup, not DNS.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Checks if the IP is in a blocklist</text>
+      <feedback><text>Blocklist checking would use a Logstash translate filter or an Elasticsearch lookup. The geoip filter only adds geographic data.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Q3 -->
+  <question type="multichoice">
+    <name><text>Final Q3 — DNS Tunneling Evidence</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>An analyst is investigating a potential DNS tunneling incident. Which log source provides the <strong>most direct</strong> evidence?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answer fraction="0">
+      <text>Windows Security Event Log (Event ID 4624)</text>
+      <feedback><text>Event 4624 records logon events. DNS tunneling is a network activity — logon events provide no information about DNS queries.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Sysmon Event ID 1 (process creation)</text>
+      <feedback><text>Process creation events show which programs ran, but they don't capture DNS query names or content. Sysmon Event ID 22 (DNS Query) would be more relevant, but even that is less direct than the actual DNS resolver logs.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>DNS resolver logs showing query names and response types</text>
+      <feedback><text>Correct. DNS resolver logs capture the exact query names, types (A, TXT, MX), and responses. DNS tunneling is detectable in these logs by looking for: abnormally long query names (data encoded in subdomains), high-entropy domain names, excessive TXT record queries, and unusual query volumes from a single host.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>NetFlow records</text>
+      <feedback><text>NetFlow records connection metadata (source IP, destination IP, ports, bytes) but not application-layer content like DNS query names. You can see that a host is communicating with a DNS server, but not what queries it's making.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Q4 -->
+  <question type="multichoice">
+    <name><text>Final Q4 — Log Retention Gap</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>An organization has a security log retention policy of 12 months online. During an investigation, the analyst discovers the attack began 14 months ago. What does this reveal?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answer fraction="0">
+      <text>Nothing — 14 months is an unusually long time for an attack, making this scenario implausible</text>
+      <feedback><text>APT (Advanced Persistent Threat) actors routinely maintain access for months or years before being discovered. The average dwell time (time between initial compromise and detection) has historically been over 200 days. 14-month attacks are not unusual.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>The organization likely has a compliance gap if regulations require longer retention for their industry</text>
+      <feedback><text>Correct. If the organization is subject to SOX (7-year retention), HIPAA (6-year), or PCI-DSS (1-year with 3-month immediate availability), losing logs at 12 months may mean they cannot fully investigate the scope of the breach or satisfy regulatory audit requirements. This is also a forensic gap — the earliest attack stages cannot be investigated.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The organization should immediately extend retention — this is a simple configuration change with no cost</text>
+      <feedback><text>Extending retention has real costs: additional storage, licensing fees for indexed storage, and potentially architectural changes. It is an important step but is not free or trivial.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The attack data can be recovered from endpoint memory</text>
+      <feedback><text>Memory is volatile and only reflects the current running state. Historical log data from 14 months ago cannot be recovered from memory. Offline backups would be the only hope, if they exist.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Q5 -->
+  <question type="multichoice">
+    <name><text>Final Q5 — TLP:AMBER</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>In MISP and the TLP (Traffic Light Protocol) framework, what does the <strong>TLP:AMBER</strong> tag indicate?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answer fraction="0">
+      <text>The indicator has been confirmed by multiple independent sources</text>
+      <feedback><text>TLP does not describe confidence level or source validation. It describes the sharing policy for the information. Confidence level in MISP is handled separately.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>The information may be shared within the recipient organization but not publicly disclosed outside it</text>
+      <feedback><text>Correct. TLP:AMBER means limited disclosure: the recipient can share within their own organization but cannot disclose to other organizations or publicly. TLP:RED is even more restrictive (recipient only). TLP:GREEN allows wider community sharing. TLP:CLEAR (formerly WHITE) allows public disclosure.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The information is public and freely shareable</text>
+      <feedback><text>That describes TLP:CLEAR (formerly TLP:WHITE). TLP:AMBER requires limiting disclosure to the recipient organization.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The information is highly sensitive and restricted to the original recipient only</text>
+      <feedback><text>That describes TLP:RED — the most restrictive level, where information cannot be shared even within an organization beyond the immediate recipient.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Q6 -->
+  <question type="multichoice">
+    <name><text>Final Q6 — Password Spray Detection SPL</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which Splunk SPL query would most effectively detect a <strong>password spray attack</strong> (one attacker trying many accounts with very few attempts per account to avoid lockout)?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answer fraction="0">
+      <text><![CDATA[index=windows EventCode=4625 | stats count BY src_ip | where count > 100]]></text>
+      <feedback><text>This detects brute force against a single account (high count from one IP). A spray attack deliberately keeps counts LOW per account (e.g., 2-3 attempts) to avoid triggering lockout. This query would miss a spray that tries 50 accounts once each.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text><![CDATA[index=windows EventCode=4625 | stats count AS attempts, dc(Account_Name) AS unique_accounts BY src_ip | where unique_accounts > 20]]></text>
+      <feedback><text>Correct. Password spray is characterized by targeting MANY unique accounts (dc = distinct count) from ONE source IP, with few attempts per account. This query correctly identifies a single source IP that has tried more than 20 different account names, which is the defining signature of a spray attack.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[index=windows EventCode=4625 Account_Name=Administrator | stats count BY src_ip]]></text>
+      <feedback><text>This only looks at failures for the Administrator account — a single high-value target. Password spray targets many accounts, not just one.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text><![CDATA[index=windows EventCode=4625 | transaction Account_Name | where duration > 3600]]></text>
+      <feedback><text>This groups events by account and looks at time span, which doesn't effectively identify spray patterns. The transaction command is better suited for multi-step correlation, not counting unique targets.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Q7 -->
+  <question type="multichoice">
+    <name><text>Final Q7 — VT Zero Detection Interpretation</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>You are reviewing an alert: "Process <code>svchost32.exe</code> made outbound connection to 185.220.101.5:443." You look up 185.220.101.5 in VirusTotal and find 0/90 detections. What is the CORRECT interpretation?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answer fraction="0">
+      <text>The connection is safe — 0 detections means VirusTotal has confirmed this IP is benign</text>
+      <feedback><text>0 VT detections does NOT confirm an IP is benign. It only means no AV vendor currently has a signature for it. Newly-deployed attacker infrastructure (C2 servers stood up hours ago) will have 0 VT detections. This is a common analyst error called over-relying on VT negatives.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The connection is definitely malicious — VirusTotal must have an error</text>
+      <feedback><text>You cannot conclude definitively that the connection is malicious just because VT has 0 detections and the process name is suspicious. That would be a false positive if it turned out to be a legitimate application.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>The result is inconclusive — 0 VT detections does not rule out malicious activity, and the process name (svchost32.exe vs. legitimate svchost.exe) is itself suspicious</text>
+      <feedback><text>Correct. Two important observations: (1) 0 VT detections means the IP is unknown, not confirmed clean. New attacker infrastructure won't be in VT. (2) The process name "svchost32.exe" is suspicious masquerading — the legitimate Windows process is "svchost.exe" (no "32"). This masquerading technique (T1036.005) is used by malware. The analyst should investigate further, not dismiss or confirm definitively.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>You should immediately close the alert as a false positive</text>
+      <feedback><text>Closing this alert as a false positive would be dangerous. The process name anomaly (svchost32.exe) combined with an unknown external IP should trigger further investigation, not dismissal. This pattern is consistent with malware activity.</text></feedback>
+    </answer>
+  </question>
+
+</quiz>

@@ -1,0 +1,47 @@
+title: Suspicious LSASS Memory Access
+id: 3d4e5f6a-7b8c-9d0e-1f2a-3b4c5d6e7f8a
+status: experimental
+description: |
+  Detects suspicious access to LSASS (Local Security Authority Subsystem Service)
+  memory, which is the primary technique for credential dumping.
+  Mimikatz and its variants commonly access LSASS with specific access rights.
+
+  FIN-STORM was observed using LSASS dumping for credential harvesting (T1003.001).
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+  - https://github.com/gentilkiwi/mimikatz
+author: SecureBank Threat Hunt Team
+date: 2024/03/15
+logsource:
+  category: process_access
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 10
+    TargetImage|endswith: '\lsass.exe'
+    GrantedAccess|contains:
+      - '0x1fffff'   # PROCESS_ALL_ACCESS
+      - '0x1010'     # PROCESS_VM_READ | PROCESS_QUERY_LIMITED_INFORMATION
+      - '0x1410'     # Common Mimikatz access mask
+      - '0x143a'     # Common Mimikatz access mask
+      - '0x40'       # PROCESS_DUP_HANDLE (procdump)
+  filter_legitimate:
+    SourceImage|contains:
+      - '\MsMpEng.exe'       # Windows Defender
+      - '\SenseIR.exe'       # Microsoft Defender for Endpoint
+      - '\MsSense.exe'       # Microsoft Defender for Endpoint
+      - '\SentinelAgent.exe' # SentinelOne
+      - '\cb.exe'            # Carbon Black
+      - '\CylanceSvc.exe'    # Cylance
+      - '\bdservicehost.exe' # Bitdefender
+      - '\csrss.exe'         # System process
+      - '\wininit.exe'       # System process
+  condition: selection and not filter_legitimate
+falsepositives:
+  - Legitimate security tools (add to filter_legitimate list)
+  - System debugging tools in authorized use
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1003.001

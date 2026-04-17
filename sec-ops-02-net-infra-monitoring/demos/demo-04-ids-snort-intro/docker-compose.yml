@@ -1,0 +1,98 @@
+
+networks:
+  snort-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/24
+
+services:
+
+  # ─────────────────────────────────────────────────────────────
+  # Target web server — Snort monitors traffic to/from this host
+  # ─────────────────────────────────────────────────────────────
+  target:
+    image: nginx:alpine
+    container_name: snort-target
+    networks:
+      snort-net:
+        ipv4_address: 172.22.0.2
+    volumes:
+      - ./web:/usr/share/nginx/html:ro
+
+  # ─────────────────────────────────────────────────────────────
+  # SSH server target (for SSH brute-force rule testing)
+  # ─────────────────────────────────────────────────────────────
+  ssh-target:
+    image: linuxserver/openssh-server
+    container_name: snort-ssh-target
+    networks:
+      snort-net:
+        ipv4_address: 172.22.0.3
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - USER_PASSWORD=weakpassword123
+      - PASSWORD_ACCESS=true
+
+  # ─────────────────────────────────────────────────────────────
+  # Attacker container — used to generate attack traffic
+  # ─────────────────────────────────────────────────────────────
+  attacker:
+    image: kalilinux/kali-rolling
+    container_name: snort-attacker
+    networks:
+      snort-net:
+        ipv4_address: 172.22.0.100
+    command: sleep infinity
+    stdin_open: true
+    tty: true
+
+  # ─────────────────────────────────────────────────────────────
+  # Snort IDS sensor — passive monitoring mode
+  # Shares network with target to see all traffic
+  # ─────────────────────────────────────────────────────────────
+  snort-ids:
+    image: ciscotalos/snort3:latest
+    container_name: snort-ids
+    network_mode: "service:target"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./snort.lua:/etc/snort/snort.lua:ro
+      - ./rules:/etc/snort/rules:ro
+      - ./logs:/logs
+    command: >
+      snort
+        -c /etc/snort/snort.lua
+        -i eth0
+        -A fast
+        --alert-before-pass
+        --log-dir /logs
+        -k none
+    depends_on:
+      - target
+    restart: unless-stopped
+
+  # ─────────────────────────────────────────────────────────────
+  # Offline PCAP analysis mode
+  # Usage: docker compose run --rm snort-pcap-analyse
+  # ─────────────────────────────────────────────────────────────
+  snort-pcap-analyse:
+    image: ciscotalos/snort3:latest
+    container_name: snort-pcap
+    volumes:
+      - ./snort.lua:/etc/snort/snort.lua:ro
+      - ./rules:/etc/snort/rules:ro
+      - ./logs:/logs
+      - ./pcap:/pcap:ro
+    command: >
+      snort
+        -c /etc/snort/snort.lua
+        -r /pcap/demo-capture.pcap
+        -A fast
+        --log-dir /logs
+        -k none
+    profiles:
+      - pcap

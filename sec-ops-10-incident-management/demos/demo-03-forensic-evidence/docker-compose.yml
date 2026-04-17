@@ -1,0 +1,20 @@
+
+services:
+  volatility:
+    build: .
+    container_name: volatility-demo
+    volumes:
+      - evidence-vol:/evidence
+    command: ["sleep", "infinity"]
+
+  evidence-loader:
+    image: python:3.11-slim
+    volumes:
+      - evidence-vol:/evidence
+      - ./scripts:/scripts
+    command: ["python", "/scripts/generate_demo_evidence.py"]
+    depends_on:
+      - volatility
+
+volumes:
+  evidence-vol:

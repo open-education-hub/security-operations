@@ -1,0 +1,7 @@
+services:
+  investigation:
+    build: .
+    container_name: compromised-system
+    stdin_open: true
+    tty: true
+    command: bash

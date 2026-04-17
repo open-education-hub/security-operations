@@ -1,0 +1,418 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#0d1117"/>
+
+  <!-- Title -->
+  <text x="600" y="38" font-family="monospace" font-size="20" font-weight="bold" fill="#e6edf3" text-anchor="middle">Session 06 — Incident Analysis in a Threat-Centric SOC</text>
+  <line x1="80" y1="48" x2="1120" y2="48" stroke="#30363d" stroke-width="1"/>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 1: Incident Lifecycle (top row) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <text x="90" y="75" font-family="monospace" font-size="12" fill="#8b949e">INCIDENT LIFECYCLE (NIST SP 800-61 / SANS PICERL)</text>
+
+  <!-- Phase boxes -->
+  <!-- Preparation -->
+  <rect x="80" y="85" width="140" height="60" rx="6" fill="#161b22" stroke="#388bfd" stroke-width="1.5"/>
+  <text x="150" y="110" font-family="monospace" font-size="12" font-weight="bold" fill="#388bfd" text-anchor="middle">PREPARATION</text>
+  <text x="150" y="127" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">IRP · Playbooks · Tools</text>
+  <text x="150" y="139" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Training · Tabletops</text>
+
+  <!-- Arrow -->
+  <line x1="220" y1="115" x2="240" y2="115" stroke="#388bfd" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+
+  <!-- Detection & Analysis -->
+  <rect x="240" y="85" width="155" height="60" rx="6" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="317" y="107" font-family="monospace" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">DETECTION &amp;</text>
+  <text x="317" y="120" font-family="monospace" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">ANALYSIS</text>
+  <text x="317" y="135" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Triage · Classify · Scope</text>
+
+  <!-- Arrow -->
+  <line x1="395" y1="115" x2="415" y2="115" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+
+  <!-- Containment -->
+  <rect x="415" y="85" width="135" height="60" rx="6" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+  <text x="482" y="110" font-family="monospace" font-size="11" font-weight="bold" fill="#d29922" text-anchor="middle">CONTAINMENT</text>
+  <text x="482" y="127" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Isolate · Block · Limit</text>
+  <text x="482" y="139" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">blast radius</text>
+
+  <!-- Arrow -->
+  <line x1="550" y1="115" x2="570" y2="115" stroke="#d29922" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+
+  <!-- Eradication -->
+  <rect x="570" y="85" width="135" height="60" rx="6" fill="#161b22" stroke="#f85149" stroke-width="1.5"/>
+  <text x="637" y="110" font-family="monospace" font-size="11" font-weight="bold" fill="#f85149" text-anchor="middle">ERADICATION</text>
+  <text x="637" y="127" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Remove malware</text>
+  <text x="637" y="139" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Patch · Reset creds</text>
+
+  <!-- Arrow -->
+  <line x1="705" y1="115" x2="725" y2="115" stroke="#f85149" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+
+  <!-- Recovery -->
+  <rect x="725" y="85" width="135" height="60" rx="6" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="792" y="110" font-family="monospace" font-size="11" font-weight="bold" fill="#58a6ff" text-anchor="middle">RECOVERY</text>
+  <text x="792" y="127" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Restore · Validate</text>
+  <text x="792" y="139" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">Monitor · Verify</text>
+
+  <!-- Arrow -->
+  <line x1="860" y1="115" x2="880" y2="115" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arrowLightBlue)"/>
+
+  <!-- Lessons Learned -->
+  <rect x="880" y="85" width="150" height="60" rx="6" fill="#161b22" stroke="#bc8cff" stroke-width="1.5"/>
+  <text x="955" y="107" font-family="monospace" font-size="11" font-weight="bold" fill="#bc8cff" text-anchor="middle">LESSONS</text>
+  <text x="955" y="120" font-family="monospace" font-size="11" font-weight="bold" fill="#bc8cff" text-anchor="middle">LEARNED</text>
+  <text x="955" y="135" font-family="monospace" font-size="9" fill="#8b949e" text-anchor="middle">PIR · Update Playbooks</text>
+
+  <!-- Feedback arrow back to Preparation -->
+  <path d="M 1030 115 Q 1080 60 600 60 Q 150 60 150 85" stroke="#bc8cff" stroke-width="1" fill="none" stroke-dasharray="4,3" marker-end="url(#arrowPurple)"/>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 2: Cyber Kill Chain with Detection (middle) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <line x1="80" y1="162" x2="1120" y2="162" stroke="#30363d" stroke-width="1"/>
+  <text x="90" y="182" font-family="monospace" font-size="12" fill="#8b949e">CYBER KILL CHAIN + DETECTION OPPORTUNITIES</text>
+
+  <!-- Kill chain phases + detection bands -->
+  <!-- Recon -->
+  <rect x="80" y="192" width="135" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+  <text x="147" y="213" font-family="monospace" font-size="10" font-weight="bold" fill="#58a6ff" text-anchor="middle">1. RECON</text>
+  <text x="147" y="227" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">OSINT · Scanning</text>
+  <text x="147" y="239" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">DNS · LinkedIn</text>
+
+  <rect x="80" y="247" width="135" height="22" rx="4" fill="#161b22" stroke="#388bfd" stroke-width="1"/>
+  <text x="147" y="262" font-family="monospace" font-size="8" fill="#388bfd" text-anchor="middle">Web logs · Threat Intel</text>
+
+  <!-- Arrow -->
+  <polygon points="218,218 225,215 225,221" fill="#30363d"/>
+
+  <!-- Weaponize -->
+  <rect x="227" y="192" width="118" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+  <text x="286" y="213" font-family="monospace" font-size="10" font-weight="bold" fill="#58a6ff" text-anchor="middle">2. WEAPONIZE</text>
+  <text x="286" y="227" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">Payload creation</text>
+  <text x="286" y="239" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">Exploit kit</text>
+
+  <rect x="227" y="247" width="118" height="22" rx="4" fill="#161b22" stroke="#388bfd" stroke-width="1"/>
+  <text x="286" y="262" font-family="monospace" font-size="8" fill="#388bfd" text-anchor="middle">Threat Intel feeds</text>
+
+  <!-- Arrow -->
+  <polygon points="348,218 355,215 355,221" fill="#30363d"/>
+
+  <!-- Delivery -->
+  <rect x="357" y="192" width="118" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+  <text x="416" y="213" font-family="monospace" font-size="10" font-weight="bold" fill="#3fb950" text-anchor="middle">3. DELIVERY</text>
+  <text x="416" y="227" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">Email · USB</text>
+  <text x="416" y="239" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">Web · Supply chain</text>
+
+  <rect x="357" y="247" width="118" height="22" rx="4" fill="#161b22" stroke="#3fb950" stroke-width="1"/>
+  <text x="416" y="262" font-family="monospace" font-size="8" fill="#3fb950" text-anchor="middle">Email GW · Proxy · IDS</text>
+
+  <!-- Arrow -->
+  <polygon points="478,218 485,215 485,221" fill="#30363d"/>
+
+  <!-- Exploitation -->
+  <rect x="487" y="192" width="118" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+  <text x="546" y="210" font-family="monospace" font-size="10" font-weight="bold" fill="#d29922" text-anchor="middle">4. EXPLOIT</text>
+  <text x="546" y="224" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">Vuln trigger</text>
+  <text x="546" y="236" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">Macro exec · Click</text>
+
+  <rect x="487" y="247" width="118" height="22" rx="4" fill="#161b22" stroke="#d29922" stroke-width="1"/>
+  <text x="546" y="262" font-family="monospace" font-size="8" fill="#d29922" text-anchor="middle">EDR · AV · HIPS</text>
+
+  <!-- Arrow -->
+  <polygon points="608,218 615,215 615,221" fill="#30363d"/>
+
+  <!-- Install -->
+  <rect x="617" y="192" width="118" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+  <text x="676" y="210" font-family="monospace" font-size="10" font-weight="bold" fill="#d29922" text-anchor="middle">5. INSTALL</text>
+  <text x="676" y="224" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">Backdoor · RAT</text>
+  <text x="676" y="236" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">Persistence</text>
+
+  <rect x="617" y="247" width="118" height="22" rx="4" fill="#161b22" stroke="#d29922" stroke-width="1"/>
+  <text x="676" y="262" font-family="monospace" font-size="8" fill="#d29922" text-anchor="middle">EDR · FIM · Sysmon</text>
+
+  <!-- Arrow -->
+  <polygon points="738,218 745,215 745,221" fill="#30363d"/>
+
+  <!-- C2 -->
+  <rect x="747" y="192" width="118" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+  <text x="806" y="210" font-family="monospace" font-size="10" font-weight="bold" fill="#f85149" text-anchor="middle">6. C2</text>
+  <text x="806" y="224" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">HTTPS · DNS · SMB</text>
+  <text x="806" y="236" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">C2 beacon</text>
+
+  <rect x="747" y="247" width="118" height="22" rx="4" fill="#161b22" stroke="#f85149" stroke-width="1"/>
+  <text x="806" y="262" font-family="monospace" font-size="8" fill="#f85149" text-anchor="middle">DNS · Proxy · NetFlow</text>
+
+  <!-- Arrow -->
+  <polygon points="868,218 875,215 875,221" fill="#30363d"/>
+
+  <!-- Actions -->
+  <rect x="877" y="192" width="153" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+  <text x="953" y="210" font-family="monospace" font-size="10" font-weight="bold" fill="#f85149" text-anchor="middle">7. ACTIONS ON</text>
+  <text x="953" y="222" font-family="monospace" font-size="10" font-weight="bold" fill="#f85149" text-anchor="middle">OBJECTIVES</text>
+  <text x="953" y="236" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">Exfil · Encrypt · Destroy</text>
+
+  <rect x="877" y="247" width="153" height="22" rx="4" fill="#161b22" stroke="#f85149" stroke-width="1"/>
+  <text x="953" y="262" font-family="monospace" font-size="8" fill="#f85149" text-anchor="middle">DLP · UEBA · NetFlow</text>
+
+  <!-- Detection legend -->
+  <rect x="1050" y="192" width="10" height="10" fill="#388bfd"/>
+  <text x="1065" y="201" font-family="monospace" font-size="9" fill="#8b949e">Intel</text>
+  <rect x="1050" y="208" width="10" height="10" fill="#3fb950"/>
+  <text x="1065" y="217" font-family="monospace" font-size="9" fill="#8b949e">Network</text>
+  <rect x="1050" y="224" width="10" height="10" fill="#d29922"/>
+  <text x="1065" y="233" font-family="monospace" font-size="9" fill="#8b949e">Endpoint</text>
+  <rect x="1050" y="240" width="10" height="10" fill="#f85149"/>
+  <text x="1065" y="249" font-family="monospace" font-size="9" fill="#8b949e">DLP/UEBA</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 3: Evidence Sources per Incident Type -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <line x1="80" y1="284" x2="1120" y2="284" stroke="#30363d" stroke-width="1"/>
+  <text x="90" y="302" font-family="monospace" font-size="12" fill="#8b949e">EVIDENCE SOURCES BY INCIDENT TYPE</text>
+
+  <!-- Header row -->
+  <rect x="80" y="310" width="190" height="22" rx="3" fill="#1c2128"/>
+  <text x="175" y="325" font-family="monospace" font-size="10" font-weight="bold" fill="#e6edf3" text-anchor="middle">Incident Type</text>
+
+  <rect x="275" y="310" width="130" height="22" rx="3" fill="#1c2128"/>
+  <text x="340" y="325" font-family="monospace" font-size="9" font-weight="bold" fill="#388bfd" text-anchor="middle">Email/Proxy Logs</text>
+
+  <rect x="410" y="310" width="130" height="22" rx="3" fill="#1c2128"/>
+  <text x="475" y="325" font-family="monospace" font-size="9" font-weight="bold" fill="#3fb950" text-anchor="middle">Endpoint (EDR)</text>
+
+  <rect x="545" y="310" width="130" height="22" rx="3" fill="#1c2128"/>
+  <text x="610" y="325" font-family="monospace" font-size="9" font-weight="bold" fill="#d29922" text-anchor="middle">Network (FW/DNS)</text>
+
+  <rect x="680" y="310" width="130" height="22" rx="3" fill="#1c2128"/>
+  <text x="745" y="325" font-family="monospace" font-size="9" font-weight="bold" fill="#f85149" text-anchor="middle">Auth Logs (AD)</text>
+
+  <rect x="815" y="310" width="130" height="22" rx="3" fill="#1c2128"/>
+  <text x="880" y="325" font-family="monospace" font-size="9" font-weight="bold" fill="#bc8cff" text-anchor="middle">DLP/UEBA</text>
+
+  <rect x="950" y="310" width="165" height="22" rx="3" fill="#1c2128"/>
+  <text x="1032" y="325" font-family="monospace" font-size="9" font-weight="bold" fill="#e6edf3" text-anchor="middle">Key IOC/IOA</text>
+
+  <!-- Phishing row -->
+  <rect x="80" y="335" width="190" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="175" y="350" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">Phishing / BEC</text>
+  <rect x="275" y="335" width="130" height="22" rx="3" fill="#0d2535" stroke="#388bfd" stroke-width="1"/>
+  <text x="340" y="350" font-family="monospace" font-size="9" fill="#388bfd" text-anchor="middle">PRIMARY</text>
+  <rect x="410" y="335" width="130" height="22" rx="3" fill="#0d1e1a" stroke="#3fb950" stroke-width="1"/>
+  <text x="475" y="350" font-family="monospace" font-size="9" fill="#3fb950" text-anchor="middle">Process tree</text>
+  <rect x="545" y="335" width="130" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="610" y="350" font-family="monospace" font-size="9" fill="#6e7681" text-anchor="middle">DNS lookups</text>
+  <rect x="680" y="335" width="130" height="22" rx="3" fill="#0d2535" stroke="#388bfd" stroke-width="1"/>
+  <text x="745" y="350" font-family="monospace" font-size="9" fill="#388bfd" text-anchor="middle">SPF/DKIM fail</text>
+  <rect x="815" y="335" width="130" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="880" y="350" font-family="monospace" font-size="9" fill="#6e7681" text-anchor="middle">—</text>
+  <rect x="950" y="335" width="165" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="1032" y="350" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">Sender IP · URLs · Hashes</text>
+
+  <!-- Ransomware row -->
+  <rect x="80" y="360" width="190" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="175" y="375" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">Ransomware</text>
+  <rect x="275" y="360" width="130" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="340" y="375" font-family="monospace" font-size="9" fill="#6e7681" text-anchor="middle">Initial delivery</text>
+  <rect x="410" y="360" width="130" height="22" rx="3" fill="#2d1a1a" stroke="#f85149" stroke-width="1"/>
+  <text x="475" y="375" font-family="monospace" font-size="9" fill="#f85149" text-anchor="middle">PRIMARY</text>
+  <rect x="545" y="360" width="130" height="22" rx="3" fill="#0d1e1a" stroke="#3fb950" stroke-width="1"/>
+  <text x="610" y="375" font-family="monospace" font-size="9" fill="#3fb950" text-anchor="middle">C2 · Large outbound</text>
+  <rect x="680" y="360" width="130" height="22" rx="3" fill="#2d2200" stroke="#d29922" stroke-width="1"/>
+  <text x="745" y="375" font-family="monospace" font-size="9" fill="#d29922" text-anchor="middle">Lateral movement</text>
+  <rect x="815" y="360" width="130" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="880" y="375" font-family="monospace" font-size="9" fill="#6e7681" text-anchor="middle">—</text>
+  <rect x="950" y="360" width="165" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="1032" y="375" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">vssadmin · bcdedit · C2</text>
+
+  <!-- Insider Threat row -->
+  <rect x="80" y="385" width="190" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="175" y="400" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">Insider Threat</text>
+  <rect x="275" y="385" width="130" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="340" y="400" font-family="monospace" font-size="9" fill="#6e7681" text-anchor="middle">Email forwarding</text>
+  <rect x="410" y="385" width="130" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="475" y="400" font-family="monospace" font-size="9" fill="#6e7681" text-anchor="middle">USB writes · Staging</text>
+  <rect x="545" y="385" width="130" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="610" y="400" font-family="monospace" font-size="9" fill="#6e7681" text-anchor="middle">Large uploads</text>
+  <rect x="680" y="385" width="130" height="22" rx="3" fill="#2d2200" stroke="#d29922" stroke-width="1"/>
+  <text x="745" y="400" font-family="monospace" font-size="9" fill="#d29922" text-anchor="middle">After-hours access</text>
+  <rect x="815" y="385" width="130" height="22" rx="3" fill="#1e0d35" stroke="#bc8cff" stroke-width="1"/>
+  <text x="880" y="400" font-family="monospace" font-size="9" fill="#bc8cff" text-anchor="middle">PRIMARY</text>
+  <rect x="950" y="385" width="165" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="1032" y="400" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">Anomaly score · DLP alert</text>
+
+  <!-- Data Breach row -->
+  <rect x="80" y="410" width="190" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="175" y="425" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">Data Breach</text>
+  <rect x="275" y="410" width="130" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="340" y="425" font-family="monospace" font-size="9" fill="#6e7681" text-anchor="middle">Web app logs</text>
+  <rect x="410" y="410" width="130" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="475" y="425" font-family="monospace" font-size="9" fill="#6e7681" text-anchor="middle">File access logs</text>
+  <rect x="545" y="410" width="130" height="22" rx="3" fill="#2d1a1a" stroke="#f85149" stroke-width="1"/>
+  <text x="610" y="425" font-family="monospace" font-size="9" fill="#f85149" text-anchor="middle">PRIMARY</text>
+  <rect x="680" y="410" width="130" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="745" y="425" font-family="monospace" font-size="9" fill="#6e7681" text-anchor="middle">Priv escalation</text>
+  <rect x="815" y="410" width="130" height="22" rx="3" fill="#1e0d35" stroke="#bc8cff" stroke-width="1"/>
+  <text x="880" y="425" font-family="monospace" font-size="9" fill="#bc8cff" text-anchor="middle">Volume anomaly</text>
+  <rect x="950" y="410" width="165" height="22" rx="3" fill="#1c2128" stroke="#30363d" stroke-width="0.5"/>
+  <text x="1032" y="425" font-family="monospace" font-size="9" fill="#e6edf3" text-anchor="middle">Large outbound · SQLi patterns</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 4: Escalation Flow + Severity -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <line x1="80" y1="448" x2="1120" y2="448" stroke="#30363d" stroke-width="1"/>
+  <text x="90" y="466" font-family="monospace" font-size="12" fill="#8b949e">ESCALATION FLOW &amp; SEVERITY LEVELS</text>
+
+  <!-- Severity blocks -->
+  <!-- P5 -->
+  <rect x="80" y="476" width="80" height="50" rx="5" fill="#1c2128" stroke="#6e7681" stroke-width="1.5"/>
+  <text x="120" y="498" font-family="monospace" font-size="13" font-weight="bold" fill="#6e7681" text-anchor="middle">P5</text>
+  <text x="120" y="513" font-family="monospace" font-size="8" fill="#6e7681" text-anchor="middle">Info</text>
+  <text x="120" y="522" font-family="monospace" font-size="7" fill="#484f58" text-anchor="middle">No action</text>
+
+  <!-- P4 -->
+  <rect x="175" y="476" width="80" height="50" rx="5" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="215" y="498" font-family="monospace" font-size="13" font-weight="bold" fill="#3fb950" text-anchor="middle">P4</text>
+  <text x="215" y="513" font-family="monospace" font-size="8" fill="#3fb950" text-anchor="middle">Low</text>
+  <text x="215" y="522" font-family="monospace" font-size="7" fill="#8b949e" text-anchor="middle">24h response</text>
+
+  <!-- P3 -->
+  <rect x="270" y="476" width="80" height="50" rx="5" fill="#1c2128" stroke="#d29922" stroke-width="1.5"/>
+  <text x="310" y="498" font-family="monospace" font-size="13" font-weight="bold" fill="#d29922" text-anchor="middle">P3</text>
+  <text x="310" y="513" font-family="monospace" font-size="8" fill="#d29922" text-anchor="middle">Medium</text>
+  <text x="310" y="522" font-family="monospace" font-size="7" fill="#8b949e" text-anchor="middle">4h response</text>
+
+  <!-- P2 -->
+  <rect x="365" y="476" width="80" height="50" rx="5" fill="#1c2128" stroke="#f85149" stroke-width="1.5"/>
+  <text x="405" y="498" font-family="monospace" font-size="13" font-weight="bold" fill="#f85149" text-anchor="middle">P2</text>
+  <text x="405" y="513" font-family="monospace" font-size="8" fill="#f85149" text-anchor="middle">High</text>
+  <text x="405" y="522" font-family="monospace" font-size="7" fill="#8b949e" text-anchor="middle">1h response</text>
+
+  <!-- P1 -->
+  <rect x="460" y="476" width="80" height="50" rx="5" fill="#2d1a1a" stroke="#f85149" stroke-width="2.5"/>
+  <text x="500" y="498" font-family="monospace" font-size="13" font-weight="bold" fill="#ff7b72" text-anchor="middle">P1</text>
+  <text x="500" y="513" font-family="monospace" font-size="8" fill="#ff7b72" text-anchor="middle">CRITICAL</text>
+  <text x="500" y="522" font-family="monospace" font-size="7" fill="#8b949e" text-anchor="middle">15min response</text>
+
+  <!-- Escalation targets -->
+  <!-- P4 escalation -->
+  <rect x="175" y="540" width="80" height="25" rx="3" fill="#161b22" stroke="#3fb950" stroke-width="1"/>
+  <text x="215" y="557" font-family="monospace" font-size="8" fill="#3fb950" text-anchor="middle">Tier 1 Analyst</text>
+  <line x1="215" y1="526" x2="215" y2="540" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- P3 escalation -->
+  <rect x="270" y="540" width="80" height="25" rx="3" fill="#161b22" stroke="#d29922" stroke-width="1"/>
+  <text x="310" y="557" font-family="monospace" font-size="8" fill="#d29922" text-anchor="middle">Tier 2 Analyst</text>
+  <line x1="310" y1="526" x2="310" y2="540" stroke="#d29922" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- P2 escalation -->
+  <rect x="365" y="540" width="80" height="25" rx="3" fill="#161b22" stroke="#f85149" stroke-width="1"/>
+  <text x="405" y="548" font-family="monospace" font-size="8" fill="#f85149" text-anchor="middle">Tier 2 + SOC</text>
+  <text x="405" y="560" font-family="monospace" font-size="8" fill="#f85149" text-anchor="middle">Manager</text>
+  <line x1="405" y1="526" x2="405" y2="540" stroke="#f85149" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- P1 escalation -->
+  <rect x="460" y="540" width="80" height="25" rx="3" fill="#2d1a1a" stroke="#f85149" stroke-width="1.5"/>
+  <text x="500" y="548" font-family="monospace" font-size="8" fill="#ff7b72" text-anchor="middle">IRT + CISO</text>
+  <text x="500" y="560" font-family="monospace" font-size="8" fill="#ff7b72" text-anchor="middle">+ Legal</text>
+  <line x1="500" y1="526" x2="500" y2="540" stroke="#f85149" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Re-escalation triggers -->
+  <rect x="580" y="476" width="240" height="100" rx="5" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="700" y="494" font-family="monospace" font-size="10" font-weight="bold" fill="#8b949e" text-anchor="middle">RE-ESCALATION TRIGGERS</text>
+  <text x="592" y="512" font-family="monospace" font-size="9" fill="#d29922">▲ Lateral movement detected → +1 severity</text>
+  <text x="592" y="527" font-family="monospace" font-size="9" fill="#d29922">▲ Data exfiltration confirmed → +2 severity</text>
+  <text x="592" y="542" font-family="monospace" font-size="9" fill="#d29922">▲ Privilege account involved → +1 severity</text>
+  <text x="592" y="557" font-family="monospace" font-size="9" fill="#f85149">▲ APT behavior confirmed → P1 immediately</text>
+  <text x="592" y="572" font-family="monospace" font-size="9" fill="#f85149">▲ Ransomware spreading → P1 immediately</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECTION 5: MITRE ATT&CK Tactic Summary -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <line x1="80" y1="590" x2="1120" y2="590" stroke="#30363d" stroke-width="1"/>
+  <text x="90" y="608" font-family="monospace" font-size="12" fill="#8b949e">MITRE ATT&amp;CK ENTERPRISE TACTICS (TA0001–TA0040)</text>
+
+  <!-- ATT&CK tactic pills -->
+  <rect x="80" y="618" width="95" height="24" rx="12" fill="#0d1117" stroke="#388bfd" stroke-width="1"/>
+  <text x="127" y="634" font-family="monospace" font-size="8" fill="#388bfd" text-anchor="middle">TA0001 Initial Access</text>
+
+  <rect x="183" y="618" width="85" height="24" rx="12" fill="#0d1117" stroke="#388bfd" stroke-width="1"/>
+  <text x="225" y="634" font-family="monospace" font-size="8" fill="#388bfd" text-anchor="middle">TA0002 Execution</text>
+
+  <rect x="276" y="618" width="85" height="24" rx="12" fill="#0d1117" stroke="#3fb950" stroke-width="1"/>
+  <text x="318" y="634" font-family="monospace" font-size="8" fill="#3fb950" text-anchor="middle">TA0003 Persistence</text>
+
+  <rect x="369" y="618" width="105" height="24" rx="12" fill="#0d1117" stroke="#3fb950" stroke-width="1"/>
+  <text x="421" y="634" font-family="monospace" font-size="8" fill="#3fb950" text-anchor="middle">TA0004 Priv. Escalation</text>
+
+  <rect x="482" y="618" width="105" height="24" rx="12" fill="#0d1117" stroke="#d29922" stroke-width="1"/>
+  <text x="534" y="634" font-family="monospace" font-size="8" fill="#d29922" text-anchor="middle">TA0005 Def. Evasion</text>
+
+  <rect x="595" y="618" width="110" height="24" rx="12" fill="#0d1117" stroke="#d29922" stroke-width="1"/>
+  <text x="650" y="634" font-family="monospace" font-size="8" fill="#d29922" text-anchor="middle">TA0006 Credential Access</text>
+
+  <rect x="713" y="618" width="85" height="24" rx="12" fill="#0d1117" stroke="#f85149" stroke-width="1"/>
+  <text x="755" y="634" font-family="monospace" font-size="8" fill="#f85149" text-anchor="middle">TA0007 Discovery</text>
+
+  <rect x="806" y="618" width="110" height="24" rx="12" fill="#0d1117" stroke="#f85149" stroke-width="1"/>
+  <text x="861" y="634" font-family="monospace" font-size="8" fill="#f85149" text-anchor="middle">TA0008 Lateral Movement</text>
+
+  <rect x="924" y="618" width="85" height="24" rx="12" fill="#0d1117" stroke="#f85149" stroke-width="1"/>
+  <text x="966" y="634" font-family="monospace" font-size="8" fill="#f85149" text-anchor="middle">TA0009 Collection</text>
+
+  <rect x="80" y="648" width="110" height="24" rx="12" fill="#0d1117" stroke="#ff7b72" stroke-width="1"/>
+  <text x="135" y="664" font-family="monospace" font-size="8" fill="#ff7b72" text-anchor="middle">TA0010 Exfiltration</text>
+
+  <rect x="198" y="648" width="140" height="24" rx="12" fill="#0d1117" stroke="#ff7b72" stroke-width="1"/>
+  <text x="268" y="664" font-family="monospace" font-size="8" fill="#ff7b72" text-anchor="middle">TA0011 Command &amp; Control</text>
+
+  <rect x="346" y="648" width="75" height="24" rx="12" fill="#0d1117" stroke="#bc8cff" stroke-width="1"/>
+  <text x="383" y="664" font-family="monospace" font-size="8" fill="#bc8cff" text-anchor="middle">TA0040 Impact</text>
+
+  <rect x="429" y="648" width="120" height="24" rx="12" fill="#0d1117" stroke="#8b949e" stroke-width="1"/>
+  <text x="489" y="664" font-family="monospace" font-size="8" fill="#8b949e" text-anchor="middle">TA0043 Reconnaissance</text>
+
+  <rect x="557" y="648" width="145" height="24" rx="12" fill="#0d1117" stroke="#8b949e" stroke-width="1"/>
+  <text x="629" y="664" font-family="monospace" font-size="8" fill="#8b949e" text-anchor="middle">TA0042 Resource Development</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FOOTER: Key Concepts -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <line x1="80" y1="690" x2="1120" y2="690" stroke="#30363d" stroke-width="1"/>
+
+  <text x="90" y="710" font-family="monospace" font-size="9" fill="#6e7681">IOC  = Indicator of Compromise (file hash, IP, domain)</text>
+  <text x="90" y="724" font-family="monospace" font-size="9" fill="#6e7681">IOA  = Indicator of Attack (behavioral pattern)</text>
+  <text x="90" y="738" font-family="monospace" font-size="9" fill="#6e7681">TTP  = Tactics, Techniques, Procedures</text>
+
+  <text x="340" y="710" font-family="monospace" font-size="9" fill="#6e7681">Chain of Custody = Evidence integrity trail from collection to presentation</text>
+  <text x="340" y="724" font-family="monospace" font-size="9" fill="#6e7681">Volatile Evidence = Lost on power-off (RAM, processes, connections)</text>
+  <text x="340" y="738" font-family="monospace" font-size="9" fill="#6e7681">Dwell Time       = Days between compromise and detection</text>
+
+  <text x="820" y="710" font-family="monospace" font-size="9" fill="#6e7681">NIST SP 800-61  Incident Handling Guide</text>
+  <text x="820" y="724" font-family="monospace" font-size="9" fill="#6e7681">SANS PICERL     Preparation–ID–Contain–Eradicate–Recover–Lessons</text>
+  <text x="820" y="738" font-family="monospace" font-size="9" fill="#6e7681">ATT&amp;CK Navigator https://mitre-attack.github.io/attack-navigator</text>
+
+  <text x="600" y="765" font-family="monospace" font-size="9" fill="#484f58" text-anchor="middle">Security Operations Master Class — Session 06: Incident Analysis in a Threat-Centric SOC</text>
+  <text x="600" y="780" font-family="monospace" font-size="9" fill="#484f58" text-anchor="middle">Digital4Security — digital4security.com</text>
+
+  <!-- Arrow marker definitions -->
+  <defs>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#388bfd"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#3fb950"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#d29922"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f85149"/>
+    </marker>
+    <marker id="arrowLightBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#58a6ff"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#bc8cff"/>
+    </marker>
+  </defs>
+</svg>

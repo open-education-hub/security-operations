@@ -1,0 +1,9 @@
+# IDS Configuration v2.0
+version: "2.0"
+rules_path: /etc/ids/rules/
+log_path: /var/log/ids/
+alert_threshold: HIGH
+notify_email: soc@corp.local
+tuning:
+  suppress_noise: true
+  max_packet_size: 65535

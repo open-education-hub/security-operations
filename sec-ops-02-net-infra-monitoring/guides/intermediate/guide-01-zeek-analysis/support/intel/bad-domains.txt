@@ -1,0 +1,11 @@
+#fields	indicator	indicator_type	meta.source	meta.desc
+c2track.net	Intel::DOMAIN	ThreatFeed-MISP	Confirmed C2 domain — DNS tunnelling infrastructure
+evil-domain.ru	Intel::DOMAIN	ThreatFeed-MalwareBazaar	DNS C2 relay domain — used by RAT malware
+stealdata.pw	Intel::DOMAIN	InternalInvestigation-IR2024-042	C2 relay domain used in Volta Financial breach
+relay.stealdata.pw	Intel::DOMAIN	InternalInvestigation-IR2024-042	DNS TXT C2 relay subdomain
+update.malware-c2.xyz	Intel::DOMAIN	ThreatFeed-OpenTIIoC	Ransomware update/C2 domain
+beacon.evil-ops.net	Intel::DOMAIN	ThreatFeed-OpenTIIoC	Ransomware beacon domain
+checkin.badactor.io	Intel::DOMAIN	ThreatFeed-OpenTIIoC	Ransomware check-in domain
+malware-c2.xyz	Intel::DOMAIN	ThreatFeed-OpenTIIoC	Ransomware C2 apex domain
+evil-ops.net	Intel::DOMAIN	ThreatFeed-OpenTIIoC	Ransomware operations domain
+badactor.io	Intel::DOMAIN	ThreatFeed-OpenTIIoC	Ransomware actor domain

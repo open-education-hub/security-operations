@@ -1,0 +1,13 @@
+
+services:
+  forensics-lab:
+    build: .
+    container_name: forensics-lab
+    hostname: forensics-lab
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./scripts:/forensics/scripts:ro
+    environment:
+      - DRILL_NAME=advanced-drill-02-forensic-investigation
+      - DRILL_LEVEL=advanced

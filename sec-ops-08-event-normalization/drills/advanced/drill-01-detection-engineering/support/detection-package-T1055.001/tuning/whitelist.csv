@@ -1,0 +1,7 @@
+source_image,target_image,reason,added_by,date_added,review_date
+"*\\devenv.exe","*","Visual Studio debugger uses CRT for all process attachments","[Your name]","[YYYY-MM-DD]","[YYYY-MM-DD + 90 days]"
+"*\\MsMpEng.exe","*","Windows Defender real-time protection hooks into processes for scanning","[Your name]","[YYYY-MM-DD]","[YYYY-MM-DD + 90 days]"
+"*\\vsdbg.exe","*","Visual Studio remote debugger","[Your name]","[YYYY-MM-DD]","[YYYY-MM-DD + 90 days]"
+"*\\java.exe","*","JVM JIT compiler uses CRT internally","[Your name]","[YYYY-MM-DD]","[YYYY-MM-DD + 90 days]"
+"*\\javaw.exe","*","JVM (windowed) JIT compiler","[Your name]","[YYYY-MM-DD]","[YYYY-MM-DD + 90 days]"
+"[STUDENT TASK: Add process]","[STUDENT TASK: target or *]","[STUDENT TASK: Document the reason]","[Your name]","[YYYY-MM-DD]","[YYYY-MM-DD + 90 days]"

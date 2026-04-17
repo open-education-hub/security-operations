@@ -1,0 +1,7 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+COPY proxy_app.py /app/proxy_app.py
+RUN mkdir -p /var/log
+
+CMD ["python3", "/app/proxy_app.py"]

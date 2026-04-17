@@ -1,0 +1,31 @@
+# INSTRUCTOR NOTES — drill-02-hash-verification
+# DO NOT distribute to students
+
+TAMPERED FILES:
+  1. soc_agent_v2.3.sh
+     Change: Backdoor appended — curl beacon to attacker C2 server
+     Risk:   Every host running this agent beacons out to 192.168.43.17:4444
+             Attacker gains persistent access + knowledge of all hostnames
+     Impact: Critical — active C2 channel established
+
+  2. firewall_rules.conf
+     Change: Removed "-s 10.0.0.0/8" from the SSH INPUT rule
+     Before: -A INPUT -p tcp --dport 22 -s 10.0.0.0/8 -j ACCEPT
+     After:  -A INPUT -p tcp --dport 22 -j ACCEPT
+     Risk:   SSH is now reachable from ANY IP address (including internet)
+     Impact: High — brute force / credential stuffing attacks from internet
+
+EXPECTED VERIFICATION OUTPUT:
+  sha256sum --check SHA256SUMS.published
+  soc_agent_v2.3.sh: FAILED
+  threat_intel_updater.py: OK
+  firewall_rules.conf: FAILED
+  ids_config.yaml: OK
+  certificate_bundle.pem: OK
+  sha256sum: WARNING: 2 computed checksums did NOT match
+
+STUDENT PASS CRITERIA:
+  - Identify both tampered files
+  - Describe the change in soc_agent_v2.3.sh (C2 backdoor)
+  - Describe the change in firewall_rules.conf (SSH open to internet)
+  - Provide risk assessment for each

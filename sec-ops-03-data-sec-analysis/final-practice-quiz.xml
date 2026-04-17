@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>
+    <text>Session 03 Final Practice Quiz — Data Categories and Analysis</text>
+  </name>
+  <intro>
+    <text>This practice quiz contains 5 short-answer and 2 extended-answer questions. It is designed to consolidate understanding through written reflection and application. Time: ~45 minutes. Total: 100 points. Passing: 60 points.</text>
+  </intro>
+  <introformat>1</introformat>
+  <shuffleanswers>0</shuffleanswers>
+  <decimalpoints>0</decimalpoints>
+  <preferredbehaviour>deferredfeedback</preferredbehaviour>
+
+  <!-- SA-1: Pyramid of Pain -->
+  <question type="essay">
+    <name><text>SA-1 — Pyramid of Pain</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>(10 points)</strong> Explain the <strong>Pyramid of Pain</strong> concept and describe why detecting adversary <strong>TTPs</strong> (Tactics, Techniques, and Procedures) is more valuable than detecting file hashes. Answer in 2–4 sentences.</p>]]></text>
+    </questiontext>
+    <defaultgrade>10.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>8</responsefieldlines>
+    <attachments>0</attachments>
+    <graderinfo format="html">
+      <text><![CDATA[<p><strong>Key points to look for (award up to 10 pts):</strong></p>
+<ul>
+<li>Correctly identifies the Pyramid of Pain as a model showing cost to adversary when each IOC type is detected/blocked (2pts)</li>
+<li>Explains that file hashes are trivially changed (recompile, repack, XOR encrypt) — bottom of pyramid (2pts)</li>
+<li>Explains that TTPs describe the adversary's behavior and methodology — hardest to change (3pts)</li>
+<li>Provides a concrete example or clear implication (e.g., detecting PowerShell encoding technique catches the TTP regardless of which hash the malware has) (3pts)</li>
+</ul>]]></text>
+    </graderinfo>
+  </question>
+
+  <!-- SA-2: Logstash date filter -->
+  <question type="essay">
+    <name><text>SA-2 — Logstash Timestamp Normalization</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>(10 points)</strong> A Logstash pipeline receives a Windows Sysmon Event ID 1 (process creation) log. The timestamp field is <code>UtcTime = 03/15/2024 14:23:01.843</code>. Describe the Logstash filter configuration needed to correctly set the <code>@timestamp</code> field. Answer in 2–4 sentences, and include the relevant Logstash configuration snippet.</p>]]></text>
+    </questiontext>
+    <defaultgrade>10.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>10</responsefieldlines>
+    <attachments>0</attachments>
+    <graderinfo format="html">
+      <text><![CDATA[<p><strong>Key points:</strong></p>
+<ul>
+<li>Identifies the correct filter: <code>date</code> filter (3pts)</li>
+<li>Correct match format string: <code>MM/dd/yyyy HH:mm:ss.SSS</code> (3pts)</li>
+<li>Sets target to <code>@timestamp</code> (2pts)</li>
+<li>Mentions timezone: UTC (1pt)</li>
+<li>Explains WHY this matters (prevents using Logstash receipt time as the event time) (1pt)</li>
+</ul>]]></text>
+    </graderinfo>
+  </question>
+
+  <!-- SA-3: Tactical vs Strategic TI -->
+  <question type="essay">
+    <name><text>SA-3 — Tactical vs Strategic Threat Intelligence</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>(10 points)</strong> Explain the difference between <strong>tactical threat intelligence</strong> and <strong>strategic threat intelligence</strong>, and give one example of how each is consumed in a SOC. Answer in 2–4 sentences.</p>]]></text>
+    </questiontext>
+    <defaultgrade>10.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>8</responsefieldlines>
+    <attachments>0</attachments>
+    <graderinfo format="html">
+      <text><![CDATA[<p><strong>Key points:</strong></p>
+<ul>
+<li>Tactical = machine-readable, short lifespan IOCs (IPs, hashes, Snort rules) (3pts)</li>
+<li>Tactical example: firewall blocklist auto-updated from MISP feed (2pts)</li>
+<li>Strategic = high-level narrative, long lifespan, for decision-makers (3pts)</li>
+<li>Strategic example: threat landscape report to CISO, budget justification (2pts)</li>
+</ul>]]></text>
+    </graderinfo>
+  </question>
+
+  <!-- SA-4: GDPR Data Minimization -->
+  <question type="essay">
+    <name><text>SA-4 — GDPR Data Minimization in SOC</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>(10 points)</strong> What is <strong>GDPR data minimization</strong> and how does it affect log retention policy in a SOC? Answer in 2–4 sentences.</p>]]></text>
+    </questiontext>
+    <defaultgrade>10.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>8</responsefieldlines>
+    <attachments>0</attachments>
+    <graderinfo format="html">
+      <text><![CDATA[<p><strong>Key points:</strong></p>
+<ul>
+<li>Correctly defines data minimization: only retain personal data as long as necessary (3pts)</li>
+<li>Identifies that logs contain personal data: usernames, IPs, email addresses (2pts)</li>
+<li>Explains the conflict with security retention (security wants long retention; GDPR wants minimization) (2pts)</li>
+<li>Mentions a practical solution: pseudonymization/anonymization after security retention window (3pts)</li>
+</ul>]]></text>
+    </graderinfo>
+  </question>
+
+  <!-- SA-5: Alert Fatigue -->
+  <question type="essay">
+    <name><text>SA-5 — Alert Fatigue</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>(10 points)</strong> Describe what <strong>alert fatigue</strong> is, explain why it is dangerous in a SOC, and provide two concrete strategies to reduce it. Answer in 3–5 sentences.</p>]]></text>
+    </questiontext>
+    <defaultgrade>10.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>10</responsefieldlines>
+    <attachments>0</attachments>
+    <graderinfo format="html">
+      <text><![CDATA[<p><strong>Key points:</strong></p>
+<ul>
+<li>Correctly defines alert fatigue: overwhelm from high volume of alerts, especially false positives (2pts)</li>
+<li>Explains the danger: real threats missed when buried in noise (3pts)</li>
+<li>Strategy 1 (any valid): rule tuning, exclusions for known FP sources, regular FP rate review (2.5pts)</li>
+<li>Strategy 2 (any valid): risk-based alerting, severity tiering, SOAR automation, analyst rotation, alert prioritization (2.5pts)</li>
+</ul>]]></text>
+    </graderinfo>
+  </question>
+
+  <!-- LA-1: Credential Dumping Detection -->
+  <question type="essay">
+    <name><text>LA-1 — Credential Dumping Detection Strategy</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>(25 points)</strong> A healthcare organization has deployed a SIEM and wants to write a detection rule to identify <strong>credential dumping attacks</strong> (MITRE T1003). The organization uses Active Directory with 500 employees on Windows 10/11 workstations and Windows Server 2019.</p>
+<p>Design a comprehensive detection strategy. Your answer must include:</p>
+<ol>
+<li>Which log sources to monitor and what specific events or patterns to look for</li>
+<li>A sample Splunk SPL or Sigma rule for at least one detection method</li>
+<li>Known limitations and potential false positives</li>
+<li>Why detecting this technique is particularly critical for a healthcare organization</li>
+</ol>
+<p>Answer in 300–500 words.</p>]]></text>
+    </questiontext>
+    <defaultgrade>25.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>20</responsefieldlines>
+    <attachments>0</attachments>
+    <graderinfo format="html">
+      <text><![CDATA[<p><strong>Grading rubric (25 pts total):</strong></p>
+<ul>
+<li><strong>Log sources (6pts):</strong> Must mention Sysmon Event 10 (lsass access) and at least one of: Event 4688 process creation, Event 4656/4663 object access to SAM/NTDS.dit, network lateral movement events after dumping</li>
+<li><strong>SPL/Sigma rule (8pts):</strong> Must include: EventCode 10 or 4688 with lsass/SAM, filter for suspicious access rights or command-line args, exclusion for legitimate AV processes, MITRE field. Award partial credit for correct structure with minor errors.</li>
+<li><strong>Limitations/FPs (5pts):</strong> Must mention AV products accessing lsass (Defender/MsMpEng), backup solutions, exclusion maintenance burden. At least 2 concrete examples.</li>
+<li><strong>Healthcare context (6pts):</strong> Must connect to PHI/HIPAA requirements, healthcare as ransomware target, potential for patient harm from clinical system disruption, or HIPAA regulatory consequences.</li>
+</ul>]]></text>
+    </graderinfo>
+  </question>
+
+  <!-- LA-2: TI Lifecycle -->
+  <question type="essay">
+    <name><text>LA-2 — Threat Intelligence Lifecycle Operationalization</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p><strong>(25 points)</strong> Explain the <strong>threat intelligence lifecycle</strong> and describe how a SOC would operationalize threat intelligence from a MISP feed. Your answer should cover the full lifecycle from data collection to detection output, and include at least one concrete example using a real threat actor or malware family (e.g., Emotet, Cobalt Strike, LockBit).</p>
+<p>Answer in 300–500 words.</p>]]></text>
+    </questiontext>
+    <defaultgrade>25.0000000</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>20</responsefieldlines>
+    <attachments>0</attachments>
+    <graderinfo format="html">
+      <text><![CDATA[<p><strong>Grading rubric (25 pts total):</strong></p>
+<ul>
+<li><strong>Lifecycle phases (10pts):</strong> Must cover all 6 phases: Planning/Direction, Collection, Processing, Analysis, Dissemination, Feedback. Award 1.5-2pts per phase if explained with some depth.</li>
+<li><strong>MISP-specific operationalization (8pts):</strong> Must describe: how MISP receives feeds, how IOCs are pushed to detection tools (API/lookup), integration with SIEM for alerting. Partial credit for describing the concept without MISP specifics.</li>
+<li><strong>Concrete example (5pts):</strong> Must name a specific threat actor or malware family and describe specific IOCs or TTPs associated with them being tracked and operationalized. Generic examples without specifics receive 2-3pts.</li>
+<li><strong>Quality and coherence (2pts):</strong> Answer flows logically, demonstrates understanding of the process as iterative/continuous rather than one-time.</li>
+</ul>]]></text>
+    </graderinfo>
+  </question>
+
+</quiz>

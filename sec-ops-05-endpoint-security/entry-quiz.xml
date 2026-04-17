@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <title>Entry Quiz: Basic OS and Security Concepts</title>
+  <session>05</session>
+  <type>entry</type>
+  <time_minutes>10</time_minutes>
+  <description>Assess prerequisite knowledge before Session 05 on Endpoint Security Technologies</description>
+
+  <question id="1">
+    <text>What is the primary difference between a process and a program in an operating system?</text>
+    <options>
+      <option id="A" correct="true">A program is stored on disk; a process is the running instance of that program in memory</option>
+      <option id="B" correct="false">A process is stored on disk; a program runs in memory</option>
+      <option id="C" correct="false">There is no difference — the terms are interchangeable</option>
+      <option id="D" correct="false">A program can only run once; a process can run multiple times</option>
+    </options>
+    <explanation>A program is a static set of instructions stored in a file (e.g., an .exe or ELF binary). A process is the running, active instance of a program — it has memory allocated, a PID, CPU time, open file handles, and a security context. Multiple processes can be spawned from the same program.</explanation>
+    <difficulty>basic</difficulty>
+    <topic>Operating System Fundamentals</topic>
+  </question>
+
+  <question id="2">
+    <text>On a Linux system, where is the system authentication log (recording SSH logins, sudo usage, and PAM events) located on a Debian/Ubuntu system?</text>
+    <options>
+      <option id="A" correct="false">/var/log/syslog</option>
+      <option id="B" correct="true">/var/log/auth.log</option>
+      <option id="C" correct="false">/var/log/messages</option>
+      <option id="D" correct="false">/etc/pam.d/auth</option>
+    </options>
+    <explanation>/var/log/auth.log is the authentication log on Debian/Ubuntu systems. On RHEL/CentOS systems it is /var/log/secure. /var/log/syslog and /var/log/messages contain general system messages. /etc/pam.d/ is a configuration directory, not a log file.</explanation>
+    <difficulty>basic</difficulty>
+    <topic>Linux System Logging</topic>
+  </question>
+
+  <question id="3">
+    <text>Which Windows component is responsible for managing and enforcing user authentication, group membership, and access tokens for all processes?</text>
+    <options>
+      <option id="A" correct="false">Windows Firewall</option>
+      <option id="B" correct="false">Task Scheduler</option>
+      <option id="C" correct="true">Local Security Authority Subsystem Service (LSASS)</option>
+      <option id="D" correct="false">Windows Management Instrumentation (WMI)</option>
+    </options>
+    <explanation>LSASS (lsass.exe) is the Windows process responsible for enforcing security policies, handling logon authentication, and managing access tokens. It stores credential material (password hashes, Kerberos tickets) in memory — which is why it is the primary target of credential dumping tools like Mimikatz.</explanation>
+    <difficulty>basic</difficulty>
+    <topic>Windows Security Architecture</topic>
+  </question>
+
+  <question id="4">
+    <text>In a Unix/Linux system, what does a file permission of rwxr-xr-x mean?</text>
+    <options>
+      <option id="A" correct="true">Owner: read/write/execute; Group: read/execute; Others: read/execute</option>
+      <option id="B" correct="false">Owner: read/write; Group: read/execute; Others: execute only</option>
+      <option id="C" correct="false">Owner: read/write/execute; Group: read/write/execute; Others: read only</option>
+      <option id="D" correct="false">All users have read/write/execute permissions</option>
+    </options>
+    <explanation>Unix permissions are represented in three groups of three characters (rwx) for Owner, Group, and Others. rwx=read+write+execute, r-x=read+execute (no write), r-x=read+execute. So rwxr-xr-x means: Owner can read/write/execute; Group can read/execute; Others can read/execute.</explanation>
+    <difficulty>basic</difficulty>
+    <topic>Linux File Permissions</topic>
+  </question>
+
+  <question id="5">
+    <text>What is a scheduled task (Windows) or cron job (Linux)?</text>
+    <options>
+      <option id="A" correct="false">A process that runs continuously in the background as a service</option>
+      <option id="B" correct="true">A command or program configured to run automatically at a specified time or trigger</option>
+      <option id="C" correct="false">A system call that allocates memory for a process</option>
+      <option id="D" correct="false">A network configuration that routes traffic to specific ports</option>
+    </options>
+    <explanation>Scheduled tasks (Windows) and cron jobs (Linux) are time-based or event-based automation mechanisms. They run specified commands at configured times or intervals without user intervention. In security contexts, they are a common persistence mechanism — attackers add malicious commands to execute automatically on reboot or at regular intervals.</explanation>
+    <difficulty>basic</difficulty>
+    <topic>OS Automation and Persistence</topic>
+  </question>
+
+</quiz>

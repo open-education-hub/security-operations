@@ -1,0 +1,206 @@
+DRILL 02 — PCAP Description Analysis
+Answer Template
+Security Operations — Session 02 (Basic)
+==============================================================================================
+Instructions:
+  Fill in your answers below.
+  Submit this file (or a copy of it) as your drill submission.
+  See the drill README for question details and scoring breakdown.
+
+  Scenario: Argus Tech Corp — Perimeter Capture
+  Capture window: 2024-01-16 09:47:00 – 10:02:00 UTC (15 minutes)
+==============================================================================================
+
+SECTION A: BASIC ANALYSIS (3 points each)
+------------------------------------------
+
+Question 1: HTTP vs TLS percentage and security implications
+-------------------------------------------------------------
+HTTP percentage (plaintext):
+
+TLS percentage (encrypted):
+
+Security implication of the HTTP percentage:
+
+
+
+
+Question 2: UDP flows from 10.0.2.5 to 8.8.8.8:53 (rows 3-9)
+---------------------------------------------------------------
+What is unusual about these flows:
+
+
+
+
+What this might indicate:
+
+
+
+
+Question 3: DNS TXT queries to c2track.net
+------------------------------------------
+Attack type suggested:
+
+
+How DNS tunnelling works in this context:
+
+
+
+
+What c2track.net is likely used for:
+
+
+
+
+==============================================================================================
+
+SECTION B: THREAT IDENTIFICATION (5 points each)
+-------------------------------------------------
+
+Question 4: Severity ranking of the four observed events
+---------------------------------------------------------
+Rank the following from MOST to LEAST severe. Justify each ranking.
+
+(a) HTTP traffic to 198.18.0.77 with User-Agent go-http-client/2.0
+(b) Self-signed certificate on 203.0.113.50 with RC4-MD5 cipher
+(c) DNS query for passwd.internal.argustech.com going to 8.8.8.8
+(d) GET request for /admin/backup.zip with python-requests user-agent
+
+Rank 1 (most severe): ____  Justification:
+
+
+Rank 2: ____  Justification:
+
+
+Rank 3: ____  Justification:
+
+
+Rank 4 (least severe): ____  Justification:
+
+
+
+
+Question 5: 42.9 MB transfer to 203.0.113.50:443 (self-signed cert, RC4-MD5)
+------------------------------------------------------------------------------
+Possible scenarios that could explain this conversation:
+
+
+
+
+Most likely scenario and why:
+
+
+
+
+Supporting evidence from other log data:
+
+
+
+
+Question 6: 2,203 RST responses to SYN packets
+-----------------------------------------------
+What is likely causing this:
+
+
+
+
+What additional information would you want:
+
+
+
+
+==============================================================================================
+
+SECTION C: INVESTIGATION PLANNING (8 points each)
+--------------------------------------------------
+
+Question 7: Investigation plan for c2track.net activity
+--------------------------------------------------------
+
+7a. What you already know from the logs:
+
+
+
+
+7b. Additional data you need to collect:
+
+
+
+
+7c. Who you would notify (and in what order):
+
+
+
+
+7d. Immediate containment actions:
+
+
+
+
+Question 8: Chronological timeline of critical events
+------------------------------------------------------
+Construct a timeline of the most significant events from this capture.
+Identify the likely attack sequence.
+
+TIME (relative to 09:47 UTC)  |  EVENT  |  SIGNIFICANCE
+------------------------------|---------|--------------------------------------------------
+                              |         |
+                              |         |
+                              |         |
+                              |         |
+                              |         |
+                              |         |
+                              |         |
+                              |         |
+
+Likely attack sequence (narrative summary):
+
+
+
+
+Question 9: Evidence preservation and chain of custody
+------------------------------------------------------
+
+9a. Evidence items to preserve (list each item type):
+  1.
+  2.
+  3.
+  4.
+  5.
+  6.
+
+9b. Chain of custody procedure:
+
+
+
+
+9c. GDPR considerations (if personal data is involved):
+
+
+
+
+==============================================================================================
+SELF-ASSESSMENT CHECKLIST (check before submitting)
+----------------------------------------------------
+
+Section A:
+[ ] Q1: Stated both HTTP and TLS percentages with a specific security implication
+[ ] Q2: Identified what is abnormal about the 24 DNS UDP flows (size, ports, rate)
+[ ] Q3: Named DNS tunnelling as the attack type and explained how it works
+
+Section B:
+[ ] Q4: All four events ranked with clear justification for each rank
+[ ] Q5: At least two scenarios proposed; most likely identified with evidence
+[ ] Q6: Root cause identified; at least three follow-up investigation items listed
+
+Section C:
+[ ] Q7: All four sub-parts answered (known facts / needed data / notifications / actions)
+[ ] Q8: Timeline has at least 5 distinct events in chronological order
+[ ] Q9: At least 5 evidence types listed; chain of custody steps described
+
+==============================================================================================
+Scoring reminder:
+  Section A: 3 questions × 3 pts = 9 pts
+  Section B: 3 questions × 5 pts = 15 pts
+  Section C: 3 questions × 8 pts = 24 pts
+  Total: 48 pts   |   Passing: 36 pts (75%)

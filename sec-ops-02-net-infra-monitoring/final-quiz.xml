@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="multichoice">
+    <name>
+      <text>Final Q1: Zeek conn_state S0</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>You are analysing a Zeek <code>conn.log</code> and see many entries with <code>conn_state = S0</code> from the same source IP to many different destination ports. What does this most likely indicate?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Normal web browsing with many simultaneous downloads]]></text>
+      <feedback format="html"><text>Incorrect. Normal web browsing would show SF (successfully finished) states for completed TCP connections, not S0 across many ports.</text></feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[A TCP port scan — SYN packets sent with no response received]]></text>
+      <feedback format="html"><text>Correct! In Zeek's connection state notation, S0 means a SYN packet was sent but no response was received (the port was filtered/blocked by a firewall). When many S0 connections appear from the same source to many different destination ports, this is the signature of a port scan.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[A DDoS attack flooding the network with UDP packets]]></text>
+      <feedback format="html"><text>Incorrect. S0 is a TCP state. UDP flows have their own state notation in Zeek. A DDoS with UDP would appear in conn.log with proto=udp.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[DNS resolution failures due to a misconfigured resolver]]></text>
+      <feedback format="html"><text>Incorrect. DNS failures would appear in dns.log as NXDOMAIN or SERVFAIL responses, not as TCP connection states in conn.log.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q2: Snort Threshold Rule</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>An analyst configures Snort with the rule:</p>
+<pre>alert tcp $EXTERNAL_NET any -> $HOME_NET 22 \
+    (flags:S; threshold: type threshold, track by_src, count 5, seconds 60; \
+     msg:"SSH Brute Force"; sid:1000002; rev:1;)</pre>
+<p>When will this rule generate an alert?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[On every SSH SYN packet from an external source]]></text>
+      <feedback format="html"><text>Incorrect. Without a threshold, the rule would fire on every match. The threshold: option requires the pattern to occur count times within the time window before alerting.</text></feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[After the 5th SSH SYN packet from the same source IP within 60 seconds]]></text>
+      <feedback format="html"><text>Correct! The threshold option with "type threshold, track by_src, count 5, seconds 60" means: alert when the SAME source IP triggers the rule 5 or more times within a 60-second window. This prevents alert flooding from individual connection attempts and focuses on brute-force patterns.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Only when an SSH connection is successfully established]]></text>
+      <feedback format="html"><text>Incorrect. The rule matches on SYN flags only (flags:S) — the initiation of a connection. It fires before the connection is established, not after.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[When 5 different external IPs connect to SSH within 60 seconds]]></text>
+      <feedback format="html"><text>Incorrect. "track by_src" means the counter tracks each source IP independently. 5 different IPs each making one connection would not trigger the rule — you need 5 connections from the SAME source IP.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q3: TAP vs SPAN</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What is the key advantage of a hardware Network TAP over a SPAN (mirror) port for traffic capture?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[TAPs are cheaper to deploy than SPAN ports]]></text>
+      <feedback format="html"><text>Incorrect. Hardware TAPs are more expensive than SPAN ports, which are a free software feature on managed switches.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[TAPs can be configured remotely while SPAN requires physical access]]></text>
+      <feedback format="html"><text>Incorrect. This is backwards. SPAN ports are configured remotely via the switch CLI. TAPs are physical hardware that require on-site installation.</text></feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[TAPs capture all frames including errors and cannot be detected or impacted by network problems]]></text>
+      <feedback format="html"><text>Correct! Hardware TAPs are passive optical or electrical devices that create a copy of every signal on the link. They capture all frames including malformed ones that switches would discard. They cannot be oversubscribed, cannot be detected by attackers, and do not add latency or become a point of failure. SPAN ports can drop packets under heavy load and may miss frame errors.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[TAPs support more simultaneous monitoring connections than SPAN]]></text>
+      <feedback format="html"><text>Incorrect. The number of monitoring connections is not a primary differentiator. SPAN ports on modern switches can support multiple monitoring destinations.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q4: DNS Tunnelling</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A Zeek <code>dns.log</code> shows the following queries from a single internal host within 30 seconds:</p>
+<pre>aXpK2mNr9qLw4vT7uYo1bZf6cDh5gEi.c2domain.ru   TXT
+bYqL3nOs0rMx5wU8vZp2cAg7dEi6hFj.c2domain.ru   TXT
+cZrM4oTp1sNy6xV9wAq3dBh8eJj7iGk.c2domain.ru   TXT</pre>
+<p>What does this pattern most likely represent?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[A misconfigured DNS client sending duplicate queries]]></text>
+      <feedback format="html"><text>Incorrect. Duplicate queries would query the same domain multiple times. These are distinct domains with different 32-character random-looking subdomains.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[A user browsing multiple Russian websites]]></text>
+      <feedback format="html"><text>Incorrect. Normal web browsing generates DNS A record queries, not TXT record queries. The 32-character random subdomains are not characteristic of human browsing.</text></feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[DNS tunnelling for Command and Control (C2) communication]]></text>
+      <feedback format="html"><text>Correct! This is DNS tunnelling. The indicators are: (1) random-looking 32-character subdomains encoding data, (2) TXT record type which can carry arbitrary data, (3) all queries go to the same parent domain (c2domain.ru), (4) automated timing (multiple queries within 30 seconds). The malware encodes data in subdomains and the attacker's authoritative DNS server for c2domain.ru receives the data.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[A DNS server performing recursive lookups for zone transfer]]></text>
+      <feedback format="html"><text>Incorrect. Zone transfers use AXFR/IXFR record types and originate from DNS servers, not workstations. The query source here is an internal host, not a DNS server.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q5: GDPR Breach Notification</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Under GDPR, what is the legal time limit for notifying the supervisory authority after discovering a personal data breach?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[24 hours]]></text>
+      <feedback format="html"><text>Incorrect. 24 hours is the NIS2 Directive early warning timeframe for significant incidents, not the GDPR breach notification period.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[48 hours]]></text>
+      <feedback format="html"><text>Incorrect. 48 hours is not the correct GDPR timeframe.</text></feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[72 hours]]></text>
+      <feedback format="html"><text>Correct! GDPR Article 33 requires controllers to notify the competent supervisory authority of a personal data breach "without undue delay and, where feasible, not later than 72 hours after having become aware of it." This is why effective security monitoring is critical — faster detection gives more time for notification preparation.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[7 days]]></text>
+      <feedback format="html"><text>Incorrect. 7 days is too long. GDPR requires notification within 72 hours.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q6: Zeek vs Snort</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which of the following best describes the difference between <strong>Zeek</strong> and <strong>Snort</strong>?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Zeek is a firewall while Snort is an IDS]]></text>
+      <feedback format="html"><text>Incorrect. Zeek is a network analysis framework, not a firewall. Both Zeek and Snort are used for network security monitoring.</text></feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[Zeek generates structured logs for all traffic while Snort generates alerts only for traffic matching rules]]></text>
+      <feedback format="html"><text>Correct! Zeek is a passive network analysis framework that processes all traffic and generates structured log files (conn.log, dns.log, http.log, etc.) regardless of whether traffic is suspicious. Snort is a rule-based IDS/IPS that only generates output (alerts or drops) when traffic matches a defined rule. They are complementary: Zeek for visibility, Snort for alerting.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Zeek can block traffic while Snort cannot]]></text>
+      <feedback format="html"><text>Incorrect. Snort can be run in IPS (inline) mode to block traffic. Zeek is primarily a passive analysis framework and does not block traffic.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Zeek works only with PCAP files while Snort requires live network access]]></text>
+      <feedback format="html"><text>Incorrect. Both tools can process either live network traffic or PCAP files. Zeek: "zeek -r file.pcap" or "zeek -i eth0". Snort: "snort -r file.pcap" or "snort -i eth0".</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Final Q7: Beaconing Detection</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>An analyst reviewing NetFlow data notices the following pattern from a workstation (10.10.5.50):</p>
+<ul>
+<li>1440 flows to 185.220.101.50:443 over 24 hours</li>
+<li>Each flow lasts exactly 1 second</li>
+<li>All flows transfer exactly 256 bytes outbound and 512 bytes inbound</li>
+<li>One flow occurs every 60 seconds</li>
+</ul>
+<p>What is the most accurate characterisation of this traffic?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Normal HTTPS browsing to a busy cloud service]]></text>
+      <feedback format="html"><text>Incorrect. Normal web browsing produces irregular timing, variable packet sizes, and varied destinations. This pattern — exactly 60 seconds apart, exactly the same size, 24 hours straight — is clearly automated.</text></feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[A malware implant beaconing to a Command and Control server]]></text>
+      <feedback format="html"><text>Correct! This is a textbook beaconing pattern. Key indicators: (1) exact 60-second interval = timer-based automated process, (2) identical byte counts = fixed-size protocol (heartbeat/keep-alive), (3) persistent 24-hour pattern = malware running continuously, (4) single destination = C2 server. The 1440 flows (1440 = 24×60) confirms exactly one connection per minute for a full day. Humans don't browse the same IP every minute for 24 hours.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[A legitimate automated backup process]]></text>
+      <feedback format="html"><text>Incorrect. A backup would transfer much more data (not 256 bytes) and would typically run on a schedule (daily/weekly), not every 60 seconds continuously. Also, backups go to known backup servers, not random IPs.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[A botnet DDoS attack targeting the destination IP]]></text>
+      <feedback format="html"><text>Incorrect. A DDoS attack would send large volumes of traffic, not tiny 256-byte packets. The attacker's C2 server (185.220.101.50) is the source of the implant's control, not a DDoS victim.</text></feedback>
+    </answer>
+  </question>
+
+</quiz>

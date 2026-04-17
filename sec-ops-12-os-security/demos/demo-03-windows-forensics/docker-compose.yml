@@ -1,0 +1,11 @@
+
+services:
+  win-forensics:
+    build: .
+    container_name: win-forensics-demo
+    volumes:
+      - ./scripts:/scripts
+      - ./data:/data
+      - ./reports:/reports
+    stdin_open: true
+    tty: true

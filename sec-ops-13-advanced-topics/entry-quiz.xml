@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="multichoice">
+    <name><text>Advanced Topics Entry Quiz Q1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the cloud shared responsibility model, which of the following is ALWAYS the customer's responsibility regardless of the service type (IaaS, PaaS, or SaaS)?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Data and identity management</text><feedback><text>Correct! Regardless of cloud service type, the customer is always responsible for their data and identity/access management. The provider handles infrastructure; the customer handles what they put in it.</text></feedback></answer>
+    <answer fraction="0"><text>Operating system patching</text><feedback><text>Incorrect. OS patching is the customer's responsibility in IaaS, but the provider's in PaaS and SaaS. Data and identity are always the customer's responsibility.</text></feedback></answer>
+    <answer fraction="0"><text>Physical hardware security</text><feedback><text>Incorrect. Physical hardware security is always the cloud provider's responsibility.</text></feedback></answer>
+    <answer fraction="0"><text>Hypervisor security</text><feedback><text>Incorrect. The hypervisor is managed by the cloud provider in all service models.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>Advanced Topics Entry Quiz Q2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does "Zero Trust" mean in the context of network security?</p>]]></text></questiontext>
+    <answer fraction="100"><text>No implicit trust is granted based on network location; every access request is verified</text><feedback><text>Correct! Zero Trust removes the concept of a "trusted internal network." Every access request — regardless of where it comes from — is authenticated, authorised, and continuously validated.</text></feedback></answer>
+    <answer fraction="0"><text>No users are trusted until they pay a security deposit</text><feedback><text>Incorrect. Zero Trust is a security architecture principle, not a financial concept.</text></feedback></answer>
+    <answer fraction="0"><text>All traffic inside the network perimeter is trusted; only external traffic is checked</text><feedback><text>Incorrect. This describes the traditional perimeter-based model, which Zero Trust replaces.</text></feedback></answer>
+    <answer fraction="0"><text>Only zero-day vulnerability attacks are considered threats</text><feedback><text>Incorrect. Zero Trust addresses all threats, not just zero-days. The "zero" refers to implicit trust granted to users/devices, not zero-day vulnerabilities.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>Advanced Topics Entry Quiz Q3</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is STIX in the context of threat intelligence?</p>]]></text></questiontext>
+    <answer fraction="100"><text>A structured format for describing and sharing cyber threat information</text><feedback><text>Correct! STIX (Structured Threat Information eXpression) is a standardised JSON-based language for describing cyber threats including indicators, threat actors, malware, attack patterns, and their relationships.</text></feedback></answer>
+    <answer fraction="0"><text>A programming language used to write SIEM detection rules</text><feedback><text>Incorrect. STIX is a data format/language for threat intelligence, not for SIEM detection rules (which use query languages like SPL, KQL, or Sigma).</text></feedback></answer>
+    <answer fraction="0"><text>A firewall configuration standard for blocking known threats</text><feedback><text>Incorrect. STIX describes threat intelligence objects. TAXII is used to distribute them, and SIEM/firewall tools consume the extracted IOCs.</text></feedback></answer>
+    <answer fraction="0"><text>A government regulation for incident notification</text><feedback><text>Incorrect. STIX is an OASIS open standard for threat intelligence exchange, not a regulation.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>Advanced Topics Entry Quiz Q4</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does MTTD stand for in SOC metrics?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Mean Time to Detect</text><feedback><text>Correct! MTTD (Mean Time to Detect) measures the average time between when an attack occurs and when the SOC detects it. It is one of the primary SOC performance indicators.</text></feedback></answer>
+    <answer fraction="0"><text>Maximum Time to Deploy</text><feedback><text>Incorrect. MTTD stands for Mean Time to Detect, a key SOC performance metric.</text></feedback></answer>
+    <answer fraction="0"><text>Minimum Time to Defend</text><feedback><text>Incorrect. MTTD stands for Mean Time to Detect. MTTR (Mean Time to Respond) and MTTC (Mean Time to Contain) are related metrics.</text></feedback></answer>
+    <answer fraction="0"><text>Managed Threat and Tactics Database</text><feedback><text>Incorrect. MTTD stands for Mean Time to Detect. The MITRE ATT&amp;CK framework is the knowledge base for threat tactics and techniques.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>Advanced Topics Entry Quiz Q5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which EU regulation imposes incident notification requirements specifically on essential and important sectors such as healthcare, energy, and finance?</p>]]></text></questiontext>
+    <answer fraction="100"><text>NIS2 Directive</text><feedback><text>Correct! The NIS2 Directive (Network and Information Security Directive 2) applies to essential sectors (energy, healthcare, transport, banking, water) and important sectors, requiring incident notification within 24 hours.</text></feedback></answer>
+    <answer fraction="0"><text>GDPR</text><feedback><text>Incorrect. GDPR covers personal data protection and requires notification of data breaches involving personal data within 72 hours. NIS2 covers a broader range of cybersecurity incidents across critical sectors.</text></feedback></answer>
+    <answer fraction="0"><text>PCI-DSS</text><feedback><text>Incorrect. PCI-DSS is a payment card industry standard, not an EU regulation, and covers payment card data security specifically.</text></feedback></answer>
+    <answer fraction="0"><text>ISO 27001</text><feedback><text>Incorrect. ISO 27001 is an international information security management standard (certification framework), not an EU regulation with mandatory notification requirements.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+</quiz>

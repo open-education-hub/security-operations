@@ -1,0 +1,104 @@
+{
+  "RSA-2048": {
+    "quantum_attack": "Shor's",
+    "classical_bits": 112,
+    "quantum_bits": 0,
+    "status": "VULNERABLE"
+  },
+  "RSA-4096": {
+    "quantum_attack": "Shor's",
+    "classical_bits": 140,
+    "quantum_bits": 0,
+    "status": "VULNERABLE"
+  },
+  "ECDH P-256": {
+    "quantum_attack": "Shor's",
+    "classical_bits": 128,
+    "quantum_bits": 0,
+    "status": "VULNERABLE"
+  },
+  "ECDSA P-256": {
+    "quantum_attack": "Shor's",
+    "classical_bits": 128,
+    "quantum_bits": 0,
+    "status": "VULNERABLE"
+  },
+  "Ed25519": {
+    "quantum_attack": "Shor's",
+    "classical_bits": 128,
+    "quantum_bits": 0,
+    "status": "VULNERABLE"
+  },
+  "ECDH Curve25519": {
+    "quantum_attack": "Shor's",
+    "classical_bits": 128,
+    "quantum_bits": 0,
+    "status": "VULNERABLE"
+  },
+  "AES-128": {
+    "quantum_attack": "Grover's",
+    "classical_bits": 128,
+    "quantum_bits": 64,
+    "status": "CAUTION"
+  },
+  "AES-256": {
+    "quantum_attack": "Grover's",
+    "classical_bits": 256,
+    "quantum_bits": 128,
+    "status": "SECURE"
+  },
+  "AES-256-GCM": {
+    "quantum_attack": "Grover's",
+    "classical_bits": 256,
+    "quantum_bits": 128,
+    "status": "SECURE"
+  },
+  "AES-256-CBC": {
+    "quantum_attack": "Grover's",
+    "classical_bits": 256,
+    "quantum_bits": 128,
+    "status": "SECURE"
+  },
+  "SHA-256": {
+    "quantum_attack": "Grover's",
+    "classical_bits": 256,
+    "quantum_bits": 128,
+    "status": "SECURE"
+  },
+  "SHA-1": {
+    "quantum_attack": "Grover's+",
+    "classical_bits": 80,
+    "quantum_bits": 40,
+    "status": "BROKEN"
+  },
+  "HMAC-SHA256": {
+    "quantum_attack": "Grover's",
+    "classical_bits": 256,
+    "quantum_bits": 128,
+    "status": "SECURE"
+  },
+  "ML-KEM-768": {
+    "quantum_attack": "None known",
+    "classical_bits": 192,
+    "quantum_bits": 192,
+    "status": "PQC-SECURE"
+  },
+  "ML-KEM-1024": {
+    "quantum_attack": "None known",
+    "classical_bits": 256,
+    "quantum_bits": 256,
+    "status": "PQC-SECURE"
+  },
+  "ML-DSA-65": {
+    "quantum_attack": "None known",
+    "classical_bits": 192,
+    "quantum_bits": 192,
+    "status": "PQC-SECURE"
+  },
+  "SLH-DSA-128s": {
+    "quantum_attack": "None known",
+    "classical_bits": 128,
+    "quantum_bits": 128,
+    "status": "PQC-SECURE"
+  }
+}

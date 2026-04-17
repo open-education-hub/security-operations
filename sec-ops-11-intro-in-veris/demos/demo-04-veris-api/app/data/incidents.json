@@ -1,0 +1,1995 @@
+[
+  {
+    "incident_id": "INC-2024-001",
+    "timeline": {
+      "incident": { "year": 2024, "month": 1 },
+      "discovery": { "unit": "Days", "value": 3 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Use of stolen creds"],
+        "vector": ["Web application"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 15000 }]
+      },
+      "integrity": { "variety": ["Alter behavior"] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5221",
+    "victim": {
+      "orgsize": "M",
+      "country": ["DE"]
+    },
+    "summary": "Organized crime group used stolen credentials obtained via phishing to access a banking application database. 15,000 customer records were exfiltrated before detection."
+  },
+  {
+    "incident_id": "INC-2024-002",
+    "timeline": {
+      "incident": { "year": 2024, "month": 1 },
+      "discovery": { "unit": "Hours", "value": 2 }
+    },
+    "actor": {
+      "internal": {
+        "variety": ["End-user"],
+        "motive": ["Convenience"]
+      }
+    },
+    "action": {
+      "error": {
+        "variety": ["Misdelivery"],
+        "vector": ["Email"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 80 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "8621",
+    "victim": {
+      "orgsize": "S",
+      "country": ["NL"]
+    },
+    "summary": "A hospital employee sent patient appointment reminders to the wrong email distribution list, exposing 80 patient names and appointment details."
+  },
+  {
+    "incident_id": "INC-2024-003",
+    "timeline": {
+      "incident": { "year": 2024, "month": 2 },
+      "discovery": { "unit": "Days", "value": 14 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Phishing"],
+        "vector": ["Email"]
+      },
+      "hacking": {
+        "variety": ["Exploit vuln"],
+        "vector": ["Web application"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" },
+        { "variety": "S - Mail" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Credentials", "amount": 5 }]
+      },
+      "integrity": { "variety": ["Alter behavior"] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5241",
+    "victim": {
+      "orgsize": "M",
+      "country": ["FR"]
+    },
+    "summary": "Threat actor sent targeted spear-phishing emails to finance staff at an insurance company, harvesting credentials used to access web-based accounting systems."
+  },
+  {
+    "incident_id": "INC-2024-004",
+    "timeline": {
+      "incident": { "year": 2024, "month": 2 },
+      "discovery": { "unit": "Days", "value": 45 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Nation-state"],
+        "motive": ["Espionage"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Exploit vuln", "Use of backdoor or C2"],
+        "vector": ["VPN", "Software supply chain"]
+      },
+      "malware": {
+        "variety": ["Backdoor", "Spyware"],
+        "vector": ["Software installation"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - File" },
+        { "variety": "U - Laptop" },
+        { "variety": "N - Router" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Internal", "amount": 0 }]
+      },
+      "integrity": { "variety": ["Alter behavior"] },
+      "availability": { "variety": [] }
+    },
+    "industry": "9211",
+    "victim": {
+      "orgsize": "L",
+      "country": ["PL"]
+    },
+    "summary": "Nation-state actor exploited a VPN vulnerability to gain persistent access to a government ministry, deploying custom backdoor malware for long-term espionage."
+  },
+  {
+    "incident_id": "INC-2024-005",
+    "timeline": {
+      "incident": { "year": 2024, "month": 3 },
+      "discovery": { "unit": "Hours", "value": 6 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "malware": {
+        "variety": ["Ransomware"],
+        "vector": ["Email attachment"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" },
+        { "variety": "S - File" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "No"
+      },
+      "integrity": { "variety": ["Encrypt data"] },
+      "availability": { "variety": ["Loss", "Interruption"] }
+    },
+    "industry": "6211",
+    "victim": {
+      "orgsize": "S",
+      "country": ["IT"]
+    },
+    "summary": "A medical practice received a malicious email attachment disguised as an invoice, deploying ransomware that encrypted patient records and administrative files."
+  },
+  {
+    "incident_id": "INC-2024-006",
+    "timeline": {
+      "incident": { "year": 2024, "month": 3 },
+      "discovery": { "unit": "Minutes", "value": 30 }
+    },
+    "actor": {
+      "internal": {
+        "variety": ["Privileged user"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "misuse": {
+        "variety": ["Data mishandling", "Privilege abuse"],
+        "vector": ["LAN access"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Payment", "amount": 2200 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "4521",
+    "victim": {
+      "orgsize": "M",
+      "country": ["ES"]
+    },
+    "summary": "A database administrator at a retail chain abused privileged access to extract and sell 2,200 payment card records to an underground marketplace."
+  },
+  {
+    "incident_id": "INC-2024-007",
+    "timeline": {
+      "incident": { "year": 2024, "month": 4 },
+      "discovery": { "unit": "Days", "value": 7 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Pretexting", "Phishing"],
+        "vector": ["Email", "Phone"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" },
+        { "variety": "P - Finance" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Credentials", "amount": 1 }]
+      },
+      "integrity": { "variety": ["Fraudulent transaction"] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5221",
+    "victim": {
+      "orgsize": "S",
+      "country": ["BE"]
+    },
+    "summary": "Business email compromise attack against a small accounting firm; attacker impersonated a CFO to redirect a wire transfer of €45,000."
+  },
+  {
+    "incident_id": "INC-2024-008",
+    "timeline": {
+      "incident": { "year": 2024, "month": 4 },
+      "discovery": { "unit": "Days", "value": 1 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Unaffiliated"],
+        "motive": ["Fun", "Ideology"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Brute force"],
+        "vector": ["Web application"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Web application" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "No"
+      },
+      "integrity": { "variety": ["Defacement"] },
+      "availability": { "variety": ["Interruption"] }
+    },
+    "industry": "9211",
+    "victim": {
+      "orgsize": "M",
+      "country": ["RO"]
+    },
+    "summary": "Hacktivists brute-forced weak admin credentials on a municipal government website and defaced the homepage with political messaging."
+  },
+  {
+    "incident_id": "INC-2024-009",
+    "timeline": {
+      "incident": { "year": 2024, "month": 5 },
+      "discovery": { "unit": "Days", "value": 21 }
+    },
+    "actor": {
+      "partner": {
+        "variety": ["Vendor"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "error": {
+        "variety": ["Misconfiguration"],
+        "vector": ["Unknown"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Database" },
+        { "variety": "N - Unknown" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 42000 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "7211",
+    "victim": {
+      "orgsize": "M",
+      "country": ["PT"]
+    },
+    "summary": "A hotel chain's third-party booking platform vendor misconfigured a cloud storage bucket, exposing 42,000 customer reservation records publicly for three weeks."
+  },
+  {
+    "incident_id": "INC-2024-010",
+    "timeline": {
+      "incident": { "year": 2024, "month": 5 },
+      "discovery": { "unit": "Hours", "value": 4 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["SQL injection"],
+        "vector": ["Web application"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Database" },
+        { "variety": "S - Web application" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 8500 }, { "variety": "Payment", "amount": 1200 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "4541",
+    "victim": {
+      "orgsize": "S",
+      "country": ["CZ"]
+    },
+    "summary": "SQL injection attack against an e-commerce site's product search function yielded access to the customer database, including partial payment card data."
+  },
+  {
+    "incident_id": "INC-2024-011",
+    "timeline": {
+      "incident": { "year": 2024, "month": 6 },
+      "discovery": { "unit": "Days", "value": 5 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Phishing"],
+        "vector": ["Email"]
+      },
+      "hacking": {
+        "variety": ["Use of stolen creds"],
+        "vector": ["Web application"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Laptop" },
+        { "variety": "S - Mail" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Credentials", "amount": 12 }, { "variety": "Internal", "amount": 0 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5413",
+    "victim": {
+      "orgsize": "S",
+      "country": ["AT"]
+    },
+    "summary": "Phishing campaign targeted employees of an accounting firm, compromising email accounts and gaining access to client financial data stored in shared drives."
+  },
+  {
+    "incident_id": "INC-2024-012",
+    "timeline": {
+      "incident": { "year": 2024, "month": 6 },
+      "discovery": { "unit": "Days", "value": 2 }
+    },
+    "actor": {
+      "internal": {
+        "variety": ["End-user"],
+        "motive": ["Convenience"]
+      }
+    },
+    "action": {
+      "error": {
+        "variety": ["Publishing error"],
+        "vector": ["Web application"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Web application" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 320 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "6111",
+    "victim": {
+      "orgsize": "M",
+      "country": ["SE"]
+    },
+    "summary": "A university administrator accidentally published a student registration spreadsheet containing personal details on a publicly accessible web server."
+  },
+  {
+    "incident_id": "INC-2024-013",
+    "timeline": {
+      "incident": { "year": 2024, "month": 7 },
+      "discovery": { "unit": "Hours", "value": 12 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "malware": {
+        "variety": ["Ransomware"],
+        "vector": ["Drive-by download"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" },
+        { "variety": "S - File" },
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Medical", "amount": 3500 }]
+      },
+      "integrity": { "variety": ["Encrypt data"] },
+      "availability": { "variety": ["Loss", "Interruption"] }
+    },
+    "industry": "8621",
+    "victim": {
+      "orgsize": "M",
+      "country": ["HU"]
+    },
+    "summary": "Hospital network infected with ransomware through a drive-by download on a clinical workstation, encrypting patient records and causing a 12-hour operational outage."
+  },
+  {
+    "incident_id": "INC-2024-014",
+    "timeline": {
+      "incident": { "year": 2024, "month": 7 },
+      "discovery": { "unit": "Days", "value": 60 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Nation-state"],
+        "motive": ["Espionage"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Exploit vuln", "Use of backdoor or C2"],
+        "vector": ["Remote access software", "VPN"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Laptop" },
+        { "variety": "S - File" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Internal", "amount": 0 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "3345",
+    "victim": {
+      "orgsize": "L",
+      "country": ["DE"]
+    },
+    "summary": "State-sponsored actor maintained covert access to a defence electronics manufacturer for two months, systematically exfiltrating R&D documents."
+  },
+  {
+    "incident_id": "INC-2024-015",
+    "timeline": {
+      "incident": { "year": 2024, "month": 8 },
+      "discovery": { "unit": "Hours", "value": 1 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Unaffiliated"],
+        "motive": ["Fun"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Denial of service"],
+        "vector": ["Internet"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "N - Router" },
+        { "variety": "S - Web application" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "No"
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": ["Interruption"] }
+    },
+    "industry": "5151",
+    "victim": {
+      "orgsize": "M",
+      "country": ["FI"]
+    },
+    "summary": "DDoS attack against a regional media company's streaming service caused a 4-hour outage during a major live broadcast event."
+  },
+  {
+    "incident_id": "INC-2024-016",
+    "timeline": {
+      "incident": { "year": 2024, "month": 8 },
+      "discovery": { "unit": "Days", "value": 10 }
+    },
+    "actor": {
+      "internal": {
+        "variety": ["End-user"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "misuse": {
+        "variety": ["Data mishandling"],
+        "vector": ["Personal email"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" },
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 600 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5241",
+    "victim": {
+      "orgsize": "M",
+      "country": ["FR"]
+    },
+    "summary": "An insurance agent leaving for a competitor emailed themselves a spreadsheet of 600 client records before resigning, violating data handling policies."
+  },
+  {
+    "incident_id": "INC-2024-017",
+    "timeline": {
+      "incident": { "year": 2024, "month": 9 },
+      "discovery": { "unit": "Days", "value": 3 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Phishing"],
+        "vector": ["Email"]
+      },
+      "malware": {
+        "variety": ["Backdoor", "Downloader"],
+        "vector": ["Email attachment"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" },
+        { "variety": "S - File" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Payment", "amount": 4100 }]
+      },
+      "integrity": { "variety": ["Alter behavior"] },
+      "availability": { "variety": [] }
+    },
+    "industry": "4541",
+    "victim": {
+      "orgsize": "S",
+      "country": ["IT"]
+    },
+    "summary": "A phishing email with a malicious macro-enabled document installed a banking trojan on an e-commerce operator's system, capturing payment card data processed by the business."
+  },
+  {
+    "incident_id": "INC-2024-018",
+    "timeline": {
+      "incident": { "year": 2024, "month": 9 },
+      "discovery": { "unit": "Hours", "value": 48 }
+    },
+    "actor": {
+      "partner": {
+        "variety": ["Vendor"],
+        "motive": ["NA"]
+      }
+    },
+    "action": {
+      "error": {
+        "variety": ["Misconfiguration"],
+        "vector": ["Cloud infrastructure"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 11000 }, { "variety": "Credentials", "amount": 200 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5112",
+    "victim": {
+      "orgsize": "M",
+      "country": ["NL"]
+    },
+    "summary": "A SaaS provider misconfigured access controls on a production database, leaving customer account data including hashed passwords accessible without authentication for 48 hours."
+  },
+  {
+    "incident_id": "INC-2024-019",
+    "timeline": {
+      "incident": { "year": 2024, "month": 10 },
+      "discovery": { "unit": "Days", "value": 4 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Exploit vuln"],
+        "vector": ["Web application"]
+      },
+      "malware": {
+        "variety": ["Ransomware"],
+        "vector": ["Software installation"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" },
+        { "variety": "S - Database" },
+        { "variety": "S - File" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Medical", "amount": 7800 }]
+      },
+      "integrity": { "variety": ["Encrypt data"] },
+      "availability": { "variety": ["Loss", "Interruption"] }
+    },
+    "industry": "6211",
+    "victim": {
+      "orgsize": "S",
+      "country": ["PL"]
+    },
+    "summary": "Ransomware group exploited an unpatched vulnerability in a medical practice's patient portal to gain entry, ultimately encrypting EHR systems and demanding €180,000."
+  },
+  {
+    "incident_id": "INC-2024-020",
+    "timeline": {
+      "incident": { "year": 2024, "month": 10 },
+      "discovery": { "unit": "Hours", "value": 3 }
+    },
+    "actor": {
+      "internal": {
+        "variety": ["End-user"],
+        "motive": ["Convenience"]
+      }
+    },
+    "action": {
+      "error": {
+        "variety": ["Loss"],
+        "vector": ["Physical"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Laptop" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Unknown",
+        "data": [{ "variety": "Personal", "amount": 450 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "9211",
+    "victim": {
+      "orgsize": "M",
+      "country": ["AT"]
+    },
+    "summary": "A civil servant left an unencrypted laptop containing constituent case files on public transport; the device was not recovered."
+  },
+  {
+    "incident_id": "INC-2024-021",
+    "timeline": {
+      "incident": { "year": 2024, "month": 11 },
+      "discovery": { "unit": "Days", "value": 8 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Phishing", "Pretexting"],
+        "vector": ["Email", "SMS"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Mobile phone" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Credentials", "amount": 1 }, { "variety": "Payment", "amount": 1 }]
+      },
+      "integrity": { "variety": ["Fraudulent transaction"] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5221",
+    "victim": {
+      "orgsize": "S",
+      "country": ["BE"]
+    },
+    "summary": "Smishing and vishing campaign targeted retail banking customers, convincing victims to reveal OTP codes, leading to unauthorised account transfers totalling €23,000."
+  },
+  {
+    "incident_id": "INC-2024-022",
+    "timeline": {
+      "incident": { "year": 2024, "month": 11 },
+      "discovery": { "unit": "Days", "value": 30 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Nation-state"],
+        "motive": ["Espionage"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Exploit vuln", "Use of backdoor or C2"],
+        "vector": ["VPN", "Software supply chain"]
+      },
+      "malware": {
+        "variety": ["Backdoor"],
+        "vector": ["Software update"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - File" },
+        { "variety": "N - Unknown" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Internal", "amount": 0 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "3345",
+    "victim": {
+      "orgsize": "L",
+      "country": ["FR"]
+    },
+    "summary": "Supply-chain compromise via a malicious software update from a trusted vendor allowed state-sponsored actors to gain persistent access to an aerospace company's R&D environment."
+  },
+  {
+    "incident_id": "INC-2024-023",
+    "timeline": {
+      "incident": { "year": 2024, "month": 12 },
+      "discovery": { "unit": "Hours", "value": 8 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Use of stolen creds", "Brute force"],
+        "vector": ["Remote access software"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" },
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 5200 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "6211",
+    "victim": {
+      "orgsize": "S",
+      "country": ["RO"]
+    },
+    "summary": "Attackers used credential-stuffing against a dental practice's remote desktop service, gaining access to patient records and scheduling systems."
+  },
+  {
+    "incident_id": "INC-2024-024",
+    "timeline": {
+      "incident": { "year": 2024, "month": 1 },
+      "discovery": { "unit": "Days", "value": 2 }
+    },
+    "actor": {
+      "internal": {
+        "variety": ["End-user"],
+        "motive": ["Convenience"]
+      }
+    },
+    "action": {
+      "error": {
+        "variety": ["Misconfiguration"],
+        "vector": ["Cloud infrastructure"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - File" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Internal", "amount": 0 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5112",
+    "victim": {
+      "orgsize": "M",
+      "country": ["SE"]
+    },
+    "summary": "Developer accidentally set a cloud storage bucket containing source code and environment configuration files to public, exposing API keys and internal documentation."
+  },
+  {
+    "incident_id": "INC-2024-025",
+    "timeline": {
+      "incident": { "year": 2024, "month": 2 },
+      "discovery": { "unit": "Days", "value": 1 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Phishing"],
+        "vector": ["Email"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Credentials", "amount": 3 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "4521",
+    "victim": {
+      "orgsize": "S",
+      "country": ["HU"]
+    },
+    "summary": "Retail employees clicked a fake order-confirmation phishing email, compromising three sets of internal system credentials used for inventory management."
+  },
+  {
+    "incident_id": "INC-2024-026",
+    "timeline": {
+      "incident": { "year": 2024, "month": 3 },
+      "discovery": { "unit": "Days", "value": 90 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Nation-state"],
+        "motive": ["Espionage"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Exploit vuln", "Use of backdoor or C2"],
+        "vector": ["Web application"]
+      },
+      "malware": {
+        "variety": ["Rootkit"],
+        "vector": ["Software installation"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Database" },
+        { "variety": "U - Laptop" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Internal", "amount": 0 }]
+      },
+      "integrity": { "variety": ["Alter behavior"] },
+      "availability": { "variety": [] }
+    },
+    "industry": "9211",
+    "victim": {
+      "orgsize": "L",
+      "country": ["CZ"]
+    },
+    "summary": "Nation-state actors maintained stealthy access to a ministry of foreign affairs network for three months using a rootkit, exfiltrating diplomatic communications."
+  },
+  {
+    "incident_id": "INC-2024-027",
+    "timeline": {
+      "incident": { "year": 2024, "month": 4 },
+      "discovery": { "unit": "Hours", "value": 6 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "malware": {
+        "variety": ["Ransomware"],
+        "vector": ["Direct install"]
+      },
+      "hacking": {
+        "variety": ["Use of stolen creds"],
+        "vector": ["Remote access software"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - File" },
+        { "variety": "U - Desktop" },
+        { "variety": "N - LAN" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "No"
+      },
+      "integrity": { "variety": ["Encrypt data"] },
+      "availability": { "variety": ["Loss", "Interruption"] }
+    },
+    "industry": "2381",
+    "victim": {
+      "orgsize": "S",
+      "country": ["PT"]
+    },
+    "summary": "Ransomware was deployed via a compromised remote desktop session at a small construction firm, encrypting all shared drives and demanding €25,000 in cryptocurrency."
+  },
+  {
+    "incident_id": "INC-2024-028",
+    "timeline": {
+      "incident": { "year": 2024, "month": 5 },
+      "discovery": { "unit": "Days", "value": 6 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Phishing", "Pretexting"],
+        "vector": ["Email"]
+      },
+      "hacking": {
+        "variety": ["Use of stolen creds"],
+        "vector": ["Web application"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Mail" },
+        { "variety": "S - File" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 1200 }, { "variety": "Medical", "amount": 400 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5241",
+    "victim": {
+      "orgsize": "M",
+      "country": ["DE"]
+    },
+    "summary": "A successful phishing attack against a health insurance company compromised an employee email account, exposing customer personal and health data stored in email attachments."
+  },
+  {
+    "incident_id": "INC-2024-029",
+    "timeline": {
+      "incident": { "year": 2024, "month": 6 },
+      "discovery": { "unit": "Hours", "value": 2 }
+    },
+    "actor": {
+      "internal": {
+        "variety": ["Privileged user"],
+        "motive": ["Grudge"]
+      }
+    },
+    "action": {
+      "misuse": {
+        "variety": ["Sabotage"],
+        "vector": ["LAN access"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Database" },
+        { "variety": "S - File" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "No"
+      },
+      "integrity": { "variety": ["Delete data"] },
+      "availability": { "variety": ["Loss"] }
+    },
+    "industry": "5112",
+    "victim": {
+      "orgsize": "S",
+      "country": ["ES"]
+    },
+    "summary": "A recently terminated system administrator used retained privileged credentials to delete critical database backups and configuration files at a software company, causing significant recovery costs."
+  },
+  {
+    "incident_id": "INC-2024-030",
+    "timeline": {
+      "incident": { "year": 2024, "month": 7 },
+      "discovery": { "unit": "Days", "value": 4 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Exploit vuln"],
+        "vector": ["Web application"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Web application" },
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Payment", "amount": 3000 }]
+      },
+      "integrity": { "variety": ["Skimmer"] },
+      "availability": { "variety": [] }
+    },
+    "industry": "4541",
+    "victim": {
+      "orgsize": "S",
+      "country": ["IT"]
+    },
+    "summary": "Web skimmer injected into an e-commerce checkout page via a vulnerable third-party JavaScript library, silently harvesting 3,000 payment card numbers over four days."
+  },
+  {
+    "incident_id": "INC-2024-031",
+    "timeline": {
+      "incident": { "year": 2024, "month": 8 },
+      "discovery": { "unit": "Days", "value": 15 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Phishing"],
+        "vector": ["Email"]
+      },
+      "malware": {
+        "variety": ["Backdoor"],
+        "vector": ["Email attachment"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Laptop" },
+        { "variety": "S - File" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 900 }]
+      },
+      "integrity": { "variety": ["Alter behavior"] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5413",
+    "victim": {
+      "orgsize": "S",
+      "country": ["NL"]
+    },
+    "summary": "A legal firm suffered a targeted phishing attack, installing a remote access tool on a partner's laptop and allowing the attacker to access confidential client documents."
+  },
+  {
+    "incident_id": "INC-2024-032",
+    "timeline": {
+      "incident": { "year": 2024, "month": 9 },
+      "discovery": { "unit": "Hours", "value": 36 }
+    },
+    "actor": {
+      "partner": {
+        "variety": ["Vendor"],
+        "motive": ["NA"]
+      }
+    },
+    "action": {
+      "error": {
+        "variety": ["Misconfiguration", "Gaffe"],
+        "vector": ["Cloud infrastructure"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 25000 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "6111",
+    "victim": {
+      "orgsize": "L",
+      "country": ["FR"]
+    },
+    "summary": "A cloud services vendor deployed a misconfigured database instance for a university, exposing 25,000 student and staff records to the public internet."
+  },
+  {
+    "incident_id": "INC-2024-033",
+    "timeline": {
+      "incident": { "year": 2024, "month": 10 },
+      "discovery": { "unit": "Days", "value": 2 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Phishing"],
+        "vector": ["Email"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Credentials", "amount": 8 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5221",
+    "victim": {
+      "orgsize": "M",
+      "country": ["PL"]
+    },
+    "summary": "Phishing campaign impersonating a bank's IT department harvested credentials from eight employees, enabling access to internal banking systems."
+  },
+  {
+    "incident_id": "INC-2024-034",
+    "timeline": {
+      "incident": { "year": 2024, "month": 11 },
+      "discovery": { "unit": "Hours", "value": 5 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Brute force", "Use of stolen creds"],
+        "vector": ["Remote access software"]
+      },
+      "malware": {
+        "variety": ["Ransomware"],
+        "vector": ["Direct install"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" },
+        { "variety": "S - File" },
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "No"
+      },
+      "integrity": { "variety": ["Encrypt data"] },
+      "availability": { "variety": ["Loss", "Interruption"] }
+    },
+    "industry": "4521",
+    "victim": {
+      "orgsize": "S",
+      "country": ["BE"]
+    },
+    "summary": "A small retail chain had all point-of-sale and back-office systems encrypted by ransomware introduced through a brute-forced RDP endpoint, causing a 3-day operational shutdown."
+  },
+  {
+    "incident_id": "INC-2024-035",
+    "timeline": {
+      "incident": { "year": 2024, "month": 12 },
+      "discovery": { "unit": "Days", "value": 1 }
+    },
+    "actor": {
+      "internal": {
+        "variety": ["End-user"],
+        "motive": ["Convenience"]
+      }
+    },
+    "action": {
+      "error": {
+        "variety": ["Misdelivery"],
+        "vector": ["Email"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 45 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "8621",
+    "victim": {
+      "orgsize": "S",
+      "country": ["CZ"]
+    },
+    "summary": "A medical receptionist sent lab results to the wrong patient via email due to an autocomplete error, exposing personal health information for 45 individuals."
+  },
+  {
+    "incident_id": "INC-2024-036",
+    "timeline": {
+      "incident": { "year": 2024, "month": 1 },
+      "discovery": { "unit": "Days", "value": 12 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Exploit vuln"],
+        "vector": ["Web application"]
+      },
+      "malware": {
+        "variety": ["Spyware"],
+        "vector": ["Software installation"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Web application" },
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Payment", "amount": 6500 }, { "variety": "Personal", "amount": 6500 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "4541",
+    "victim": {
+      "orgsize": "M",
+      "country": ["AT"]
+    },
+    "summary": "An online retailer's e-commerce platform was compromised through a deserialization vulnerability, resulting in long-term exfiltration of customer personal and payment card data."
+  },
+  {
+    "incident_id": "INC-2024-037",
+    "timeline": {
+      "incident": { "year": 2024, "month": 2 },
+      "discovery": { "unit": "Hours", "value": 10 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Unaffiliated"],
+        "motive": ["Grudge"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Denial of service"],
+        "vector": ["Internet"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "N - Router" },
+        { "variety": "S - Web application" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": { "data_disclosure": "No" },
+      "integrity": { "variety": [] },
+      "availability": { "variety": ["Interruption"] }
+    },
+    "industry": "4541",
+    "victim": {
+      "orgsize": "S",
+      "country": ["SE"]
+    },
+    "summary": "A volumetric DDoS attack from a botnet took down a small online shop's website for 10 hours, causing significant revenue loss during a promotional sale period."
+  },
+  {
+    "incident_id": "INC-2024-038",
+    "timeline": {
+      "incident": { "year": 2024, "month": 3 },
+      "discovery": { "unit": "Days", "value": 5 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Phishing"],
+        "vector": ["Email"]
+      },
+      "hacking": {
+        "variety": ["Use of stolen creds"],
+        "vector": ["Cloud services"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - File" },
+        { "variety": "S - Mail" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 2100 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5413",
+    "victim": {
+      "orgsize": "M",
+      "country": ["PT"]
+    },
+    "summary": "Phishing attack compromised an employee's Microsoft 365 credentials at a consulting firm, enabling access to client project files and sensitive correspondence stored in SharePoint."
+  },
+  {
+    "incident_id": "INC-2024-039",
+    "timeline": {
+      "incident": { "year": 2024, "month": 4 },
+      "discovery": { "unit": "Days", "value": 20 }
+    },
+    "actor": {
+      "internal": {
+        "variety": ["Privileged user"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "misuse": {
+        "variety": ["Privilege abuse", "Data mishandling"],
+        "vector": ["LAN access"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Medical", "amount": 1500 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "8621",
+    "victim": {
+      "orgsize": "L",
+      "country": ["DE"]
+    },
+    "summary": "A hospital IT administrator systematically accessed and sold patient records to a private health data broker over a 20-day period before being caught by a data loss prevention alert."
+  },
+  {
+    "incident_id": "INC-2024-040",
+    "timeline": {
+      "incident": { "year": 2024, "month": 5 },
+      "discovery": { "unit": "Hours", "value": 72 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Exploit vuln", "Use of backdoor or C2"],
+        "vector": ["VPN"]
+      },
+      "malware": {
+        "variety": ["Ransomware"],
+        "vector": ["Direct install"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - File" },
+        { "variety": "S - Database" },
+        { "variety": "U - Desktop" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 18000 }]
+      },
+      "integrity": { "variety": ["Encrypt data"] },
+      "availability": { "variety": ["Loss", "Interruption"] }
+    },
+    "industry": "9211",
+    "victim": {
+      "orgsize": "M",
+      "country": ["HU"]
+    },
+    "summary": "Local government authority hit by double-extortion ransomware via a compromised VPN gateway; attackers exfiltrated citizen data before encrypting systems and demanding €500,000."
+  },
+  {
+    "incident_id": "INC-2024-041",
+    "timeline": {
+      "incident": { "year": 2024, "month": 6 },
+      "discovery": { "unit": "Days", "value": 3 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Phishing"],
+        "vector": ["Email"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Credentials", "amount": 5 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "2381",
+    "victim": {
+      "orgsize": "S",
+      "country": ["RO"]
+    },
+    "summary": "Construction company employees fell for a fake document-signing phishing page, compromising credentials to the company's project management and invoicing platforms."
+  },
+  {
+    "incident_id": "INC-2024-042",
+    "timeline": {
+      "incident": { "year": 2024, "month": 7 },
+      "discovery": { "unit": "Days", "value": 1 }
+    },
+    "actor": {
+      "internal": {
+        "variety": ["End-user"],
+        "motive": ["Convenience"]
+      }
+    },
+    "action": {
+      "error": {
+        "variety": ["Misconfiguration"],
+        "vector": ["Cloud infrastructure"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 750 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5112",
+    "victim": {
+      "orgsize": "S",
+      "country": ["FI"]
+    },
+    "summary": "A developer misconfigured database permissions during a deployment, temporarily exposing 750 user records including email addresses and password hashes."
+  },
+  {
+    "incident_id": "INC-2024-043",
+    "timeline": {
+      "incident": { "year": 2024, "month": 8 },
+      "discovery": { "unit": "Days", "value": 7 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Use of stolen creds"],
+        "vector": ["Web application"]
+      },
+      "malware": {
+        "variety": ["Backdoor"],
+        "vector": ["Software installation"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Web application" },
+        { "variety": "S - Database" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 9000 }]
+      },
+      "integrity": { "variety": ["Alter behavior"] },
+      "availability": { "variety": [] }
+    },
+    "industry": "7211",
+    "victim": {
+      "orgsize": "M",
+      "country": ["ES"]
+    },
+    "summary": "A travel agency's booking platform was compromised through stolen admin credentials, enabling installation of a backdoor and exfiltration of customer booking and passport data."
+  },
+  {
+    "incident_id": "INC-2024-044",
+    "timeline": {
+      "incident": { "year": 2024, "month": 9 },
+      "discovery": { "unit": "Days", "value": 2 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Phishing", "Pretexting"],
+        "vector": ["Email", "Phone"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Credentials", "amount": 1 }]
+      },
+      "integrity": { "variety": ["Fraudulent transaction"] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5221",
+    "victim": {
+      "orgsize": "S",
+      "country": ["NL"]
+    },
+    "summary": "BEC fraud via a combination of phishing and social engineering phone calls resulted in an unauthorised bank transfer of €78,000 from a small trading company."
+  },
+  {
+    "incident_id": "INC-2024-045",
+    "timeline": {
+      "incident": { "year": 2024, "month": 10 },
+      "discovery": { "unit": "Hours", "value": 3 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "malware": {
+        "variety": ["Ransomware"],
+        "vector": ["Email attachment"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" },
+        { "variety": "S - File" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "No"
+      },
+      "integrity": { "variety": ["Encrypt data"] },
+      "availability": { "variety": ["Loss", "Interruption"] }
+    },
+    "industry": "6111",
+    "victim": {
+      "orgsize": "S",
+      "country": ["BE"]
+    },
+    "summary": "A ransomware attachment sent to school administrative staff encrypted all shared administrative systems, disrupting operations for two days and requiring a full restore from backup."
+  },
+  {
+    "incident_id": "INC-2024-046",
+    "timeline": {
+      "incident": { "year": 2024, "month": 11 },
+      "discovery": { "unit": "Days", "value": 5 }
+    },
+    "actor": {
+      "partner": {
+        "variety": ["Vendor"],
+        "motive": ["NA"]
+      }
+    },
+    "action": {
+      "error": {
+        "variety": ["Gaffe", "Misconfiguration"],
+        "vector": ["Third-party"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Database" },
+        { "variety": "S - File" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 5500 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5241",
+    "victim": {
+      "orgsize": "M",
+      "country": ["IT"]
+    },
+    "summary": "An IT vendor performing maintenance on an insurance company's systems accidentally copied a production customer database to a shared, publicly accessible test environment."
+  },
+  {
+    "incident_id": "INC-2024-047",
+    "timeline": {
+      "incident": { "year": 2024, "month": 12 },
+      "discovery": { "unit": "Days", "value": 9 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Exploit vuln", "SQL injection"],
+        "vector": ["Web application"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Database" },
+        { "variety": "S - Web application" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 14000 }, { "variety": "Medical", "amount": 3000 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5112",
+    "victim": {
+      "orgsize": "M",
+      "country": ["DE"]
+    },
+    "summary": "A healthcare software vendor's patient portal was exploited via an SQL injection vulnerability in the search function, exposing 14,000 patient personal records and 3,000 diagnostic results."
+  },
+  {
+    "incident_id": "INC-2024-048",
+    "timeline": {
+      "incident": { "year": 2024, "month": 1 },
+      "discovery": { "unit": "Days", "value": 3 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Organized crime"],
+        "motive": ["Financial"]
+      }
+    },
+    "action": {
+      "social": {
+        "variety": ["Phishing"],
+        "vector": ["Email"]
+      },
+      "hacking": {
+        "variety": ["Use of stolen creds"],
+        "vector": ["Cloud services"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - Mail" },
+        { "variety": "U - Laptop" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Internal", "amount": 0 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "3345",
+    "victim": {
+      "orgsize": "S",
+      "country": ["FR"]
+    },
+    "summary": "A small electronics manufacturer's CEO email account was compromised through an OAuth phishing attack, exposing confidential supplier contracts and negotiation documents."
+  },
+  {
+    "incident_id": "INC-2024-049",
+    "timeline": {
+      "incident": { "year": 2024, "month": 2 },
+      "discovery": { "unit": "Days", "value": 25 }
+    },
+    "actor": {
+      "external": {
+        "variety": ["Nation-state"],
+        "motive": ["Espionage"]
+      }
+    },
+    "action": {
+      "hacking": {
+        "variety": ["Exploit vuln", "Use of backdoor or C2"],
+        "vector": ["Remote access software", "Internet-facing application"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "S - File" },
+        { "variety": "U - Laptop" },
+        { "variety": "N - LAN" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Internal", "amount": 0 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "9211",
+    "victim": {
+      "orgsize": "L",
+      "country": ["PL"]
+    },
+    "summary": "State-sponsored threat actors exploited an internet-facing research portal to gain access to a national scientific institute, conducting intelligence collection over 25 days before discovery."
+  },
+  {
+    "incident_id": "INC-2024-050",
+    "timeline": {
+      "incident": { "year": 2024, "month": 3 },
+      "discovery": { "unit": "Hours", "value": 1 }
+    },
+    "actor": {
+      "internal": {
+        "variety": ["End-user"],
+        "motive": ["Convenience"]
+      }
+    },
+    "action": {
+      "error": {
+        "variety": ["Misdelivery"],
+        "vector": ["Email"]
+      }
+    },
+    "asset": {
+      "assets": [
+        { "variety": "U - Desktop" }
+      ]
+    },
+    "attribute": {
+      "confidentiality": {
+        "data_disclosure": "Yes",
+        "data": [{ "variety": "Personal", "amount": 130 }]
+      },
+      "integrity": { "variety": [] },
+      "availability": { "variety": [] }
+    },
+    "industry": "5221",
+    "victim": {
+      "orgsize": "M",
+      "country": ["CZ"]
+    },
+    "summary": "A bank employee sent a bulk email containing customer account balance information to the wrong recipient list, exposing personal financial data for 130 customers."
+  }
+]

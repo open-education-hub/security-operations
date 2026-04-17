@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="multichoice">
+    <name><text>OS Security Final Q1 — UAC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is User Account Control (UAC) in Windows?</p>]]></text></questiontext>
+    <answer fraction="100"><text>A mechanism that prompts users when a process tries to elevate to higher privileges</text><feedback><text>Correct! UAC is a security feature in Windows Vista and later that requires user confirmation (or admin credentials) before processes can elevate to administrator privileges, reducing the impact of malware running as standard users.</text></feedback></answer>
+    <answer fraction="0"><text>A feature that blocks all internet access for standard user accounts</text><feedback><text>Incorrect. UAC does not manage network access. Windows Firewall handles network restrictions.</text></feedback></answer>
+    <answer fraction="0"><text>A tool for managing user passwords and account expiration</text><feedback><text>Incorrect. Password and account management is done via Group Policy, net accounts, or Active Directory Users and Computers.</text></feedback></answer>
+    <answer fraction="0"><text>A firewall rule that restricts users from running applications</text><feedback><text>Incorrect. Application control is provided by AppLocker or Windows Defender Application Control, not UAC.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q2 — Logon Event ID</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which Windows Event ID indicates a successful user logon?</p>]]></text></questiontext>
+    <answer fraction="100"><text>4624</text><feedback><text>Correct! Event ID 4624 is "An account was successfully logged on." It includes logon type (2=interactive, 3=network, 10=remote interactive), authentication package, and source IP.</text></feedback></answer>
+    <answer fraction="0"><text>4625</text><feedback><text>Incorrect. 4625 is a failed logon event — useful for detecting brute-force attacks.</text></feedback></answer>
+    <answer fraction="0"><text>4688</text><feedback><text>Incorrect. 4688 is process creation. 4624 is the logon success event.</text></feedback></answer>
+    <answer fraction="0"><text>1102</text><feedback><text>Incorrect. 1102 is Security audit log cleared — a critical anti-forensics indicator.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q3 — Cron Persistence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An attacker places a malicious script in <code>/etc/cron.d/</code> that runs every minute as root. What type of persistence mechanism is this?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Cron job</text><feedback><text>Correct! /etc/cron.d/ entries are system-wide cron jobs. Running as root, they execute with the highest privilege, making this a powerful persistence technique (MITRE T1053.003).</text></feedback></answer>
+    <answer fraction="0"><text>Scheduled task</text><feedback><text>Incorrect. Scheduled tasks are a Windows concept (Task Scheduler). The Linux equivalent is cron.</text></feedback></answer>
+    <answer fraction="0"><text>Registry Run key</text><feedback><text>Incorrect. Registry Run keys are Windows-only persistence. Linux has no registry.</text></feedback></answer>
+    <answer fraction="0"><text>Systemd service</text><feedback><text>Incorrect. Systemd services are in /etc/systemd/system/ — a different (also valid) persistence mechanism on Linux.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q4 — SUID Find Command</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <code>find / -perm -4000 -type f 2>/dev/null</code> do on Linux?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Finds all files with the SUID bit set</text><feedback><text>Correct! -perm -4000 matches files where the SUID bit is set. SUID files execute as their owner (often root), making them a privilege escalation vector if misconfigured or compromised.</text></feedback></answer>
+    <answer fraction="0"><text>Finds all files owned by root</text><feedback><text>Incorrect. Files owned by root would be found with: find / -user root -type f</text></feedback></answer>
+    <answer fraction="0"><text>Finds all files that are world-readable</text><feedback><text>Incorrect. World-readable files: find / -perm -o=r -type f</text></feedback></answer>
+    <answer fraction="0"><text>Finds all recently modified configuration files</text><feedback><text>Incorrect. Recently modified files: find / -mtime -1 -type f (last 24 hours)</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q5 — SMBv1 Risk</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a reason to disable SMBv1 on Windows?</p>]]></text></questiontext>
+    <answer fraction="100"><text>SMBv1 is vulnerable to EternalBlue (CVE-2017-0144), exploited in WannaCry ransomware attacks</text><feedback><text>Correct! EternalBlue is a critical SMBv1 vulnerability that allows unauthenticated remote code execution. It was weaponized in WannaCry (2017) and NotPetya. SMBv1 should be disabled on all systems.</text></feedback></answer>
+    <answer fraction="0"><text>SMBv1 uses too much network bandwidth</text><feedback><text>Incorrect. Bandwidth usage is not a security reason to disable SMBv1. The vulnerability exposure is the primary concern.</text></feedback></answer>
+    <answer fraction="0"><text>SMBv1 requires a separate license from Microsoft</text><feedback><text>Incorrect. SMBv1 has no separate licensing requirement.</text></feedback></answer>
+    <answer fraction="0"><text>SMBv1 does not support file sharing over the network</text><feedback><text>Incorrect. SMBv1 does support file sharing — that is its purpose. The issue is that it does so insecurely.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q6 — auditd Purpose</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Linux, what does the <code>auditd</code> daemon provide?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Kernel-level audit logging of system calls, file access, and user actions</text><feedback><text>Correct! auditd implements the Linux Audit Framework, capturing events at the kernel level (syscalls). This makes it harder to bypass than user-space logging — even privileged processes cannot hide their actions from auditd.</text></feedback></answer>
+    <answer fraction="0"><text>Automatic software updates</text><feedback><text>Incorrect. Software updates are managed by apt, yum/dnf, or similar package managers.</text></feedback></answer>
+    <answer fraction="0"><text>Network traffic analysis and intrusion detection</text><feedback><text>Incorrect. Network IDS is provided by tools like Snort, Suricata, or Zeek — not auditd.</text></feedback></answer>
+    <answer fraction="0"><text>System performance monitoring and resource alerts</text><feedback><text>Incorrect. Performance monitoring uses tools like top, iostat, sar — not auditd.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q7 — ld.so.preload Rootkit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An attacker installs a library in <code>/etc/ld.so.preload</code>. What is the likely purpose?</p>]]></text></questiontext>
+    <answer fraction="100"><text>To install a rootkit that intercepts system calls and hides attacker activity</text><feedback><text>Correct! /etc/ld.so.preload causes the specified library to be loaded before all others in every process. A malicious library here can intercept libc calls (like readdir, stat, read) to hide files, processes, and network connections from security tools.</text></feedback></answer>
+    <answer fraction="0"><text>To speed up application startup by preloading common libraries</text><feedback><text>Incorrect. While /etc/ld.so.preload can theoretically preload libraries for performance, an attacker placing a library here is always malicious.</text></feedback></answer>
+    <answer fraction="0"><text>To create a backup of critical system libraries</text><feedback><text>Incorrect. Library backups are not stored via ld.so.preload.</text></feedback></answer>
+    <answer fraction="0"><text>To enable debugging of system processes</text><feedback><text>Incorrect. Debugging uses tools like gdb, strace, ltrace — not ld.so.preload.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q8 — comsvcs.dll MiniDump</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which MITRE ATT&CK technique does <code>rundll32.exe C:\Windows\System32\comsvcs.dll MiniDump 624 lsass.dmp full</code> represent?</p>]]></text></questiontext>
+    <answer fraction="100"><text>T1003.001 — OS Credential Dumping: LSASS Memory</text><feedback><text>Correct! This is the comsvcs.dll LOLBin technique for creating an LSASS minidump. 624 is the typical LSASS PID. The resulting .dmp file can be analyzed offline with Mimikatz to extract credential hashes.</text></feedback></answer>
+    <answer fraction="0"><text>T1547.001 — Registry Run Keys</text><feedback><text>Incorrect. Registry Run Keys is a persistence technique, not credential dumping.</text></feedback></answer>
+    <answer fraction="0"><text>T1059.001 — PowerShell</text><feedback><text>Incorrect. T1059.001 is command/scripting interpreter abuse. The command shown uses rundll32, not PowerShell.</text></feedback></answer>
+    <answer fraction="0"><text>T1543.003 — Windows Service</text><feedback><text>Incorrect. T1543.003 is creating or modifying a Windows service for persistence, not credential dumping.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q9 — mtime vs ctime Timestomping</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A forensic examiner sees that <code>/root/.ssh/authorized_keys</code> has an <code>mtime</code> of 6 months ago but a <code>ctime</code> of yesterday. What does this indicate?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Timestomping: the attacker modified the file yesterday but backdated the mtime to hide the modification; ctime cannot be manipulated by normal user-space tools</text><feedback><text>Correct! mtime can be manipulated with tools like touch -t. ctime updates whenever inode metadata changes (including mtime manipulation) and cannot be backdated through normal operations, revealing the true modification time.</text></feedback></answer>
+    <answer fraction="0"><text>The file was created 6 months ago and the content was automatically refreshed yesterday by a cron job</text><feedback><text>Incorrect. If a cron job updated the content, mtime would also be updated. The discrepancy between mtime and ctime is the key indicator.</text></feedback></answer>
+    <answer fraction="0"><text>The system clock was incorrect 6 months ago, causing the wrong timestamp to be recorded</text><feedback><text>Incorrect. A clock error would affect both mtime and ctime equally. The discrepancy between the two is the forensic indicator.</text></feedback></answer>
+    <answer fraction="0"><text>The authorized_keys file is automatically rotated and the ctime represents the latest rotation</text><feedback><text>Incorrect. SSH authorized_keys files are not automatically rotated. Any modification should be deliberate and documented.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q10 — WDigest Security Risk</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does enabling WDigest authentication (<code>UseLogonCredential = 1</code>) on Windows cause?</p>]]></text></questiontext>
+    <answer fraction="100"><text>WDigest stores plaintext (or reversibly encrypted) passwords in LSASS memory, available to attackers who dump credentials</text><feedback><text>Correct! WDigest was designed for HTTP Digest authentication and requires the cleartext password in memory. When enabled, tools like Mimikatz (sekurlsa::wdigest) can extract cleartext passwords from LSASS.</text></feedback></answer>
+    <answer fraction="0"><text>WDigest enables two-factor authentication for domain accounts</text><feedback><text>Incorrect. WDigest has nothing to do with multi-factor authentication. It is a legacy authentication protocol.</text></feedback></answer>
+    <answer fraction="0"><text>WDigest encrypts all network traffic using digest algorithms</text><feedback><text>Incorrect. WDigest authenticates to services using digest-based credentials but does not encrypt general network traffic.</text></feedback></answer>
+    <answer fraction="0"><text>WDigest creates a digital signature for all user logon events</text><feedback><text>Incorrect. Logon event signing is not a WDigest function. WDigest is specifically about credential caching for HTTP Digest authentication.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q11 — Pass-the-Hash Defense</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An organization wants to prevent Pass-the-Hash attacks in their Windows environment. Which combination of controls is MOST effective?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Disabling WDigest, enabling LSA Protection (RunAsPPL), using Credential Guard, and restricting NTLM usage</text><feedback><text>Correct! PtH requires NTLM hashes in memory. Disabling WDigest prevents cleartext creds; RunAsPPL protects LSASS from dumping; Credential Guard virtualizes credentials making them inaccessible to OS processes; restricting NTLM forces Kerberos. These controls eliminate the attack surface holistically.</text></feedback></answer>
+    <answer fraction="0"><text>Enabling Windows Firewall and antivirus on all endpoints</text><feedback><text>Incorrect. Firewall and AV are useful but do not address the credential-in-memory vulnerability that PtH exploits.</text></feedback></answer>
+    <answer fraction="0"><text>Requiring complex passwords with 8+ characters and 90-day rotation</text><feedback><text>Incorrect. PtH doesn't require knowing the plaintext password — password complexity doesn't prevent PtH since the hash is used directly.</text></feedback></answer>
+    <answer fraction="0"><text>Implementing AppLocker and software restriction policies</text><feedback><text>Incorrect. AppLocker can block known credential dumping tools but does not protect LSASS memory or prevent NTLM hash reuse.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q12 — Prefetch Forensics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the primary forensic significance of Windows Prefetch files (<code>C:\Windows\Prefetch\</code>)?</p>]]></text></questiontext>
+    <answer fraction="100"><text>They contain metadata about recently executed programs, including last run time and files accessed — even if the executable has been deleted</text><feedback><text>Correct! Prefetch files (*.pf) record: executable name, path hash, last run timestamps (up to 8 last runs in Windows 10), run count, and files/directories accessed. They prove an executable ran even after deletion — crucial for confirming malware execution.</text></feedback></answer>
+    <answer fraction="0"><text>They store compressed backup copies of recently accessed files</text><feedback><text>Incorrect. Prefetch files contain metadata/index data about execution, not file content backups.</text></feedback></answer>
+    <answer fraction="0"><text>They store temporary internet files for the Windows browser</text><feedback><text>Incorrect. Browser cache is in %AppData%\Local\Microsoft\Windows\INetCache or browser-specific locations.</text></feedback></answer>
+    <answer fraction="0"><text>They hold pending Windows Update files before installation</text><feedback><text>Incorrect. Windows Update pending files are in C:\Windows\SoftwareDistribution\Download\.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q13 — ASLR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the recommended value for <code>kernel.randomize_va_space</code> per CIS Benchmark Level 1 for Linux?</p>]]></text></questiontext>
+    <answer fraction="100"><text>2 (full ASLR — randomizes stack, heap, and MMAP)</text><feedback><text>Correct! CIS 1.5.2 requires kernel.randomize_va_space = 2, which enables full ASLR: stack, heap, MMAP base, and VDSO addresses are all randomized. Value 1 only randomizes stack and MMAP; value 0 disables ASLR entirely.</text></feedback></answer>
+    <answer fraction="0"><text>0 (disabled — for maximum application compatibility)</text><feedback><text>Incorrect. Value 0 disables ASLR entirely, removing an important exploit mitigation. This is a CIS FAIL.</text></feedback></answer>
+    <answer fraction="0"><text>1 (partial ASLR — stack and MMAP only)</text><feedback><text>Incorrect. Value 1 provides only partial protection. CIS requires value 2 for complete ASLR.</text></feedback></answer>
+    <answer fraction="0"><text>3 (maximum entropy)</text><feedback><text>Incorrect. Value 3 is not a standard Linux kernel option for this parameter. The valid values are 0, 1, and 2.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q14 — Event ID 4648</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An analyst observes Windows Event ID 4648 with <code>TargetUserName = svc_backup</code> and <code>TargetServerName = FS-CORP-01</code>. What does this most likely indicate?</p>]]></text></questiontext>
+    <answer fraction="100"><text>An explicit credential logon — a process used specific credentials to connect to FS-CORP-01 as svc_backup, potentially indicating Pass-the-Hash or credential relay</text><feedback><text>Correct! Event 4648 "A logon was attempted using explicit credentials" is generated when a process explicitly provides credentials to connect to a remote resource. Combined with NTLM authentication type, this is a key Pass-the-Hash indicator.</text></feedback></answer>
+    <answer fraction="0"><text>The account svc_backup failed to log in to FS-CORP-01</text><feedback><text>Incorrect. Failed logons generate Event ID 4625, not 4648.</text></feedback></answer>
+    <answer fraction="0"><text>The password for svc_backup was changed on FS-CORP-01</text><feedback><text>Incorrect. Password changes generate Event ID 4723 or 4724.</text></feedback></answer>
+    <answer fraction="0"><text>The account svc_backup was newly created on FS-CORP-01</text><feedback><text>Incorrect. Account creation generates Event ID 4720.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q15 — SELinux Modes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which SELinux mode logs policy violations but does NOT block them?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Permissive</text><feedback><text>Correct! In Permissive mode, SELinux logs all policy violations to /var/log/audit/audit.log (AVC denials) but allows the actions to proceed. This is used for testing policy before enabling Enforcing mode.</text></feedback></answer>
+    <answer fraction="0"><text>Enforcing</text><feedback><text>Incorrect. Enforcing mode both logs and blocks policy violations.</text></feedback></answer>
+    <answer fraction="0"><text>Disabled</text><feedback><text>Incorrect. In Disabled mode, SELinux is completely off — no logging, no enforcement.</text></feedback></answer>
+    <answer fraction="0"><text>Auditing</text><feedback><text>Incorrect. "Auditing" is not a SELinux mode. The three modes are Enforcing, Permissive, and Disabled.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q16 — Deleted Process Binary</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A running process shows <code>/tmp/.implant (deleted)</code> in its command line. What is the correct forensic action to preserve the binary for analysis?</p>]]></text></questiontext>
+    <answer fraction="100"><text>cp /proc/&lt;PID&gt;/exe /tmp/evidence_binary</text><feedback><text>Correct! Even after a binary is deleted from the filesystem, the process keeps it open via its file descriptor. /proc/&lt;PID&gt;/exe is a symlink to the running binary and can be copied to recover it, even when marked (deleted).</text></feedback></answer>
+    <answer fraction="0"><text>strings /tmp/.implant</text><feedback><text>Incorrect. The file has been deleted from /tmp; it no longer exists there. The only copy is in process memory via /proc/.</text></feedback></answer>
+    <answer fraction="0"><text>kill -9 &lt;PID&gt; then run file recovery tools on /tmp</text><feedback><text>Incorrect. Killing the process closes the file descriptor, making recovery much harder. Preserve first, kill later.</text></feedback></answer>
+    <answer fraction="0"><text>Run dd on the /tmp partition to recover the deleted file</text><feedback><text>Incorrect. dd-based recovery might work but is slower and more complex. The easiest and most reliable method is copying from /proc/&lt;PID&gt;/exe while the process is still running.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q17 — PostgreSQL pg_hba.conf</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A PostgreSQL configuration shows: <code>host all all 0.0.0.0/0 md5</code> in <code>pg_hba.conf</code>. What are the two security issues?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Wildcard source address (0.0.0.0/0) allows connections from any IP; md5 uses a deprecated/weak hashing algorithm (scram-sha-256 is required)</text><feedback><text>Correct! 0.0.0.0/0 exposes the database to network-wide brute force attacks. MD5 password hashing in PostgreSQL is deprecated (not cryptographically md5 of the password alone, but still weak compared to scram-sha-256). Both are CIS and PCI-DSS violations.</text></feedback></answer>
+    <answer fraction="0"><text>TCP connections are slower than UNIX socket connections; md5 is incompatible with modern clients</text><feedback><text>Incorrect. Performance is not a security concern here. The real issues are access control and authentication strength.</text></feedback></answer>
+    <answer fraction="0"><text>The line allows only IPv4 connections; ssl parameter is missing</text><feedback><text>Partially correct that SSL is also a concern, but the primary issues are the wildcard address and weak auth method.</text></feedback></answer>
+    <answer fraction="0"><text>All databases are exposed; the 'all' keyword should be replaced with specific database names</text><feedback><text>This is a valid concern but not the most critical. The wildcard IP and md5 auth are more immediately dangerous.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q18 — SSH Offboarding</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An employee's Active Directory account was disabled on their last day, but they still have an SSH key in <code>authorized_keys</code> on 15 Linux servers. Can they still log in?</p>]]></text></questiontext>
+    <answer fraction="100"><text>Yes — SSH public key authentication does not check Active Directory; the key in authorized_keys is sufficient to authenticate regardless of AD account status</text><feedback><text>Correct! SSH public key authentication on Linux systems authenticates against the local authorized_keys file, not Active Directory. Even if the AD account is disabled, the SSH key remains valid on Linux systems unless it is explicitly removed from each server's authorized_keys file.</text></feedback></answer>
+    <answer fraction="0"><text>No — disabling the AD account also disables all SSH authentication for that user</text><feedback><text>Incorrect. Unless the Linux systems are specifically configured to check AD status (e.g., via SSSD + AD integration with account validation), SSH key authentication bypasses AD entirely.</text></feedback></answer>
+    <answer fraction="0"><text>Only if the Linux servers are joined to the Active Directory domain</text><feedback><text>Incorrect. Even domain-joined Linux systems authenticate SSH keys against the local authorized_keys unless specifically configured to do AD validation checks for SSH sessions.</text></feedback></answer>
+    <answer fraction="0"><text>No — SSH keys expire when the user's password expires in Active Directory</text><feedback><text>Incorrect. SSH keys have no relationship to AD password expiration. They remain valid indefinitely unless explicitly revoked.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q19 — Evidence Hash</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A forensic examiner acquires a disk image and records its SHA256 hash. Why is this step critical?</p>]]></text></questiontext>
+    <answer fraction="100"><text>The hash proves the evidence was not modified after acquisition — establishing integrity for legal admissibility</text><feedback><text>Correct! Chain of custody requires evidence integrity. The SHA256 hash of the disk image is taken at acquisition and again before analysis. If the hashes match, the evidence is provably unmodified. Any difference invalidates the evidence for legal proceedings.</text></feedback></answer>
+    <answer fraction="0"><text>SHA256 hashing improves the read speed of large disk images</text><feedback><text>Incorrect. Hashing provides integrity verification, not performance improvement. Hashing a large disk image is computationally expensive and slow.</text></feedback></answer>
+    <answer fraction="0"><text>SHA256 encryption prevents unauthorized access to the disk image</text><feedback><text>Incorrect. SHA256 is a hash function, not encryption. It does not protect the confidentiality of data. For confidentiality, the image would need to be encrypted (e.g., with AES).</text></feedback></answer>
+    <answer fraction="0"><text>The hash is required by forensic software to mount the image</text><feedback><text>Incorrect. Forensic software can mount images without a pre-computed hash. The hash is for legal chain-of-custody purposes.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+  <question type="multichoice">
+    <name><text>OS Security Final Q20 — .bashrc Trojan</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A Linux IR analyst finds in <code>/home/user/.bashrc</code>: <code>alias sudo='sudo bash -c "cp /bin/bash /tmp/rootbash &amp;&amp; chmod u+s /tmp/rootbash" &amp;&amp; sudo'</code>. What is this?</p>]]></text></questiontext>
+    <answer fraction="100"><text>A persistence and privilege escalation trap: when the user runs sudo, it silently creates a SUID root bash copy before executing the real sudo</text><feedback><text>Correct! This alias intercepts every sudo call. It first copies bash to /tmp/rootbash with SUID, then executes the real sudo. The attacker later runs /tmp/rootbash -p to get a root shell. This is T1037 (Boot/Logon Init Scripts) + T1548.001 (SUID). The -p flag preserves the SUID effective UID.</text></feedback></answer>
+    <answer fraction="0"><text>A legitimate sudo alias for faster command execution that caches the sudo token</text><feedback><text>Incorrect. Legitimate sudo aliases do not copy bash with SUID to /tmp. This is unambiguously malicious.</text></feedback></answer>
+    <answer fraction="0"><text>A broken alias that will prevent sudo from working correctly</text><feedback><text>Incorrect. The alias correctly calls sudo after the malicious action — the user sees normal sudo behavior, not realizing the SUID bash has been created.</text></feedback></answer>
+    <answer fraction="0"><text>A log redirection command that writes sudo activity to /tmp for review</text><feedback><text>Incorrect. Nothing about this alias relates to logging. The bash command copies and sets SUID on a bash binary.</text></feedback></answer>
+    <shuffleanswers>1</shuffleanswers><single>true</single>
+  </question>
+</quiz>

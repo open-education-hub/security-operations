@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q1 - VERIS Acronym</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What does VERIS stand for?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Vocabulary for Event Recording and Incident Sharing</text>
+      <feedback><text>Correct! VERIS is the Vocabulary for Event Recording and Incident Sharing, developed by Verizon's Risk Team.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Vulnerability Event Reporting and Intelligence Sharing</text>
+      <feedback><text>Incorrect. VERIS focuses on incident recording, not vulnerability reporting.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Verified Enterprise Risk Incident Schema</text>
+      <feedback><text>Incorrect. VERIS stands for Vocabulary for Event Recording and Incident Sharing.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Variable Event Response and Incident System</text>
+      <feedback><text>Incorrect. VERIS is Vocabulary for Event Recording and Incident Sharing.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q2 - 4-A Framework</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which of the following is NOT one of the four dimensions in the VERIS 4-A framework?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Alert</text>
+      <feedback><text>Correct! The 4-A framework consists of Actor, Action, Asset, and Attribute. Alert is not a dimension.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Actor</text>
+      <feedback><text>Incorrect. Actor (who caused the incident) is one of the four A dimensions in VERIS.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Action</text>
+      <feedback><text>Incorrect. Action (what was done) is one of the four A dimensions in VERIS.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Asset</text>
+      <feedback><text>Incorrect. Asset (what was targeted) is one of the four A dimensions in VERIS.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q3 - Misconfiguration Action</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A developer accidentally misconfigures a cloud database to be publicly accessible, exposing 500,000 customer records. What is the correct VERIS action type?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Error</text>
+      <feedback><text>Correct! Accidental misconfiguration is classified as Error in VERIS — specifically variety "Misconfiguration".</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Hacking</text>
+      <feedback><text>Incorrect. Hacking implies intentional technical exploitation. This was an unintentional configuration mistake.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Misuse</text>
+      <feedback><text>Incorrect. Misuse requires intentional unauthorized use of legitimate access. This was accidental.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Physical</text>
+      <feedback><text>Incorrect. Physical actions involve tangible physical access to systems. This was a cloud configuration error.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q4 - data_disclosure Field</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>In VERIS, what does the <code>data_disclosure</code> field inside the <code>confidentiality</code> attribute section represent?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Whether an unauthorized party is confirmed to have accessed the data</text>
+      <feedback><text>Correct! data_disclosure indicates whether unauthorized access to the data was confirmed (Yes), not confirmed (No), or uncertain (Unknown).</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Whether the organization disclosed the breach to regulators</text>
+      <feedback><text>Incorrect. VERIS captures technical incident data, not regulatory reporting actions.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The type of encryption used to protect the data</text>
+      <feedback><text>Incorrect. Encryption type is captured in the "state" field, not data_disclosure.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Whether the data was encrypted at the time of the incident</text>
+      <feedback><text>Incorrect. Encryption state is captured in the "state" sub-field (e.g., "Stored unencrypted").</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q5 - Timeline Discovery</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which VERIS timeline field captures how long it took the organization to detect the incident after it occurred?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>timeline.discovery</text>
+      <feedback><text>Correct! timeline.discovery records how long from the incident occurrence to when it was discovered by the organization.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>timeline.incident</text>
+      <feedback><text>Incorrect. timeline.incident records when the incident occurred (year, month), not the time to detection.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>timeline.exfiltration</text>
+      <feedback><text>Incorrect. timeline.exfiltration records how long from access to data leaving the organization.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>timeline.compromise</text>
+      <feedback><text>Incorrect. timeline.compromise records how long from the attack start to successful initial compromise.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q6 - Multiple Action Types</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>An organized crime group sends phishing emails to employees of a bank and uses the stolen credentials to log into the online banking system. How many VERIS action types should be recorded?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Two — social engineering AND hacking</text>
+      <feedback><text>Correct! The phishing = social engineering, and using stolen credentials = hacking. Both action types must be recorded to capture the full attack chain.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>One — only the phishing action matters</text>
+      <feedback><text>Incorrect. Both stages of the attack chain must be recorded. The credential use (hacking) is a distinct action.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>One — only the credential use matters</text>
+      <feedback><text>Incorrect. The initial phishing (social engineering) is also an action and should be recorded.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Three — social engineering, hacking, and malware</text>
+      <feedback><text>Incorrect. There is no malware in this scenario. Only two action types apply: social and hacking.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q7 - VCDB</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What is the VCDB?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>A public, community-contributed dataset of VERIS-coded incidents</text>
+      <feedback><text>Correct! The VERIS Community Database (VCDB) is an open, publicly available collection of VERIS-coded security incidents.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A commercial tool for security incident management</text>
+      <feedback><text>Incorrect. VCDB is a free, open dataset — not a commercial product.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Verizon's internal database of breach cases used only for DBIR</text>
+      <feedback><text>Incorrect. The VCDB is publicly available on GitHub and accepts community contributions.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A government threat intelligence sharing platform</text>
+      <feedback><text>Incorrect. VCDB is a community-run project, not a government platform.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q8 - Insider Data Theft</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>An employee deliberately copies 10,000 customer records to a personal USB drive before resigning. Which VERIS actor type and action type best describe this incident?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Actor: Internal; Action: Misuse</text>
+      <feedback><text>Correct! The employee is an internal actor with legitimate access, and deliberately copying data for unauthorized purposes is Misuse (variety: "Privilege abuse" or "Data mishandling").</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Actor: External; Action: Hacking</text>
+      <feedback><text>Incorrect. The employee is an internal actor, not external. The action is Misuse, not Hacking.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Actor: Internal; Action: Error</text>
+      <feedback><text>Incorrect. Error implies an unintentional action. Deliberately copying data is intentional — it is Misuse.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Actor: Partner; Action: Misuse</text>
+      <feedback><text>Incorrect. A Partner actor is from a third-party organization. An employee is an Internal actor.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q9 - Asset Type Prefix</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which VERIS asset type prefix is used to categorize a database server?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>S</text>
+      <feedback><text>Correct! S stands for Server in VERIS. A database server would be coded as "S - Database".</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>U</text>
+      <feedback><text>Incorrect. U stands for User Device (e.g., laptops, desktops), not servers.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>N</text>
+      <feedback><text>Incorrect. N stands for Network (e.g., firewalls, routers), not servers.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>M</text>
+      <feedback><text>Incorrect. M stands for Media (e.g., USB drives, backup tapes), not servers.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q10 - Malware Action</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>In VERIS, which action category covers the installation of keyloggers or backdoors on a compromised system?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Malware</text>
+      <feedback><text>Correct! Keyloggers and backdoors are types of malicious software — they fall under the Malware action category in VERIS.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Social</text>
+      <feedback><text>Incorrect. Social actions involve human manipulation (e.g., phishing). Installing software on a system is Malware.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Hacking</text>
+      <feedback><text>Incorrect. Hacking covers technical exploitation to gain access. The software installed after access is classified as Malware.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Misuse</text>
+      <feedback><text>Incorrect. Misuse involves unauthorized use of legitimate access, not malicious software installation.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q11 - Ransomware Attributes</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>An organization suffers a ransomware attack that encrypts all files on 50 servers but no data is confirmed as exfiltrated. Which VERIS CIA attributes should be recorded?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Integrity and Availability only</text>
+      <feedback><text>Correct! Availability is impacted (files inaccessible) and Integrity is impacted (ransomware installed). Confidentiality should NOT be recorded without confirmed exfiltration — only record confirmed impacts.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Confidentiality only</text>
+      <feedback><text>Incorrect. There is no confirmed data disclosure. Confidentiality should not be recorded without evidence of unauthorized data access.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Confidentiality, Integrity, and Availability</text>
+      <feedback><text>Incorrect. Adding Confidentiality without confirmed exfiltration would misrepresent the incident. VERIS records only confirmed impacts.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Availability only</text>
+      <feedback><text>Incorrect. Integrity is also impacted because ransomware was installed on the systems (action: Malware / Install code).</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q12 - Shared Vocabulary Benefit</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which of the following is a key benefit of using a shared vocabulary like VERIS for incident recording?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>It enables statistical comparison and trend analysis across organizations</text>
+      <feedback><text>Correct! Consistent terminology enables aggregation of data across organizations, enabling meaningful trend analysis and benchmarking — the foundation of the DBIR.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>It replaces the need for a SIEM in the SOC</text>
+      <feedback><text>Incorrect. VERIS is an incident recording standard, not a detection or monitoring tool.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>It automatically generates incident response playbooks</text>
+      <feedback><text>Incorrect. VERIS documents what happened; it does not generate response playbooks.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>It provides real-time threat intelligence feeds</text>
+      <feedback><text>Incorrect. VERIS is a retrospective recording standard, not a real-time threat intelligence platform.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q13 - DBIR Data Source</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which publication uses VERIS-coded data as its primary data source for annual threat landscape statistics?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>The Verizon Data Breach Investigations Report (DBIR)</text>
+      <feedback><text>Correct! The DBIR is published annually by Verizon and uses VERIS-coded incident data from Verizon and partner contributors.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The NIST Cybersecurity Framework</text>
+      <feedback><text>Incorrect. The NIST CSF is a risk management framework, not an annual threat statistics report.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The MITRE ATT&amp;CK knowledge base</text>
+      <feedback><text>Incorrect. ATT&CK documents adversary techniques but does not use VERIS as its primary data source.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The SANS Internet Stormcast</text>
+      <feedback><text>Incorrect. SANS Internet Stormcast is a daily threat briefing, not an annual VERIS-based statistical report.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q14 - Exploit Vulnerability</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>An attacker exploits an unpatched Apache vulnerability to gain root access to a web server. What is the correct VERIS action type and variety?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Hacking — Exploit vulnerability</text>
+      <feedback><text>Correct! Exploiting a software vulnerability to gain unauthorized access is Hacking with variety "Exploit vulnerability".</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Malware — Exploit code</text>
+      <feedback><text>Incorrect. The action of exploiting the vulnerability is Hacking. Malware would be recorded separately only if malicious software was also installed.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Error — Misconfiguration</text>
+      <feedback><text>Incorrect. Error is for unintentional actions. This was a deliberate attack using a known vulnerability.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Social — Phishing</text>
+      <feedback><text>Incorrect. Phishing is a social engineering technique. Exploiting a software vulnerability is Hacking.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Final Quiz Q15 - Nation-State Actor</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A nation-state group compromises a defense contractor's network for espionage purposes. Which VERIS actor type would be most appropriate?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>External — Nation-state</text>
+      <feedback><text>Correct! Nation-state actors are classified as External in VERIS, with variety "Nation-state". Their motive is typically "Espionage".</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Internal — System admin</text>
+      <feedback><text>Incorrect. An internal actor belongs to the victim organization. A nation-state group is an external threat actor.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Partner — IT service provider</text>
+      <feedback><text>Incorrect. Partner actors have a business relationship with the victim. A nation-state adversary has no such relationship.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>External — Organized crime</text>
+      <feedback><text>Incorrect. While nation-states are external, their specific variety is "Nation-state", not "Organized crime". The distinction matters for motive and attribution.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+</quiz>

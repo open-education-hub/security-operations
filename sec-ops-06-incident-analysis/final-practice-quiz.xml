@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>
+    <text>Session 06 Final Practice Quiz — Mixed Format</text>
+  </name>
+  <intro>
+    <text>Practice exam for Session 06. 5 short answer + 2 long answer questions. 45 minutes. This quiz is for self-assessment — compare your answers against the model answers in final-practice-quiz.md.</text>
+  </intro>
+  <introformat>1</introformat>
+  <preferredbehaviour>deferredfeedback</preferredbehaviour>
+
+  <!-- Short Answer 1: BEC -->
+  <question type="essay">
+    <name>
+      <text>SA1: BEC Incident Classification</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>A user reports receiving an email from <code>ceo.office@acmecorp.support</code> asking her to transfer $85,000 to a new vendor account. The company's legitimate CEO email domain is <code>acmecorp.com</code>. The email passed the company's spam filter.</p>
+        <p>Answer all four parts:</p>
+        <ol>
+          <li>What type of incident is this?</li>
+          <li>What is the severity level (P1–P5)?</li>
+          <li>Name two technical indicators that should be investigated.</li>
+          <li>What is the one immediate action that takes absolute priority?</li>
+        </ol>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>4</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>8</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking guide (4 points):</strong></p>
+        <ul>
+          <li>1pt: BEC / Business Email Compromise / Social Engineering / Financial Fraud attempt</li>
+          <li>1pt: P2 (High). Accept P1 if student correctly notes that if transfer completed = P1. Deduct 0.5 if P4 or lower.</li>
+          <li>1pt: Any two of: email headers / originating IP, WHOIS of acmecorp.support, SPF/DKIM/DMARC results, other recipients of same campaign, sending IP reputation check</li>
+          <li>1pt: Confirm user has NOT made the transfer / stop any in-progress transfer. Must be action to prevent the fraud, not just "open a ticket."</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <!-- Short Answer 2: Kill Chain vs ATT&CK -->
+  <question type="essay">
+    <name>
+      <text>SA2: Cyber Kill Chain vs MITRE ATT&CK</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>Explain the difference between the <strong>Cyber Kill Chain</strong> and <strong>MITRE ATT&CK</strong>. When would you use each in an incident analysis? (150–200 words)</p>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>5</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>10</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking guide (5 points):</strong></p>
+        <ul>
+          <li>1pt: Kill Chain is a sequential 7-phase model (Recon → Weaponize → Deliver → Exploit → Install → C2 → Actions)</li>
+          <li>1pt: ATT&CK is a knowledge base of tactics and techniques based on real-world observations</li>
+          <li>1pt: Kill Chain use case — executive/management communication, understanding attack progression stage</li>
+          <li>1pt: ATT&CK use case — detection engineering, threat hunting, specific technique investigation, actor profiling</li>
+          <li>1pt: They are complementary — mention that ATT&CK is more operational/granular, Kill Chain is strategic/narrative</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <!-- Short Answer 3: Ransomware recovery error -->
+  <question type="essay">
+    <name>
+      <text>SA3: Ransomware — Don't Restore Immediately</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>You are investigating a ransomware incident. An IT team member says: <em>"Let me just quickly restore from backup — that will fix it faster than an investigation."</em></p>
+        <p>Provide <strong>three reasons</strong> why this is the wrong approach, and describe the correct process in brief.</p>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>5</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>10</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking guide (5 points — 1pt each):</strong></p>
+        <ul>
+          <li>1pt: Backup integrity unknown — backups may also be encrypted/compromised</li>
+          <li>1pt: Scope unknown — other systems may be compromised; attacker still has access</li>
+          <li>1pt: Evidence destroyed — forensic evidence lost; cannot determine root cause or prevent recurrence</li>
+          <li>1pt: Correct process includes: isolate → collect volatile evidence → forensic image → verify backups → eradicate → THEN restore</li>
+          <li>1pt: Mentions that restoring without eradication will result in re-infection</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <!-- Short Answer 4: Chain of Custody -->
+  <question type="essay">
+    <name>
+      <text>SA4: Chain of Custody — Definition and Importance</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>Define <strong>chain of custody</strong> and explain why it matters. What happens to the evidential value of digital evidence when chain of custody is broken?</p>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>4</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>8</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking guide (4 points):</strong></p>
+        <ul>
+          <li>1pt: Correct definition — documented record tracking evidence from collection through all transfers and analysis events</li>
+          <li>1pt: Includes cryptographic hash (integrity proof) as a key component</li>
+          <li>1pt: Broken CoC consequence — evidence may be inadmissible in legal/criminal proceedings</li>
+          <li>1pt: Additional consequence — civil litigation, regulatory, or disciplinary proceedings may fail if evidence integrity cannot be proven</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <!-- Short Answer 5: DNS Tunneling detection -->
+  <question type="essay">
+    <name>
+      <text>SA5: DNS Tunneling Detection</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>A threat hunter notices DNS queries for domains like:</p>
+        <pre>a7b2c3d4e5f6a7b8.cdn.update-checker.com
+f1e2d3c4b5a6f7e8.cdn.update-checker.com
+9a8b7c6d5e4f3a2b.cdn.update-checker.com</pre>
+        <p>All queries return NXDOMAIN. Answer:</p>
+        <ol>
+          <li>What technique is likely being used?</li>
+          <li>What ATT&amp;CK technique ID applies?</li>
+          <li>Write a detection approach or query to detect this pattern</li>
+        </ol>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>5</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>10</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking guide (5 points):</strong></p>
+        <ul>
+          <li>1pt: DNS tunneling / C2 over DNS identified</li>
+          <li>1pt: Explanation — high-entropy subdomain labels encode data; NXDOMAIN is expected behavior</li>
+          <li>1pt: ATT&CK T1071.004 (DNS) and/or T1048.001 (Exfiltration over DNS)</li>
+          <li>2pt: Detection approach — must include: (1) monitoring for high-entropy or long subdomain labels AND (2) frequency/volume of queries to the same base domain. Award partial credit for incomplete but directionally correct detection.</li>
+        </ul>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <!-- Long Answer 1: PIR Writing -->
+  <question type="essay">
+    <name>
+      <text>LA1: Post-Incident Report — Ransomware</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>Your organization experienced a P1 incident: ransomware was deployed to 40% of Windows workstations after an attacker gained domain admin access following an initial phishing email. You are the senior analyst writing the Post-Incident Report (PIR).</p>
+        <p>Write the following PIR sections:</p>
+        <ol>
+          <li><strong>Executive Summary</strong> (3–4 sentences maximum)</li>
+          <li><strong>Root Cause Analysis</strong> (at least 3 contributing factors with explanation)</li>
+          <li><strong>Detection Gaps</strong> (at least 3 specific gaps with proposed remediation)</li>
+          <li><strong>Recommendations</strong> (at least 5 specific, actionable recommendations with rationale)</li>
+        </ol>
+        <p><em>Target length: 400–600 words</em></p>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>20</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>25</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking guide (20 points):</strong></p>
+        <p><strong>Executive Summary (4pt):</strong> Clear, non-technical, covers: what happened (2pt), business impact (1pt), current status (1pt). Max 4 sentences. Deduct 1pt if technical jargon makes it unsuitable for executive audience.</p>
+        <p><strong>Root Cause Analysis (4pt):</strong> 1pt each for any of: phishing delivery, DMARC not enforced, no MFA on privileged accounts, no LSASS monitoring, flat network architecture, delayed detection. Must include explanation, not just label.</p>
+        <p><strong>Detection Gaps (6pt):</strong> 2pt each for valid gaps. Full credit requires: gap name, why it wasn't detected, specific detection rule/event ID/query to address it. Partial credit (1pt) for gap identified without remediation.</p>
+        <p><strong>Recommendations (6pt):</strong> 1pt each for 5 valid recommendations. Full credit requires: specific action (not "improve security"), owner assigned, rationale tied to a specific gap or finding. Accept any reasonable recommendations from the model answer or equivalent.</p>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+  <!-- Long Answer 2: Threat-Centric vs Compliance-Centric -->
+  <question type="essay">
+    <name>
+      <text>LA2: Threat-Centric vs Compliance-Centric SOC Analysis</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[
+        <p>You are mentoring a new SOC analyst who has been told to "just investigate what the SIEM alerts on" and to "close tickets quickly."</p>
+        <p>Write a response (300–400 words) that explains:</p>
+        <ul>
+          <li>The core difference between compliance-centric and threat-centric approaches</li>
+          <li>Why the compliance-centric approach fails against sophisticated threats</li>
+          <li>Three practical techniques a threat-centric analyst uses that a compliance-centric analyst doesn't</li>
+          <li>A concrete example showing the difference in outcome</li>
+        </ul>
+      ]]></text>
+    </questiontext>
+    <defaultgrade>16</defaultgrade>
+    <responseformat>editor</responseformat>
+    <responserequired>1</responserequired>
+    <responsefieldlines>20</responsefieldlines>
+    <graderinfo format="html">
+      <text><![CDATA[
+        <p><strong>Marking guide (16 points):</strong></p>
+        <p><strong>Core difference (4pt):</strong> 2pt for compliance = "did it match a rule?" / rule-driven. 2pt for threat-centric = "is this adversary behavior?" / intelligence-driven, focuses on TTPs not just IOCs.</p>
+        <p><strong>Failure mode (3pt):</strong> Must explain that sophisticated attackers specifically avoid triggering compliance rules (LOLBins, valid credentials, below-threshold activity). Compliance-centric produces good metrics while attacker operates freely. (3pt for comprehensive explanation, 2pt for partial)</p>
+        <p><strong>Three techniques (6pt, 2pt each):</strong> Accept any of: IOA/TTP-based hunting vs IOC matching, pivot and expand vs single-alert investigation, ATT&CK hypothesis generation for hunting, behavioral analytics vs signature-based, proactive threat hunting vs reactive alert processing, intelligence-driven detection engineering. Must explain HOW, not just name the technique.</p>
+        <p><strong>Concrete example (3pt):</strong> Example must show a situation where compliance-centric misses a real threat that threat-centric catches. Must be specific (not just "compliance is bad"). Full marks for realistic scenario with clear outcome differential.</p>
+      ]]></text>
+    </graderinfo>
+  </question>
+
+</quiz>

@@ -1,0 +1,13 @@
+
+services:
+  linux-forensics:
+    build: .
+    container_name: linux-forensics-demo
+    cap_add:
+      - AUDIT_WRITE
+      - AUDIT_CONTROL
+    volumes:
+      - ./scripts:/scripts
+      - ./logs:/var/log/demo
+    stdin_open: true
+    tty: true

@@ -1,0 +1,21 @@
+services:
+  splunk:
+    image: splunk/splunk:latest
+    container_name: splunk-demo
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_PASSWORD=Admin1234!
+    ports:
+      - "8000:8000"
+      - "9997:9997"
+    volumes:
+      - splunk_data:/opt/splunk/var
+      - ./sample_logs:/tmp/sample_logs:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/en-US/account/login"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+volumes:
+  splunk_data:

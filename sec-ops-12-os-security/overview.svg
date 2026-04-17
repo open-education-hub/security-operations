@@ -1,0 +1,353 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <style>
+      text { font-family: 'Segoe UI', Arial, sans-serif; }
+      .title { font-size: 21px; font-weight: bold; fill: #e6edf3; }
+      .subtitle { font-size: 12px; fill: #8b949e; }
+      .section-title { font-size: 14px; font-weight: bold; }
+      .box-title { font-size: 12px; font-weight: bold; }
+      .box-text { font-size: 10.5px; fill: #c9d1d9; }
+      .mono { font-family: 'Courier New', monospace; font-size: 10px; fill: #8b949e; }
+      .label { font-size: 10px; fill: #8b949e; }
+      .red { fill: #ff7b72; }
+      .blue { fill: #79c0ff; }
+      .green { fill: #56d364; }
+      .orange { fill: #ffa657; }
+      .purple { fill: #d2a8ff; }
+      .yellow { fill: #e3b341; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6e7681"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#ff7b72"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#0d1117"/>
+
+  <!-- Title Bar -->
+  <rect x="0" y="0" width="1200" height="52" fill="#161b22"/>
+  <text x="600" y="22" class="title" text-anchor="middle">Session 12: OS Security — Windows and Linux</text>
+  <text x="600" y="42" class="subtitle" text-anchor="middle">Security Architecture · Key Log Sources · Common Attack Paths · Forensic Artifacts</text>
+
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <!-- LEFT COLUMN: WINDOWS                                              -->
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <rect x="12" y="60" width="572" height="430" rx="8" fill="#161b22" stroke="#388bfd" stroke-width="1.5"/>
+  <text x="298" y="80" class="section-title" text-anchor="middle" fill="#79c0ff">Windows Security Architecture</text>
+
+  <!-- Windows Architecture Stack -->
+  <rect x="22" y="88" width="268" height="190" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="156" y="104" class="box-title" text-anchor="middle" fill="#79c0ff">Security Components</text>
+
+  <!-- LSASS box -->
+  <rect x="30" y="108" width="252" height="30" rx="3" fill="#0d1f3c" stroke="#388bfd" stroke-width="1"/>
+  <text x="70" y="127" class="box-text" font-weight="bold" fill="#79c0ff">LSASS.exe</text>
+  <text x="160" y="127" class="box-text" fill="#8b949e">Auth · Kerberos · NTLM · Creds</text>
+
+  <!-- SAM box -->
+  <rect x="30" y="142" width="120" height="25" rx="3" fill="#1a0d0d" stroke="#ff7b72" stroke-width="1"/>
+  <text x="90" y="158" class="box-text" text-anchor="middle" fill="#ff7b72">SAM (Password Hashes)</text>
+
+  <!-- SYSTEM/SRM box -->
+  <rect x="160" y="142" width="122" height="25" rx="3" fill="#0d2d1a" stroke="#56d364" stroke-width="1"/>
+  <text x="221" y="158" class="box-text" text-anchor="middle" fill="#56d364">SRM + Object Manager</text>
+
+  <!-- Tokens/SIDs -->
+  <rect x="30" y="171" width="120" height="25" rx="3" fill="#1a1a2e" stroke="#d2a8ff" stroke-width="1"/>
+  <text x="90" y="187" class="box-text" text-anchor="middle" fill="#d2a8ff">SIDs + Access Tokens</text>
+
+  <!-- UAC -->
+  <rect x="160" y="171" width="122" height="25" rx="3" fill="#1c1c0e" stroke="#e3b341" stroke-width="1"/>
+  <text x="221" y="187" class="box-text" text-anchor="middle" fill="#e3b341">UAC (Integrity Levels)</text>
+
+  <!-- MIC levels bar -->
+  <rect x="30" y="200" width="252" height="22" rx="3" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <rect x="32" y="202" width="54" height="18" rx="2" fill="#0d2d1a"/>
+  <text x="59" y="214" class="label" text-anchor="middle" fill="#56d364">Low</text>
+  <rect x="90" y="202" width="62" height="18" rx="2" fill="#1c1c0e"/>
+  <text x="121" y="214" class="label" text-anchor="middle" fill="#e3b341">Medium</text>
+  <rect x="156" y="202" width="54" height="18" rx="2" fill="#2d1500"/>
+  <text x="183" y="214" class="label" text-anchor="middle" fill="#ffa657">High</text>
+  <rect x="214" y="202" width="66" height="18" rx="2" fill="#1a0d0d"/>
+  <text x="247" y="214" class="label" text-anchor="middle" fill="#ff7b72">System</text>
+
+  <!-- Registry -->
+  <rect x="30" y="226" width="252" height="48" rx="3" fill="#0d1f3c" stroke="#388bfd" stroke-width="1"/>
+  <text x="156" y="241" class="box-title" text-anchor="middle" fill="#79c0ff">Windows Registry (Persistence)</text>
+  <text x="38" y="255" class="mono">HKLM\...\CurrentVersion\Run</text>
+  <text x="38" y="267" class="mono">HKLM\SYSTEM\CurrentControlSet\Services</text>
+
+  <!-- Windows Security Features -->
+  <rect x="298" y="88" width="278" height="190" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="437" y="104" class="box-title" text-anchor="middle" fill="#79c0ff">Key Security Features</text>
+
+  <rect x="306" y="108" width="128" height="24" rx="3" fill="#0d2d1a" stroke="#56d364" stroke-width="1"/>
+  <text x="370" y="123" class="box-text" text-anchor="middle" fill="#56d364">BitLocker (FDE + TPM)</text>
+
+  <rect x="440" y="108" width="128" height="24" rx="3" fill="#0d2d1a" stroke="#3fb950" stroke-width="1"/>
+  <text x="504" y="123" class="box-text" text-anchor="middle" fill="#3fb950">Credential Guard (VBS)</text>
+
+  <rect x="306" y="136" width="128" height="24" rx="3" fill="#1a1a2e" stroke="#d2a8ff" stroke-width="1"/>
+  <text x="370" y="151" class="box-text" text-anchor="middle" fill="#d2a8ff">AppLocker (Allowlist)</text>
+
+  <rect x="440" y="136" width="128" height="24" rx="3" fill="#1a1a2e" stroke="#d2a8ff" stroke-width="1"/>
+  <text x="504" y="151" class="box-text" text-anchor="middle" fill="#d2a8ff">Windows Defender + ASR</text>
+
+  <rect x="306" y="164" width="128" height="24" rx="3" fill="#2d1500" stroke="#ffa657" stroke-width="1"/>
+  <text x="370" y="179" class="box-text" text-anchor="middle" fill="#ffa657">Windows Firewall (WFP)</text>
+
+  <rect x="440" y="164" width="128" height="24" rx="3" fill="#1c1c0e" stroke="#e3b341" stroke-width="1"/>
+  <text x="504" y="179" class="box-text" text-anchor="middle" fill="#e3b341">Sysmon (ETW Telemetry)</text>
+
+  <!-- Sysmon key events -->
+  <rect x="306" y="192" width="262" height="82" rx="3" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="437" y="206" class="box-title" text-anchor="middle" fill="#8b949e">Sysmon Key Events</text>
+  <text x="314" y="219" class="mono">Evt 1:  Process Create (cmdline)</text>
+  <text x="314" y="231" class="mono">Evt 3:  Network Connection</text>
+  <text x="314" y="243" class="mono">Evt 10: ProcessAccess (LSASS!)</text>
+  <text x="314" y="255" class="mono">Evt 22: DNS Query</text>
+  <text x="450" y="219" class="mono">Evt 7:  DLL Load</text>
+  <text x="450" y="231" class="mono">Evt 8:  RemoteThread</text>
+  <text x="450" y="243" class="mono">Evt 11: File Create</text>
+  <text x="450" y="255" class="mono">Evt 12/13: Registry</text>
+  <text x="314" y="269" class="mono">Evt 23: File Delete</text>
+
+  <!-- Windows Log Sources -->
+  <rect x="22" y="285" width="268" height="195" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="156" y="301" class="box-title" text-anchor="middle" fill="#79c0ff">Windows Log Sources (SOC)</text>
+
+  <rect x="30" y="306" width="252" height="165" rx="3" fill="#0d1f3c" stroke="#388bfd" stroke-width="0.5"/>
+  <text x="38" y="320" class="box-text" font-weight="bold" fill="#79c0ff">Security.evtx (Critical Event IDs)</text>
+  <text x="38" y="333" class="mono">4624/4625 Logon success/fail</text>
+  <text x="38" y="345" class="mono">4648      Explicit credential logon</text>
+  <text x="38" y="357" class="mono">4688      Process creation (cmdline)</text>
+  <text x="38" y="369" class="mono">4698/4699 Scheduled task +/-</text>
+  <text x="38" y="381" class="mono">4720      User account created</text>
+  <text x="38" y="393" class="mono">4768/4769 Kerberos TGT/ST req</text>
+  <text x="38" y="405" class="mono">7045      Service installed</text>
+  <text x="38" y="417" class="mono">1102      Audit log cleared!</text>
+  <text x="38" y="432" class="box-text" font-weight="bold" fill="#79c0ff">Other Channels</text>
+  <text x="38" y="444" class="mono">PowerShell/Operational (4103/4104)</text>
+  <text x="38" y="456" class="mono">Sysmon/Operational · WMI-Activity</text>
+  <text x="38" y="466" class="mono">AppLocker/EXE (8004=blocked)</text>
+
+  <!-- Windows Attack Paths -->
+  <rect x="298" y="285" width="278" height="195" rx="6" fill="#0d1117" stroke="#ff7b72" stroke-width="1"/>
+  <text x="437" y="301" class="box-title" text-anchor="middle" fill="#ff7b72">Windows Attack Paths</text>
+
+  <rect x="306" y="306" width="262" height="165" rx="3" fill="#1a0d0d" stroke="#ff7b72" stroke-width="0.5"/>
+  <text x="314" y="320" class="box-text" font-weight="bold" fill="#ff7b72">Credential Attacks</text>
+  <text x="314" y="333" class="mono">Pass-the-Hash  (T1550.002)</text>
+  <text x="314" y="345" class="mono">Kerberoasting  (T1558.003)</text>
+  <text x="314" y="357" class="mono">DCSync         (T1003.006)</text>
+  <text x="314" y="370" class="box-text" font-weight="bold" fill="#ff7b72">Lateral Movement</text>
+  <text x="314" y="383" class="mono">PsExec/WMI/WinRM (T1021)</text>
+  <text x="314" y="395" class="mono">RDP (T1021.001)</text>
+  <text x="314" y="408" class="box-text" font-weight="bold" fill="#ff7b72">Persistence / LOLBins</text>
+  <text x="314" y="421" class="mono">Registry Run / WMI Subscriptions</text>
+  <text x="314" y="433" class="mono">certutil · mshta · rundll32</text>
+  <text x="314" y="445" class="mono">bitsadmin · regsvr32 · wmic</text>
+  <text x="314" y="458" class="box-text" font-weight="bold" fill="#ff7b72">Privilege Escalation</text>
+  <text x="314" y="471" class="mono">UAC bypass · Token impersonation</text>
+
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <!-- RIGHT COLUMN: LINUX                                               -->
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <rect x="616" y="60" width="572" height="430" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="902" y="80" class="section-title" text-anchor="middle" fill="#56d364">Linux Security Architecture</text>
+
+  <!-- Linux Architecture Stack -->
+  <rect x="626" y="88" width="268" height="190" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="760" y="104" class="box-title" text-anchor="middle" fill="#56d364">Security Layers</text>
+
+  <!-- MAC layer -->
+  <rect x="634" y="108" width="252" height="26" rx="3" fill="#0a1f2e" stroke="#58a6ff" stroke-width="1"/>
+  <text x="760" y="125" class="box-text" text-anchor="middle" fill="#79c0ff">MAC: SELinux (RHEL) / AppArmor (Ubuntu)</text>
+
+  <!-- DAC layer -->
+  <rect x="634" y="138" width="120" height="25" rx="3" fill="#0d2d1a" stroke="#56d364" stroke-width="1"/>
+  <text x="694" y="153" class="box-text" text-anchor="middle" fill="#56d364">DAC: rwx Permissions</text>
+
+  <rect x="762" y="138" width="124" height="25" rx="3" fill="#1a1a2e" stroke="#d2a8ff" stroke-width="1"/>
+  <text x="824" y="153" class="box-text" text-anchor="middle" fill="#d2a8ff">Capabilities (granular root)</text>
+
+  <!-- PAM / sudo -->
+  <rect x="634" y="167" width="120" height="25" rx="3" fill="#1c1c0e" stroke="#e3b341" stroke-width="1"/>
+  <text x="694" y="181" class="box-text" text-anchor="middle" fill="#e3b341">sudo + PAM</text>
+
+  <rect x="762" y="167" width="124" height="25" rx="3" fill="#2d1500" stroke="#ffa657" stroke-width="1"/>
+  <text x="824" y="181" class="box-text" text-anchor="middle" fill="#ffa657">SUID/SGID (risk!)</text>
+
+  <!-- /etc/passwd /etc/shadow -->
+  <rect x="634" y="196" width="252" height="40" rx="3" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="642" y="210" class="mono">/etc/passwd  (UID:GID:home:shell)</text>
+  <text x="642" y="224" class="mono">/etc/shadow  (SHA-512 hashes, root-only)</text>
+
+  <!-- auditd rules -->
+  <rect x="634" y="240" width="252" height="32" rx="3" fill="#0d2d1a" stroke="#39d353" stroke-width="1"/>
+  <text x="760" y="253" class="box-title" text-anchor="middle" fill="#56d364">auditd (kernel-level audit)</text>
+  <text x="642" y="265" class="mono">-w /etc/passwd -p wa -k identity</text>
+
+  <!-- Linux Security Features -->
+  <rect x="904" y="88" width="276" height="190" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="1042" y="104" class="box-title" text-anchor="middle" fill="#56d364">Key Security Features</text>
+
+  <rect x="912" y="108" width="128" height="24" rx="3" fill="#0d2d1a" stroke="#3fb950" stroke-width="1"/>
+  <text x="976" y="123" class="box-text" text-anchor="middle" fill="#3fb950">SSH (key-only auth)</text>
+
+  <rect x="1048" y="108" width="124" height="24" rx="3" fill="#0a1f2e" stroke="#58a6ff" stroke-width="1"/>
+  <text x="1110" y="123" class="box-text" text-anchor="middle" fill="#79c0ff">iptables / nftables</text>
+
+  <rect x="912" y="136" width="128" height="24" rx="3" fill="#1a1a2e" stroke="#d2a8ff" stroke-width="1"/>
+  <text x="976" y="151" class="box-text" text-anchor="middle" fill="#d2a8ff">PAM (pam_faillock)</text>
+
+  <rect x="1048" y="136" width="124" height="24" rx="3" fill="#1c1c0e" stroke="#e3b341" stroke-width="1"/>
+  <text x="1110" y="151" class="box-text" text-anchor="middle" fill="#e3b341">dm-crypt / LUKS</text>
+
+  <rect x="912" y="164" width="128" height="24" rx="3" fill="#0d2d1a" stroke="#56d364" stroke-width="1"/>
+  <text x="976" y="179" class="box-text" text-anchor="middle" fill="#56d364">SELinux / AppArmor</text>
+
+  <rect x="1048" y="164" width="124" height="24" rx="3" fill="#2d1500" stroke="#ffa657" stroke-width="1"/>
+  <text x="1110" y="179" class="box-text" text-anchor="middle" fill="#ffa657">seccomp / namespaces</text>
+
+  <!-- SSH hardening snippet -->
+  <rect x="912" y="192" width="260" height="82" rx="3" fill="#0d2d1a" stroke="#39d353" stroke-width="0.5"/>
+  <text x="1042" y="206" class="box-title" text-anchor="middle" fill="#56d364">SSH sshd_config (hardened)</text>
+  <text x="920" y="219" class="mono">PermitRootLogin no</text>
+  <text x="920" y="231" class="mono">PasswordAuthentication no</text>
+  <text x="920" y="243" class="mono">MaxAuthTries 3</text>
+  <text x="1050" y="219" class="mono">AllowUsers alice bob</text>
+  <text x="1050" y="231" class="mono">X11Forwarding no</text>
+  <text x="1050" y="243" class="mono">LoginGraceTime 30</text>
+  <text x="920" y="265" class="mono">PubkeyAuthentication yes</text>
+
+  <!-- Linux Log Sources -->
+  <rect x="626" y="285" width="268" height="195" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="760" y="301" class="box-title" text-anchor="middle" fill="#56d364">Linux Log Sources (SOC)</text>
+
+  <rect x="634" y="306" width="252" height="165" rx="3" fill="#0d2d1a" stroke="#3fb950" stroke-width="0.5"/>
+  <text x="642" y="320" class="box-text" font-weight="bold" fill="#56d364">File-based Logs (/var/log/)</text>
+  <text x="642" y="333" class="mono">auth.log / secure (SSH, sudo, PAM)</text>
+  <text x="642" y="345" class="mono">syslog / messages (general)</text>
+  <text x="642" y="357" class="mono">kern.log (kernel / MAC msgs)</text>
+  <text x="642" y="369" class="mono">cron.log (scheduled job runs)</text>
+  <text x="642" y="381" class="mono">wtmp  → last -i (login history)</text>
+  <text x="642" y="393" class="mono">btmp  → lastb -i (failed logins)</text>
+  <text x="642" y="405" class="mono">lastlog → lastlog (last per user)</text>
+  <text x="642" y="420" class="box-text" font-weight="bold" fill="#56d364">Structured / Audit Logs</text>
+  <text x="642" y="433" class="mono">journald  → journalctl -u sshd</text>
+  <text x="642" y="445" class="mono">auditd    → ausearch -k identity</text>
+  <text x="642" y="457" class="mono">aureport  --auth --summary --failed</text>
+  <text x="642" y="469" class="mono">/proc/&lt;PID&gt;/cmdline exe fd maps</text>
+
+  <!-- Linux Attack Paths -->
+  <rect x="904" y="285" width="276" height="195" rx="6" fill="#0d1117" stroke="#ff7b72" stroke-width="1"/>
+  <text x="1042" y="301" class="box-title" text-anchor="middle" fill="#ff7b72">Linux Attack Paths</text>
+
+  <rect x="912" y="306" width="260" height="165" rx="3" fill="#1a0d0d" stroke="#ff7b72" stroke-width="0.5"/>
+  <text x="920" y="320" class="box-text" font-weight="bold" fill="#ff7b72">Privilege Escalation</text>
+  <text x="920" y="333" class="mono">SUID binaries (GTFOBins)</text>
+  <text x="920" y="345" class="mono">sudo -l misconfigs (NOPASSWD)</text>
+  <text x="920" y="357" class="mono">Writable cron / scripts</text>
+  <text x="920" y="370" class="box-text" font-weight="bold" fill="#ff7b72">Persistence</text>
+  <text x="920" y="383" class="mono">cron / crontab entries</text>
+  <text x="920" y="395" class="mono">systemd service files</text>
+  <text x="920" y="407" class="mono">~/.ssh/authorized_keys</text>
+  <text x="920" y="419" class="mono">/etc/ld.so.preload (rootkit)</text>
+  <text x="920" y="432" class="box-text" font-weight="bold" fill="#ff7b72">Credential Attacks</text>
+  <text x="920" y="445" class="mono">/etc/shadow hash cracking</text>
+  <text x="920" y="457" class="mono">PAM backdoor injection</text>
+  <text x="920" y="469" class="mono">Deleted-exe memfd malware</text>
+
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <!-- CENTER: VS CONNECTOR                                              -->
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <line x1="584" y1="275" x2="616" y2="275" stroke="#6e7681" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <line x1="616" y1="275" x2="584" y2="275" stroke="#6e7681" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <!-- BOTTOM ROW: FORENSIC ARTIFACTS + HARDENING + TOOLS               -->
+  <!-- ══════════════════════════════════════════════════════════════════ -->
+  <rect x="12" y="498" width="376" height="148" rx="8" fill="#161b22" stroke="#e3b341" stroke-width="1.5"/>
+  <text x="200" y="516" class="section-title" text-anchor="middle" fill="#e3b341">Forensic Artifacts</text>
+
+  <!-- Windows forensics -->
+  <rect x="20" y="522" width="176" height="116" rx="5" fill="#0d1f3c" stroke="#388bfd" stroke-width="1"/>
+  <text x="108" y="536" class="box-title" text-anchor="middle" fill="#79c0ff">Windows</text>
+  <text x="28" y="549" class="mono">Prefetch: C:\Windows\Prefetch\</text>
+  <text x="28" y="561" class="mono">LNK: ...\Recent\*.lnk</text>
+  <text x="28" y="573" class="mono">MFT: $MFT (MACB timestamps)</text>
+  <text x="28" y="585" class="mono">Registry hives: SAM,SYSTEM,</text>
+  <text x="28" y="597" class="mono">  SOFTWARE,NTUSER.DAT</text>
+  <text x="28" y="609" class="mono">Shellbags: folder access history</text>
+  <text x="28" y="621" class="mono">LSASS dump → Mimikatz target</text>
+  <text x="28" y="633" class="mono">EVT: .evtx files → Autopsy/Vol</text>
+
+  <!-- Linux forensics -->
+  <rect x="204" y="522" width="176" height="116" rx="5" fill="#0d2d1a" stroke="#3fb950" stroke-width="1"/>
+  <text x="292" y="536" class="box-title" text-anchor="middle" fill="#56d364">Linux</text>
+  <text x="212" y="549" class="mono">bash_history ~/.bash_history</text>
+  <text x="212" y="561" class="mono">wtmp/btmp → last / lastb</text>
+  <text x="212" y="573" class="mono">lastlog → last login per user</text>
+  <text x="212" y="585" class="mono">/proc/&lt;PID&gt;/ (live process data)</text>
+  <text x="212" y="597" class="mono">auditd logs → ausearch</text>
+  <text x="212" y="609" class="mono">cron files (persistence check)</text>
+  <text x="212" y="621" class="mono">deleted exe in /proc → recover</text>
+  <text x="212" y="633" class="mono">LiME → Volatility 3 linux.*</text>
+
+  <!-- Middle: Tools -->
+  <rect x="396" y="498" width="220" height="148" rx="8" fill="#161b22" stroke="#d2a8ff" stroke-width="1.5"/>
+  <text x="506" y="516" class="section-title" text-anchor="middle" fill="#d2a8ff">Investigation Tools</text>
+
+  <rect x="404" y="522" width="204" height="116" rx="5" fill="#1a1a2e" stroke="#d2a8ff" stroke-width="0.5"/>
+  <text x="412" y="536" class="box-text" font-weight="bold" fill="#d2a8ff">Memory Forensics</text>
+  <text x="412" y="549" class="mono">Volatility 3  (Windows+Linux)</text>
+  <text x="412" y="561" class="mono">WinPmem / AVML / LiME</text>
+  <text x="412" y="576" class="box-text" font-weight="bold" fill="#d2a8ff">Disk Forensics</text>
+  <text x="412" y="589" class="mono">Autopsy (MFT,Registry,Browser)</text>
+  <text x="412" y="601" class="mono">PECmd/LECmd/MFTECmd (Zim.)</text>
+  <text x="412" y="616" class="box-text" font-weight="bold" fill="#d2a8ff">Linux Live Response</text>
+  <text x="412" y="629" class="mono">ps auxef · ss -tnp · lsof -n</text>
+  <text x="412" y="641" class="mono">ausearch/aureport · journalctl</text>
+
+  <!-- Right: CIS Hardening -->
+  <rect x="624" y="498" width="564" height="148" rx="8" fill="#161b22" stroke="#56d364" stroke-width="1.5"/>
+  <text x="906" y="516" class="section-title" text-anchor="middle" fill="#56d364">CIS Benchmarks — OS Hardening</text>
+
+  <!-- Windows hardening -->
+  <rect x="632" y="522" width="268" height="116" rx="5" fill="#0d1f3c" stroke="#388bfd" stroke-width="1"/>
+  <text x="766" y="536" class="box-title" text-anchor="middle" fill="#79c0ff">Windows (Top Controls)</text>
+  <text x="640" y="549" class="mono">Disable SMBv1 · NTLMv1</text>
+  <text x="640" y="561" class="mono">Enable LSASS PPL (RunAsPPL=1)</text>
+  <text x="640" y="573" class="mono">Enable Credential Guard (VBS)</text>
+  <text x="640" y="585" class="mono">AppLocker publisher rules</text>
+  <text x="640" y="597" class="mono">Advanced Audit Policy all cats</text>
+  <text x="640" y="609" class="mono">PS Script Block Logging (4104)</text>
+  <text x="640" y="621" class="mono">Firewall all profiles = Block-in</text>
+  <text x="640" y="633" class="mono">MFA for admin accounts</text>
+
+  <!-- Linux hardening -->
+  <rect x="908" y="522" width="272" height="116" rx="5" fill="#0d2d1a" stroke="#3fb950" stroke-width="1"/>
+  <text x="1044" y="536" class="box-title" text-anchor="middle" fill="#56d364">Linux (Top Controls)</text>
+  <text x="916" y="549" class="mono">SSH key-only (no passwords)</text>
+  <text x="916" y="561" class="mono">SELinux Enforcing / AppArmor</text>
+  <text x="916" y="573" class="mono">auditd with identity/sudo rules</text>
+  <text x="916" y="585" class="mono">sysctl ASLR + kptr_restrict</text>
+  <text x="916" y="597" class="mono">/tmp noexec,nosuid,nodev</text>
+  <text x="916" y="609" class="mono">Disable unused services (ss -tlnp)</text>
+  <text x="916" y="621" class="mono">Minimal SUID binaries (baseline)</text>
+  <text x="916" y="633" class="mono">pam_faillock account lockout</text>
+
+  <!-- Footer -->
+  <rect x="0" y="754" width="1200" height="46" fill="#161b22"/>
+  <line x1="0" y1="754" x2="1200" y2="754" stroke="#30363d" stroke-width="1"/>
+  <text x="200" y="773" class="label" text-anchor="middle" fill="#e3b341">MITRE ATT&amp;CK: attack.mitre.org</text>
+  <text x="400" y="773" class="label" text-anchor="middle" fill="#8b949e">CIS Benchmarks: cisecurity.org/cis-benchmarks</text>
+  <text x="600" y="773" class="label" text-anchor="middle" fill="#8b949e">Volatility: volatilityfoundation.org</text>
+  <text x="800" y="773" class="label" text-anchor="middle" fill="#8b949e">GTFOBins: gtfobins.github.io</text>
+  <text x="1000" y="773" class="label" text-anchor="middle" fill="#8b949e">DISA STIGs: public.cyber.mil/stigs</text>
+  <text x="600" y="790" class="label" text-anchor="middle" fill="#30363d">Session 12 — Security Operations Master Class — Windows and Linux OS Security</text>
+</svg>

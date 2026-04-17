@@ -1,0 +1,7 @@
+services:
+  log-analysis:
+    build: .
+    container_name: log-analysis-demo
+    stdin_open: true
+    tty: true
+    command: bash

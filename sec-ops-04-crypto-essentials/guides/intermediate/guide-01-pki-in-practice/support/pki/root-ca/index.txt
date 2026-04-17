@@ -1,0 +1,1 @@
+V	360403141423Z		1000	unknown	/C=US/O=SOC Training PKI/CN=SOC Training Intermediate CA

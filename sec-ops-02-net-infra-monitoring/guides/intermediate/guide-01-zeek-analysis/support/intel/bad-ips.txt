@@ -1,0 +1,9 @@
+#fields	indicator	indicator_type	meta.source	meta.desc
+185.220.101.50	Intel::ADDR	ThreatFeed-TorExitNodes	Known Tor exit node — associated with ransomware C2
+185.220.101.35	Intel::ADDR	ThreatFeed-TorExitNodes	Known Tor exit node — Volt ransomware group
+198.51.100.99	Intel::ADDR	ThreatFeed-MalwareBazaar	Malware dropper distribution server
+192.0.2.100	Intel::ADDR	ThreatFeed-TorExitNodes	Tor exit node
+203.0.113.50	Intel::ADDR	InternalInvestigation-IR2024-042	Source of brute-force attacks against corporate SSH
+203.0.113.10	Intel::ADDR	ThreatFeed-TeamCymru	Known FTP exfiltration drop server
+52.1.2.100	Intel::ADDR	InternalInvestigation-IR2024-042	Attacker-controlled S3 staging server
+198.18.0.77	Intel::ADDR	ThreatFeed-OpenPhish	Known phishing / C2 HTTP server

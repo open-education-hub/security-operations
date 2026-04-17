@@ -1,0 +1,158 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# Python-specific ignores
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python virtual environments
+venv/
+env/
+.venv/
+.env/
+.envrc
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pytest
+.pytest_cache/
+
+# Coverage reports
+.coverage
+htmlcov/
+
+# Docker-related ignores
+.docker/
+*.dockerfile.swp
+docker-compose.override.yml
+.dockerignore
+
+# Compiled files
+*.o
+*.out
+*.exe
+
+# Log files
+*.log
+logs/
+log/
+
+# Temporary files
+*.tmp
+*.bak
+temp/
+
+# Markdown-specific (though usually these are tracked)
+# Uncomment if you want to ignore compiled/generated Markdown files
+# *.html
+# *.pdf
+
+# Bash script-related
+*.sh.swp
+*.sh~
+
+# Environment and secret files
+.env
+*.env
+.secrets
+secrets/
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# Backup files
+*.bak
+*.gho
+*.ori
+*.orig
+*.tmp
+
+# Personal and system-specific files
+.DS_Store
+Thumbs.db
+
+# Previous rules...
+
+# Archive Files
+# Compressed archives
+*.7z
+*.bz2
+*.gz
+*.rar
+*.tar
+*.tar.gz
+*.tbz2
+*.tgz
+*.zip
+*.zipx
+
+# Java archive files
+*.jar
+*.war
+*.ear
+
+# macOS archive files
+*.dmg
+
+# Windows archive files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Debian/Linux package files
+*.deb
+*.rpm
+
+# Disk image files
+*.iso
+*.img
+*.vhd
+*.vmdk
+
+# Self-extracting archives
+*.exe
+*.run
+
+# Other compressed formats
+*.lzma
+*.xz
+*.zst
+*.lz
+*.lzh
+
+# Backup and temporary archives
+*.bak
+*.gho
+*.ori
+*.orig
+*.tmp
+*_backup
+*~
+
+# Network transfer archive files
+*.download
+
+# Excluded from exclusion (if you want to track specific archives)
+!important_archive.zip

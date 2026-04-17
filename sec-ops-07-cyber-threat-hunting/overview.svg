@@ -1,0 +1,383 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <style>
+      .title { font: bold 22px 'Segoe UI', Arial, sans-serif; fill: #e2e8f0; }
+      .section-title { font: bold 14px 'Segoe UI', Arial, sans-serif; fill: #94a3b8; letter-spacing: 1px; }
+      .label { font: 12px 'Segoe UI', Arial, sans-serif; fill: #cbd5e1; }
+      .label-bold { font: bold 12px 'Segoe UI', Arial, sans-serif; fill: #f1f5f9; }
+      .label-sm { font: 11px 'Segoe UI', Arial, sans-serif; fill: #94a3b8; }
+      .label-white { font: bold 11px 'Segoe UI', Arial, sans-serif; fill: #f8fafc; }
+      .arrow { fill: none; stroke: #475569; stroke-width: 1.5; marker-end: url(#arrow); }
+      .arrow-bright { fill: none; stroke: #60a5fa; stroke-width: 1.5; marker-end: url(#arrow-blue); }
+      .arrow-green { fill: none; stroke: #34d399; stroke-width: 1.5; marker-end: url(#arrow-green); }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#475569"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#60a5fa"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#34d399"/>
+    </marker>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e293b"/>
+    </linearGradient>
+    <linearGradient id="hunt-cycle-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a5f"/>
+      <stop offset="100%" style="stop-color:#1e293b"/>
+    </linearGradient>
+    <linearGradient id="intel-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a3a2a"/>
+      <stop offset="100%" style="stop-color:#1e293b"/>
+    </linearGradient>
+    <linearGradient id="maturity-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4c1d95"/>
+      <stop offset="100%" style="stop-color:#1e1b4b"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bg-grad)"/>
+
+  <!-- Main Title -->
+  <text x="600" y="38" text-anchor="middle" class="title">Session 07: Cyber Threat Hunting &amp; Intelligence Gathering</text>
+  <line x1="80" y1="48" x2="1120" y2="48" stroke="#334155" stroke-width="1"/>
+
+  <!-- ===== SECTION 1: THREAT HUNTING CYCLE (top-left) ===== -->
+  <rect x="30" y="60" width="360" height="320" rx="10" fill="url(#hunt-cycle-grad)" stroke="#3b82f6" stroke-width="1.5" opacity="0.9"/>
+  <text x="210" y="84" text-anchor="middle" class="section-title">THREAT HUNTING CYCLE</text>
+
+  <!-- Cycle circle -->
+  <circle cx="210" cy="215" r="100" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- 6 cycle nodes arranged in a circle -->
+  <!-- Node 1: Hypothesis (top) -->
+  <circle cx="210" cy="115" r="28" fill="#1d4ed8" stroke="#60a5fa" stroke-width="1.5" filter="url(#glow)"/>
+  <text x="210" y="112" text-anchor="middle" class="label-white">Hypothesis</text>
+  <text x="210" y="124" text-anchor="middle" class="label-white">Formation</text>
+
+  <!-- Node 2: Data Collection (top-right) -->
+  <circle cx="297" cy="165" r="28" fill="#0f766e" stroke="#2dd4bf" stroke-width="1.5" filter="url(#glow)"/>
+  <text x="297" y="162" text-anchor="middle" class="label-white">Data</text>
+  <text x="297" y="174" text-anchor="middle" class="label-white">Collection</text>
+
+  <!-- Node 3: Analysis (bottom-right) -->
+  <circle cx="297" cy="265" r="28" fill="#7c3aed" stroke="#a78bfa" stroke-width="1.5" filter="url(#glow)"/>
+  <text x="297" y="262" text-anchor="middle" class="label-white">Analysis</text>
+  <text x="297" y="274" text-anchor="middle" class="label-white">&amp; Hunting</text>
+
+  <!-- Node 4: Findings (bottom) -->
+  <circle cx="210" cy="315" r="28" fill="#b45309" stroke="#fbbf24" stroke-width="1.5" filter="url(#glow)"/>
+  <text x="210" y="312" text-anchor="middle" class="label-white">Findings</text>
+  <text x="210" y="324" text-anchor="middle" class="label-white">&amp; Report</text>
+
+  <!-- Node 5: Detection (bottom-left) -->
+  <circle cx="123" cy="265" r="28" fill="#be123c" stroke="#fb7185" stroke-width="1.5" filter="url(#glow)"/>
+  <text x="123" y="262" text-anchor="middle" class="label-white">New</text>
+  <text x="123" y="274" text-anchor="middle" class="label-white">Detections</text>
+
+  <!-- Node 6: Intel Update (top-left) -->
+  <circle cx="123" cy="165" r="28" fill="#065f46" stroke="#34d399" stroke-width="1.5" filter="url(#glow)"/>
+  <text x="123" y="162" text-anchor="middle" class="label-white">Intel</text>
+  <text x="123" y="174" text-anchor="middle" class="label-white">Update</text>
+
+  <!-- Cycle arrows (curved paths around the circle) -->
+  <path d="M 228 118 Q 270 128 277 148" stroke="#60a5fa" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+  <path d="M 297 193 Q 303 215 295 244" stroke="#60a5fa" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+  <path d="M 278 291 Q 255 315 233 317" stroke="#60a5fa" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+  <path d="M 188 316 Q 155 313 140 291" stroke="#60a5fa" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+  <path d="M 122 237 Q 116 215 124 192" stroke="#60a5fa" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+  <path d="M 144 151 Q 165 126 186 118" stroke="#60a5fa" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+
+  <!-- ===== SECTION 2: INTELLIGENCE LIFECYCLE (top-right) ===== -->
+  <rect x="420" y="60" width="380" height="320" rx="10" fill="url(#intel-grad)" stroke="#10b981" stroke-width="1.5" opacity="0.9"/>
+  <text x="610" y="84" text-anchor="middle" class="section-title">THREAT INTELLIGENCE LIFECYCLE</text>
+
+  <!-- Phase boxes in a cycle -->
+  <!-- Planning -->
+  <rect x="520" y="95" width="120" height="42" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="1.2"/>
+  <text x="580" y="112" text-anchor="middle" class="label-bold">1. Planning &amp;</text>
+  <text x="580" y="126" text-anchor="middle" class="label-bold">Direction</text>
+
+  <!-- Collection -->
+  <rect x="680" y="155" width="100" height="42" rx="6" fill="#14532d" stroke="#4ade80" stroke-width="1.2"/>
+  <text x="730" y="173" text-anchor="middle" class="label-bold">2. Collection</text>
+  <text x="730" y="186" text-anchor="middle" class="label-sm">(OSINT, ISAC, feeds)</text>
+
+  <!-- Processing -->
+  <rect x="680" y="235" width="100" height="42" rx="6" fill="#14532d" stroke="#4ade80" stroke-width="1.2"/>
+  <text x="730" y="253" text-anchor="middle" class="label-bold">3. Processing</text>
+  <text x="730" y="266" text-anchor="middle" class="label-sm">(Normalize, enrich)</text>
+
+  <!-- Analysis -->
+  <rect x="520" y="295" width="120" height="42" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="1.2"/>
+  <text x="580" y="312" text-anchor="middle" class="label-bold">4. Analysis</text>
+  <text x="580" y="326" text-anchor="middle" class="label-sm">(ACH, attribution)</text>
+
+  <!-- Dissemination -->
+  <rect x="440" y="235" width="100" height="42" rx="6" fill="#14532d" stroke="#4ade80" stroke-width="1.2"/>
+  <text x="490" y="253" text-anchor="middle" class="label-bold">5. Dissemination</text>
+  <text x="490" y="266" text-anchor="middle" class="label-sm">(TLP, STIX/TAXII)</text>
+
+  <!-- Feedback -->
+  <rect x="440" y="155" width="100" height="42" rx="6" fill="#14532d" stroke="#4ade80" stroke-width="1.2"/>
+  <text x="490" y="173" text-anchor="middle" class="label-bold">6. Feedback</text>
+  <text x="490" y="186" text-anchor="middle" class="label-sm">(Improve cycle)</text>
+
+  <!-- Lifecycle arrows -->
+  <path d="M 625 117 Q 660 130 672 153" stroke="#34d399" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+  <path d="M 733 197 Q 734 215 733 234" stroke="#34d399" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+  <path d="M 686 261 Q 660 278 643 295" stroke="#34d399" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+  <path d="M 524 316 Q 503 313 497 278" stroke="#34d399" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+  <path d="M 484 234 Q 483 215 484 198" stroke="#34d399" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+  <path d="M 534 175 Q 545 153 520 131" stroke="#34d399" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+
+  <!-- Intel type labels -->
+  <text x="610" y="210" text-anchor="middle" class="label-sm">Intelligence Types:</text>
+  <rect x="440" y="218" width="70" height="14" rx="3" fill="#7c3aed" opacity="0.7"/>
+  <text x="475" y="229" text-anchor="middle" font-size="10" fill="#e9d5ff">Strategic</text>
+  <rect x="515" y="218" width="75" height="14" rx="3" fill="#1d4ed8" opacity="0.7"/>
+  <text x="552" y="229" text-anchor="middle" font-size="10" fill="#bfdbfe">Operational</text>
+  <rect x="595" y="218" width="65" height="14" rx="3" fill="#0f766e" opacity="0.7"/>
+  <text x="627" y="229" text-anchor="middle" font-size="10" fill="#ccfbf1">Tactical</text>
+
+  <!-- ===== SECTION 3: MATURITY MODEL (bottom-left) ===== -->
+  <rect x="30" y="400" width="360" height="380" rx="10" fill="#120f2a" stroke="#8b5cf6" stroke-width="1.5" opacity="0.95"/>
+  <text x="210" y="424" text-anchor="middle" class="section-title">HUNTING MATURITY MODEL</text>
+
+  <!-- Maturity levels stacked bars -->
+  <!-- Level 4 -->
+  <rect x="50" y="436" width="320" height="56" rx="6" fill="#4c1d95" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="80" y="457" class="label-bold">Level 4: Leading</text>
+  <text x="80" y="471" class="label-sm">Automated &amp; continuous hunting pipelines</text>
+  <text x="80" y="484" class="label-sm">ML/AI-assisted hypothesis generation</text>
+  <text x="350" y="467" text-anchor="end" font-size="24" fill="#a78bfa" font-weight="bold">4</text>
+
+  <!-- Level 3 -->
+  <rect x="50" y="498" width="320" height="56" rx="6" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.2"/>
+  <text x="80" y="519" class="label-bold">Level 3: Innovative</text>
+  <text x="80" y="533" class="label-sm">Novel hunting techniques, statistical analysis</text>
+  <text x="80" y="546" class="label-sm">Custom data models and anomaly detection</text>
+  <text x="350" y="527" text-anchor="end" font-size="24" fill="#818cf8" font-weight="bold">3</text>
+
+  <!-- Level 2 -->
+  <rect x="50" y="560" width="320" height="56" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.2"/>
+  <text x="80" y="581" class="label-bold">Level 2: Procedural (TTP-Based)</text>
+  <text x="80" y="595" class="label-sm">Hunts from MITRE ATT&amp;CK techniques</text>
+  <text x="80" y="608" class="label-sm">Documented playbooks, reusable queries</text>
+  <text x="350" y="589" text-anchor="end" font-size="24" fill="#60a5fa" font-weight="bold">2</text>
+
+  <!-- Level 1 -->
+  <rect x="50" y="622" width="320" height="56" rx="6" fill="#1a2e1a" stroke="#16a34a" stroke-width="1.2"/>
+  <text x="80" y="643" class="label-bold">Level 1: Minimal (IOC-Based)</text>
+  <text x="80" y="657" class="label-sm">Searches for known IOCs from threat feeds</text>
+  <text x="80" y="670" class="label-sm">Signature-based, reactive to intel reports</text>
+  <text x="350" y="651" text-anchor="end" font-size="24" fill="#4ade80" font-weight="bold">1</text>
+
+  <!-- Level 0 -->
+  <rect x="50" y="684" width="320" height="56" rx="6" fill="#1c1917" stroke="#78716c" stroke-width="1.2"/>
+  <text x="80" y="705" class="label-bold">Level 0: Initial (Reactive)</text>
+  <text x="80" y="719" class="label-sm">Alert-only, no proactive investigation</text>
+  <text x="80" y="732" class="label-sm">Ad hoc hunting only during major incidents</text>
+  <text x="350" y="713" text-anchor="end" font-size="24" fill="#a8a29e" font-weight="bold">0</text>
+
+  <!-- Maturity arrow label -->
+  <text x="46" y="755" class="label-sm" fill="#8b5cf6">↑ Maturity</text>
+
+  <!-- ===== SECTION 4: HYPOTHESIS DEVELOPMENT (bottom-right) ===== -->
+  <rect x="420" y="400" width="380" height="380" rx="10" fill="#1c1210" stroke="#f97316" stroke-width="1.5" opacity="0.95"/>
+  <text x="610" y="424" text-anchor="middle" class="section-title">HYPOTHESIS DEVELOPMENT PROCESS</text>
+
+  <!-- Step flow -->
+  <!-- Step 1 -->
+  <rect x="440" y="436" width="340" height="46" rx="6" fill="#431407" stroke="#f97316" stroke-width="1.3"/>
+  <rect x="440" y="436" width="34" height="46" rx="6" fill="#f97316"/>
+  <text x="457" y="465" text-anchor="middle" font-size="18" fill="white" font-weight="bold">1</text>
+  <text x="630" y="454" text-anchor="middle" class="label-bold">Identify Hunting Trigger</text>
+  <text x="630" y="471" text-anchor="middle" class="label-sm">New threat intel | ATT&amp;CK technique | Anomaly | Vuln disclosure</text>
+
+  <!-- Arrow -->
+  <line x1="610" y1="482" x2="610" y2="494" stroke="#f97316" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Step 2 -->
+  <rect x="440" y="494" width="340" height="46" rx="6" fill="#431407" stroke="#fb923c" stroke-width="1.3"/>
+  <rect x="440" y="494" width="34" height="46" rx="6" fill="#fb923c"/>
+  <text x="457" y="523" text-anchor="middle" font-size="18" fill="white" font-weight="bold">2</text>
+  <text x="630" y="512" text-anchor="middle" class="label-bold">Frame the Hypothesis</text>
+  <text x="630" y="529" text-anchor="middle" class="label-sm">"If actor X uses technique Y, I expect evidence W in source D"</text>
+
+  <!-- Arrow -->
+  <line x1="610" y1="540" x2="610" y2="552" stroke="#f97316" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Step 3 -->
+  <rect x="440" y="552" width="340" height="46" rx="6" fill="#431407" stroke="#fbbf24" stroke-width="1.3"/>
+  <rect x="440" y="552" width="34" height="46" rx="6" fill="#fbbf24"/>
+  <text x="457" y="581" text-anchor="middle" font-size="18" fill="#1c1210" font-weight="bold">3</text>
+  <text x="630" y="570" text-anchor="middle" class="label-bold">Define Data Sources &amp; Queries</text>
+  <text x="630" y="587" text-anchor="middle" class="label-sm">Log sources | Key fields | Baseline "normal"</text>
+
+  <!-- Arrow -->
+  <line x1="610" y1="598" x2="610" y2="610" stroke="#f97316" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Step 4 -->
+  <rect x="440" y="610" width="340" height="46" rx="6" fill="#431407" stroke="#f59e0b" stroke-width="1.3"/>
+  <rect x="440" y="610" width="34" height="46" rx="6" fill="#f59e0b"/>
+  <text x="457" y="639" text-anchor="middle" font-size="18" fill="#1c1210" font-weight="bold">4</text>
+  <text x="630" y="628" text-anchor="middle" class="label-bold">Execute the Hunt</text>
+  <text x="630" y="645" text-anchor="middle" class="label-sm">Query → Visualize → Pivot → Refine (iterative)</text>
+
+  <!-- Arrow -->
+  <line x1="610" y1="656" x2="610" y2="668" stroke="#f97316" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Step 5 -->
+  <rect x="440" y="668" width="340" height="46" rx="6" fill="#431407" stroke="#a3e635" stroke-width="1.3"/>
+  <rect x="440" y="668" width="34" height="46" rx="6" fill="#a3e635"/>
+  <text x="457" y="697" text-anchor="middle" font-size="18" fill="#1c1210" font-weight="bold">5</text>
+  <text x="630" y="686" text-anchor="middle" class="label-bold">Document Findings</text>
+  <text x="630" y="703" text-anchor="middle" class="label-sm">Hunt log | New detections | Coverage improvements</text>
+
+  <!-- Feedback arrow from step 5 back to step 1 -->
+  <path d="M 780 714 Q 800 714 800 455 Q 800 430 785 436" stroke="#f97316" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <text x="808" y="580" font-size="10" fill="#f97316" transform="rotate(90, 808, 580)">Feedback loop</text>
+
+  <!-- ===== SECTION 5: KEY FRAMEWORKS (far right) ===== -->
+  <rect x="830" y="60" width="340" height="720" rx="10" fill="#111827" stroke="#475569" stroke-width="1.5" opacity="0.95"/>
+  <text x="1000" y="84" text-anchor="middle" class="section-title">KEY FRAMEWORKS &amp; CONCEPTS</text>
+
+  <!-- Pyramid of Pain -->
+  <text x="1000" y="106" text-anchor="middle" class="label-bold" fill="#fbbf24">Pyramid of Pain</text>
+  <!-- Pyramid shape -->
+  <polygon points="1000,116 880,200 1000,200" fill="none" stroke="#475569" stroke-width="1"/>
+  <!-- Layers from bottom to top -->
+  <rect x="847" y="185" width="306" height="18" rx="2" fill="#1f2937" stroke="#6b7280" stroke-width="0.8"/>
+  <text x="1000" y="198" text-anchor="middle" font-size="10" fill="#9ca3af">Hash Values — Trivial</text>
+
+  <rect x="856" y="165" width="288" height="18" rx="2" fill="#1e3a5f" stroke="#3b82f6" stroke-width="0.8"/>
+  <text x="1000" y="178" text-anchor="middle" font-size="10" fill="#93c5fd">IP Addresses — Easy</text>
+
+  <rect x="867" y="145" width="266" height="18" rx="2" fill="#14532d" stroke="#16a34a" stroke-width="0.8"/>
+  <text x="1000" y="158" text-anchor="middle" font-size="10" fill="#86efac">Domain Names — Simple</text>
+
+  <rect x="878" y="125" width="244" height="18" rx="2" fill="#7c3aed" stroke="#a78bfa" stroke-width="0.8"/>
+  <text x="1000" y="138" text-anchor="middle" font-size="10" fill="#ddd6fe">Host Artifacts — Annoying</text>
+
+  <rect x="892" y="115" width="216" height="10" rx="2" fill="#c2410c" stroke="#f97316" stroke-width="0.8"/>
+  <text x="1000" y="123" text-anchor="middle" font-size="9" fill="#fed7aa">Tools — Difficult</text>
+
+  <polygon points="1000,108 926,115 1074,115" fill="#b45309" stroke="#fbbf24" stroke-width="0.8"/>
+  <text x="1000" y="113" text-anchor="middle" font-size="9" fill="#fef3c7">TTPs — Hard!</text>
+
+  <!-- Diamond Model -->
+  <text x="1000" y="225" text-anchor="middle" class="label-bold" fill="#34d399">Diamond Model</text>
+  <polygon points="1000,238 930,280 1000,322 1070,280" fill="none" stroke="#34d399" stroke-width="1.5"/>
+  <circle cx="1000" cy="238" r="20" fill="#064e3b" stroke="#34d399" stroke-width="1.2"/>
+  <text x="1000" y="236" text-anchor="middle" font-size="10" fill="#6ee7b7">Advers-</text>
+  <text x="1000" y="247" text-anchor="middle" font-size="10" fill="#6ee7b7">ary</text>
+  <circle cx="1070" cy="280" r="20" fill="#14532d" stroke="#4ade80" stroke-width="1.2"/>
+  <text x="1070" y="278" text-anchor="middle" font-size="10" fill="#86efac">Capab-</text>
+  <text x="1070" y="289" text-anchor="middle" font-size="10" fill="#86efac">ility</text>
+  <circle cx="1000" cy="322" r="20" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1.2"/>
+  <text x="1000" y="320" text-anchor="middle" font-size="10" fill="#93c5fd">Victim</text>
+  <circle cx="930" cy="280" r="22" fill="#431407" stroke="#f97316" stroke-width="1.2"/>
+  <text x="930" y="278" text-anchor="middle" font-size="10" fill="#fed7aa">Infra-</text>
+  <text x="930" y="289" text-anchor="middle" font-size="10" fill="#fed7aa">structure</text>
+  <line x1="1000" y1="258" x2="1000" y2="302" stroke="#475569" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="952" y1="280" x2="1048" y2="280" stroke="#475569" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- TLP Badges -->
+  <text x="1000" y="360" text-anchor="middle" class="label-bold" fill="#fbbf24">TLP Sharing Protocol</text>
+  <rect x="845" y="368" width="76" height="22" rx="4" fill="#7f1d1d" stroke="#ef4444" stroke-width="1"/>
+  <text x="883" y="383" text-anchor="middle" font-size="11" fill="white" font-weight="bold">TLP:RED</text>
+  <rect x="928" y="368" width="86" height="22" rx="4" fill="#78350f" stroke="#f59e0b" stroke-width="1"/>
+  <text x="971" y="383" text-anchor="middle" font-size="11" fill="white" font-weight="bold">TLP:AMBER</text>
+  <rect x="1021" y="368" width="78" height="22" rx="4" fill="#14532d" stroke="#22c55e" stroke-width="1"/>
+  <text x="1060" y="383" text-anchor="middle" font-size="11" fill="white" font-weight="bold">TLP:GREEN</text>
+  <rect x="1106" y="368" width="55" height="22" rx="4" fill="#1e3a5f" stroke="#94a3b8" stroke-width="1"/>
+  <text x="1133" y="383" text-anchor="middle" font-size="11" fill="white" font-weight="bold">TLP:CLEAR</text>
+  <text x="883" y="403" text-anchor="middle" font-size="9" fill="#fca5a5">Restricted</text>
+  <text x="971" y="403" text-anchor="middle" font-size="9" fill="#fcd34d">Org + Clients</text>
+  <text x="1060" y="403" text-anchor="middle" font-size="9" fill="#86efac">Community</text>
+  <text x="1133" y="403" text-anchor="middle" font-size="9" fill="#cbd5e1">Public</text>
+
+  <!-- ATT&CK Tactics -->
+  <text x="1000" y="428" text-anchor="middle" class="label-bold" fill="#a78bfa">MITRE ATT&amp;CK Tactics</text>
+  <rect x="845" y="435" width="145" height="16" rx="3" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="917" y="447" text-anchor="middle" font-size="10" fill="#c7d2fe">TA0001: Initial Access</text>
+  <rect x="997" y="435" width="165" height="16" rx="3" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="1080" y="447" text-anchor="middle" font-size="10" fill="#c7d2fe">TA0002: Execution</text>
+
+  <rect x="845" y="455" width="145" height="16" rx="3" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="917" y="467" text-anchor="middle" font-size="10" fill="#c7d2fe">TA0003: Persistence</text>
+  <rect x="997" y="455" width="165" height="16" rx="3" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="1080" y="467" text-anchor="middle" font-size="10" fill="#c7d2fe">TA0004: Priv. Escalation</text>
+
+  <rect x="845" y="475" width="145" height="16" rx="3" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="917" y="487" text-anchor="middle" font-size="10" fill="#c7d2fe">TA0005: Defense Evasion</text>
+  <rect x="997" y="475" width="165" height="16" rx="3" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="1080" y="487" text-anchor="middle" font-size="10" fill="#c7d2fe">TA0006: Cred. Access</text>
+
+  <rect x="845" y="495" width="145" height="16" rx="3" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="917" y="507" text-anchor="middle" font-size="10" fill="#c7d2fe">TA0007: Discovery</text>
+  <rect x="997" y="495" width="165" height="16" rx="3" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="1080" y="507" text-anchor="middle" font-size="10" fill="#c7d2fe">TA0008: Lateral Movement</text>
+
+  <rect x="845" y="515" width="145" height="16" rx="3" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="917" y="527" text-anchor="middle" font-size="10" fill="#c7d2fe">TA0009: Collection</text>
+  <rect x="997" y="515" width="165" height="16" rx="3" fill="#1e1b4b" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="1080" y="527" text-anchor="middle" font-size="10" fill="#c7d2fe">TA0011: C2</text>
+
+  <!-- Kill Chain -->
+  <text x="1000" y="555" text-anchor="middle" class="label-bold" fill="#f9a8d4">Cyber Kill Chain</text>
+  <rect x="845" y="562" width="306" height="160" rx="6" fill="#1f1520" stroke="#be185d" stroke-width="1"/>
+  <!-- Kill chain stages as vertical flow -->
+  <rect x="855" y="570" width="285" height="16" rx="3" fill="#831843" stroke="#fb7185" stroke-width="0.8"/>
+  <text x="997" y="582" text-anchor="middle" font-size="10" fill="#fce7f3">1. Reconnaissance</text>
+  <line x1="997" y1="586" x2="997" y2="591" stroke="#f472b6" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="855" y="591" width="285" height="16" rx="3" fill="#9d174d" stroke="#fb7185" stroke-width="0.8"/>
+  <text x="997" y="603" text-anchor="middle" font-size="10" fill="#fce7f3">2. Weaponization</text>
+  <line x1="997" y1="607" x2="997" y2="612" stroke="#f472b6" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="855" y="612" width="285" height="16" rx="3" fill="#be123c" stroke="#fb7185" stroke-width="0.8"/>
+  <text x="997" y="624" text-anchor="middle" font-size="10" fill="#fce7f3">3. Delivery</text>
+  <line x1="997" y1="628" x2="997" y2="633" stroke="#f472b6" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="855" y="633" width="285" height="16" rx="3" fill="#be123c" stroke="#fb7185" stroke-width="0.8"/>
+  <text x="997" y="645" text-anchor="middle" font-size="10" fill="#fce7f3">4. Exploitation</text>
+  <line x1="997" y1="649" x2="997" y2="654" stroke="#f472b6" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="855" y="654" width="285" height="16" rx="3" fill="#9d174d" stroke="#fb7185" stroke-width="0.8"/>
+  <text x="997" y="666" text-anchor="middle" font-size="10" fill="#fce7f3">5. Installation</text>
+  <line x1="997" y1="670" x2="997" y2="675" stroke="#f472b6" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="855" y="675" width="285" height="16" rx="3" fill="#831843" stroke="#fb7185" stroke-width="0.8"/>
+  <text x="997" y="687" text-anchor="middle" font-size="10" fill="#fce7f3">6. Command &amp; Control (C2)</text>
+  <line x1="997" y1="691" x2="997" y2="696" stroke="#f472b6" stroke-width="1" marker-end="url(#arrow)"/>
+  <rect x="855" y="696" width="285" height="16" rx="3" fill="#500724" stroke="#fb7185" stroke-width="0.8"/>
+  <text x="997" y="708" text-anchor="middle" font-size="10" fill="#fce7f3">7. Actions on Objectives</text>
+
+  <!-- Tools section -->
+  <text x="1000" y="742" text-anchor="middle" class="label-bold" fill="#60a5fa">Key Tools</text>
+  <rect x="845" y="748" width="70" height="18" rx="3" fill="#1e3a5f" stroke="#3b82f6" stroke-width="0.8"/>
+  <text x="880" y="761" text-anchor="middle" font-size="10" fill="#bfdbfe">MISP</text>
+  <rect x="921" y="748" width="80" height="18" rx="3" fill="#1e3a5f" stroke="#3b82f6" stroke-width="0.8"/>
+  <text x="961" y="761" text-anchor="middle" font-size="10" fill="#bfdbfe">OpenCTI</text>
+  <rect x="1007" y="748" width="80" height="18" rx="3" fill="#1e3a5f" stroke="#3b82f6" stroke-width="0.8"/>
+  <text x="1047" y="761" text-anchor="middle" font-size="10" fill="#bfdbfe">Osquery</text>
+  <rect x="1093" y="748" width="80" height="18" rx="3" fill="#1e3a5f" stroke="#3b82f6" stroke-width="0.8"/>
+  <text x="1133" y="761" text-anchor="middle" font-size="10" fill="#bfdbfe">Velociraptor</text>
+
+  <rect x="845" y="770" width="70" height="18" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="0.8"/>
+  <text x="880" y="783" text-anchor="middle" font-size="10" fill="#6ee7b7">Sigma</text>
+  <rect x="921" y="770" width="80" height="18" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="0.8"/>
+  <text x="961" y="783" text-anchor="middle" font-size="10" fill="#6ee7b7">ATT&amp;CK Nav</text>
+  <rect x="1007" y="770" width="80" height="18" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="0.8"/>
+  <text x="1047" y="783" text-anchor="middle" font-size="10" fill="#6ee7b7">VirusTotal</text>
+  <rect x="1093" y="770" width="80" height="18" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="0.8"/>
+  <text x="1133" y="783" text-anchor="middle" font-size="10" fill="#6ee7b7">Shodan</text>
+
+  <!-- Footer -->
+  <line x1="30" y1="787" x2="820" y2="787" stroke="#1e293b" stroke-width="1"/>
+  <text x="425" y="796" text-anchor="middle" class="label-sm">Security Operations Master Class · Session 07 · Cyber Threat Hunting and Intelligence Gathering</text>
+</svg>

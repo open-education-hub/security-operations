@@ -1,0 +1,50 @@
+title: Suspicious Data Staging in System Directories
+id: 8f9a0b1c-2d3e-4f5a-6b7c-8d9e0f1a2b3c
+status: experimental
+description: |
+  Detects creation of archive files in commonly-used staging directories.
+  Threat actors stage collected data before exfiltration in locations like
+  C:\ProgramData\, C:\Windows\Temp\, C:\Users\Public\.
+
+  FIN-STORM was observed staging data in C:\ProgramData\Microsoft\Crypto\
+  before HTTPS exfiltration (T1074.001).
+references:
+  - https://attack.mitre.org/techniques/T1074/001/
+author: SecureBank Threat Hunt Team
+date: 2024/03/15
+logsource:
+  category: file_event
+  product: windows
+  service: sysmon
+detection:
+  selection_directories:
+    TargetFilename|startswith:
+      - 'C:\ProgramData\Microsoft\Crypto\'
+      - 'C:\ProgramData\Microsoft\Windows\'
+      - 'C:\Windows\Temp\'
+      - 'C:\Users\Public\'
+  selection_archive_extensions:
+    TargetFilename|endswith:
+      - '.zip'
+      - '.rar'
+      - '.7z'
+      - '.tar'
+      - '.gz'
+      - '.cab'
+  filter_system:
+    Image|startswith:
+      - 'C:\Windows\system32\'
+      - 'C:\Windows\SysWOW64\'
+    Image|endswith:
+      - '\svchost.exe'
+      - '\taskhostw.exe'
+  condition: (selection_directories and selection_archive_extensions) and not filter_system
+falsepositives:
+  - Legitimate backup software staging archives
+  - Windows Update processes
+  - Software installers using temp directories
+level: medium
+tags:
+  - attack.collection
+  - attack.t1074.001
+  - attack.exfiltration

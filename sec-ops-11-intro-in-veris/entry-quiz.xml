@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="multichoice">
+    <name><text>VERIS Entry Quiz Q1 - CIA Triad</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What does the acronym CIA stand for in cybersecurity?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Confidentiality, Integrity, Availability</text>
+      <feedback><text>Correct! The CIA triad is the foundational model of information security.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Computer Incident Analysis</text>
+      <feedback><text>Incorrect. CIA in cybersecurity refers to the three core security properties.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Classification, Investigation, Assessment</text>
+      <feedback><text>Incorrect. CIA stands for Confidentiality, Integrity, and Availability.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Cyber Intelligence Agency</text>
+      <feedback><text>Incorrect. CIA in cybersecurity is the Confidentiality, Integrity, Availability triad.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Entry Quiz Q2 - Data Breach Definition</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>In the context of cybersecurity, what is a "data breach"?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>A confirmed incident where sensitive data is disclosed to an unauthorized party</text>
+      <feedback><text>Correct! A data breach requires confirmed unauthorized disclosure of data.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Any unauthorized access attempt to a network</text>
+      <feedback><text>Incorrect. An access attempt alone is not a breach; data must be confirmed as disclosed.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A virus that damages files on a hard drive</text>
+      <feedback><text>Incorrect. File damage is a different type of security incident, typically affecting availability or integrity.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A denial-of-service attack that makes a website unavailable</text>
+      <feedback><text>Incorrect. A DoS attack affects availability but does not necessarily disclose data.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Entry Quiz Q3 - Social Engineering</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which of the following is an example of a "social engineering" attack?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>Sending a fake email impersonating IT support to steal credentials</text>
+      <feedback><text>Correct! This is phishing — a classic social engineering technique that manipulates human psychology.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Exploiting a SQL injection vulnerability in a web application</text>
+      <feedback><text>Incorrect. SQL injection is a technical/hacking attack, not social engineering.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Installing malware through a USB drive</text>
+      <feedback><text>Incorrect. USB malware installation is a physical/malware attack vector, not social engineering by itself.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Brute-forcing a user's password</text>
+      <feedback><text>Incorrect. Brute-forcing is a technical hacking technique, not social engineering.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Entry Quiz Q4 - JSON Format</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What is a JSON file?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>A text-based data format using key-value pairs</text>
+      <feedback><text>Correct! JSON (JavaScript Object Notation) is a lightweight text-based data interchange format.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A type of database that stores data in tables</text>
+      <feedback><text>Incorrect. That describes a relational database. JSON is a text format, not a database engine.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A compiled binary executable program</text>
+      <feedback><text>Incorrect. JSON is a human-readable text format, not a binary executable.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A network packet capture format</text>
+      <feedback><text>Incorrect. Network packet captures use formats like PCAP. JSON is a general-purpose data format.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Entry Quiz Q5 - Insider Threat</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which of the following best describes an "insider threat"?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>A risk from employees or other trusted insiders who misuse their access</text>
+      <feedback><text>Correct! Insider threats come from people with authorized access who use it harmfully or negligently.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A hacker who penetrates a network from a foreign country</text>
+      <feedback><text>Incorrect. That describes an external threat actor. Insider threats come from within the organization.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A malware program that spreads through email attachments</text>
+      <feedback><text>Incorrect. That describes a malware delivery mechanism, not an insider threat.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A physical intrusion into a secure facility by an outsider</text>
+      <feedback><text>Incorrect. Physical intrusion by an outsider is an external threat. Insider threats involve those already trusted.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Entry Quiz Q6 - Threat Actor</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What does the term "threat actor" refer to in cybersecurity?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>An individual, group, or entity that carries out or enables a cyber attack</text>
+      <feedback><text>Correct! A threat actor is any person or group responsible for initiating or facilitating a security incident.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A software vulnerability that can be exploited</text>
+      <feedback><text>Incorrect. A vulnerability is a weakness in a system, not the entity that exploits it.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A firewall rule that blocks malicious traffic</text>
+      <feedback><text>Incorrect. That describes a security control, not a threat actor.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A security analyst who investigates incidents</text>
+      <feedback><text>Incorrect. A security analyst is a defender, not a threat actor.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Entry Quiz Q7 - Ransomware</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which of the following is an example of a "ransomware" attack?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>An attacker encrypts a victim's files and demands payment to restore access</text>
+      <feedback><text>Correct! Ransomware encrypts files and extorts the victim for a decryption key.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>An attacker intercepts network traffic to steal credentials in transit</text>
+      <feedback><text>Incorrect. That describes a man-in-the-middle or credential sniffing attack, not ransomware.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>An attacker floods a web server with traffic to make it unavailable</text>
+      <feedback><text>Incorrect. That describes a Denial-of-Service (DoS) attack, not ransomware.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>An attacker creates a fake website that looks like a banking portal</text>
+      <feedback><text>Incorrect. That describes a phishing/spoofing attack, not ransomware.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Entry Quiz Q8 - Vulnerability Definition</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which of the following best describes the term "vulnerability" in cybersecurity?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>A weakness in a system that could be exploited by a threat actor</text>
+      <feedback><text>Correct! A vulnerability is a flaw or weakness that can be leveraged by attackers to compromise a system.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A successful attack that has already compromised a system</text>
+      <feedback><text>Incorrect. A successful attack is an incident or breach. A vulnerability is the underlying weakness that enabled it.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A type of malware designed to steal sensitive data</text>
+      <feedback><text>Incorrect. That describes spyware or an infostealer. A vulnerability is a weakness, not a malicious tool.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A security control that prevents unauthorized access</text>
+      <feedback><text>Incorrect. That describes a security countermeasure. A vulnerability is the opposite — a gap in defenses.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Entry Quiz Q9 - SOC Purpose</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What is the primary purpose of a Security Operations Center (SOC)?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>To monitor, detect, and respond to cybersecurity threats and incidents</text>
+      <feedback><text>Correct! A SOC is the central hub for continuous security monitoring, detection, and incident response.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>To develop new security software and tools</text>
+      <feedback><text>Incorrect. Software development is typically done by engineering or product teams, not the SOC.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>To conduct penetration tests of external systems</text>
+      <feedback><text>Incorrect. Penetration testing is usually performed by a red team or external consultants, not the SOC.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>To manage compliance documentation and audits</text>
+      <feedback><text>Incorrect. Compliance management is a GRC (Governance, Risk, Compliance) function, separate from SOC operations.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>VERIS Entry Quiz Q10 - Incident Response</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What is an "incident response" process?</p>]]></text>
+    </questiontext>
+    <answer fraction="100">
+      <text>The organized approach to addressing and managing the aftermath of a security incident</text>
+      <feedback><text>Correct! Incident response is the structured methodology for containing, eradicating, and recovering from security incidents.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The process of installing and configuring security software</text>
+      <feedback><text>Incorrect. That describes security tool deployment, not incident response.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The process of training employees in security awareness</text>
+      <feedback><text>Incorrect. That describes a security awareness program, not incident response.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>The process of assessing third-party vendor security</text>
+      <feedback><text>Incorrect. That describes vendor risk management or third-party assessment, not incident response.</text></feedback>
+    </answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+</quiz>

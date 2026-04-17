@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="multichoice">
+    <name>
+      <text>Entry Q1: DMZ Purpose</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What is the primary purpose of a DMZ (Demilitarised Zone) in a corporate network?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[To provide a guest Wi-Fi network for visitors]]></text>
+      <feedback format="html"><text>Incorrect. Guest Wi-Fi is typically a separate VLAN, not a DMZ. The DMZ is used to host internet-facing servers.</text></feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[To host publicly accessible services while limiting their access to the internal network]]></text>
+      <feedback format="html"><text>Correct! The DMZ (Demilitarised Zone) sits between the internet and the internal network. It hosts services that must be reachable from the internet (web servers, email gateways) while a second firewall prevents direct access from the DMZ to the internal LAN.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[To store backups of all company data]]></text>
+      <feedback format="html"><text>Incorrect. Backups are typically stored on internal servers, not in the DMZ.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[To provide dedicated network access for senior management]]></text>
+      <feedback format="html"><text>Incorrect. Senior management access is typically controlled via VLANs or VPN, not the DMZ.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Entry Q2: TCP Three-Way Handshake First Packet</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which TCP flag combination indicates the START of a new connection (the first packet in a TCP three-way handshake)?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[SYN + ACK]]></text>
+      <feedback format="html"><text>Incorrect. SYN+ACK is the second packet in the handshake — the server's response to the initial SYN.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[FIN + ACK]]></text>
+      <feedback format="html"><text>Incorrect. FIN+ACK is used to gracefully close an existing connection, not start one.</text></feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[SYN only]]></text>
+      <feedback format="html"><text>Correct! The TCP three-way handshake begins with a SYN-only packet from the client. The server responds with SYN+ACK, and the client completes the handshake with ACK. A SYN packet with no ACK flag is the signature of a new connection attempt.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[RST + ACK]]></text>
+      <feedback format="html"><text>Incorrect. RST+ACK is used to abruptly terminate a connection, not start one.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Entry Q3: SPAN Ports</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A network administrator says: "We use SPAN ports on all our core switches." What does this mean?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[The switches use Spanning Tree Protocol to prevent loops]]></text>
+      <feedback format="html"><text>Incorrect. STP (Spanning Tree Protocol) prevents network loops but is different from SPAN. SPAN stands for Switched Port ANalyzer.</text></feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[The switches are configured to copy traffic from certain ports to a monitoring port]]></text>
+      <feedback format="html"><text>Correct! SPAN (Switched Port ANalyzer) is also called port mirroring. The switch copies traffic from specified source ports or VLANs to a designated monitoring port, where a network sensor (IDS, Zeek, etc.) can capture it without affecting the original traffic.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[The switches have redundant power supplies]]></text>
+      <feedback format="html"><text>Incorrect. Redundant power supplies are a hardware feature, unrelated to SPAN.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[The switches use special memory for high-speed forwarding]]></text>
+      <feedback format="html"><text>Incorrect. High-speed forwarding uses TCAM (Ternary Content-Addressable Memory), not SPAN.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Entry Q4: Cleartext Protocol</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which of the following protocols transmits its authentication credentials (username and password) in <strong>cleartext</strong> over the network?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[SSH (Secure Shell)]]></text>
+      <feedback format="html"><text>Incorrect. SSH encrypts all communication, including authentication. It was designed as a secure replacement for Telnet and rlogin.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[HTTPS (HTTP over TLS)]]></text>
+      <feedback format="html"><text>Incorrect. HTTPS uses TLS to encrypt all data including credentials.</text></feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[FTP (File Transfer Protocol)]]></text>
+      <feedback format="html"><text>Correct! FTP transmits both commands (USER, PASS) and data in cleartext. Anyone with access to the network path can capture the username and password. This is why FTP should be replaced with SFTP (SSH-based) or FTPS (FTP over TLS).</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[SFTP (SSH File Transfer Protocol)]]></text>
+      <feedback format="html"><text>Incorrect. SFTP runs over SSH and is fully encrypted, including credentials.</text></feedback>
+    </answer>
+  </question>
+
+  <question type="multichoice">
+    <name>
+      <text>Entry Q5: IDS Definition</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>What does the acronym <strong>IDS</strong> stand for, and what is its primary function?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>ABCD</answernumbering>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Internet Defense System — blocks all external traffic]]></text>
+      <feedback format="html"><text>Incorrect. A system that blocks all external traffic is a firewall, not an IDS.</text></feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text><![CDATA[Intrusion Detection System — monitors traffic and alerts on suspicious patterns]]></text>
+      <feedback format="html"><text>Correct! An IDS (Intrusion Detection System) passively monitors network traffic and generates alerts when it detects patterns matching known attacks or anomalies. Unlike an IPS (Intrusion Prevention System), an IDS does not block traffic — it only alerts.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Internal Data Storage — stores network logs]]></text>
+      <feedback format="html"><text>Incorrect. Log storage is handled by a SIEM or log management system, not an IDS.</text></feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text><![CDATA[Integrated Defense Suite — combines firewall and antivirus functions]]></text>
+      <feedback format="html"><text>Incorrect. A product combining firewall and other security functions is typically called a Next-Generation Firewall (NGFW) or Unified Threat Management (UTM).</text></feedback>
+    </answer>
+  </question>
+
+</quiz>

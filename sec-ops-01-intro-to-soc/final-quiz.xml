@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="multichoice">
+    <name><text>Final Q1: Primary mission of a SOC</text></name>
+    <questiontext format="html">
+      <text><![CDATA[What is the primary mission of a Security Operations Center (SOC)?]]></text>
+    </questiontext>
+    <answer fraction="0"><text>To develop new software products for the organization</text></answer>
+    <answer fraction="100"><text>To monitor, detect, analyze, and respond to cybersecurity incidents</text></answer>
+    <answer fraction="0"><text>To manage the organization's IT helpdesk operations</text></answer>
+    <answer fraction="0"><text>To audit financial transactions for compliance</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Final Q2: SOC analyst tier for initial triage</text></name>
+    <questiontext format="html">
+      <text><![CDATA[In the SOC tiered analyst model, which tier is responsible for initial alert triage and noise reduction?]]></text>
+    </questiontext>
+    <answer fraction="0"><text>Tier 3 (L3)</text></answer>
+    <answer fraction="0"><text>SOC Manager</text></answer>
+    <answer fraction="100"><text>Tier 1 (L1)</text></answer>
+    <answer fraction="0"><text>Tier 2 (L2)</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Final Q3: SIEM acronym</text></name>
+    <questiontext format="html">
+      <text><![CDATA[What does SIEM stand for?]]></text>
+    </questiontext>
+    <answer fraction="0"><text>Security Incident and Emergency Management</text></answer>
+    <answer fraction="0"><text>System Integration and Event Monitoring</text></answer>
+    <answer fraction="100"><text>Security Information and Event Management</text></answer>
+    <answer fraction="0"><text>Structured Intelligence and Event Mapping</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Final Q4: KPI for time to detect</text></name>
+    <questiontext format="html">
+      <text><![CDATA[Which KPI measures the average time from when an incident occurs to when it is first detected?]]></text>
+    </questiontext>
+    <answer fraction="0"><text>MTTR (Mean Time to Respond)</text></answer>
+    <answer fraction="100"><text>MTTD (Mean Time to Detect)</text></answer>
+    <answer fraction="0"><text>MTTI (Mean Time to Investigate)</text></answer>
+    <answer fraction="0"><text>False Positive Rate</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Final Q5: Alert fatigue definition</text></name>
+    <questiontext format="html">
+      <text><![CDATA[What is "alert fatigue" in a SOC context?]]></text>
+    </questiontext>
+    <answer fraction="0"><text>The physical tiredness SOC analysts experience from staring at screens</text></answer>
+    <answer fraction="100"><text>When analysts become desensitized to alerts due to excessive volume, potentially missing real threats</text></answer>
+    <answer fraction="0"><text>A technical failure where the SIEM stops generating alerts</text></answer>
+    <answer fraction="0"><text>A performance metric used to evaluate analyst response time</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Final Q6: Target 2013 breach contributing factor</text></name>
+    <questiontext format="html">
+      <text><![CDATA[In the 2013 Target data breach, what was a key contributing factor to the breach's success?]]></text>
+    </questiontext>
+    <answer fraction="0"><text>Target had no antivirus software installed</text></answer>
+    <answer fraction="0"><text>Attackers broke into Target's physical data center</text></answer>
+    <answer fraction="100"><text>SOC analysts received alerts but failed to act on them in time</text></answer>
+    <answer fraction="0"><text>Target's firewall was misconfigured and allowed all traffic</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Final Q7: MITRE ATT&amp;CK framework purpose</text></name>
+    <questiontext format="html">
+      <text><![CDATA[The MITRE ATT&amp;CK framework is primarily used by SOC analysts to:]]></text>
+    </questiontext>
+    <answer fraction="0"><text>Track employee working hours and productivity</text></answer>
+    <answer fraction="100"><text>Map detected adversary behavior to known attack techniques and improve detection</text></answer>
+    <answer fraction="0"><text>Automate firewall rule deployment</text></answer>
+    <answer fraction="0"><text>Calculate the financial cost of a security incident</text></answer>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+  </question>
+</quiz>

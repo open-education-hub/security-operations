@@ -1,0 +1,16 @@
+# Pre-computed hashes — reference for instructors
+# algorithm  filename  hash
+MD5       report_001.txt                  dacd1b30e149b879ac552d2b3067ad1d
+SHA1      report_001.txt                  4bff377a6265d759a26e71c85e9883efb133aa00
+SHA256    report_001.txt                  bcb76ba753bf7dc5bdc89c17a92a026321e189c19e98a749c34addeb125cbed6
+SHA512    report_001.txt                  9e3b33ee562cca0431bbf1c5c27aa813cadadcdd98fbe96cae4ed53544b8e5d6315a19d3e0e2d1d9a45f4a48eb20d62bb9ffce5f77ddbe62ec7835e75135bcfe
+
+MD5       report_002.txt                  542f9327ab22ca55f53722f6ebaae466
+SHA1      report_002.txt                  a72868b18fdb2d681550a40a57f7c3f543b7b086
+SHA256    report_002.txt                  8c2f3458f5b0f5e16c7478b1311c42735f8bc006e75d675535b53de2817a99c9
+SHA512    report_002.txt                  ecd9404262b8bff6e8749e9eb8dbb26a9d932d5b9adf49b8aa608564b9ac4ed6a3012b25802e0b76d3de3f71025e31db0149aee62453581fc08a8129c58b1911
+
+MD5       security_tool_v2.1.sh           8ad5eb801b50b3d629f41fa65a89458e
+SHA1      security_tool_v2.1.sh           21377e863ea982ead87f7596bbd1cd4ae73d3d04
+SHA256    security_tool_v2.1.sh           20948abc32ea09f344db952b100ae116d3619aff4046f3d06e3d9e39ec5b3cae
+SHA512    security_tool_v2.1.sh           5dbcf9edde1968d295bf17385a90fff5b9598c0e62b25292840996a3f0194504ddbe9cd824078fad0f1654323a193ae90e08b1857ed81cb7c7d5220741fae84c

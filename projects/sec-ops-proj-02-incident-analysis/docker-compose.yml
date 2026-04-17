@@ -1,0 +1,86 @@
+services:
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    networks:
+      - incident-lab
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:9200/_cluster/health | grep -qE '\"status\":\"(green|yellow)\"'"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.13.0
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - xpack.security.enabled=false
+    ports:
+      - "5601:5601"
+    networks:
+      - incident-lab
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:5601/api/status | grep -q '\"level\":\"available\"'"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+      start_period: 90s
+
+  jupyter:
+    image: jupyter/scipy-notebook:python-3.11
+    container_name: jupyter
+    environment:
+      - JUPYTER_TOKEN=secops
+    command: >
+      start-notebook.sh
+      --ServerApp.token='secops'
+      --ServerApp.password=''
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/home/jovyan/data
+    networks:
+      - incident-lab
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  log-indexer:
+    build:
+      context: ./log-indexer
+      dockerfile: Dockerfile
+    container_name: log-indexer
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - LOGS_DIR=/data/logs
+    volumes:
+      - ./data:/data
+    networks:
+      - incident-lab
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    restart: on-failure
+
+volumes:
+  es_data:
+    driver: local
+
+networks:
+  incident-lab:
+    driver: bridge

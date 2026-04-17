@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecureMed Patient Portal</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0b1e3d;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #cfe3f5;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #122b52;
+      border: 1px solid #1e4080;
+      border-radius: 10px;
+      padding: 2.5rem 3rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ── Logo / header ── */
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: #1a6eb5;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-icon svg { fill: #fff; }
+
+    .logo-text h1 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #e8f4ff;
+      letter-spacing: 0.02em;
+    }
+
+    .logo-text span {
+      font-size: 0.75rem;
+      color: #7ab0d4;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Form ── */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      color: #7ab0d4;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      border: 1px solid #1e4080;
+      border-radius: 5px;
+      background: #0d2040;
+      color: #cfe3f5;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #1a6eb5;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      background: #1a6eb5;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.2s;
+    }
+
+    .btn-login:hover { background: #145fa0; }
+
+    /* ── Extras ── */
+    .extras {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #5a90be;
+    }
+
+    .extras a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .extras a:hover { color: #cfe3f5; }
+
+    /* ── Footer notice ── */
+    .notice {
+      margin-top: 2rem;
+      font-size: 0.72rem;
+      color: #3a5a80;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* ── Security badge ── */
+    .badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: #2e7d32;
+      background: #0d2010;
+      border: 1px solid #1b5e20;
+      border-radius: 4px;
+      padding: 0.35rem 0.75rem;
+    }
+
+    .badge svg { fill: #2e7d32; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <div class="logo-row">
+      <div class="logo-icon">
+        <!-- simple medical cross icon -->
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <h1>SecureMed</h1>
+        <span>Patient Portal</span>
+      </div>
+    </div>
+
+    <form action="/login" method="POST" autocomplete="off">
+      <div class="form-group">
+        <label for="username">Username / Patient ID</label>
+        <input type="text" id="username" name="username"
+               placeholder="Enter your username" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password"
+               placeholder="••••••••" required />
+      </div>
+
+      <button type="submit" class="btn-login">Sign In</button>
+
+      <div class="extras">
+        <a href="/forgot-password">Forgot password?</a>
+        <a href="/register">New patient registration</a>
+      </div>
+    </form>
+
+    <div class="badge">
+      <!-- lock icon -->
+      <svg width="12" height="12" viewBox="0 0 24 24">
+        <path d="M18 8h-1V6A5 5 0 0 0 7 6v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zm-6 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm3.1-9H8.9V6a3.1 3.1 0 1 1 6.2 0v2z"/>
+      </svg>
+      Secure connection · HIPAA compliant environment
+    </div>
+
+  </div>
+
+  <p class="notice">
+    Authorised users only. All access is logged and monitored.<br>
+    Unauthorised access attempts will be reported to law enforcement.
+  </p>
+
+</body>
+</html>

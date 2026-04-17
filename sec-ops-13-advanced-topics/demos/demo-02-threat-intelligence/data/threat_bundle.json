@@ -1,0 +1,126 @@
+{
+  "type": "bundle",
+  "id": "bundle--a1b2c3d4-1234-5678-abcd-ef0123456789",
+  "spec_version": "2.1",
+  "objects": [
+    {
+      "type": "threat-actor",
+      "spec_version": "2.1",
+      "id": "threat-actor--11a22b33-4444-5555-6666-777788889999",
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-01-15T00:00:00.000Z",
+      "name": "APT-42",
+      "description": "State-sponsored espionage group targeting EU critical infrastructure",
+      "aliases": ["CloudStrike Group", "APT42"],
+      "threat_actor_types": ["nation-state"],
+      "goals": ["espionage", "data-theft"],
+      "sophistication": "advanced",
+      "primary_motivation": "organizational-gain"
+    },
+    {
+      "type": "campaign",
+      "spec_version": "2.1",
+      "id": "campaign--aaaa0001-bbbb-cccc-dddd-eeeeffffffff",
+      "created": "2024-01-15T00:00:00.000Z",
+      "modified": "2024-03-01T00:00:00.000Z",
+      "name": "Operation CloudStrike",
+      "description": "Targeted intrusion campaign against cloud-hosted government systems",
+      "first_seen": "2024-01-15T00:00:00.000Z",
+      "objective": "Exfiltrate sensitive government documents from cloud storage"
+    },
+    {
+      "type": "malware",
+      "spec_version": "2.1",
+      "id": "malware--deadbeef-1111-2222-3333-444455556666",
+      "created": "2024-01-20T00:00:00.000Z",
+      "modified": "2024-01-20T00:00:00.000Z",
+      "name": "CloudLoader",
+      "description": "Custom backdoor used by APT-42 for persistent access and data exfiltration",
+      "malware_types": ["backdoor", "trojan"],
+      "is_family": false,
+      "capabilities": ["exfiltrates-files", "communicates-with-c2", "persists-after-reboot"]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c2ip01aa-aaaa-bbbb-cccc-000011112222",
+      "created": "2024-01-20T00:00:00.000Z",
+      "modified": "2024-01-20T00:00:00.000Z",
+      "name": "APT-42 C2 IP",
+      "indicator_types": ["malicious-activity"],
+      "pattern": "[ipv4-addr:value = '203.0.113.45']",
+      "pattern_type": "stix",
+      "valid_from": "2024-01-20T00:00:00.000Z",
+      "description": "Known C2 server used by CloudLoader"
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--exfilip2b-bbbb-cccc-dddd-000011112222",
+      "created": "2024-01-22T00:00:00.000Z",
+      "modified": "2024-01-22T00:00:00.000Z",
+      "name": "APT-42 Exfil Endpoint",
+      "indicator_types": ["malicious-activity"],
+      "pattern": "[ipv4-addr:value = '198.51.100.12']",
+      "pattern_type": "stix",
+      "valid_from": "2024-01-22T00:00:00.000Z",
+      "description": "Data exfiltration endpoint"
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--domain001-cccc-dddd-eeee-000011112222",
+      "created": "2024-01-25T00:00:00.000Z",
+      "modified": "2024-01-25T00:00:00.000Z",
+      "name": "Malicious Update Domain",
+      "indicator_types": ["malicious-activity", "compromised"],
+      "pattern": "[domain-name:value = 'update.cdn-secure.net']",
+      "pattern_type": "stix",
+      "valid_from": "2024-01-25T00:00:00.000Z",
+      "description": "Typosquat domain used to deliver CloudLoader updates"
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--hash0001-dddd-eeee-ffff-000011112222",
+      "created": "2024-02-01T00:00:00.000Z",
+      "modified": "2024-02-01T00:00:00.000Z",
+      "name": "CloudLoader Dropper Hash",
+      "indicator_types": ["malicious-activity"],
+      "pattern": "[file:hashes.'MD5' = 'd41d8cd98f00b204e9800998ecf8427e']",
+      "pattern_type": "stix",
+      "valid_from": "2024-02-01T00:00:00.000Z",
+      "description": "MD5 hash of CloudLoader initial dropper"
+    },
+    {
+      "type": "relationship",
+      "spec_version": "2.1",
+      "id": "relationship--r001aaaa-1111-2222-3333-444455556666",
+      "created": "2024-01-20T00:00:00.000Z",
+      "modified": "2024-01-20T00:00:00.000Z",
+      "relationship_type": "uses",
+      "source_ref": "threat-actor--11a22b33-4444-5555-6666-777788889999",
+      "target_ref": "malware--deadbeef-1111-2222-3333-444455556666"
+    },
+    {
+      "type": "relationship",
+      "spec_version": "2.1",
+      "id": "relationship--r002bbbb-2222-3333-4444-555566667777",
+      "created": "2024-01-20T00:00:00.000Z",
+      "modified": "2024-01-20T00:00:00.000Z",
+      "relationship_type": "attributed-to",
+      "source_ref": "campaign--aaaa0001-bbbb-cccc-dddd-eeeeffffffff",
+      "target_ref": "threat-actor--11a22b33-4444-5555-6666-777788889999"
+    },
+    {
+      "type": "relationship",
+      "spec_version": "2.1",
+      "id": "relationship--r003cccc-3333-4444-5555-666677778888",
+      "created": "2024-01-20T00:00:00.000Z",
+      "modified": "2024-01-20T00:00:00.000Z",
+      "relationship_type": "indicates",
+      "source_ref": "indicator--c2ip01aa-aaaa-bbbb-cccc-000011112222",
+      "target_ref": "malware--deadbeef-1111-2222-3333-444455556666"
+    }
+  ]
+}

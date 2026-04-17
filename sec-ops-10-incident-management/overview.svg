@@ -1,0 +1,299 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <style>
+      text { font-family: 'Segoe UI', system-ui, sans-serif; fill: #c9d1d9; }
+      .title { font-size: 22px; font-weight: bold; fill: #58a6ff; }
+      .section-title { font-size: 14px; font-weight: bold; }
+      .sub-label { font-size: 11px; fill: #8b949e; }
+      .arrow { stroke: #58a6ff; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .cycle-arrow { stroke: #3fb950; stroke-width: 2; fill: none; marker-end: url(#arrow-green); }
+      .warn { fill: #f0883e; }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#58a6ff"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#3fb950"/>
+    </marker>
+    <marker id="arrow-down" markerWidth="8" markerHeight="8" refX="3" refY="6" orient="auto">
+      <path d="M0,0 L6,0 L3,8 z" fill="#58a6ff"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#0d1117"/>
+
+  <!-- Title -->
+  <text x="600" y="38" text-anchor="middle" class="title">Session 10: Incident Response and Management</text>
+  <text x="600" y="58" text-anchor="middle" style="font-size:12px; fill:#8b949e;">NIST SP 800-61 · SANS PICERL · ISO 27035 · GDPR/NIS2/DORA · Digital Forensics · Chain of Custody</text>
+
+  <!-- ============================================================ -->
+  <!-- TOP SECTION: NIST IR LIFECYCLE (phases in row) -->
+  <!-- ============================================================ -->
+
+  <!-- Phase 1: Preparation -->
+  <rect x="30" y="75" width="185" height="155" rx="8" fill="#161b22" stroke="#1f6feb" stroke-width="2"/>
+  <text x="122" y="97" text-anchor="middle" class="section-title" style="fill:#1f6feb; font-size:15px;">① Preparation</text>
+  <text x="122" y="113" text-anchor="middle" style="font-size:9px; fill:#6e7681;">NIST Phase 1 · SANS P</text>
+  <text x="50" y="132" class="sub-label">• IR Plan &amp; policies</text>
+  <text x="50" y="148" class="sub-label">• CSIRT / IRT formation</text>
+  <text x="50" y="164" class="sub-label">• Tools: TheHive, SIEM, EDR</text>
+  <text x="50" y="180" class="sub-label">• Tabletop exercises</text>
+  <text x="50" y="196" class="sub-label">• Communication tree</text>
+  <text x="50" y="212" class="sub-label">• Retainer agreements</text>
+
+  <!-- Arrow P1→P2 -->
+  <line x1="217" y1="152" x2="238" y2="152" class="arrow"/>
+
+  <!-- Phase 2: Detection & Analysis -->
+  <rect x="240" y="75" width="185" height="155" rx="8" fill="#161b22" stroke="#f78166" stroke-width="2"/>
+  <text x="332" y="97" text-anchor="middle" class="section-title" style="fill:#f78166; font-size:15px;">② Detection</text>
+  <text x="332" y="113" text-anchor="middle" style="font-size:9px; fill:#6e7681;">NIST Phase 2 · SANS I</text>
+  <text x="258" y="132" class="sub-label">• SIEM / EDR alerts</text>
+  <text x="258" y="148" class="sub-label">• User / third-party reports</text>
+  <text x="258" y="164" class="sub-label">• Threat intel matches</text>
+  <text x="258" y="180" class="sub-label">• Triage &amp; scope assessment</text>
+  <text x="258" y="196" class="sub-label">• P1–P4 severity class.</text>
+  <text x="258" y="212" class="sub-label">• Incident declaration</text>
+
+  <!-- Arrow P2→P3 -->
+  <line x1="427" y1="152" x2="448" y2="152" class="arrow"/>
+
+  <!-- Phase 3: Containment -->
+  <rect x="450" y="75" width="185" height="155" rx="8" fill="#161b22" stroke="#f0883e" stroke-width="2"/>
+  <text x="542" y="97" text-anchor="middle" class="section-title" style="fill:#f0883e; font-size:15px;">③ Containment</text>
+  <text x="542" y="113" text-anchor="middle" style="font-size:9px; fill:#6e7681;">NIST Phase 3a · SANS C</text>
+  <text x="468" y="132" class="sub-label">• Memory dump first!</text>
+  <text x="468" y="148" class="sub-label">• EDR / network isolation</text>
+  <text x="468" y="164" class="sub-label">• Account suspension</text>
+  <text x="468" y="180" class="sub-label">• DNS sinkholing</text>
+  <text x="468" y="196" class="sub-label">• Short vs long-term</text>
+  <text x="468" y="212" class="sub-label">• Evidence capture</text>
+
+  <!-- Arrow P3→P4 -->
+  <line x1="637" y1="152" x2="658" y2="152" class="arrow"/>
+
+  <!-- Phase 4: Eradication -->
+  <rect x="660" y="75" width="185" height="155" rx="8" fill="#161b22" stroke="#d2a8ff" stroke-width="2"/>
+  <text x="752" y="97" text-anchor="middle" class="section-title" style="fill:#d2a8ff; font-size:15px;">④ Eradication</text>
+  <text x="752" y="113" text-anchor="middle" style="font-size:9px; fill:#6e7681;">NIST Phase 3b · SANS E</text>
+  <text x="678" y="132" class="sub-label">• Remove malware</text>
+  <text x="678" y="148" class="sub-label">• Remove persistence</text>
+  <text x="678" y="164" class="sub-label">• Patch vulnerability</text>
+  <text x="678" y="180" class="sub-label">• Credential rotation</text>
+  <text x="678" y="196" class="sub-label">• Rebuild if needed</text>
+  <text x="678" y="212" class="sub-label">• Verify clean state</text>
+
+  <!-- Arrow P4→P5 -->
+  <line x1="847" y1="152" x2="868" y2="152" class="arrow"/>
+
+  <!-- Phase 5: Recovery -->
+  <rect x="870" y="75" width="155" height="155" rx="8" fill="#161b22" stroke="#3fb950" stroke-width="2"/>
+  <text x="947" y="97" text-anchor="middle" class="section-title" style="fill:#3fb950; font-size:15px;">⑤ Recovery</text>
+  <text x="947" y="113" text-anchor="middle" style="font-size:9px; fill:#6e7681;">NIST Phase 3c · SANS R</text>
+  <text x="886" y="132" class="sub-label">• Restore from backup</text>
+  <text x="886" y="148" class="sub-label">• Staged reconnect</text>
+  <text x="886" y="164" class="sub-label">• Validate operations</text>
+  <text x="886" y="180" class="sub-label">• Enhanced monitoring</text>
+  <text x="886" y="196" class="sub-label">• Declare resolved</text>
+
+  <!-- Arrow P5→P6 -->
+  <line x1="1027" y1="152" x2="1048" y2="152" class="arrow"/>
+
+  <!-- Phase 6: Post-Incident -->
+  <rect x="1050" y="75" width="130" height="155" rx="8" fill="#161b22" stroke="#58a6ff" stroke-width="2"/>
+  <text x="1115" y="97" text-anchor="middle" class="section-title" style="fill:#58a6ff; font-size:14px;">⑥ PIR</text>
+  <text x="1115" y="113" text-anchor="middle" style="font-size:9px; fill:#6e7681;">Lessons Learned</text>
+  <text x="1065" y="132" class="sub-label">• Timeline review</text>
+  <text x="1065" y="148" class="sub-label">• Root cause (5 Whys)</text>
+  <text x="1065" y="164" class="sub-label">• What worked/didn't</text>
+  <text x="1065" y="180" class="sub-label">• Action items</text>
+  <text x="1065" y="196" class="sub-label">• Update playbooks</text>
+
+  <!-- Feedback loop arrow -->
+  <path d="M1115,232 Q1115,258 600,268 Q122,268 122,232" stroke="#3fb950" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>
+  <text x="600" y="280" text-anchor="middle" style="font-size:10px; fill:#3fb950;">Continuous improvement loop</text>
+
+  <!-- ============================================================ -->
+  <!-- MIDDLE LEFT: Containment Decision Tree -->
+  <!-- ============================================================ -->
+  <rect x="30" y="295" width="360" height="235" rx="8" fill="#161b22" stroke="#f0883e" stroke-width="1.5"/>
+  <text x="210" y="315" text-anchor="middle" class="section-title" style="fill:#f0883e;">Containment Decision Tree</text>
+
+  <!-- Decision nodes -->
+  <rect x="120" y="327" width="180" height="30" rx="5" fill="#21262d" stroke="#f0883e" stroke-width="1"/>
+  <text x="210" y="347" text-anchor="middle" style="font-size:11px; fill:#f0883e;">Ransomware spreading?</text>
+  <!-- Yes branch -->
+  <line x1="210" y1="357" x2="210" y2="372" style="stroke:#f0883e; stroke-width:1.5;"/>
+  <text x="222" y="369" style="font-size:10px; fill:#3fb950;">YES</text>
+  <rect x="100" y="372" width="220" height="26" rx="4" fill="#0d2b1a" stroke="#3fb950" stroke-width="1"/>
+  <text x="210" y="389" text-anchor="middle" style="font-size:10px; fill:#3fb950;">Immediate EDR isolation + account suspend</text>
+
+  <rect x="120" y="407" width="180" height="30" rx="5" fill="#21262d" stroke="#f0883e" stroke-width="1"/>
+  <text x="210" y="427" text-anchor="middle" style="font-size:11px; fill:#f0883e;">Active data exfiltration?</text>
+  <text x="222" y="447" style="font-size:10px; fill:#3fb950;">YES</text>
+  <line x1="210" y1="437" x2="210" y2="452" style="stroke:#f0883e; stroke-width:1.5;"/>
+  <rect x="90" y="452" width="240" height="26" rx="4" fill="#0d2b1a" stroke="#3fb950" stroke-width="1"/>
+  <text x="210" y="469" text-anchor="middle" style="font-size:10px; fill:#3fb950;">Network block at perimeter + DNS sinkhole</text>
+
+  <rect x="120" y="487" width="180" height="30" rx="5" fill="#21262d" stroke="#f0883e" stroke-width="1"/>
+  <text x="210" y="507" text-anchor="middle" style="font-size:11px; fill:#f0883e;">APT / targeted attack?</text>
+  <text x="222" y="527" style="font-size:10px; fill:#e3b341;">CONSIDER</text>
+  <line x1="210" y1="517" x2="210" y2="532" style="stroke:#f0883e; stroke-width:1.5;"/>
+  <rect x="75" y="502" width="60" height="22" rx="4" fill="#2d2000" stroke="#e3b341" stroke-width="1"/>
+  <text x="105" y="517" text-anchor="middle" style="font-size:10px; fill:#e3b341;">Monitor</text>
+  <text x="105" y="529" text-anchor="middle" style="font-size:9px; fill:#8b949e;">gather TTPs</text>
+  <rect x="75" y="532" width="270" height="24" rx="4" fill="#1a1a2e" stroke="#d2a8ff" stroke-width="1"/>
+  <text x="210" y="548" text-anchor="middle" style="font-size:10px; fill:#d2a8ff;">Long-term contain: segment + cred reset</text>
+
+  <!-- ============================================================ -->
+  <!-- MIDDLE CENTER: Evidence Chain of Custody -->
+  <!-- ============================================================ -->
+  <rect x="410" y="295" width="360" height="235" rx="8" fill="#161b22" stroke="#79c0ff" stroke-width="1.5"/>
+  <text x="590" y="315" text-anchor="middle" class="section-title" style="fill:#79c0ff;">Evidence Chain of Custody</text>
+
+  <!-- Volatility order boxes -->
+  <text x="425" y="335" style="font-size:11px; fill:#c9d1d9; font-weight:bold;">Order of Volatility (collect first → last):</text>
+
+  <rect x="425" y="342" width="330" height="18" rx="3" fill="#1f2937" stroke="#f0883e" stroke-width="1"/>
+  <text x="430" y="355" style="font-size:10px; fill:#f0883e; font-weight:bold;">① RAM / Memory</text>
+  <text x="600" y="355" style="font-size:10px; fill:#8b949e;">— winpmem, LiME, DumpIt</text>
+
+  <rect x="425" y="363" width="330" height="18" rx="3" fill="#1f2937" stroke="#f0883e" stroke-width="1"/>
+  <text x="430" y="376" style="font-size:10px; fill:#f0883e;">② Network state</text>
+  <text x="600" y="376" style="font-size:10px; fill:#8b949e;">— netstat, ss, arp</text>
+
+  <rect x="425" y="384" width="330" height="18" rx="3" fill="#1f2937" stroke="#e3b341" stroke-width="1"/>
+  <text x="430" y="397" style="font-size:10px; fill:#e3b341;">③ Running processes</text>
+  <text x="600" y="397" style="font-size:10px; fill:#8b949e;">— tasklist, ps aux</text>
+
+  <rect x="425" y="405" width="330" height="18" rx="3" fill="#1f2937" stroke="#e3b341" stroke-width="1"/>
+  <text x="430" y="418" style="font-size:10px; fill:#e3b341;">④ Open files / handles</text>
+  <text x="600" y="418" style="font-size:10px; fill:#8b949e;">— handle.exe, lsof</text>
+
+  <rect x="425" y="426" width="330" height="18" rx="3" fill="#1f2937" stroke="#3fb950" stroke-width="1"/>
+  <text x="430" y="439" style="font-size:10px; fill:#3fb950;">⑤ Disk image</text>
+  <text x="600" y="439" style="font-size:10px; fill:#8b949e;">— dd, FTK Imager, dcfldd</text>
+
+  <rect x="425" y="447" width="330" height="18" rx="3" fill="#1f2937" stroke="#3fb950" stroke-width="1"/>
+  <text x="430" y="460" style="font-size:10px; fill:#3fb950;">⑥ Remote / SIEM logs</text>
+  <text x="600" y="460" style="font-size:10px; fill:#8b949e;">— export before purge</text>
+
+  <!-- CoC rules -->
+  <text x="425" y="482" style="font-size:11px; fill:#c9d1d9; font-weight:bold;">Chain of Custody rules:</text>
+  <text x="425" y="497" class="sub-label">• Hash every artifact at collection: SHA-256</text>
+  <text x="425" y="512" class="sub-label">• Verify hash on every transfer / access</text>
+  <text x="425" y="527" style="font-size:10px; fill:#e3b341;">• Never work on originals — forensic copies only</text>
+
+  <!-- ============================================================ -->
+  <!-- MIDDLE RIGHT: Communication Flow -->
+  <!-- ============================================================ -->
+  <rect x="790" y="295" width="380" height="235" rx="8" fill="#161b22" stroke="#56d364" stroke-width="1.5"/>
+  <text x="980" y="315" text-anchor="middle" class="section-title" style="fill:#56d364;">Communication Flow During Incidents</text>
+
+  <!-- Internal flow -->
+  <text x="805" y="335" style="font-size:11px; fill:#c9d1d9; font-weight:bold;">Internal Escalation (P1 example):</text>
+
+  <rect x="860" y="343" width="160" height="22" rx="4" fill="#21262d" stroke="#56d364" stroke-width="1"/>
+  <text x="940" y="358" text-anchor="middle" style="font-size:10px; fill:#56d364;">SOC Analyst (detects)</text>
+  <line x1="940" y1="365" x2="940" y2="378" style="stroke:#56d364; stroke-width:1.5;" marker-end="url(#arrow)"/>
+
+  <rect x="860" y="378" width="160" height="22" rx="4" fill="#21262d" stroke="#56d364" stroke-width="1"/>
+  <text x="940" y="393" text-anchor="middle" style="font-size:10px; fill:#56d364;">IR Lead (coordinates)</text>
+  <line x1="940" y1="400" x2="940" y2="413" style="stroke:#56d364; stroke-width:1.5;" marker-end="url(#arrow)"/>
+
+  <rect x="830" y="413" width="220" height="22" rx="4" fill="#21262d" stroke="#56d364" stroke-width="1"/>
+  <text x="940" y="428" text-anchor="middle" style="font-size:10px; fill:#56d364;">CISO + Legal + Exec Sponsor</text>
+  <text x="805" y="452" style="font-size:10px; fill:#8b949e;">Update freq: every 30 min on P1 · 2h on P2</text>
+
+  <!-- External flow -->
+  <text x="805" y="470" style="font-size:11px; fill:#c9d1d9; font-weight:bold;">External Notifications:</text>
+  <text x="805" y="486" class="sub-label">• Customers: Legal + Comms (approved template)</text>
+  <text x="805" y="501" class="sub-label">• Regulators: DPO / Legal manages timeline</text>
+  <text x="805" y="516" class="sub-label">• Media: PR only — no analyst statements</text>
+  <text x="805" y="530" style="font-size:10px; fill:#f0883e;">⚠  Use out-of-band if email/Teams compromised</text>
+
+  <!-- ============================================================ -->
+  <!-- BOTTOM SECTION: Regulatory Notification Timelines -->
+  <!-- ============================================================ -->
+  <rect x="30" y="548" width="540" height="220" rx="8" fill="#161b22" stroke="#e3b341" stroke-width="1.5"/>
+  <text x="300" y="568" text-anchor="middle" class="section-title" style="fill:#e3b341;">Regulatory Notification Requirements</text>
+
+  <!-- GDPR -->
+  <rect x="45" y="578" width="120" height="50" rx="4" fill="#1a1400" stroke="#e3b341" stroke-width="1"/>
+  <text x="105" y="594" text-anchor="middle" style="font-size:11px; fill:#e3b341; font-weight:bold;">GDPR Art. 33</text>
+  <text x="105" y="608" text-anchor="middle" style="font-size:13px; fill:#f0883e; font-weight:bold;">72h</text>
+  <text x="105" y="622" text-anchor="middle" style="font-size:9px; fill:#8b949e;">→ DPA / supervisory auth.</text>
+
+  <!-- NIS2 -->
+  <rect x="180" y="578" width="120" height="50" rx="4" fill="#1a1400" stroke="#e3b341" stroke-width="1"/>
+  <text x="240" y="594" text-anchor="middle" style="font-size:11px; fill:#e3b341; font-weight:bold;">NIS2</text>
+  <text x="240" y="608" text-anchor="middle" style="font-size:10px; fill:#f0883e; font-weight:bold;">24h + 72h + 1mo</text>
+  <text x="240" y="622" text-anchor="middle" style="font-size:9px; fill:#8b949e;">→ National CSIRT</text>
+
+  <!-- DORA -->
+  <rect x="315" y="578" width="120" height="50" rx="4" fill="#1a1400" stroke="#e3b341" stroke-width="1"/>
+  <text x="375" y="594" text-anchor="middle" style="font-size:11px; fill:#e3b341; font-weight:bold;">DORA (EU Fin.)</text>
+  <text x="375" y="608" text-anchor="middle" style="font-size:10px; fill:#f0883e; font-weight:bold;">4h + 72h + 1mo</text>
+  <text x="375" y="622" text-anchor="middle" style="font-size:9px; fill:#8b949e;">→ Financial regulator</text>
+
+  <!-- PCI-DSS -->
+  <rect x="450" y="578" width="105" height="50" rx="4" fill="#1a1400" stroke="#e3b341" stroke-width="1"/>
+  <text x="502" y="594" text-anchor="middle" style="font-size:11px; fill:#e3b341; font-weight:bold;">PCI-DSS</text>
+  <text x="502" y="608" text-anchor="middle" style="font-size:13px; fill:#f0883e; font-weight:bold;">Immediate</text>
+  <text x="502" y="622" text-anchor="middle" style="font-size:9px; fill:#8b949e;">→ Acquiring bank</text>
+
+  <!-- Important notes -->
+  <text x="45" y="650" style="font-size:11px; fill:#c9d1d9;">Key points:</text>
+  <text x="45" y="666" class="sub-label">• GDPR clock starts at time of <tspan style="fill:#f0883e;">awareness</tspan>, not time of attack</text>
+  <text x="45" y="682" class="sub-label">• Report even when uncertain whether personal data was accessed</text>
+  <text x="45" y="698" class="sub-label">• NIS2 requires early warning in 24h, full notification in 72h (two separate reports)</text>
+  <text x="45" y="714" class="sub-label">• GDPR Art. 34: notify <tspan style="fill:#f0883e;">individuals</tspan> too when there is high risk to their rights/freedoms</text>
+  <text x="45" y="730" class="sub-label">• Maintain breach register (GDPR Art. 33.5) — even for non-notifiable incidents</text>
+  <text x="45" y="748" style="font-size:10px; fill:#e3b341;">⚠ Consult DPO and legal counsel before filing regulatory notifications</text>
+
+  <!-- ============================================================ -->
+  <!-- BOTTOM RIGHT: Forensics Tools + SANS vs NIST Comparison -->
+  <!-- ============================================================ -->
+  <rect x="590" y="548" width="580" height="220" rx="8" fill="#161b22" stroke="#79c0ff" stroke-width="1.5"/>
+  <text x="880" y="568" text-anchor="middle" class="section-title" style="fill:#79c0ff;">Key Tools &amp; NIST vs SANS Comparison</text>
+
+  <!-- Forensics tools -->
+  <text x="605" y="587" style="font-size:11px; fill:#c9d1d9; font-weight:bold;">Forensics Toolkit:</text>
+  <text x="605" y="603" class="sub-label">Memory:  Volatility 3, WinPMEM, LiME</text>
+  <text x="605" y="618" class="sub-label">Disk:    FTK Imager, Autopsy, dd, dcfldd, KAPE</text>
+  <text x="605" y="633" class="sub-label">Network: Wireshark, Zeek, NetworkMiner</text>
+  <text x="605" y="648" class="sub-label">Cases:   TheHive, JIRA, Velociraptor</text>
+  <text x="605" y="663" class="sub-label">Intel:   MISP, OpenCTI, MITRE ATT&amp;CK</text>
+
+  <!-- Divider -->
+  <line x1="800" y1="578" x2="800" y2="755" style="stroke:#30363d; stroke-width:1;"/>
+
+  <!-- NIST vs SANS table -->
+  <text x="820" y="587" style="font-size:11px; fill:#c9d1d9; font-weight:bold;">NIST SP 800-61 vs SANS PICERL:</text>
+
+  <text x="820" y="605" style="font-size:10px; fill:#1f6feb;">NIST: Preparation</text>
+  <text x="970" y="605" style="font-size:10px; fill:#58a6ff;">SANS: Preparation (P)</text>
+
+  <text x="820" y="621" style="font-size:10px; fill:#f78166;">NIST: Detection &amp; Analysis</text>
+  <text x="970" y="621" style="font-size:10px; fill:#58a6ff;">SANS: Identification (I)</text>
+
+  <text x="820" y="637" style="font-size:10px; fill:#f0883e;">NIST: Containment</text>
+  <text x="970" y="637" style="font-size:10px; fill:#58a6ff;">SANS: Containment (C)</text>
+
+  <text x="820" y="653" style="font-size:10px; fill:#d2a8ff;">NIST: Eradication</text>
+  <text x="970" y="653" style="font-size:10px; fill:#58a6ff;">SANS: Eradication (E)</text>
+
+  <text x="820" y="669" style="font-size:10px; fill:#3fb950;">NIST: Recovery</text>
+  <text x="970" y="669" style="font-size:10px; fill:#58a6ff;">SANS: Recovery (R)</text>
+
+  <text x="820" y="685" style="font-size:10px; fill:#58a6ff;">NIST: Post-Incident</text>
+  <text x="970" y="685" style="font-size:10px; fill:#58a6ff;">SANS: Lessons Learned (L)</text>
+
+  <text x="820" y="708" style="font-size:10px; fill:#8b949e;">NIST = 4 phases (groups E+R together)</text>
+  <text x="820" y="722" style="font-size:10px; fill:#8b949e;">SANS = 6 phases (more granular)</text>
+  <text x="820" y="738" style="font-size:10px; fill:#8b949e;">ISO 27035 = 5 phases (integrates with ISMS)</text>
+
+  <!-- Bottom credit -->
+  <text x="600" y="790" text-anchor="middle" style="font-size:10px; fill:#484f58;">Security Operations Master Class · Session 10 · Incident Response and Management</text>
+</svg>

@@ -1,0 +1,64 @@
+
+services:
+  misp-core:
+    image: ghcr.io/misp/misp-docker/misp-core:latest
+    container_name: misp_core
+    restart: unless-stopped
+    depends_on:
+      - misp-db
+      - misp-redis
+    environment:
+      - MISP_BASEURL=https://localhost
+      - MISP_EMAIL=admin@misp.local
+      - MISP_PASSWORD=Admin1234!
+      - MYSQL_HOST=misp-db
+      - MYSQL_DATABASE=misp
+      - MYSQL_USER=misp
+      - MYSQL_PASSWORD=misp_db_password
+      - REDIS_HOST=misp-redis
+      - MISP_ENABLE_INSTALLER=false
+    volumes:
+      - misp-data:/var/www/MISP/app/files
+      - misp-logs:/var/www/MISP/app/tmp/logs
+    ports:
+      - "443:443"
+      - "80:80"
+
+  misp-db:
+    image: mysql:8.0
+    container_name: misp_db
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=misp
+      - MYSQL_USER=misp
+      - MYSQL_PASSWORD=misp_db_password
+      - MYSQL_ROOT_PASSWORD=misp_root_password
+    volumes:
+      - misp-mysql:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+
+  misp-redis:
+    image: redis:7-alpine
+    container_name: misp_redis
+    restart: unless-stopped
+    volumes:
+      - misp-redis:/data
+
+  misp-workers:
+    image: ghcr.io/misp/misp-docker/misp-workers:latest
+    container_name: misp_workers
+    restart: unless-stopped
+    depends_on:
+      - misp-core
+    environment:
+      - MYSQL_HOST=misp-db
+      - MYSQL_DATABASE=misp
+      - MYSQL_USER=misp
+      - MYSQL_PASSWORD=misp_db_password
+      - REDIS_HOST=misp-redis
+
+volumes:
+  misp-data:
+  misp-logs:
+  misp-mysql:
+  misp-redis:

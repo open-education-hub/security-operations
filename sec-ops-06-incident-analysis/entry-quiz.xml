@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <name>
+    <text>Session 06 Entry Quiz — Incident Analysis in a Threat-Centric SOC</text>
+  </name>
+  <intro>
+    <text>Assess your baseline knowledge before Session 06. 5 questions, 10 minutes. Answer all questions before reviewing the session material.</text>
+  </intro>
+  <introformat>1</introformat>
+  <shuffleanswers>1</shuffleanswers>
+  <preferredbehaviour>deferredfeedback</preferredbehaviour>
+
+  <!-- Question 1 -->
+  <question type="multichoice">
+    <name>
+      <text>Q1: IOA vs IOC</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Which of the following best describes an <strong>Indicator of Attack (IOA)</strong>, as opposed to an Indicator of Compromise (IOC)?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="0">
+      <text>A file hash of known malware</text>
+      <feedback><text>This is an IOC — a static artifact that indicates a system has been compromised by a known threat.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A suspicious IP address observed in network traffic</text>
+      <feedback><text>An IP address is an IOC — it identifies a specific piece of attacker infrastructure. Attackers change IPs frequently, making this less valuable over time.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>A behavioral pattern that indicates an attack is in progress (e.g., a process injecting into another process)</text>
+      <feedback><text>Correct. An IOA describes attacker behavior rather than static artifacts. Process injection, encoded command execution, or LSASS memory access are IOAs — they represent what an attacker is doing, not just what tools they used. IOAs are harder for attackers to change.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>A log entry showing a failed login attempt</text>
+      <feedback><text>A single failed login is a security event, not an IOA. An IOA would be 847 failed logins followed by a successful login from the same IP — the behavioral pattern indicating credential stuffing in progress.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Question 2 -->
+  <question type="multichoice">
+    <name>
+      <text>Q2: SANS PICERL model phases</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>According to the SANS PICERL model, what phase directly follows <strong>Identification</strong>?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="0">
+      <text>Preparation</text>
+      <feedback><text>Preparation is the first phase (P) — it occurs before any incident. It covers building IR capability, writing playbooks, and deploying tools.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Eradication</text>
+      <feedback><text>Eradication (E) comes after Containment. You cannot eradicate the threat until you have first limited its ability to spread (Containment).</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Lessons Learned</text>
+      <feedback><text>Lessons Learned (L) is the final phase. It occurs after recovery is complete and the incident is closed.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Containment</text>
+      <feedback><text>Correct. PICERL: Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned. After confirming an incident (Identification), the priority is limiting the damage (Containment).</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Question 3 -->
+  <question type="multichoice">
+    <name>
+      <text>Q3: Evidence collection order of volatility</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>An analyst is investigating a compromised Windows workstation that is still running and may have an active attacker session. In what order should evidence be collected?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="0">
+      <text>Full disk image first, then memory dump, then network connections</text>
+      <feedback><text>Incorrect. Disk images are the least volatile evidence — they can be collected at any time. Network connections and memory are lost when the system is isolated or powered off. Collecting the disk image first while a C2 session is active loses the most valuable forensic data.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Network connections first, then memory dump, then disk image</text>
+      <feedback><text>Correct. The order of volatility requires collecting the most perishable evidence first: active network connections and running processes (lost on isolation), then RAM/memory (lost on power-off), then disk (persistent). This preserves the maximum amount of evidence.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Disk image first, then logs, then memory</text>
+      <feedback><text>Incorrect. This order loses memory and live network state. Memory often contains the malware's decrypted code, C2 session keys, and credentials — all of which are irreplaceable if collected too late.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>All evidence types have equal priority and can be collected in any order</text>
+      <feedback><text>Incorrect. Evidence volatility varies dramatically — from nanoseconds (CPU cache) to indefinite (disk). Treating all evidence as equal will result in critical evidence being lost.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Question 4 -->
+  <question type="multichoice">
+    <name>
+      <text>Q4: Cyber Kill Chain phases</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A phishing email is delivered to a user. The user opens a malicious document, which triggers execution of a PowerShell payload. Which Cyber Kill Chain phase does the <strong>PowerShell execution</strong> represent?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="0">
+      <text>Delivery</text>
+      <feedback><text>Delivery is the phase where the weaponized content reaches the target — the email arriving in the inbox. The actual execution is a later phase.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Weaponization</text>
+      <feedback><text>Weaponization occurs before delivery — it's when the attacker creates the malicious document. This happens on the attacker's side, not the victim's.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>Exploitation</text>
+      <feedback><text>Correct. Exploitation is the phase where the vulnerability is triggered or the user action causes malicious code to execute. The PowerShell payload running on the victim's system is the exploitation phase. Command and Control follows after the payload establishes its callback.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>Command and Control</text>
+      <feedback><text>C2 comes after Exploitation and Installation. It's when the malware establishes its communication channel back to the attacker. The PowerShell execution is the exploitation phase.</text></feedback>
+    </answer>
+  </question>
+
+  <!-- Question 5 -->
+  <question type="multichoice">
+    <name>
+      <text>Q5: Alert fatigue and real incident detection</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>A SOC generates 500 alerts per day. 490 are false positives. An analyst dismisses all alerts without investigation and achieves a 98% "correct" rate on false positives. What is the fundamental problem with this approach?</p>]]></text>
+    </questiontext>
+    <defaultgrade>1</defaultgrade>
+    <shuffleanswers>1</shuffleanswers>
+    <single>true</single>
+    <answer fraction="0">
+      <text>It wastes too much SIEM storage</text>
+      <feedback><text>Storage efficiency is not the primary concern here. The fundamental problem is with incident detection outcomes.</text></feedback>
+    </answer>
+    <answer fraction="100">
+      <text>The 10 genuine incidents per day go undetected and unresponded to</text>
+      <feedback><text>Correct. Alert fatigue causes analysts to dismiss real threats along with false positives. The 10 genuine incidents per day — which could include active ransomware, credential theft, or ongoing data breaches — are never investigated. Measuring "false positive rate" is only meaningful if all alerts receive genuine analysis. This is precisely the failure mode that motivates threat-centric, intelligence-driven SOC operations.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>It increases MTTR (Mean Time to Respond) for false positives</text>
+      <feedback><text>Actually, dismissing all alerts without investigation reduces MTTR artificially — but this metric becomes meaningless since genuine incidents are never worked.</text></feedback>
+    </answer>
+    <answer fraction="0">
+      <text>It violates PCI-DSS compliance requirements</text>
+      <feedback><text>While compliance frameworks require incident investigation, the fundamental problem is not regulatory — it's that real threats remain active and unaddressed while the attacker continues their operation.</text></feedback>
+    </answer>
+  </question>
+
+</quiz>

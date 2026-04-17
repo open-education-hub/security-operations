@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="essay">
+    <name><text>Advanced Topics Practice Q1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You are reviewing AWS CloudTrail logs and see the following sequence of events from user <code>charlie</code> within 5 minutes at 01:30 UTC: (1) <code>iam.amazonaws.com / CreateAccessKey</code>, (2) <code>cloudtrail.amazonaws.com / StopLogging</code>, (3) <code>s3.amazonaws.com / GetObject</code> on bucket <code>hr-records-2024</code>. What is the most likely attack scenario and what should you do immediately?</p>]]></text></questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>15</responsefieldlines>
+    <graderinfo format="html"><text><![CDATA[<p>Model answer: Account takeover + cover tracks + exfiltration pattern. Key actions: disable charlie's access keys, re-enable CloudTrail, preserve S3 access logs, assess GDPR notification obligation (72h), check for other compromised activity.</p>]]></text></graderinfo>
+  </question>
+  <question type="essay">
+    <name><text>Advanced Topics Practice Q2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Explain the difference between MTTD and MTTR as SOC metrics. A SOC has MTTD = 2 hours and MTTR = 48 hours. What does this tell you about the SOC's strengths and weaknesses?</p>]]></text></questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>12</responsefieldlines>
+    <graderinfo format="html"><text><![CDATA[<p>Model answer: MTTD = time to detect (good at 2h — strong detection coverage). MTTR = time to resolve (poor at 48h — slow response). Gap indicates: good monitoring but slow response due to lack of playbooks, manual processes, insufficient staffing, no SOAR automation.</p>]]></text></graderinfo>
+  </question>
+  <question type="essay">
+    <name><text>Advanced Topics Practice Q3</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the key difference between traditional VPN access and Zero Trust Network Access (ZTNA)? Why does Zero Trust significantly improve lateral movement detection for the SOC?</p>]]></text></questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>12</responsefieldlines>
+    <graderinfo format="html"><text><![CDATA[<p>Model answer: VPN = all-or-nothing network access (can reach any internal system), minimal access logging. ZTNA = per-application, per-session access based on identity + device health; every access attempt is logged and evaluated. SOC gains visibility into every access decision, enabling detection of unusual access patterns and lateral movement attempts.</p>]]></text></graderinfo>
+  </question>
+  <question type="essay">
+    <name><text>Advanced Topics Practice Q4</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A colleague argues: "We don't need to worry about quantum computing risks to our encryption — quantum computers won't be powerful enough for 20 years." How would you respond from a security operations perspective?</p>]]></text></questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>12</responsefieldlines>
+    <graderinfo format="html"><text><![CDATA[<p>Model answer: The HNDL (Harvest Now, Decrypt Later) threat is present today — adversaries are storing encrypted traffic now. Long-lived sensitive data (medical, financial, state secrets) is at risk. Response: inventory cryptographic assets, begin migrating to post-quantum algorithms (NIST ML-KEM, ML-DSA), design for crypto-agility.</p>]]></text></graderinfo>
+  </question>
+  <question type="essay">
+    <name><text>Advanced Topics Practice Q5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a "honeypot" and how does it benefit a SOC? What are the limitations of deception technology?</p>]]></text></questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>12</responsefieldlines>
+    <graderinfo format="html"><text><![CDATA[<p>Model answer: Honeypot = decoy resource; any interaction = almost certainly malicious (near-zero false positives). Benefits: early warning, zero-FP detection, attacker TTP intelligence. Limitations: sophisticated attackers may recognise and avoid them; does not detect passive eavesdropping; supplementary control, not primary detection.</p>]]></text></graderinfo>
+  </question>
+  <question type="essay">
+    <name><text>Advanced Topics Practice Q6</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A manufacturing company in Germany has been notified by a cybersecurity vendor that they may have been targeted by a nation-state threat actor that used supply chain compromise to install a backdoor in an accounting software update. Describe the full incident response process, specifically addressing: (a) how to determine if the compromise actually occurred, (b) NIS2 notification obligations, (c) GDPR obligations if employee or customer personal data was accessed, and (d) how to prevent recurrence.</p>]]></text></questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>30</responsefieldlines>
+    <graderinfo format="html"><text><![CDATA[<p>Model answer: (a) Obtain IOCs from vendor, hunt in EDR/SIEM/DNS/network logs, forensics if indicators found. (b) NIS2: notify BSI within 24h, follow-up at 30 days. (c) GDPR: notify BfDI within 72h if personal data accessed; notify individuals if high risk. (d) Prevention: SBOM requirements, code signing verification, application allowlisting, network segmentation for financial systems, vendor security assessments.</p>]]></text></graderinfo>
+  </question>
+  <question type="essay">
+    <name><text>Advanced Topics Practice Q7</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Design a SOC maturity improvement plan for a 200-employee telecommunications company currently at Level 1 maturity (reactive, no playbooks, SIEM deployed but rarely used, no threat intelligence, no dedicated security staff). The company is subject to NIS2 as a telecommunications provider. Address the people, process, and technology dimensions over an 18-month timeline, and explain how you would measure progress.</p>]]></text></questiontext>
+    <responseformat>editor</responseformat>
+    <responsefieldlines>40</responsefieldlines>
+    <graderinfo format="html"><text><![CDATA[<p>Model answer should cover: People (hire dedicated analysts, cross-train, certifications, retention); Process (playbooks, SLAs, NIS2 notification process, metrics reporting, threat hunting, purple team); Technology (tune SIEM to 50+ rules, EDR deployment, threat intel feeds, SOAR, ATT&CK coverage assessment); Measurement (KPI table with MTTD, MTTR, coverage, FPR, training completion, NIS2 compliance targets at months 3/9/18).</p>]]></text></graderinfo>
+  </question>
+</quiz>
